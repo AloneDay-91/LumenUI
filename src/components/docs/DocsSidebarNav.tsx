@@ -16,6 +16,14 @@ const navItems: NavItem[] = [
     title: "Button",
     href: "/docs/components/button",
   },
+    {
+    title: "Card",
+    href: "/docs/components/card",
+  },
+    {
+    title: "Input",
+    href: "/docs/components/input",
+  },
   // Add other components here as you create them
 ];
 

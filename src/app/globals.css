@@ -1,78 +1,213 @@
 @import "tailwindcss";
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 :root {
-    --radius: 0.625rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+  /* Medusa.js Raw Tokens (Light) */
+  --light-backgrounds-bg-subtle: #fafafa;
+  --light-backgrounds-bg-subtle-hover: #f4f4f5;
+  --light-backgrounds-bg-subtle-pressed: #e4e4e7;
+  --light-backgrounds-bg-base: #ffffff;
+  --light-backgrounds-bg-base-hover: #f4f4f5;
+  --light-backgrounds-bg-base-pressed: #e4e4e7;
+  --light-backgrounds-bg-component: #fafafa;
+  --light-backgrounds-bg-field: #fafafa;
+  --light-backgrounds-bg-disabled: #f4f4f5;
+  --light-backgrounds-bg-overlay: #18181b;
+  --light-backgrounds-bg-highlight: #eff6ff;
+  --light-backgrounds-bg-interactive: #3b82f6;
+  --light-foregrounds-fg-base: #18181b;
+  --light-foregrounds-fg-subtle: #52525b;
+  --light-foregrounds-fg-muted: #71717a;
+  --light-foregrounds-fg-disabled: #a1a1aa;
+  --light-foregrounds-fg-on-color: #ffffff;
+  --light-foregrounds-fg-on-inverted: #ffffff;
+  --light-foregrounds-fg-interactive: #2563eb;
+  --light-foregrounds-fg-error: #e11d48;
+  --light-borders-border-base: #e4e4e7;
+  --light-borders-border-strong: #d4d4d8;
+  --light-borders-border-interactive: #3b82f6;
+  --light-borders-border-error: #e11d48;
+  --light-borders-border-danger: #be123c;
+  --light-buttons-button-inverted: #27272a;
+  --light-buttons-button-inverted-hover: #3f3f46;
+  --light-buttons-button-neutral: #ffffff;
+  --light-buttons-button-neutral-hover: #f4f4f5;
+  --light-buttons-button-danger: #e11d48;
+  --light-buttons-button-danger-hover: #be123c;
+
+  /* Semantic Variable Mapping (Light) */
+  --radius: 8px;
+  --background: var(--light-backgrounds-bg-base);
+  --foreground: var(--light-foregrounds-fg-base);
+  --card: var(--light-backgrounds-bg-component);
+  --card-foreground: var(--light-foregrounds-fg-base);
+  --popover: var(--light-backgrounds-bg-component);
+  --popover-foreground: var(--light-foregrounds-fg-base);
+  --primary: var(--light-buttons-button-inverted);
+  --primary-foreground: var(--light-foregrounds-fg-on-inverted);
+  --secondary: var(--light-buttons-button-neutral);
+  --secondary-foreground: var(--light-foregrounds-fg-base);
+  --muted: var(--light-backgrounds-bg-subtle);
+  --muted-foreground: var(--light-foregrounds-fg-muted);
+  --accent: var(--light-backgrounds-bg-subtle-hover);
+  --accent-foreground: var(--light-foregrounds-fg-base);
+  --destructive: var(--light-buttons-button-danger);
+  --border: var(--light-borders-border-base);
+  --border-strong: var(--light-borders-border-strong);
+  --input: var(--light-backgrounds-bg-field);
+  --ring: var(--light-borders-border-interactive);
 }
 
 .dark {
-    --background: #212124;
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+  /* Medusa.js Raw Tokens (Dark) */
+  --dark-backgrounds-bg-subtle: #18181b;
+  --dark-backgrounds-bg-subtle-hover: #212124;
+  --dark-backgrounds-bg-subtle-pressed: #27272a;
+  --dark-backgrounds-bg-base: #212124;
+  --dark-backgrounds-bg-base-hover: #27272a;
+  --dark-backgrounds-bg-base-pressed: #3f3f46;
+  --dark-backgrounds-bg-component: #27272a;
+  --dark-backgrounds-bg-disabled: #27272a;
+  --dark-backgrounds-bg-overlay: #18181b;
+  --dark-backgrounds-bg-highlight: #172554;
+  --dark-backgrounds-bg-interactive: #60a5fa;
+  --dark-foregrounds-fg-base: #f4f4f5;
+  --dark-foregrounds-fg-subtle: #a1a1aa;
+  --dark-foregrounds-fg-muted: #71717a;
+  --dark-foregrounds-fg-disabled: #52525b;
+  --dark-foregrounds-fg-on-color: #ffffff;
+  --dark-foregrounds-fg-on-inverted: #18181b;
+  --dark-foregrounds-fg-interactive: #60a5fa;
+  --dark-foregrounds-fg-error: #fb7185;
+  --dark-borders-border-base: #3f3f46;
+  --dark-borders-border-strong: #52525b;
+  --dark-borders-border-interactive: #60a5fa;
+  --dark-borders-border-error: #fb7185;
+  --dark-borders-border-danger: #be123c;
+  --dark-buttons-button-inverted: #52525b;
+  --dark-buttons-button-inverted-hover: #71717a;
+  --dark-buttons-button-neutral: #27272a;
+  --dark-buttons-button-neutral-hover: #3f3f46;
+  --dark-buttons-button-danger: #9f1239;
+  --dark-buttons-button-danger-hover: #be123c;
+
+  /* Semantic Variable Mapping (Dark) */
+  --background: var(--dark-backgrounds-bg-base);
+  --foreground: var(--dark-foregrounds-fg-base);
+  --card: var(--dark-backgrounds-bg-component);
+  --card-foreground: var(--dark-foregrounds-fg-base);
+  --popover: var(--dark-backgrounds-bg-component);
+  --popover-foreground: var(--dark-foregrounds-fg-base);
+  --primary: var(--dark-buttons-button-neutral-hover);
+  --primary-foreground: var(--dark-foregrounds-fg-base);
+  --secondary: var(--dark-buttons-button-inverted);
+  --secondary-foreground: var(--dark-foregrounds-fg-base);
+  --muted: var(--dark-backgrounds-bg-subtle);
+  --muted-foreground: var(--dark-foregrounds-fg-muted);
+  --accent: var(--dark-backgrounds-bg-subtle-hover);
+  --accent-foreground: var(--dark-foregrounds-fg-base);
+  --destructive: var(--dark-buttons-button-danger);
+  --border: var(--dark-borders-border-base);
+  --border-strong: var(--dark-borders-border-strong);
+  --input: var(--dark-backgrounds-bg-component);
+  --ring: var(--dark-borders-border-interactive);
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Styles spécifiques pour la documentation */
+@layer components {
+  .docs-prose {
+    @apply text-foreground;
+  }
+
+  .docs-prose h1 {
+    @apply text-3xl font-bold tracking-tight text-foreground mb-4;
+  }
+
+  .docs-prose h2 {
+    @apply text-2xl font-semibold tracking-tight text-foreground mt-8 mb-4 border-b border-border pb-2;
+  }
+
+  .docs-prose h3 {
+    @apply text-xl font-semibold text-foreground mt-6 mb-3;
+  }
+
+  .docs-prose p {
+    @apply text-muted-foreground leading-7 mb-4;
+  }
+
+  .docs-prose code {
+    @apply bg-muted text-foreground px-1.5 py-0.5 rounded-md text-sm font-mono;
+  }
+
+  .docs-prose pre {
+    @apply bg-muted border border-border rounded-lg p-4 overflow-x-auto my-4;
+  }
+
+  .docs-prose ul {
+    @apply list-disc list-inside text-muted-foreground space-y-2 mb-4;
+  }
+
+  .docs-prose ol {
+    @apply list-decimal list-inside text-muted-foreground space-y-2 mb-4;
+  }
+
+  .docs-prose blockquote {
+    @apply border-l-4 border-border pl-4 italic text-muted-foreground my-4;
+  }
+
+  .docs-prose a {
+    @apply text-primary hover:underline;
+  }
+
+  .docs-callout {
+    @apply p-4 rounded-lg border-l-4 mb-4;
+  }
+
+  .docs-callout.info {
+    @apply border-blue-500 bg-blue-50 dark:bg-blue-950/20;
+  }
+
+  .docs-callout.warning {
+    @apply border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20;
+  }
+
+  .docs-callout.error {
+    @apply border-red-500 bg-red-50 dark:bg-red-950/20;
+  }
 }
