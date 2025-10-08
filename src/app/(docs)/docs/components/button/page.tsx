@@ -1,193 +1,259 @@
 import React from "react";
 import { Button } from "@/components/ui/Button";
 import HeadingsSetter from "@/components/docs/HeadingsSetter";
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
 
 export default function ButtonPage() {
+  const componentCode = `import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:opacity-90",
+        destructive: "bg-destructive text-primary-foreground hover:opacity-90",
+        secondary: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-foreground/80 underline-offset-4 hover:text-foreground hover:underline",
+        outline: "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground"
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-8 rounded-md px-2",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
+
+export { Button, buttonVariants }`;
+
+  const usageCode = `import { Button } from "@/components/ui/Button";
+
+export default function Example() {
+  return (
+    <Button onClick={() => console.log('Cliqué !')}>
+      Cliquez-moi
+    </Button>
+  );
+}`;
+
   return (
     <>
       <HeadingsSetter
         headings={[
           { id: "button", text: "Button", level: 1 },
-          { id: "usage", text: "Usage", level: 2 },
-          { id: "variants", text: "Variants", level: 2 },
-          { id: "sizes", text: "Sizes", level: 2 },
-          { id: "states", text: "States", level: 2 },
-          { id: "api-reference", text: "API Reference", level: 2 },
+          { id: "installation", text: "Installation", level: 2 },
+          { id: "usage", text: "Utilisation", level: 2 },
+          { id: "variants", text: "Variantes", level: 2 },
+          { id: "sizes", text: "Tailles", level: 2 },
+          { id: "states", text: "États", level: 2 },
+          { id: "api-reference", text: "Référence API", level: 2 },
         ]}
       />
 
       <div className="space-y-8">
-        {/* Breadcrumbs */}
         <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-          <span>Components</span>
+          <span>Composants</span>
           <span className="inline-block h-4 w-px bg-muted-foreground/20" />
           <span className="font-medium text-foreground">Button</span>
         </div>
 
-        {/* Header */}
         <div className="space-y-4">
           <h1 id="button" className="scroll-m-20 text-4xl font-bold tracking-tight">
             Button
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            A clickable button component that supports multiple variants, sizes, and states.
-            Built with accessibility and user experience in mind.
+            Un composant bouton cliquable qui supporte plusieurs variantes, tailles et états.
           </p>
         </div>
 
-        {/* Usage */}
+        <div className="space-y-4">
+          <div className="rounded-lg border border-border bg-card p-8 flex items-center justify-center">
+            <Button>Cliquez-moi</Button>
+          </div>
+        </div>
+
         <section className="space-y-4">
-          <h2 id="usage" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            Usage
+          <h2 id="installation" className="scroll-m-20 text-3xl font-semibold tracking-tight">
+            Installation
           </h2>
           <p className="text-muted-foreground leading-7">
-            Import the Button component and use it in your React application:
+            Copiez et collez le code suivant dans votre projet :
           </p>
 
-          <pre className="bg-muted border border-border rounded-lg p-4 overflow-x-auto">
-            <code className="text-sm font-mono">{`import { Button } from '@lumen/ui';
-
-export default function MyComponent() {
-  return (
-    <Button onClick={() => console.log('Clicked!')}>
-      Click me
-    </Button>
-  );
-}`}</code>
-          </pre>
+          <CodeBlock code={componentCode} filename="components/ui/Button.tsx" language="tsx" />
         </section>
 
-        {/* Variants */}
+        <section className="space-y-4">
+          <h2 id="usage" className="scroll-m-20 text-3xl font-semibold tracking-tight">
+            Utilisation
+          </h2>
+
+          <CodeBlock code={usageCode} filename="app/page.tsx" language="tsx" />
+        </section>
+
         <section className="space-y-4">
           <h2 id="variants" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            Variants
+            Variantes
           </h2>
           <p className="text-muted-foreground leading-7">
-            The Button component supports different visual styles to match your design needs:
+            Le composant Button supporte différents styles visuels pour correspondre à vos besoins de design :
           </p>
 
           <div className="space-y-6">
             <div className="space-y-3">
               <h3 className="text-lg font-semibold">Primary</h3>
               <p className="text-sm text-muted-foreground">
-                The default button variant for primary actions.
+                La variante de bouton par défaut pour les actions principales.
               </p>
               <div className="rounded-lg border border-border bg-card p-6 flex items-center justify-center">
-                <Button variant="default">Primary Button</Button>
+                <Button variant="default">Bouton Principal</Button>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Button variant=&quot;default&quot;&gt;Primary Button&lt;/Button&gt;</code>
-              </pre>
+              <CodeBlock code={`<Button variant="default">Bouton Principal</Button>`} />
             </div>
 
             <div className="space-y-3">
               <h3 className="text-lg font-semibold">Secondary</h3>
               <p className="text-sm text-muted-foreground">
-                A subtle button variant for secondary actions.
+                Une variante de bouton subtile pour les actions secondaires.
               </p>
               <div className="rounded-lg border border-border bg-card p-6 flex items-center justify-center">
-                <Button variant="secondary">Secondary Button</Button>
+                <Button variant="secondary">Bouton Secondaire</Button>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Button variant=&quot;secondary&quot;&gt;Secondary Button&lt;/Button&gt;</code>
-              </pre>
+              <CodeBlock code={`<Button variant="secondary">Bouton Secondaire</Button>`} />
             </div>
 
             <div className="space-y-3">
               <h3 className="text-lg font-semibold">Outline</h3>
               <p className="text-sm text-muted-foreground">
-                A button with transparent background and visible border.
+                Un bouton avec fond transparent et bordure visible.
               </p>
               <div className="rounded-lg border border-border bg-card p-6 flex items-center justify-center">
-                <Button variant="outline">Outline Button</Button>
+                <Button variant="outline">Bouton Outline</Button>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Button variant=&quot;outline&quot;&gt;Outline Button&lt;/Button&gt;</code>
-              </pre>
+              <CodeBlock code={`<Button variant="outline">Bouton Outline</Button>`} />
             </div>
 
             <div className="space-y-3">
               <h3 className="text-lg font-semibold">Ghost</h3>
               <p className="text-sm text-muted-foreground">
-                A minimal button with no background or border.
+                Un bouton minimal sans fond ni bordure.
               </p>
               <div className="rounded-lg border border-border bg-card p-6 flex items-center justify-center">
-                <Button variant="ghost">Ghost Button</Button>
+                <Button variant="ghost">Bouton Ghost</Button>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Button variant=&quot;ghost&quot;&gt;Ghost Button&lt;/Button&gt;</code>
-              </pre>
+              <CodeBlock code={`<Button variant="ghost">Bouton Ghost</Button>`} />
             </div>
 
             <div className="space-y-3">
               <h3 className="text-lg font-semibold">Destructive</h3>
               <p className="text-sm text-muted-foreground">
-                A button variant for destructive actions like delete or remove.
+                Une variante de bouton pour les actions destructives comme supprimer.
               </p>
               <div className="rounded-lg border border-border bg-card p-6 flex items-center justify-center">
-                <Button variant="destructive">Delete</Button>
+                <Button variant="destructive">Supprimer</Button>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Button variant=&quot;destructive&quot;&gt;Delete&lt;/Button&gt;</code>
-              </pre>
+              <CodeBlock code={`<Button variant="destructive">Supprimer</Button>`} />
             </div>
           </div>
         </section>
 
-        {/* Sizes */}
         <section className="space-y-4">
           <h2 id="sizes" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            Sizes
+            Tailles
           </h2>
           <p className="text-muted-foreground leading-7">
-            Choose from different button sizes to fit your layout:
+            Choisissez parmi différentes tailles de bouton pour s&apos;adapter à votre mise en page :
           </p>
 
           <div className="rounded-lg border border-border bg-card p-6">
-            <div className="flex items-center gap-4 flex-wrap">
-              <Button size="sm">Small</Button>
-              <Button size="default">Default</Button>
-              <Button size="lg">Large</Button>
+            <div className="flex items-center gap-4 flex-wrap justify-center">
+              <Button size="sm">Petit</Button>
+              <Button size="default">Défaut</Button>
+              <Button size="lg">Grand</Button>
             </div>
           </div>
 
-          <pre className="bg-muted border border-border rounded-lg p-4 overflow-x-auto">
-            <code className="text-sm font-mono">{`<Button size="sm">Small</Button>
-<Button size="default">Default</Button>
-<Button size="lg">Large</Button>`}</code>
-          </pre>
+          <CodeBlock code={`<Button size="sm">Petit</Button>
+<Button size="default">Défaut</Button>
+<Button size="lg">Grand</Button>`} />
         </section>
 
-        {/* States */}
         <section className="space-y-4">
           <h2 id="states" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            States
+            États
           </h2>
           <p className="text-muted-foreground leading-7">
-            Buttons support different states for better user interaction:
+            Les boutons supportent différents états pour une meilleure interaction utilisateur :
           </p>
 
           <div className="space-y-6">
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold">Disabled</h3>
-              <div className="rounded-lg border border-border bg-card p-6 flex items-center gap-4">
-                <Button disabled>Disabled Button</Button>
-                <Button variant="outline" disabled>Disabled Outline</Button>
+              <h3 className="text-lg font-semibold">Désactivé</h3>
+              <div className="rounded-lg border border-border bg-card p-6 flex items-center gap-4 justify-center">
+                <Button disabled>Bouton Désactivé</Button>
+                <Button variant="outline" disabled>Outline Désactivé</Button>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Button disabled&gt;Disabled Button&lt;/Button&gt;</code>
-              </pre>
+              <CodeBlock code={`<Button disabled>Bouton Désactivé</Button>`} />
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold">Chargement</h3>
+              <div className="rounded-lg border border-border bg-card p-6 flex items-center justify-center">
+                <Button disabled>
+                  <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Chargement...
+                </Button>
+              </div>
+              <CodeBlock code={`<Button disabled>
+  <LoadingIcon className="mr-2 h-4 w-4 animate-spin" />
+  Chargement...
+</Button>`} />
             </div>
           </div>
         </section>
 
-        {/* API Reference */}
         <section className="space-y-4">
           <h2 id="api-reference" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            API Reference
+            Référence API
           </h2>
           <p className="text-muted-foreground leading-7">
-            Complete list of props and their descriptions:
+            Liste complète des props et leurs descriptions :
           </p>
 
           <div className="rounded-lg border border-border overflow-hidden">
@@ -196,7 +262,7 @@ export default function MyComponent() {
                 <tr className="border-b border-border">
                   <th className="text-left p-4 font-semibold">Prop</th>
                   <th className="text-left p-4 font-semibold">Type</th>
-                  <th className="text-left p-4 font-semibold">Default</th>
+                  <th className="text-left p-4 font-semibold">Défaut</th>
                   <th className="text-left p-4 font-semibold">Description</th>
                 </tr>
               </thead>
@@ -207,54 +273,47 @@ export default function MyComponent() {
                     &quot;default&quot; | &quot;secondary&quot; | &quot;outline&quot; | &quot;ghost&quot; | &quot;destructive&quot;
                   </td>
                   <td className="p-4 font-mono text-sm">&quot;default&quot;</td>
-                  <td className="p-4 text-sm text-muted-foreground">The visual style variant</td>
+                  <td className="p-4 text-sm text-muted-foreground">La variante de style visuel</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className="p-4 font-mono text-sm">size</td>
                   <td className="p-4 font-mono text-sm">&quot;sm&quot; | &quot;default&quot; | &quot;lg&quot;</td>
                   <td className="p-4 font-mono text-sm">&quot;default&quot;</td>
-                  <td className="p-4 text-sm text-muted-foreground">The size of the button</td>
+                  <td className="p-4 text-sm text-muted-foreground">La taille du bouton</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className="p-4 font-mono text-sm">disabled</td>
                   <td className="p-4 font-mono text-sm">boolean</td>
                   <td className="p-4 font-mono text-sm">false</td>
-                  <td className="p-4 text-sm text-muted-foreground">Whether the button is disabled</td>
+                  <td className="p-4 text-sm text-muted-foreground">Si le bouton est désactivé</td>
                 </tr>
                 <tr className="border-b border-border">
                   <td className="p-4 font-mono text-sm">onClick</td>
                   <td className="p-4 font-mono text-sm">() =&gt; void</td>
                   <td className="p-4 font-mono text-sm">-</td>
-                  <td className="p-4 text-sm text-muted-foreground">Click event handler</td>
+                  <td className="p-4 text-sm text-muted-foreground">Gestionnaire d&apos;événement de clic</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-mono text-sm">children</td>
                   <td className="p-4 font-mono text-sm">ReactNode</td>
                   <td className="p-4 font-mono text-sm">-</td>
-                  <td className="p-4 text-sm text-muted-foreground">Button content</td>
+                  <td className="p-4 text-sm text-muted-foreground">Contenu du bouton</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        {/* Accessibility Callout */}
-        <div className="docs-callout info">
-          <div className="flex items-start space-x-3">
-            <svg className="h-5 w-5 text-blue-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-            </svg>
-            <div>
-              <p className="font-medium text-blue-900 dark:text-blue-100">
-                Accessibility
-              </p>
-              <p className="text-blue-800 dark:text-blue-200 text-sm mt-1">
-                All buttons include proper ARIA attributes and keyboard navigation support.
-                Focus indicators and screen reader compatibility are built-in.
-              </p>
-            </div>
-          </div>
-        </div>
+        <Alert variant="default">
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+          </svg>
+          <AlertTitle>Accessibilité</AlertTitle>
+          <AlertDescription>
+            Tous les boutons incluent les attributs ARIA appropriés et le support de la navigation au clavier.
+            Les indicateurs de focus et la compatibilité avec les lecteurs d&apos;écran sont intégrés.
+          </AlertDescription>
+        </Alert>
       </div>
     </>
   );

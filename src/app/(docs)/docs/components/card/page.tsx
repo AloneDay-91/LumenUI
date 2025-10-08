@@ -1,145 +1,190 @@
 import React from "react";
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import HeadingsSetter from "@/components/docs/HeadingsSetter";
+import { CodeBlock } from "@/components/docs/CodeBlock";
 
 export default function CardPage() {
+  const componentCode = `import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)}
+    {...props}
+  />
+))
+Card.displayName = "Card"
+
+const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
+))
+CardHeader.displayName = "CardHeader"
+
+const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
+  <h3 ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} {...props} />
+))
+CardTitle.displayName = "CardTitle"
+
+const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
+  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+))
+CardDescription.displayName = "CardDescription"
+
+const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
+
+const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
+))
+CardFooter.displayName = "CardFooter"
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }`;
+
+  const usageCode = `import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
+
+export default function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Titre de la carte</CardTitle>
+        <CardDescription>Description de la carte</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Contenu de la carte.</p>
+      </CardContent>
+    </Card>
+  );
+}`;
+
   return (
     <>
       <HeadingsSetter
         headings={[
           { id: "card", text: "Card", level: 1 },
-          { id: "usage", text: "Usage", level: 2 },
-          { id: "examples", text: "Examples", level: 2 },
-          { id: "api-reference", text: "API Reference", level: 2 },
+          { id: "installation", text: "Installation", level: 2 },
+          { id: "usage", text: "Utilisation", level: 2 },
+          { id: "examples", text: "Exemples", level: 2 },
         ]}
       />
 
       <div className="space-y-8">
-        {/* Breadcrumbs */}
         <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-          <span>Components</span>
+          <span>Composants</span>
           <span className="inline-block h-4 w-px bg-muted-foreground/20" />
           <span className="font-medium text-foreground">Card</span>
         </div>
 
-        {/* Header */}
         <div className="space-y-4">
           <h1 id="card" className="scroll-m-20 text-4xl font-bold tracking-tight">
             Card
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            A flexible container component that groups related content and actions.
-            Perfect for displaying structured information with consistent styling.
+            Un composant carte flexible pour afficher du contenu et des actions.
           </p>
         </div>
 
-        {/* Usage */}
+        <div className="space-y-4">
+          <div className="rounded-lg border border-border bg-card p-8 flex items-center justify-center">
+            <Card className="w-[350px]">
+              <CardHeader>
+                <CardTitle>Titre de la carte</CardTitle>
+                <CardDescription>Description de la carte</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Contenu de la carte.</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Action</Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+
         <section className="space-y-4">
-          <h2 id="usage" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            Usage
+          <h2 id="installation" className="scroll-m-20 text-3xl font-semibold tracking-tight">
+            Installation
           </h2>
           <p className="text-muted-foreground leading-7">
-            Import the Card component and use it to group related content:
+            Copiez et collez le code suivant dans votre projet :
           </p>
 
-          <pre className="bg-muted border border-border rounded-lg p-4 overflow-x-auto">
-            <code className="text-sm font-mono">{`import { Card } from '@lumen/ui';
-
-export default function MyComponent() {
-  return (
-    <Card>
-      <div className="p-6">
-        <h3 className="font-semibold">Title</h3>
-        <p className="text-muted-foreground">Description</p>
-      </div>
-    </Card>
-  );
-}`}</code>
-          </pre>
+          <CodeBlock code={componentCode} filename="components/ui/Card.tsx" language="tsx" />
         </section>
 
-        {/* Examples */}
+        <section className="space-y-4">
+          <h2 id="usage" className="scroll-m-20 text-3xl font-semibold tracking-tight">
+            Utilisation
+          </h2>
+
+          <CodeBlock code={usageCode} filename="app/page.tsx" language="tsx" />
+        </section>
+
         <section className="space-y-4">
           <h2 id="examples" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            Examples
+            Exemples
           </h2>
 
           <div className="space-y-6">
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold">Simple Card</h3>
-              <p className="text-sm text-muted-foreground">
-                A basic card with minimal content and clean styling.
-              </p>
-              <div className="rounded-lg border border-border bg-muted/30 p-6 flex items-center justify-center">
-                <Card className="max-w-sm">
-                  <div className="p-6">
-                    <h3 className="font-semibold text-lg mb-2">Simple Card</h3>
-                    <p className="text-muted-foreground text-sm">
-                      A basic card with minimal content and clean styling.
-                    </p>
-                  </div>
+              <h3 className="text-lg font-semibold">Carte simple</h3>
+              <div className="rounded-lg border border-border bg-card p-6 flex justify-center">
+                <Card className="w-[350px]">
+                  <CardHeader>
+                    <CardTitle>Notifications</CardTitle>
+                    <CardDescription>Vous avez 3 messages non lus.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm">Vos dernières notifications apparaîtront ici.</p>
+                  </CardContent>
                 </Card>
               </div>
-              <pre className="bg-muted border border-border rounded-lg p-3 text-sm">
-                <code>&lt;Card className=&quot;max-w-sm&quot;&gt;...&lt;/Card&gt;</code>
-              </pre>
+              <CodeBlock code={`<Card>
+  <CardHeader>
+    <CardTitle>Notifications</CardTitle>
+    <CardDescription>Vous avez 3 messages non lus.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Vos dernières notifications apparaîtront ici.</p>
+  </CardContent>
+</Card>`} />
             </div>
 
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold">Card with Actions</h3>
-              <p className="text-sm text-muted-foreground">
-                A card with action buttons for interactive content.
-              </p>
-              <div className="rounded-lg border border-border bg-muted/30 p-6 flex items-center justify-center">
-                <Card className="max-w-sm">
-                  <div className="p-6">
-                    <h3 className="font-semibold text-lg mb-2">Product Card</h3>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      A card with action buttons for interactive content.
-                    </p>
-                    <div className="flex gap-2">
-                      <Button size="sm">Buy Now</Button>
-                      <Button variant="outline" size="sm">Add to Cart</Button>
-                    </div>
-                  </div>
+              <h3 className="text-lg font-semibold">Carte avec footer</h3>
+              <div className="rounded-lg border border-border bg-card p-6 flex justify-center">
+                <Card className="w-[350px]">
+                  <CardHeader>
+                    <CardTitle>Créer un projet</CardTitle>
+                    <CardDescription>Déployez votre nouveau projet en un clic.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm">Configurez les paramètres de votre projet ci-dessous.</p>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <Button variant="outline">Annuler</Button>
+                    <Button>Déployer</Button>
+                  </CardFooter>
                 </Card>
               </div>
+              <CodeBlock code={`<Card>
+  <CardHeader>
+    <CardTitle>Créer un projet</CardTitle>
+    <CardDescription>Déployez votre nouveau projet en un clic.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Configurez les paramètres de votre projet ci-dessous.</p>
+  </CardContent>
+  <CardFooter className="flex justify-between">
+    <Button variant="outline">Annuler</Button>
+    <Button>Déployer</Button>
+  </CardFooter>
+</Card>`} />
             </div>
-          </div>
-        </section>
-
-        {/* API Reference */}
-        <section className="space-y-4">
-          <h2 id="api-reference" className="scroll-m-20 text-3xl font-semibold tracking-tight">
-            API Reference
-          </h2>
-
-          <div className="rounded-lg border border-border overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-muted/50">
-                <tr className="border-b border-border">
-                  <th className="text-left p-4 font-semibold">Prop</th>
-                  <th className="text-left p-4 font-semibold">Type</th>
-                  <th className="text-left p-4 font-semibold">Default</th>
-                  <th className="text-left p-4 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-border">
-                  <td className="p-4 font-mono text-sm">className</td>
-                  <td className="p-4 font-mono text-sm">string</td>
-                  <td className="p-4 font-mono text-sm">-</td>
-                  <td className="p-4 text-sm text-muted-foreground">Additional CSS classes</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-mono text-sm">children</td>
-                  <td className="p-4 font-mono text-sm">ReactNode</td>
-                  <td className="p-4 font-mono text-sm">-</td>
-                  <td className="p-4 text-sm text-muted-foreground">Card content</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </section>
       </div>

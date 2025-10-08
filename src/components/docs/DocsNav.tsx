@@ -1,51 +1,61 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const version = process.env.NEXT_PUBLIC_VERSION;
 
 const sections = [
 	{
-		title: "Getting Started",
+		title: "Démarrage",
 		items: [
 			{ name: "Introduction", href: "/docs" },
 			{ name: "Installation", href: "/docs/installation" },
-			{ name: "Architecture", href: "/docs/architecture" },
-			{ name: "Customization Tutorial", href: "/docs/customization" },
 		],
 	},
 	{
-		title: "Components",
+		title: "Fondations",
 		items: [
+			{ name: "Styles", href: "/docs/styles" },
+		],
+	},
+	{
+		title: "Composants",
+		items: [
+			{ name: "Alert", href: "/docs/components/alert" },
+			{ name: "Badge", href: "/docs/components/badge" },
 			{ name: "Button", href: "/docs/components/button" },
 			{ name: "Card", href: "/docs/components/card" },
 			{ name: "Input", href: "/docs/components/input" },
-			{ name: "Alert", href: "/docs/components/alert" },
-		],
-	},
-	{
-		title: "Guides",
-		items: [
-			{ name: "Framework", href: "/docs/guides/framework" },
-			{ name: "Storefront", href: "/docs/guides/storefront" },
-			{ name: "Configurations", href: "/docs/guides/configurations" },
-		],
-	},
-	{
-		title: "Reference",
-		items: [
-			{ name: "API", href: "/docs/reference/api" },
-			{ name: "CLI", href: "/docs/reference/cli" },
+			{ name: "Label", href: "/docs/components/label" },
+			{ name: "Select", href: "/docs/components/select" },
+			{ name: "Skeleton", href: "/docs/components/skeleton" },
+			{ name: "Textarea", href: "/docs/components/textarea" },
 		],
 	},
 ];
 
 export default function DocsNav() {
+	const pathname = usePathname();
+
 	const [openSections, setOpenSections] = useState<Record<number, boolean>>({
-		0: true, // Getting Started ouvert par défaut
-		1: true, // Components ouvert par défaut
+		0: true, // Démarrage ouvert par défaut
+		1: true, // Fondations ouvert par défaut
 	});
+
+	useEffect(() => {
+		if (!pathname) return;
+		// Ouvrir automatiquement la section qui contient la route active
+		const newOpen: Record<number, boolean> = {};
+		sections.forEach((section, idx) => {
+			const hasActive = section.items.some((it) =>
+				it.href === pathname || (it.href !== "/docs" && pathname.startsWith(it.href))
+			);
+			newOpen[idx] = hasActive || openSections[idx];
+		});
+		setOpenSections((prev) => ({ ...prev, ...newOpen }));
+	}, [pathname]);
 
 	const toggle = (index: number) => {
 		setOpenSections((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -70,7 +80,7 @@ export default function DocsNav() {
 					<button
 						onClick={() => toggle(index)}
 						className="w-full flex items-center justify-between p-2 text-sm font-medium text-foreground hover:bg-muted/50 rounded-md transition-colors"
-						aria-expanded={!!openSections[index]}
+						aria-expanded={openSections[index]}
 					>
 						<span>{section.title}</span>
 						<svg
@@ -92,15 +102,23 @@ export default function DocsNav() {
 
 					{openSections[index] && (
 						<div className="ml-2 space-y-1 border-l border-border pl-4">
-							{section.items.map((item, itemIndex) => (
-								<Link
-									key={itemIndex}
-									href={item.href}
-									className="block p-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 rounded-md transition-colors"
-								>
+							{section.items.map((item, itemIndex) => {
+								const isActive = !!pathname && (pathname === item.href || (item.href !== "/docs" && pathname.startsWith(item.href)));
+								return (
+									<Link
+										key={itemIndex}
+										href={item.href}
+										aria-current={isActive ? "page" : undefined}
+										className={`block p-2 text-sm rounded-md transition-colors ${
+										isActive
+											? "bg-muted text-primary border font-semibold"
+											: "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+										}`}
+									>
 									{item.name}
-								</Link>
-							))}
+									</Link>
+								);
+							})}
 						</div>
 					)}
 				</div>
@@ -125,7 +143,7 @@ export default function DocsNav() {
 							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
-					Support
+					Support | Aide
 				</Link>
 				<Link
 					href="#"
@@ -142,7 +160,7 @@ export default function DocsNav() {
 							clipRule="evenodd"
 						/>
 					</svg>
-					GitHub
+					Voir sur GitHub
 				</Link>
 			</div>
 		</nav>
