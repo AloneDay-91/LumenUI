@@ -8,8 +8,9 @@ import { DocsContents } from "@/components/docs/DocsContents"
 import { DocsSearch } from "@/components/docs/DocsSearch"
 import { ThemeToggle } from "@/components/docs/ThemeToggle"
 import { SiteLogo } from "@/components/marketing/SiteLogo"
+import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
-import { GITHUB_URL } from "@/lib/site"
+import { formatDocsVersion, GITHUB_URL } from "@/lib/site"
 
 export function DocsHeader() {
   const [open, setOpen] = React.useState(false)
@@ -38,6 +39,12 @@ export function DocsHeader() {
           <span className="hidden text-xs text-muted-foreground lg:inline">
             Documentation
           </span>
+          <Badge
+            variant="outline"
+            className="font-mono text-[10px] text-muted-foreground"
+          >
+            {formatDocsVersion()}
+          </Badge>
         </div>
         <div className="hidden md:block">
           <DocsSearch className="max-w-none" />

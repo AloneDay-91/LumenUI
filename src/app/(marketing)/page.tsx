@@ -56,10 +56,10 @@ export default function Home() {
             Documentation
           </Link>
           <Link
-            href="/docs/components/button"
+            href="/exemples"
             className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
           >
-            Composants
+            Exemples
           </Link>
         </div>
       </section>
