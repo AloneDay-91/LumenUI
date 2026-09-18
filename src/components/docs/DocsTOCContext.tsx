@@ -1,26 +1,36 @@
-"use client";
-import { createContext, useContext, useState } from "react";
+"use client"
 
-type Heading = { id: string; text: string; level: number };
+import * as React from "react"
+
+export type Heading = {
+  id: string
+  text: string
+  level: number
+}
 
 type TOCContextValue = {
-  headings: Heading[];
-  setHeadings: (h: Heading[]) => void;
-};
+  headings: Heading[]
+  setHeadings: (headings: Heading[]) => void
+}
 
-const DocsTOCContext = createContext<TOCContextValue>({
+const DocsTOCContext = React.createContext<TOCContextValue>({
   headings: [],
   setHeadings: () => {},
-});
-export default function DocsTOCProvider({ children }: { children: React.ReactNode }) {
-  const [headings, setHeadings] = useState<Heading[]>([]);
+})
+
+export function DocsTOCProvider({ children }: { children: React.ReactNode }) {
+  const [headings, setHeadings] = React.useState<Heading[]>([])
+
+  const value = React.useMemo(
+    () => ({ headings, setHeadings }),
+    [headings]
+  )
+
   return (
-    <DocsTOCContext.Provider value={{ headings, setHeadings }}>{children}</DocsTOCContext.Provider>
-  );
+    <DocsTOCContext.Provider value={value}>{children}</DocsTOCContext.Provider>
+  )
 }
 
 export function useDocsTOC() {
-  return useContext(DocsTOCContext);
+  return React.useContext(DocsTOCContext)
 }
-
-export type { Heading };
