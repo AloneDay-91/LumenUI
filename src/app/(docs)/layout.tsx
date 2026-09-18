@@ -1,44 +1,44 @@
-import React from "react";
-import type { Metadata } from "next";
-import DocsNav from "@/components/docs/DocsNav";
-import DocsAside from "@/components/docs/DocsAside";
-import DocsTOCProvider from "@/components/docs/DocsTOCContext";
-import { Header } from "@/components/docs/Header";
+import type { ReactNode } from "react"
 
-export const metadata: Metadata = {
+import DocsAside from "@/components/docs/DocsAside"
+import { DocsBreadcrumb } from "@/components/docs/DocsBreadcrumb"
+import { DocsHeader } from "@/components/docs/DocsHeader"
+import { DocsPager } from "@/components/docs/DocsPager"
+import { DocsSearchProvider } from "@/components/docs/DocsSearchContext"
+import { DocsSidebar } from "@/components/docs/DocsSidebar"
+import { DocsTOCProvider } from "@/components/docs/DocsTOCContext"
+import { Footer } from "@/components/docs/Footer"
+
+export const metadata = {
   title: "Documentation",
-};
+}
 
-export default function DocsLayout({ children }: { children: React.ReactNode }) {
+export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-card">
-      {/* Header fixe */}
-      <Header />
-
-      <div className="flex">
-        {/* Left sidebar - Navigation principale */}
-        <aside className="hidden md:flex w-64 flex-col bg-card sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-          <div className="p-6">
-            <DocsNav />
-          </div>
-        </aside>
-
-        {/* Main content area */}
-        <DocsTOCProvider>
-          <main className="flex-1 min-w-0 border border-border bg-background m-2 rounded-lg">
-            <div className="max-w-4xl mx-auto px-6 py-8">
-              <div className="docs-prose">{children}</div>
+    <DocsSearchProvider>
+      <DocsTOCProvider>
+        <div className="flex min-h-dvh flex-col bg-background">
+          <DocsHeader />
+          <div className="flex min-h-0 w-full flex-1">
+            <DocsSidebar />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <div className="sticky top-14 z-30 border-b border-border bg-background">
+                <div className="mx-auto flex h-11 w-full max-w-3xl items-center px-4 sm:px-6 lg:px-8">
+                  <DocsBreadcrumb />
+                </div>
+              </div>
+              <div className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+                <article id="contenu" className="docs-article">
+                  {children}
+                  <DocsPager />
+                </article>
+              </div>
+              <Footer />
             </div>
-          </main>
-        </DocsTOCProvider>
-
-        {/* Right sidebar - Table des matières */}
-        <aside className="hidden xl:flex w-80 flex-col sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-          <div className="p-6">
             <DocsAside />
           </div>
-        </aside>
-      </div>
-    </div>
-  );
+        </div>
+      </DocsTOCProvider>
+    </DocsSearchProvider>
+  )
 }
