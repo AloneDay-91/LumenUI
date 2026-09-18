@@ -14,6 +14,7 @@ export const docsSections: DocsNavSection[] = [
     items: [
       { name: "Introduction", href: "/docs" },
       { name: "Installation", href: "/docs/installation" },
+      { name: "Changelog", href: "/docs/changelog" },
     ],
   },
   {
@@ -99,4 +100,4 @@ export function getAdjacentDocs(pathname: string) {
   }
 }
 
-export const docsVersion = process.env.NEXT_PUBLIC_VERSION ?? "0.2"
+export { SITE_VERSION as docsVersion, formatDocsVersion } from "@/lib/site"

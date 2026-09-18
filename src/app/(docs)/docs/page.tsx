@@ -45,6 +45,16 @@ const start = [
     title: "Button",
     description: "Premier composant à copier pour valider le pipeline.",
   },
+  {
+    href: "/exemples",
+    title: "Exemples",
+    description: "Bento d'usages, hors documentation.",
+  },
+  {
+    href: "/docs/changelog",
+    title: "Changelog",
+    description: "Notes de version et nouveautés.",
+  },
 ]
 
 export default function DocsPage() {
@@ -91,8 +101,8 @@ export default function DocsPage() {
       </div>
 
       <h2 id="commencer">Commencer</h2>
-      <p>Trois pages pour poser les fondations, puis copier le premier composant.</p>
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <p>Les fondations, le premier composant, et les notes de version.</p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {start.map((item) => (
           <Link key={item.href} href={item.href} className="block">
             <Card
