@@ -27,6 +27,8 @@ export const navMenus: NavMenu[] = [
       items: [
         { href: "/docs", label: "Introduction" },
         { href: "/docs/installation", label: "Installation" },
+        { href: "/exemples", label: "Exemples" },
+        { href: "/docs/changelog", label: "Changelog" },
       ],
     },
     sections: [

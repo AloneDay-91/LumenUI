@@ -19,6 +19,7 @@ import { GITHUB_URL, SITE_NAME } from "@/lib/site"
 
 const mobileLinks = [
   { title: "Accueil", href: "/" },
+  { title: "Exemples", href: "/exemples" },
   { title: "Documentation", href: "/docs" },
   { title: "Installation", href: "/docs/installation" },
   { title: "Composants", href: "/docs/components/button" },
