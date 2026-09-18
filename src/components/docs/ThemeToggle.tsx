@@ -1,77 +1,56 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Moon, Sun, Monitor } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Moon, SunMedium } from "lucide-react"
+import { useTheme } from "next-themes"
 
+import { Button } from "@/components/ui/Button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/DropdownMenu"
 
-export function ThemeToggle() {
-  const [theme, setTheme] = React.useState<"light" | "dark" | "system">("system");
-
-  React.useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" || "system";
-    setTheme(savedTheme);
-    applyTheme(savedTheme);
-  }, []);
-
-  const applyTheme = (newTheme: "light" | "dark" | "system") => {
-    const root = window.document.documentElement;
-
-    if (newTheme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      root.classList.toggle("dark", systemTheme === "dark");
-    } else {
-      root.classList.toggle("dark", newTheme === "dark");
-    }
-  };
-
-  const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    applyTheme(newTheme);
-  };
-
+function HalfIcon() {
   return (
-    <div className="flex items-center rounded-full border border-border bg-background p-1 gap-1">
-      <Button
-          variant='ghost' size="icon"
-        onClick={() => handleThemeChange("light")}
-        className={`transition-colors h-auto w-auto p-1 rounded-full ${
-          theme === "light"
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-        }`}
-        title="Mode clair"
-      >
-        <Sun className="h-4 w-4" />
-      </Button>
-
-      <Button
-          variant='ghost' size="icon"
-        onClick={() => handleThemeChange("system")}
-        className={`transition-colors h-auto w-auto p-1 rounded-full ${
-          theme === "system"
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-        }`}
-        title="Système"
-      >
-        <Monitor className="h-4 w-4" />
-      </Button>
-
-      <Button
-          variant='ghost' size="icon"
-        onClick={() => handleThemeChange("dark")}
-        className={`transition-colors h-auto w-auto p-1 rounded-full ${
-          theme === "dark"
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-        }`}
-        title="Mode sombre"
-      >
-        <Moon className="h-4 w-4" />
-      </Button>
-    </div>
-  );
+    <svg viewBox="0 0 15 15" fill="none" className="size-3.5" aria-hidden>
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M7.5.877a6.623 6.623 0 1 0 0 13.246A6.623 6.623 0 0 0 7.5.877ZM1.827 7.5a5.673 5.673 0 0 0 5.673 5.673V1.827A5.673 5.673 0 0 0 1.827 7.5Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  )
 }
 
+export function ThemeToggle() {
+  const { setTheme } = useTheme()
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <HalfIcon />
+            <span className="sr-only">Changer le thème</span>
+          </Button>
+        }
+      />
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          <SunMedium />
+          Clair
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          <Moon />
+          Sombre
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
