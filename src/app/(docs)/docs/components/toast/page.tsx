@@ -10,12 +10,12 @@ function ToastDemo() {
     <Button
       onClick={() =>
         toast.add({
-          title: "Enregistré",
-          description: "Les tokens sont à jour.",
+          title: "Saved",
+          description: "Tokens are up to date.",
         })
       }
     >
-      Afficher
+      Show
     </Button>
   )
 }
@@ -24,15 +24,15 @@ export default function ToastPage() {
   return (
     <ComponentDocs
       name="Toast"
-      description="Notifications empilées. Construit sur @base-ui/react/toast : Provider, Viewport, Root, Content, Title et Description lus depuis toast.add()."
+      description="Stacked notifications. Built on @base-ui/react/toast: Provider, Viewport, Root, Content, Title and Description read from toast.add()."
       preview={<ToastDemo />}
       usage={`import { useToastManager } from "@/components/ui/Toast"
 
 const toast = useToastManager()
 toast.add({
-  title: "Enregistré",
-  description: "Les tokens sont à jour.",
-  actionProps: { children: "Annuler", onClick: () => {} },
+  title: "Saved",
+  description: "Tokens are up to date.",
+  actionProps: { children: "Cancel", onClick: () => {} },
 })`}
     />
   )

@@ -1,6 +1,7 @@
 import { access, readFile, readdir } from "node:fs/promises"
 import path from "node:path"
 
+import { getComponentApi } from "@/lib/component-api"
 import { getDocsLocation } from "@/lib/docs-nav"
 import { SITE_NAME } from "@/lib/site"
 
@@ -40,30 +41,30 @@ export async function getDocsMarkdown(pathname: string, origin: string) {
     "",
     description,
     "",
-    `- Documentation : ${pageUrl}`,
-    `- Markdown : ${markdownUrl}`,
+    `- Documentation: ${pageUrl}`,
+    `- Markdown: ${markdownUrl}`,
     "",
-    `${SITE_NAME} est un système copy-paste. Les comportements viennent de Base UI. Le style vit dans votre dépôt.`,
+    `${SITE_NAME} is a copy-paste system. Behavior comes from Base UI. Style lives in your repo.`,
     "",
   ]
 
   if (packages.length > 0 || sources.size > 0) {
     lines.push("## Installation", "")
     if (packages.length > 0) {
-      lines.push("Dépendances npm :", "", "```bash", `npm install ${packages.join(" ")}`, "```", "")
+      lines.push("npm dependencies:", "", "```bash", `npm install ${packages.join(" ")}`, "```", "")
     }
     lines.push(
-      "Copiez `src/lib/utils.ts` (`cn`) et les tokens CSS de la page Styles, puis les fichiers source ci-dessous.",
+      "Copy `src/lib/utils.ts` (`cn`) and the CSS tokens from the Styles page, then the source files below.",
       ""
     )
   }
 
   if (usage) {
-    lines.push("## Utilisation", "", "```tsx", usage.trim(), "```", "")
+    lines.push("## Usage", "", "```tsx", usage.trim(), "```", "")
   }
 
   if (!usage && codeBlocks.length > 0) {
-    lines.push("## Extraits", "")
+    lines.push("## Excerpts", "")
     for (const block of codeBlocks) {
       const lang = block.language ?? "tsx"
       const heading = block.filename ? `### \`${block.filename}\`` : undefined
@@ -71,6 +72,38 @@ export async function getDocsMarkdown(pathname: string, origin: string) {
         lines.push(heading, "")
       }
       lines.push(`\`\`\`${lang}`, block.code.trim(), "```", "")
+    }
+  }
+
+  if (componentSlug) {
+    const api = getComponentApi(componentSlug)
+    if (api) {
+      lines.push("## API", "")
+      if (api.primitive) {
+        lines.push(
+          `Behavior comes from \`${api.primitive}\`. Source: \`${api.source}\`.`,
+          ""
+        )
+      } else {
+        lines.push(`Source: \`${api.source}\`.`, "")
+      }
+      for (const item of api.parts) {
+        lines.push(`### ${item.name}`, "")
+        if (item.description) {
+          lines.push(item.description, "")
+        }
+        if (item.props.length > 0) {
+          lines.push("| Prop | Type | Default | Description |", "| --- | --- | --- | --- |")
+          for (const prop of item.props) {
+            const type = escapeTableCell(prop.type)
+            const fallback = prop.default ? `\`${escapeTableCell(prop.default)}\`` : "—"
+            lines.push(
+              `| \`${prop.name}\` | \`${type}\` | ${fallback} | ${escapeTableCell(prop.description)} |`
+            )
+          }
+          lines.push("")
+        }
+      }
     }
   }
 
@@ -98,6 +131,10 @@ async function readPageSource(pathname: string) {
   } catch {
     return ""
   }
+}
+
+function escapeTableCell(value: string) {
+  return value.replaceAll("|", "\\|").replaceAll("\n", " ")
 }
 
 function extractQuotedProp(source: string, name: string) {

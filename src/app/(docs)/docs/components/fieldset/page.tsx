@@ -9,7 +9,7 @@ export default function FieldsetPage() {
   return (
     <ComponentDocs
       name="Fieldset"
-      description="Fieldset natif avec légende stylable. Construit sur @base-ui/react/fieldset."
+      description="Native fieldset with a styleable legend. Built on @base-ui/react/fieldset."
       preview={
         <Fieldset className="w-56">
           <FieldsetLegend>Notifications</FieldsetLegend>

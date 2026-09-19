@@ -5,7 +5,7 @@ export default function ProgressPage() {
   return (
     <ComponentDocs
       name="Progress"
-      description="Statut d’une tâche longue. Construit sur @base-ui/react/progress."
+      description="Status of a long-running task. Built on @base-ui/react/progress."
       preview={<Progress className="w-56" value={42} />}
       usage={`import { Progress } from "@/components/ui/Progress"
 

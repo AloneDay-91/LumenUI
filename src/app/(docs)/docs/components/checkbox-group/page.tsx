@@ -9,7 +9,7 @@ export default function CheckboxGroupPage() {
   return (
     <ComponentDocs
       name="Checkbox Group"
-      description="État partagé pour une série de cases. Construit sur @base-ui/react/checkbox-group."
+      description="Shared state for a set of checkboxes. Built on @base-ui/react/checkbox-group."
       preview={
         <CheckboxGroup defaultValue={["inter"]} className="w-48">
           <Label className="gap-2">

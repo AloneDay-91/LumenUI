@@ -5,7 +5,7 @@ export default function SeparatorPage() {
   return (
     <ComponentDocs
       name="Separator"
-      description="Séparateur accessible aux lecteurs d’écran. Construit sur @base-ui/react/separator."
+      description="Screen-reader accessible separator. Built on @base-ui/react/separator."
       preview={
         <div className="w-56">
           <p className="text-sm">Lumen UI</p>

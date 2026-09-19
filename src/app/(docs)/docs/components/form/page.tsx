@@ -14,7 +14,7 @@ export default function FormPage() {
   return (
     <ComponentDocs
       name="Form"
-      description="Formulaire natif avec erreurs consolidées. Construit sur @base-ui/react/form."
+      description="Native form with consolidated errors. Built on @base-ui/react/form."
       preview={
         <Form
           className="w-64"
@@ -25,9 +25,9 @@ export default function FormPage() {
           <Field name="email">
             <FieldLabel>Email</FieldLabel>
             <FieldControl type="email" required />
-            <FieldError match="valueMissing">Requis</FieldError>
+            <FieldError match="valueMissing">Required</FieldError>
           </Field>
-          <Button type="submit">Envoyer</Button>
+          <Button type="submit">Send</Button>
         </Form>
       }
       usage={`import { Form } from "@/components/ui/Form"

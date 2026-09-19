@@ -1,4 +1,5 @@
 import HeadingsSetter from "@/components/docs/HeadingsSetter"
+import { CodeBlock } from "@/components/docs/CodeBlock"
 import { PageIntro } from "@/components/docs/Preview"
 import { Badge } from "@/components/ui/Badge"
 import {
@@ -9,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/Card"
 import { Separator } from "@/components/ui/Separator"
+import { LUMEN_GLOBAL_CSS } from "@/lib/lumen-css"
 
 const swatches = [
   { name: "background", swatch: "bg-background" },
@@ -23,28 +25,30 @@ const swatches = [
 ]
 
 const tokens = [
-  ["--background", "Fond papier / #111"],
-  ["--foreground", "Texte principal"],
-  ["--card", "Surfaces Card, Alert"],
+  ["--background", "Paper surface / #111"],
+  ["--foreground", "Primary text"],
+  ["--card", "Card and Alert surfaces"],
   ["--primary", "Actions, inversion"],
-  ["--muted", "Surfaces secondaires"],
-  ["--muted-foreground", "Métadonnées, dates"],
-  ["--border", "Dividers, contours"],
-  ["--ring", "Focus clavier"],
-  ["--destructive", "Erreur, suppression"],
-  ["--radius", "0.625rem"],
+  ["--muted", "Secondary surfaces"],
+  ["--muted-foreground", "Metadata, dates"],
+  ["--border", "Dividers, outlines"],
+  ["--ring", "Keyboard focus"],
+  ["--destructive", "Error, delete"],
+  ["--new", "Novelty indicator"],
+  ["--radius", "0.625rem — pills scale from this"],
+  ["--sidebar", "Docs sidebar surface"],
 ]
 
 const typefaces = [
   {
     sample: "Inter",
     className: "font-sans",
-    role: "font-sans — interface et corps",
+    role: "font-sans — UI and body",
   },
   {
     sample: "Fraunces",
     className: "font-serif",
-    role: "font-serif — wordmark seulement",
+    role: "font-serif — wordmark only",
   },
   {
     sample: "JetBrains Mono",
@@ -59,18 +63,32 @@ export default function StylesPage() {
       <HeadingsSetter
         headings={[
           { id: "styles", text: "Styles", level: 1 },
+          { id: "copy", text: "Copy", level: 2 },
           { id: "palette", text: "Palette", level: 2 },
-          { id: "typo", text: "Typographie", level: 2 },
-          { id: "theming", text: "Thème", level: 2 },
+          { id: "type", text: "Typography", level: 2 },
+          { id: "theming", text: "Theme", level: 2 },
         ]}
       />
 
       <div className="space-y-12">
         <PageIntro
-          eyebrow="Fondations"
+          eyebrow="Foundations"
           title="Styles"
-          description="Palette monochrome teintée chaud. Un fond papier, un noir, des gris. Aucun accent bleu ou violet."
+          description="Warm-tinted monochrome. Paper, black, greys. No blue or violet accent."
         />
+
+        <section className="space-y-4">
+          <h2 id="copy">Copy</h2>
+          <p>
+            Full token sheet for your global CSS — <code>:root</code>,{" "}
+            <code>.dark</code>, and the Tailwind <code>@theme</code> map.
+          </p>
+          <CodeBlock
+            filename="app/globals.css"
+            language="css"
+            code={LUMEN_GLOBAL_CSS}
+          />
+        </section>
 
         <section className="space-y-4">
           <h2 id="palette">Palette</h2>
@@ -91,9 +109,7 @@ export default function StylesPage() {
           <Card size="sm" variant="secondary">
             <CardHeader>
               <CardTitle>Variables</CardTitle>
-              <CardDescription>
-                Noms CSS et rôle dans l&apos;interface.
-              </CardDescription>
+              <CardDescription>CSS names and where they land.</CardDescription>
             </CardHeader>
             <CardContent>
               {tokens.map(([token, meaning], index) => (
@@ -110,7 +126,7 @@ export default function StylesPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 id="typo">Typographie</h2>
+          <h2 id="type">Typography</h2>
           <div className="grid gap-4">
             {typefaces.map((face) => (
               <Card key={face.sample} size="sm" variant="secondary">
@@ -129,15 +145,15 @@ export default function StylesPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 id="theming">Thème</h2>
+          <h2 id="theming">Theme</h2>
           <Card size="sm" variant="secondary">
             <CardHeader>
-              <CardTitle>Classe .dark</CardTitle>
+              <CardTitle>.dark class</CardTitle>
               <CardDescription>
-                Le mode sombre s&apos;active avec la classe{" "}
-                <Badge variant="outline">.dark</Badge> sur{" "}
-                <Badge variant="outline">html</Badge>. next-themes gère la
-                préférence système.
+                Dark mode is the{" "}
+                <Badge variant="outline">.dark</Badge> class on{" "}
+                <Badge variant="outline">html</Badge>. next-themes reads the
+                system preference.
               </CardDescription>
             </CardHeader>
           </Card>

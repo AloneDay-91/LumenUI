@@ -14,16 +14,16 @@ export default function PopoverPage() {
   return (
     <ComponentDocs
       name="Popover"
-      description="Popup ancré à un bouton. Construit sur @base-ui/react/popover."
+      description="Popup anchored to a button. Built on @base-ui/react/popover."
       preview={
         <Popover>
           <PopoverTrigger render={<Button variant="outline" />}>
-            Détails
+            Details
           </PopoverTrigger>
           <PopoverContent>
             <PopoverTitle>Dimensions</PopoverTitle>
             <PopoverDescription>
-              Largeur, hauteur et rayon des tokens Lumen.
+              Width, height, and radius from Lumen tokens.
             </PopoverDescription>
           </PopoverContent>
         </Popover>
@@ -31,9 +31,9 @@ export default function PopoverPage() {
       usage={`import { Popover, PopoverTrigger, PopoverContent, PopoverTitle } from "@/components/ui/Popover"
 
 <Popover>
-  <PopoverTrigger render={<Button />}>Ouvrir</PopoverTrigger>
+  <PopoverTrigger render={<Button />}>Open</PopoverTrigger>
   <PopoverContent>
-    <PopoverTitle>Titre</PopoverTitle>
+    <PopoverTitle>Title</PopoverTitle>
   </PopoverContent>
 </Popover>`}
     />

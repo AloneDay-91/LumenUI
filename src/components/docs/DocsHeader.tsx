@@ -30,7 +30,7 @@ export function DocsHeader() {
             size="icon"
             className="md:hidden"
             aria-expanded={open}
-            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((current) => !current)}
           >
             {open ? <X className="size-4" /> : <Menu className="size-4" />}

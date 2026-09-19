@@ -16,13 +16,13 @@ export default function ComboboxPage() {
   return (
     <ComponentDocs
       name="Combobox"
-      description="Saisie combinée à une liste d’items. Construit sur @base-ui/react/combobox."
+      description="Input combined with a list of items. Built on @base-ui/react/combobox."
       preview={
         <div className="w-64">
           <Combobox items={items}>
-            <ComboboxInput placeholder="Choisir un composant" />
+            <ComboboxInput placeholder="Pick a component" />
             <ComboboxContent>
-              <ComboboxEmpty>Aucun résultat</ComboboxEmpty>
+              <ComboboxEmpty>No results</ComboboxEmpty>
               <ComboboxList>
                 {(item) => (
                   <ComboboxItem key={item} value={item}>
@@ -37,7 +37,7 @@ export default function ComboboxPage() {
       usage={`import { Combobox, ComboboxInput, ComboboxContent, ComboboxList, ComboboxItem } from "@/components/ui/Combobox"
 
 <Combobox items={["Button", "Input"]}>
-  <ComboboxInput placeholder="Choisir" />
+  <ComboboxInput placeholder="Choose" />
   <ComboboxContent>
     <ComboboxList>
       {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}

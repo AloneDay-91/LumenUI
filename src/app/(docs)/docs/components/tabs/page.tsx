@@ -14,7 +14,7 @@ export default function TabsPage() {
   return (
     <ComponentDocs
       name="Tabs"
-      description="Bascule entre des panneaux liés. Construit sur @base-ui/react/tabs."
+      description="Switch between linked panels. Built on @base-ui/react/tabs."
       preview={
         <Tabs defaultValue="tokens" className="w-64">
           <TabsList>
@@ -23,8 +23,8 @@ export default function TabsPage() {
             <TabsIndicator />
           </TabsList>
           <TabsPanels>
-            <TabsPanel value="tokens">Variables CSS sémantiques.</TabsPanel>
-            <TabsPanel value="cva">Variants déclaratifs.</TabsPanel>
+            <TabsPanel value="tokens">Semantic CSS variables.</TabsPanel>
+            <TabsPanel value="cva">Declarative variants.</TabsPanel>
           </TabsPanels>
         </Tabs>
       }
@@ -36,7 +36,7 @@ export default function TabsPage() {
     <TabsIndicator />
   </TabsList>
   <TabsPanels>
-    <TabsPanel value="tokens">Contenu</TabsPanel>
+    <TabsPanel value="tokens">Content</TabsPanel>
   </TabsPanels>
 </Tabs>`}
     />

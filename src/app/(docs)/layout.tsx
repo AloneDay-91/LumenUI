@@ -10,7 +10,7 @@ import { DocsTOCProvider } from "@/components/docs/DocsTOCContext"
 import { Footer } from "@/components/docs/Footer"
 
 export const metadata = {
-  title: "Documentation",
+  title: "Docs",
 }
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
@@ -28,7 +28,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
                 </div>
               </div>
               <div className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
-                <article id="contenu" className="docs-article">
+                <article id="content" className="docs-article">
                   {children}
                   <DocsPager />
                 </article>

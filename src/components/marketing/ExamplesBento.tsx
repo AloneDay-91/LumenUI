@@ -122,16 +122,16 @@ import { cn } from "@/lib/utils"
 const ACTIVITY = [
   { label: "Oct", value: 46 },
   { label: "Nov", value: 62 },
-  { label: "Déc", value: 54 },
+  { label: "Dec", value: 54 },
   { label: "Jan", value: 78 },
-  { label: "Fév", value: 44 },
+  { label: "Feb", value: 44 },
   { label: "Mar", value: 86 },
 ]
 
 const MEMBERS = [
   { name: "Camille R.", role: "Studio", initials: "CR", hours: 72 },
   { name: "Noah B.", role: "Docs", initials: "NB", hours: 54 },
-  { name: "Léa M.", role: "Design", initials: "LM", hours: 31 },
+  { name: "Lea M.", role: "Design", initials: "LM", hours: 31 },
 ]
 
 const FILES = [
@@ -166,8 +166,8 @@ function ActivityTile() {
   return (
     <Tile className="md:col-span-4 md:row-span-2">
       <CardHeader>
-        <CardTitle>Activité du studio</CardTitle>
-        <CardDescription>Six derniers mois, en jours facturés.</CardDescription>
+        <CardTitle>Studio activity</CardTitle>
+        <CardDescription>Last six months, billed days.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-5">
         <div className="flex h-36 items-end gap-2 md:h-44">
@@ -183,14 +183,14 @@ function ActivityTile() {
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div className="rounded-2xl bg-secondary p-3">
-            <p className="text-[10px] tracking-wide text-muted-foreground uppercase">Prochain</p>
-            <p className="mt-1 text-sm font-medium">18 sept. 2026</p>
-            <p className="text-xs text-muted-foreground">Livraison docs</p>
+            <p className="text-[10px] tracking-wide text-muted-foreground uppercase">Next</p>
+            <p className="mt-1 text-sm font-medium">18 Sep 2026</p>
+            <p className="text-xs text-muted-foreground">Docs delivery</p>
           </div>
           <div className="rounded-2xl bg-secondary p-3">
             <p className="text-[10px] tracking-wide text-muted-foreground uppercase">Plan</p>
-            <p className="mt-1 text-sm font-medium">Accéléré</p>
-            <p className="text-xs text-muted-foreground">Hebdomadaire</p>
+            <p className="mt-1 text-sm font-medium">Accelerated</p>
+            <p className="text-xs text-muted-foreground">Weekly</p>
           </div>
         </div>
       </CardContent>
@@ -199,10 +199,10 @@ function ActivityTile() {
           className="w-full"
           variant="outline"
           onClick={() =>
-            toast.add({ title: "Rapport prêt", description: "Export des six derniers mois." })
+            toast.add({ title: "Report ready", description: "Export of the last six months." })
           }
         >
-          Voir le rapport
+          View report
         </Button>
       </CardFooter>
     </Tile>
@@ -216,36 +216,36 @@ function ThresholdTile() {
   return (
     <Tile className="md:col-span-2 md:row-span-2">
       <CardHeader>
-        <CardTitle>Seuil de versement</CardTitle>
-        <CardDescription>Minimum avant un virement.</CardDescription>
+        <CardTitle>Payout threshold</CardTitle>
+        <CardDescription>Minimum before a transfer.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4">
         <Field>
-          <FieldLabel>Devise</FieldLabel>
-          <Select defaultValue="eur">
+          <FieldLabel>Currency</FieldLabel>
+          <Select defaultValue="usd">
             <SelectTrigger className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="eur">EUR — Euro</SelectItem>
               <SelectItem value="usd">USD — Dollar</SelectItem>
-              <SelectItem value="gbp">GBP — Livre</SelectItem>
+              <SelectItem value="eur">EUR — Euro</SelectItem>
+              <SelectItem value="gbp">GBP — Pound</SelectItem>
             </SelectContent>
           </Select>
         </Field>
         <div className="grid gap-2">
           <div className="flex items-end justify-between gap-3">
-            <Label htmlFor="seuil">Montant</Label>
+            <Label htmlFor="threshold">Amount</Label>
             <p className="font-mono text-sm tabular-nums">
-              {new Intl.NumberFormat("fr-FR", {
+              {new Intl.NumberFormat("en-US", {
                 style: "currency",
-                currency: "EUR",
+                currency: "USD",
                 maximumFractionDigits: 0,
               }).format(amount)}
             </p>
           </div>
           <Slider
-            id="seuil"
+            id="threshold"
             min={50}
             max={10000}
             value={amount}
@@ -257,7 +257,7 @@ function ThresholdTile() {
         </div>
         <Field>
           <FieldLabel>Notes</FieldLabel>
-          <Textarea placeholder="Précisions…" rows={2} />
+          <Textarea placeholder="Details…" rows={2} />
         </Field>
       </CardContent>
       <CardFooter>
@@ -265,12 +265,12 @@ function ThresholdTile() {
           className="w-full"
           onClick={() =>
             toast.add({
-              title: "Seuil enregistré",
-              description: `${amount.toLocaleString("fr-FR")} € avant virement.`,
+              title: "Threshold saved",
+              description: `${amount.toLocaleString("en-US")} USD before transfer.`,
             })
           }
         >
-          Enregistrer
+          Save
         </Button>
       </CardFooter>
     </Tile>
@@ -281,8 +281,8 @@ function TeamTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Membres</CardTitle>
-        <CardDescription>Charge de la semaine.</CardDescription>
+        <CardTitle>Members</CardTitle>
+        <CardDescription>This week’s load.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {MEMBERS.map((member) => (
@@ -309,7 +309,7 @@ function TeamTile() {
               </div>
               <Progress value={member.hours} className="mt-2" />
             </div>
-            <Switch defaultChecked={member.hours > 40} aria-label={`Notifier ${member.name}`} />
+            <Switch defaultChecked={member.hours > 40} aria-label={`Notify ${member.name}`} />
           </div>
         ))}
       </CardContent>
@@ -322,13 +322,13 @@ function InviteTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Accès</CardTitle>
-        <CardDescription>Inviter quelqu’un dans le studio.</CardDescription>
+        <CardTitle>Access</CardTitle>
+        <CardDescription>Invite someone to the studio.</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="invite">
           <TabsList>
-            <TabsTab value="invite">Invitation</TabsTab>
+            <TabsTab value="invite">Invite</TabsTab>
             <TabsTab value="code">Code</TabsTab>
             <TabsIndicator />
           </TabsList>
@@ -336,21 +336,21 @@ function InviteTile() {
             <TabsPanel value="invite" className="flex flex-col gap-3 pt-3">
               <Field>
                 <FieldLabel>E-mail</FieldLabel>
-                <FieldControl type="email" placeholder="studio@exemple.fr" />
+                <FieldControl type="email" placeholder="studio@example.com" />
               </Field>
               <label className="flex items-center gap-2 text-sm">
                 <Checkbox defaultChecked />
-                Peut publier les composants
+                Can publish components
               </label>
               <Button
                 onClick={() =>
                   toast.add({
-                    title: "Invitation envoyée",
-                    description: "Un lien expire dans 48 h.",
+                    title: "Invite sent",
+                    description: "A link expires in 48 hours.",
                   })
                 }
               >
-                Envoyer
+                Send
               </Button>
             </TabsPanel>
             <TabsPanel value="code" className="flex flex-col gap-3 pt-3">
@@ -363,7 +363,7 @@ function InviteTile() {
                 <OTPFieldInput />
               </OTPField>
               <NumberField defaultValue={12} min={1} max={48}>
-                <Label>Durée (heures)</Label>
+                <Label>Duration (hours)</Label>
                 <NumberFieldGroup>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
@@ -381,17 +381,17 @@ function InviteTile() {
 function PaletteTile() {
   const [query, setQuery] = useState("")
   const commands = [
-    "Ouvrir l’atelier",
-    "Exporter les tokens",
-    "Inviter un membre",
-    "Basculer le thème",
-  ].filter((item) => item.toLocaleLowerCase("fr").includes(query.toLocaleLowerCase("fr")))
+    "Open the studio",
+    "Export tokens",
+    "Invite a member",
+    "Toggle theme",
+  ].filter((item) => item.toLocaleLowerCase("en").includes(query.toLocaleLowerCase("en")))
 
   return (
     <Tile className="md:col-span-4">
       <CardHeader>
-        <CardTitle>Palette de commandes</CardTitle>
-        <CardDescription>Cherchez une action du studio.</CardDescription>
+        <CardTitle>Command palette</CardTitle>
+        <CardDescription>Search a studio action.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <div className="relative">
@@ -399,14 +399,14 @@ function PaletteTile() {
           <Input
             value={query}
             onChange={(event) => setQuery(event.currentTarget.value)}
-            placeholder="Rechercher une commande…"
+            placeholder="Search a command…"
             className="pl-9"
             autoComplete="off"
           />
         </div>
         <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
           {commands.length === 0 ? (
-            <p className="px-3 py-5 text-center text-sm text-muted-foreground">Aucun résultat.</p>
+            <p className="px-3 py-5 text-center text-sm text-muted-foreground">No results.</p>
           ) : (
             commands.map((command) => (
               <button
@@ -431,44 +431,44 @@ function NoticesTile() {
   return (
     <Tile className="md:col-span-2">
       <CardHeader>
-        <CardTitle>À traiter</CardTitle>
-        <CardDescription>Alertes et confirmations.</CardDescription>
+        <CardTitle>Needs action</CardTitle>
+        <CardDescription>Alerts and confirmations.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <Alert>
-          <AlertTitle>Export en file</AlertTitle>
-          <AlertDescription>Le ZIP des tokens part dans une minute.</AlertDescription>
+          <AlertTitle>Export queued</AlertTitle>
+          <AlertDescription>The token ZIP leaves in a minute.</AlertDescription>
         </Alert>
         <div className="flex flex-wrap gap-2">
           <Drawer>
             <DrawerTrigger render={<Button variant="outline" />}>
               <Bell />
-              File
+              Queue
             </DrawerTrigger>
             <DrawerPopup>
               <DrawerContent>
                 <DrawerHeader>
-                  <DrawerTitle>File d’attente</DrawerTitle>
-                  <DrawerDescription>Trois exports en cours.</DrawerDescription>
+                  <DrawerTitle>Queue</DrawerTitle>
+                  <DrawerDescription>Three exports in progress.</DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>
-                  <DrawerClose render={<Button variant="secondary" />}>Fermer</DrawerClose>
+                  <DrawerClose render={<Button variant="secondary" />}>Close</DrawerClose>
                 </DrawerFooter>
               </DrawerContent>
             </DrawerPopup>
           </Drawer>
           <AlertDialog>
             <AlertDialogTrigger render={<Button variant="destructive" />}>
-              Purger
+              Purge
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Purger la file ?</AlertDialogTitle>
-                <AlertDialogDescription>Les exports en cours seront annulés.</AlertDialogDescription>
+                <AlertDialogTitle>Purge the queue?</AlertDialogTitle>
+                <AlertDialogDescription>Exports in progress will be cancelled.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogClose render={<Button variant="ghost" />}>Annuler</AlertDialogClose>
-                <AlertDialogClose render={<Button variant="destructive" />}>Purger</AlertDialogClose>
+                <AlertDialogClose render={<Button variant="ghost" />}>Cancel</AlertDialogClose>
+                <AlertDialogClose render={<Button variant="destructive" />}>Purge</AlertDialogClose>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -482,32 +482,32 @@ function EditorTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Note de release</CardTitle>
-        <CardDescription>Mise en forme avant publication.</CardDescription>
+        <CardTitle>Release note</CardTitle>
+        <CardDescription>Formatting before publish.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
-          <Toolbar aria-label="Mise en forme">
-            <ToolbarButton aria-label="Gras">
+          <Toolbar aria-label="Formatting">
+            <ToolbarButton aria-label="Bold">
               <Bold />
             </ToolbarButton>
-            <ToolbarButton aria-label="Italique">
+            <ToolbarButton aria-label="Italic">
               <Italic />
             </ToolbarButton>
-            <ToolbarButton aria-label="Souligné">
+            <ToolbarButton aria-label="Underline">
               <Underline />
             </ToolbarButton>
             <ToolbarSeparator />
-            <ToolbarButton>Lien</ToolbarButton>
+            <ToolbarButton>Link</ToolbarButton>
           </Toolbar>
-          <ToggleGroup defaultValue={["left"]} aria-label="Alignement">
-            <Toggle value="left" aria-label="Gauche">
+          <ToggleGroup defaultValue={["left"]} aria-label="Alignment">
+            <Toggle value="left" aria-label="Left">
               <AlignLeft />
             </Toggle>
-            <Toggle value="center">Centre</Toggle>
+            <Toggle value="center">Center</Toggle>
           </ToggleGroup>
         </div>
-        <Textarea defaultValue="v0.2.0 — Changelog, pastilles, page d’exemples." rows={4} />
+        <Textarea defaultValue="v0.2.0 — Changelog, novelty dots, examples page." rows={4} />
       </CardContent>
     </Tile>
   )
@@ -517,20 +517,20 @@ function PublishTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Publication</CardTitle>
-        <CardDescription>Qui voit cette version.</CardDescription>
+        <CardTitle>Publish</CardTitle>
+        <CardDescription>Who can see this version.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <Fieldset>
-          <FieldsetLegend>Visibilité</FieldsetLegend>
+          <FieldsetLegend>Visibility</FieldsetLegend>
           <RadioGroup defaultValue="private">
             <Label className="gap-2">
               <RadioGroupItem value="private" />
-              Privé
+              Private
             </Label>
             <Label className="gap-2">
               <RadioGroupItem value="team" />
-              Équipe
+              Team
             </Label>
             <Label className="gap-2">
               <RadioGroupItem value="public" />
@@ -546,12 +546,12 @@ function PublishTile() {
               Documentation
             </Label>
             <Label className="gap-2">
-              <Checkbox value="exemples" />
-              Exemples
+              <Checkbox value="examples" />
+              Examples
             </Label>
             <Label className="gap-2">
               <Checkbox value="landing" />
-              Accueil
+              Home
             </Label>
           </CheckboxGroup>
         </Fieldset>
@@ -565,21 +565,21 @@ function FaqTile() {
     <Tile className="md:col-span-3">
       <CardHeader>
         <CardTitle>Questions</CardTitle>
-        <CardDescription>Ce que l’équipe demande souvent.</CardDescription>
+        <CardDescription>What the team asks most.</CardDescription>
       </CardHeader>
       <CardContent>
         <Accordion>
           <AccordionItem value="copy">
-            <AccordionTrigger>Où vit le code ?</AccordionTrigger>
-            <AccordionPanel>Dans votre dépôt. Vous copiez le fichier, pas un paquet.</AccordionPanel>
+            <AccordionTrigger>Where does the code live?</AccordionTrigger>
+            <AccordionPanel>In your repo. You copy the file, not a package.</AccordionPanel>
           </AccordionItem>
           <AccordionItem value="base">
-            <AccordionTrigger>Pourquoi Base UI ?</AccordionTrigger>
-            <AccordionPanel>Focus, clavier et portails. Le chrome reste Lumen.</AccordionPanel>
+            <AccordionTrigger>Why Base UI?</AccordionTrigger>
+            <AccordionPanel>Focus, keyboard, and portals. The chrome stays Lumen.</AccordionPanel>
           </AccordionItem>
           <AccordionItem value="theme">
-            <AccordionTrigger>Comment passer en encre ?</AccordionTrigger>
-            <AccordionPanel>Le sélecteur de thème, en haut à droite.</AccordionPanel>
+            <AccordionTrigger>How do I switch to ink?</AccordionTrigger>
+            <AccordionPanel>The theme switcher, top right.</AccordionPanel>
           </AccordionItem>
         </Accordion>
       </CardContent>
@@ -591,8 +591,8 @@ function FilesTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Fichiers</CardTitle>
-        <CardDescription>Clic droit pour copier ou ouvrir.</CardDescription>
+        <CardTitle>Files</CardTitle>
+        <CardDescription>Right-click to copy or open.</CardDescription>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-44">
@@ -607,10 +607,10 @@ function FilesTile() {
               </ul>
             </ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuItem>Copier le chemin</ContextMenuItem>
-              <ContextMenuItem>Ouvrir dans la doc</ContextMenuItem>
+              <ContextMenuItem>Copy path</ContextMenuItem>
+              <ContextMenuItem>Open in docs</ContextMenuItem>
               <ContextMenuSeparator />
-              <ContextMenuItem>Supprimer</ContextMenuItem>
+              <ContextMenuItem>Delete</ContextMenuItem>
             </ContextMenuContent>
           </ContextMenu>
         </ScrollArea>
@@ -623,14 +623,14 @@ function SearchTile() {
   return (
     <Tile className="md:col-span-2">
       <CardHeader>
-        <CardTitle>Composant</CardTitle>
-        <CardDescription>Cherchez pour coller.</CardDescription>
+        <CardTitle>Component</CardTitle>
+        <CardDescription>Search to paste.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <Autocomplete items={COMPONENTS}>
           <AutocompleteInput placeholder="Button, Dialog…" />
           <AutocompleteContent>
-            <AutocompleteEmpty>Aucun résultat</AutocompleteEmpty>
+            <AutocompleteEmpty>No results</AutocompleteEmpty>
             <AutocompleteList>
               {(item) => (
                 <AutocompleteItem key={item} value={item}>
@@ -643,7 +643,7 @@ function SearchTile() {
         <Combobox items={STACKS}>
           <ComboboxInput placeholder="Stack" />
           <ComboboxContent>
-            <ComboboxEmpty>Aucun résultat</ComboboxEmpty>
+            <ComboboxEmpty>No results</ComboboxEmpty>
             <ComboboxList>
               {(item) => (
                 <ComboboxItem key={item} value={item}>
@@ -662,14 +662,14 @@ function QuotaTile() {
   return (
     <Tile className="md:col-span-2">
       <CardHeader>
-        <CardTitle>Quota copies</CardTitle>
-        <CardDescription>Plafond du mois.</CardDescription>
+        <CardTitle>Copy quota</CardTitle>
+        <CardDescription>Monthly cap.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <Meter value={64} />
-        <p className="text-xs text-muted-foreground">64 % utilisés.</p>
+        <p className="text-xs text-muted-foreground">64% used.</p>
         <NumberField defaultValue={120} min={10} max={500}>
-          <Label>Limite</Label>
+          <Label>Limit</Label>
           <NumberFieldGroup>
             <NumberFieldDecrement />
             <NumberFieldInput />
@@ -685,18 +685,18 @@ function DetailsTile() {
   return (
     <Tile className="md:col-span-2">
       <CardHeader>
-        <CardTitle>Détails tokens</CardTitle>
-        <CardDescription>Papier, pills, Inter.</CardDescription>
+        <CardTitle>Token details</CardTitle>
+        <CardDescription>Paper, pills, Inter.</CardDescription>
       </CardHeader>
       <CardContent>
         <Collapsible defaultOpen>
           <CollapsibleTrigger render={<Button variant="outline" className="w-full" />}>
-            Afficher les tokens
+            Show tokens
           </CollapsibleTrigger>
           <CollapsiblePanel>
             <div className="mt-3 space-y-2 text-xs text-muted-foreground">
-              <p>Fond clair : oklch 0.99, teinte 90.</p>
-              <p>Encre : #111. Destructive seul écart.</p>
+              <p>Light paper: oklch 0.99, hue 90.</p>
+              <p>Ink: #111. Destructive is the only exception.</p>
             </div>
           </CollapsiblePanel>
         </Collapsible>
@@ -709,8 +709,8 @@ function LoadingTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Sync en cours</CardTitle>
-        <CardDescription>Les fichiers arrivent.</CardDescription>
+        <CardTitle>Sync in progress</CardTitle>
+        <CardDescription>Files are arriving.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
@@ -732,52 +732,52 @@ function ProjectTile() {
   return (
     <Tile className="md:col-span-3">
       <CardHeader>
-        <CardTitle>Nouveau projet</CardTitle>
-        <CardDescription>Nommer, puis copier les fichiers.</CardDescription>
+        <CardTitle>New project</CardTitle>
+        <CardDescription>Name it, then copy the files.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <div className="flex flex-wrap gap-2">
           <Dialog>
-            <DialogTrigger render={<Button />}>Créer</DialogTrigger>
+            <DialogTrigger render={<Button />}>Create</DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Nouveau projet</DialogTitle>
-                <DialogDescription>Un dossier dans votre dépôt, pas un paquet.</DialogDescription>
+                <DialogTitle>New project</DialogTitle>
+                <DialogDescription>A folder in your repo, not a package.</DialogDescription>
               </DialogHeader>
               <Field>
-                <FieldLabel>Nom</FieldLabel>
-                <FieldControl defaultValue="atelier-lumen" />
+                <FieldLabel>Name</FieldLabel>
+                <FieldControl defaultValue="lumen-studio" />
               </Field>
               <DialogFooter>
-                <DialogClose render={<Button variant="ghost" />}>Annuler</DialogClose>
+                <DialogClose render={<Button variant="ghost" />}>Cancel</DialogClose>
                 <DialogClose
                   render={<Button />}
                   onClick={() =>
-                    toast.add({ title: "Projet créé", description: "atelier-lumen est prêt." })
+                    toast.add({ title: "Project created", description: "lumen-studio is ready." })
                   }
                 >
-                  Créer
+                  Create
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
           </Dialog>
           <Popover>
-            <PopoverTrigger render={<Button variant="outline" />}>Aide</PopoverTrigger>
+            <PopoverTrigger render={<Button variant="outline" />}>Help</PopoverTrigger>
             <PopoverContent>
               <PopoverTitle>Copy-paste</PopoverTitle>
-              <PopoverDescription>Vous copiez le fichier. Il vit dans votre dépôt.</PopoverDescription>
+              <PopoverDescription>You copy the file. It lives in your repo.</PopoverDescription>
             </PopoverContent>
           </Popover>
           <Menu>
             <MenuTrigger render={<Button variant="ghost" size="icon-sm" />}>
               <MoreHorizontal />
-              <span className="sr-only">Plus</span>
+              <span className="sr-only">More</span>
             </MenuTrigger>
             <MenuContent>
-              <MenuItem>Dupliquer</MenuItem>
-              <MenuItem>Exporter</MenuItem>
+              <MenuItem>Duplicate</MenuItem>
+              <MenuItem>Export</MenuItem>
               <MenuSeparator />
-              <MenuItem>Archiver</MenuItem>
+              <MenuItem>Archive</MenuItem>
             </MenuContent>
           </Menu>
         </div>
@@ -805,7 +805,7 @@ export function ExamplesBento() {
           </Tooltip>
           <div className="min-w-0">
             <p className="truncate text-sm font-medium">Studio Lumen</p>
-            <p className="text-xs text-muted-foreground">Usages composés</p>
+            <p className="text-xs text-muted-foreground">Composed usages</p>
           </div>
         </div>
         <Badge variant="outline">Copy-paste</Badge>

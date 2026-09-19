@@ -7,11 +7,11 @@ export default function TogglePage() {
   return (
     <ComponentDocs
       name="Toggle"
-      description="Bouton à deux états. Construit sur @base-ui/react/toggle."
-      preview={<Toggle>Gras</Toggle>}
+      description="Two-state button. Built on @base-ui/react/toggle."
+      preview={<Toggle>Bold</Toggle>}
       usage={`import { Toggle } from "@/components/ui/Toggle"
 
-<Toggle>Gras</Toggle>`}
+<Toggle>Bold</Toggle>`}
     />
   )
 }

@@ -24,7 +24,7 @@ export function LandingShowcase() {
   return (
     <section
       className="relative overflow-hidden rounded-xl"
-      aria-label="Aperçu des composants"
+      aria-label="Component preview"
     >
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -39,8 +39,8 @@ export function LandingShowcase() {
                 <AvatarFallback>LU</AvatarFallback>
               </Avatar>
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium">Studio Lumen</p>
-                <p className="text-xs text-muted-foreground">Espace de travail</p>
+                <p className="truncate text-sm font-medium">Lumen Studio</p>
+                <p className="text-xs text-muted-foreground">Workspace</p>
               </div>
             </div>
             <Badge variant="outline">Copy-paste</Badge>
@@ -49,28 +49,28 @@ export function LandingShowcase() {
           <div className="grid gap-8 p-5 md:grid-cols-2">
             <div className="flex flex-col gap-4">
               <Field>
-                <FieldLabel>Nom</FieldLabel>
+                <FieldLabel>Name</FieldLabel>
                 <FieldControl defaultValue="Lumen UI" />
               </Field>
               <Field>
-                <FieldLabel>Projet</FieldLabel>
-                <FieldControl placeholder="Mon application" />
+                <FieldLabel>Project</FieldLabel>
+                <FieldControl placeholder="My application" />
               </Field>
               <div className="flex items-center justify-between gap-3 pt-1">
                 <div>
                   <p className="text-sm font-medium">Notifications</p>
                   <p className="text-xs text-muted-foreground">
-                    Toast pour les actions.
+                    Toast for actions.
                   </p>
                 </div>
-                <Switch defaultChecked aria-label="Activer les notifications" />
+                <Switch defaultChecked aria-label="Enable notifications" />
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap gap-2">
-                <Button>Enregistrer</Button>
-                <Button variant="outline">Annuler</Button>
-                <Button variant="ghost">Exporter</Button>
+                <Button>Save</Button>
+                <Button variant="outline">Cancel</Button>
+                <Button variant="ghost">Export</Button>
               </div>
               <Tabs defaultValue="tokens">
                 <TabsList className="bg-background">
@@ -84,26 +84,26 @@ export function LandingShowcase() {
                     value="tokens"
                     className="text-sm text-muted-foreground"
                   >
-                    Variables CSS, light et dark.
+                    CSS variables, light and dark.
                   </TabsPanel>
                   <TabsPanel
                     value="cva"
                     className="text-sm text-muted-foreground"
                   >
-                    Variants déclaratifs, fusionnés avec cn().
+                    Declarative variants, merged with cn().
                   </TabsPanel>
                   <TabsPanel
                     value="base"
                     className="text-sm text-muted-foreground"
                   >
-                    Focus, clavier, portails. Le chrome est le vôtre.
+                    Focus, keyboard, portals. The chrome is yours.
                   </TabsPanel>
                 </TabsPanels>
               </Tabs>
               <Alert>
-                <AlertTitle>Pas une librairie</AlertTitle>
+                <AlertTitle>Not a library</AlertTitle>
                 <AlertDescription>
-                  Vous copiez le fichier. Il évolue dans votre dépôt.
+                  You copy the file. It evolves in your repo.
                 </AlertDescription>
               </Alert>
             </div>

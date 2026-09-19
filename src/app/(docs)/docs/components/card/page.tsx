@@ -1,6 +1,6 @@
-import HeadingsSetter from "@/components/docs/HeadingsSetter"
 import { CodeBlock } from "@/components/docs/CodeBlock"
-import { PageIntro, Preview } from "@/components/docs/Preview"
+import { ComponentDocs } from "@/components/docs/ComponentDocs"
+import { Preview } from "@/components/docs/Preview"
 import { Button } from "@/components/ui/Button"
 import {
   Card,
@@ -19,9 +19,9 @@ function ReleaseCard({
   return (
     <Card className="max-w-sm flex-1" variant={variant}>
       <CardHeader>
-        <CardTitle>Notes de version</CardTitle>
+        <CardTitle>Release notes</CardTitle>
         <CardDescription>
-          Tokens papier, boutons pill, Base UI pour le comportement.
+          Paper tokens, pill buttons, Base UI for behavior.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -29,7 +29,7 @@ function ReleaseCard({
       </CardContent>
       <CardFooter>
         <Button size="sm" variant={variant === "secondary" ? "outline" : "default"}>
-          Lire
+          Read
         </Button>
       </CardFooter>
     </Card>
@@ -38,49 +38,33 @@ function ReleaseCard({
 
 export default function CardPage() {
   return (
-    <>
-      <HeadingsSetter
-        headings={[
-          { id: "card", text: "Card", level: 1 },
-          { id: "usage", text: "Utilisation", level: 2 },
-          { id: "variants", text: "Variantes", level: 2 },
-        ]}
-      />
-      <div className="space-y-12">
-        <PageIntro
-          eyebrow="Composants"
-          title="Card"
-          description="Surface à plat, sans ombre. Default pour les contours. Secondary pour le chrome portfolio : fond muted, pas de bordure."
-        />
-        <Preview>
-          <ReleaseCard />
-        </Preview>
-        <section className="space-y-4">
-          <h2 id="usage">Utilisation</h2>
-          <CodeBlock
-            code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card"
+    <ComponentDocs
+      name="Card"
+      description="Flat surface, no shadow. Default for outlines. Secondary for portfolio chrome: muted fill, no border."
+      preview={<ReleaseCard />}
+      usage={`import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card"
 
 <Card>
   <CardHeader>
-    <CardTitle>Notes de version</CardTitle>
+    <CardTitle>Release notes</CardTitle>
     <CardDescription>Lumen UI 0.2</CardDescription>
   </CardHeader>
-  <CardContent>Contenu</CardContent>
+  <CardContent>Content</CardContent>
 </Card>`}
-          />
-        </section>
+      extraHeadings={[{ id: "variants", text: "Variants", level: 2 }]}
+      extra={
         <section className="space-y-4">
-          <h2 id="variants">Variantes</h2>
+          <h2 id="variants">Variants</h2>
           <Preview className="items-stretch gap-6">
             <ReleaseCard />
             <ReleaseCard variant="secondary" />
           </Preview>
           <CodeBlock
-            code={`<Card>Contour, fond papier.</Card>
-<Card variant="secondary">Sans bordure, fond secondary.</Card>`}
+            code={`<Card>Outline, paper fill.</Card>
+<Card variant="secondary">No border, secondary fill.</Card>`}
           />
         </section>
-      </div>
-    </>
+      }
+    />
   )
 }

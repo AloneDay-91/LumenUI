@@ -8,16 +8,16 @@ export default function RadioGroupPage() {
   return (
     <ComponentDocs
       name="Radio Group"
-      description="Choix exclusif parmi des radios. Construit sur @base-ui/react/radio-group."
+      description="Exclusive choice among radios. Built on @base-ui/react/radio-group."
       preview={
         <RadioGroup defaultValue="light" className="w-40">
           <Label className="gap-2">
             <RadioGroupItem value="light" />
-            Clair
+            Light
           </Label>
           <Label className="gap-2">
             <RadioGroupItem value="dark" />
-            Sombre
+            Dark
           </Label>
         </RadioGroup>
       }

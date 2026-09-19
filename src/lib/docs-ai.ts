@@ -19,17 +19,17 @@ export function getPromptUrl(chatUrl: string, markdownUrl: string) {
 export const docsAiProviders = [
   {
     id: "claude",
-    label: "Ouvrir dans Claude",
+    label: "Open in Claude",
     chatUrl: "https://claude.ai/new",
   },
   {
     id: "v0",
-    label: "Ouvrir dans v0",
+    label: "Open in v0",
     chatUrl: "https://v0.dev/chat",
   },
   {
     id: "chatgpt",
-    label: "Ouvrir dans ChatGPT",
+    label: "Open in ChatGPT",
     chatUrl: "https://chatgpt.com/?hints=search",
   },
 ] as const

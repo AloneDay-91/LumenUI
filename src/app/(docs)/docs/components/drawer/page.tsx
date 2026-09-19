@@ -18,22 +18,22 @@ export default function DrawerPage() {
   return (
     <ComponentDocs
       name="Drawer"
-      description="Panneau qui glisse depuis un bord, avec swipe pour fermer. Construit sur @base-ui/react/drawer."
+      description="Panel that slides from an edge, swipe to close. Built on @base-ui/react/drawer."
       preview={
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Drawer>
-            <DrawerTrigger render={<Button />}>Bas</DrawerTrigger>
+            <DrawerTrigger render={<Button />}>Bottom</DrawerTrigger>
             <DrawerPopup>
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>Notifications</DrawerTitle>
                   <DrawerDescription>
-                    Glisse vers le bas pour fermer.
+                    Swipe down to close.
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>
                   <DrawerClose render={<Button variant="secondary" />}>
-                    Fermer
+                    Close
                   </DrawerClose>
                 </DrawerFooter>
               </DrawerContent>
@@ -41,19 +41,19 @@ export default function DrawerPage() {
           </Drawer>
           <Drawer swipeDirection="right">
             <DrawerTrigger render={<Button variant="outline" />}>
-              Côté
+              Side
             </DrawerTrigger>
             <DrawerPopup>
               <DrawerContent>
                 <DrawerHeader>
-                  <DrawerTitle>Panneau</DrawerTitle>
+                  <DrawerTitle>Panel</DrawerTitle>
                   <DrawerDescription>
-                    Glisse vers la droite pour fermer.
+                    Swipe right to close.
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>
                   <DrawerClose render={<Button variant="secondary" />}>
-                    Fermer
+                    Close
                   </DrawerClose>
                 </DrawerFooter>
               </DrawerContent>
@@ -64,12 +64,12 @@ export default function DrawerPage() {
       usage={`import { Drawer, DrawerTrigger, DrawerPopup, DrawerContent, DrawerTitle, DrawerDescription, DrawerClose } from "@/components/ui/Drawer"
 
 <Drawer>
-  <DrawerTrigger render={<Button />}>Ouvrir</DrawerTrigger>
+  <DrawerTrigger render={<Button />}>Open</DrawerTrigger>
   <DrawerPopup>
     <DrawerContent>
       <DrawerTitle>Notifications</DrawerTitle>
-      <DrawerDescription>Glisse pour fermer.</DrawerDescription>
-      <DrawerClose render={<Button variant="secondary" />}>Fermer</DrawerClose>
+      <DrawerDescription>Swipe to close.</DrawerDescription>
+      <DrawerClose render={<Button variant="secondary" />}>Close</DrawerClose>
     </DrawerContent>
   </DrawerPopup>
 </Drawer>`}
