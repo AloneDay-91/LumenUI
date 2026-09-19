@@ -9,25 +9,25 @@ export default function MenubarPage() {
   return (
     <ComponentDocs
       name="Menubar"
-      description="Barre de menus d’application. Construit sur @base-ui/react/menubar."
+      description="Application menu bar. Built on @base-ui/react/menubar."
       preview={
         <Menubar>
           <Menu>
             <MenuTrigger render={<Button variant="ghost" size="sm" />}>
-              Fichier
+              File
             </MenuTrigger>
             <MenuContent>
-              <MenuItem>Nouveau</MenuItem>
-              <MenuItem>Ouvrir</MenuItem>
+              <MenuItem>New</MenuItem>
+              <MenuItem>Open</MenuItem>
             </MenuContent>
           </Menu>
           <Menu>
             <MenuTrigger render={<Button variant="ghost" size="sm" />}>
-              Édition
+              Edit
             </MenuTrigger>
             <MenuContent>
-              <MenuItem>Copier</MenuItem>
-              <MenuItem>Coller</MenuItem>
+              <MenuItem>Copy</MenuItem>
+              <MenuItem>Paste</MenuItem>
             </MenuContent>
           </Menu>
         </Menubar>
@@ -37,9 +37,9 @@ import { Menu, MenuTrigger, MenuContent, MenuItem } from "@/components/ui/Menu"
 
 <Menubar>
   <Menu>
-    <MenuTrigger render={<Button />}>Fichier</MenuTrigger>
+    <MenuTrigger render={<Button />}>File</MenuTrigger>
     <MenuContent>
-      <MenuItem>Nouveau</MenuItem>
+      <MenuItem>New</MenuItem>
     </MenuContent>
   </Menu>
 </Menubar>`}

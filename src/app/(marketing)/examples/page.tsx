@@ -5,20 +5,20 @@ import { LANDING_MAX_WIDTH } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
-  title: "Exemples",
-  description: "Usages composés des composants Lumen UI, en bento.",
+  title: "Examples",
+  description: "Composed usages of Lumen UI components, as a bento.",
 }
 
 export default function ExamplesPage() {
   return (
     <main
-      id="contenu"
+      id="content"
       className={cn(
         "mx-auto w-full flex-1 px-6 pt-2 pb-16 md:px-12 md:py-10",
         LANDING_MAX_WIDTH
       )}
     >
-      <h1 className="sr-only">Exemples</h1>
+      <h1 className="sr-only">Examples</h1>
       <ExamplesBento />
     </main>
   )

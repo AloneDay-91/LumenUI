@@ -8,11 +8,11 @@ export default function SwitchPage() {
   return (
     <ComponentDocs
       name="Switch"
-      description="Contrôle on/off. Construit sur @base-ui/react/switch."
+      description="On/off control. Built on @base-ui/react/switch."
       preview={
         <Label className="gap-2">
           <Switch defaultChecked />
-          Mode sombre
+          Dark mode
         </Label>
       }
       usage={`import { Switch } from "@/components/ui/Switch"

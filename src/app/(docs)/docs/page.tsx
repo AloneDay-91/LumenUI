@@ -13,19 +13,19 @@ import {
 const principles = [
   {
     title: "Tokens",
-    description: "Variables CSS sémantiques, light et dark, sans bleu interactif.",
+    description: "Semantic CSS variables, light and dark, no interactive blue.",
   },
   {
     title: "CVA",
-    description: "Variants déclaratifs, classes fusionnées avec cn().",
+    description: "Declarative variants, classes merged with cn().",
   },
   {
     title: "Base UI",
-    description: "Comportement accessible, non stylé. Le chrome est le vôtre.",
+    description: "Accessible, unstyled behavior. The chrome is yours.",
   },
   {
     title: "Copy-paste",
-    description: "Vous ne consommez pas une librairie. Le code vit dans votre dépôt.",
+    description: "You do not consume a library. The code lives in your repo.",
   },
 ]
 
@@ -33,27 +33,27 @@ const start = [
   {
     href: "/docs/installation",
     title: "Installation",
-    description: "Dépendances, tokens et utilitaire cn().",
+    description: "Dependencies, tokens, and the cn() helper.",
   },
   {
     href: "/docs/styles",
     title: "Styles",
-    description: "Palette, typographie et theming.",
+    description: "Palette, type, and theming.",
   },
   {
     href: "/docs/components/button",
     title: "Button",
-    description: "Premier composant à copier pour valider le pipeline.",
+    description: "First component to copy to prove the pipeline.",
   },
   {
-    href: "/exemples",
-    title: "Exemples",
-    description: "Bento d'usages, hors documentation.",
+    href: "/examples",
+    title: "Examples",
+    description: "A bento of usages, outside the docs.",
   },
   {
     href: "/docs/changelog",
     title: "Changelog",
-    description: "Notes de version et nouveautés.",
+    description: "Release notes and what’s new.",
   },
 ]
 
@@ -63,31 +63,30 @@ export default function DocsPage() {
       <HeadingsSetter
         headings={[
           { id: "documentation", text: "Documentation", level: 1 },
-          { id: "approche", text: "Approche", level: 2 },
-          { id: "commencer", text: "Commencer", level: 2 },
+          { id: "approach", text: "Approach", level: 2 },
+          { id: "start", text: "Get started", level: 2 },
         ]}
       />
 
       <PageIntro
-        eyebrow="Démarrage"
+        eyebrow="Getting started"
         title="Documentation"
-        description="Lumen UI est un système de composants copy-paste. Les comportements viennent de Base UI. Le style vit dans votre dépôt."
+        description="Lumen UI is a copy-paste component system. Behavior comes from Base UI. Style lives in your repo."
       />
 
       <Alert>
-        <AlertTitle>Copy-paste, pas une librairie</AlertTitle>
+        <AlertTitle>Copy-paste, not a library</AlertTitle>
         <AlertDescription>
-          Si vous démarrez, commencez par l&apos;installation. Pour le langage
-          visuel, voir les styles. Le reste de la référence est dans le sommaire
-          à gauche.
+          If you are starting, begin with installation. For the visual language,
+          see styles. The rest of the reference is in the sidebar.
         </AlertDescription>
       </Alert>
 
-      <h2 id="approche">Approche</h2>
+      <h2 id="approach">Approach</h2>
       <p>
-        Vous ne consommez pas une librairie de composants. Vous copiez le
-        fichier. L&apos;architecture (CVA, tokens CSS, composition) suit le
-        modèle de shadcn/ui, sans en reprendre le chrome.
+        You do not consume a component library. You copy the file. The
+        architecture (CVA, CSS tokens, composition) follows the shadcn/ui
+        model, without its chrome.
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {principles.map((item) => (
@@ -100,8 +99,8 @@ export default function DocsPage() {
         ))}
       </div>
 
-      <h2 id="commencer">Commencer</h2>
-      <p>Les fondations, le premier composant, et les notes de version.</p>
+      <h2 id="start">Get started</h2>
+      <p>Foundations, the first component, and release notes.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {start.map((item) => (
           <Link key={item.href} href={item.href} className="block">

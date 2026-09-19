@@ -26,7 +26,7 @@ export function DocsPager() {
     <div className="mt-16 space-y-8">
       <Separator />
       <nav
-        aria-label="Pagination de la documentation"
+        aria-label="Documentation pagination"
         className="grid gap-4 sm:grid-cols-2"
       >
         {prev ? (
@@ -37,7 +37,7 @@ export function DocsPager() {
               className="h-full transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
             >
               <CardHeader>
-                <CardDescription>Précédent</CardDescription>
+                <CardDescription>Previous</CardDescription>
                 <CardTitle className="flex items-center gap-2">
                   <ArrowLeft className="size-3.5 shrink-0" />
                   {prev.name}
@@ -59,7 +59,7 @@ export function DocsPager() {
               className="h-full transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
             >
               <CardHeader className="items-end text-right">
-                <CardDescription>Suivant</CardDescription>
+                <CardDescription>Next</CardDescription>
                 <CardTitle className="flex items-center justify-end gap-2">
                   {next.name}
                   <ArrowRight className="size-3.5 shrink-0" />

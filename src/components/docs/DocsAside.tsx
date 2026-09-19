@@ -15,7 +15,7 @@ type TocItem = {
 const HEADING_OFFSET = 152
 
 function scrapeHeadings(): TocItem[] {
-  const article = document.getElementById("contenu")
+  const article = document.getElementById("content")
   if (!article) {
     return []
   }
@@ -144,9 +144,9 @@ export default function DocsAside() {
 
   return (
     <aside className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-52 shrink-0 self-start overflow-y-auto border-l border-border bg-background lg:block">
-      <nav aria-label="Sur cette page" className="px-3 py-5">
+      <nav aria-label="On this page" className="px-3 py-5">
         <p className="mb-2 px-1 text-xs font-medium text-muted-foreground">
-          Sur cette page
+          On this page
         </p>
         <ul className="border-l border-border">
           {items.map((heading) => {

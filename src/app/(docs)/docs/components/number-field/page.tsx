@@ -13,7 +13,7 @@ export default function NumberFieldPage() {
   return (
     <ComponentDocs
       name="Number Field"
-      description="Saisie numérique avec incrément et décrément. Construit sur @base-ui/react/number-field."
+      description="Numeric input with increment and decrement. Built on @base-ui/react/number-field."
       preview={
         <NumberField defaultValue={4} min={0} max={12}>
           <NumberFieldGroup>

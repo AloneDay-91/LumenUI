@@ -31,8 +31,8 @@ export function DocsSearch({ className }: { className?: string }) {
         type="search"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        placeholder="Rechercher…"
-        aria-label="Rechercher dans la documentation"
+        placeholder="Search…"
+        aria-label="Search the documentation"
         className="pr-14 pl-8"
       />
       <Badge

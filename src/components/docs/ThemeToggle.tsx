@@ -37,18 +37,18 @@ export function ThemeToggle() {
             className="text-muted-foreground hover:text-foreground"
           >
             <HalfIcon />
-            <span className="sr-only">Changer le thème</span>
+            <span className="sr-only">Change theme</span>
           </Button>
         }
       />
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           <SunMedium />
-          Clair
+          Light
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
           <Moon />
-          Sombre
+          Dark
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -25,7 +25,7 @@ export function DocsContents({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav aria-label="Documentation" className="flex flex-col gap-6">
       {filteredSections.length === 0 ? (
-        <p className="px-2 text-xs text-muted-foreground">Aucun résultat.</p>
+        <p className="px-2 text-xs text-muted-foreground">No results.</p>
       ) : (
         filteredSections.map((section) => (
           <div key={section.title}>
@@ -54,7 +54,7 @@ export function DocsContents({ onNavigate }: { onNavigate?: () => void }) {
                         />
                       ) : null}
                       {isNew ? (
-                        <span className="sr-only">Nouveau : </span>
+                        <span className="sr-only">New: </span>
                       ) : null}
                       {item.name}
                     </Link>

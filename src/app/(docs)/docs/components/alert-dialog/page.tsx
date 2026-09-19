@@ -17,25 +17,25 @@ export default function AlertDialogPage() {
   return (
     <ComponentDocs
       name="Alert Dialog"
-      description="Dialogue bloquant qui exige une réponse. Construit sur @base-ui/react/alert-dialog."
+      description="Blocking dialog that requires a response. Built on @base-ui/react/alert-dialog."
       preview={
         <AlertDialog>
           <AlertDialogTrigger render={<Button variant="destructive" />}>
-            Supprimer
+            Delete
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Supprimer ce brouillon ?</AlertDialogTitle>
+              <AlertDialogTitle>Delete this draft?</AlertDialogTitle>
               <AlertDialogDescription>
-                Cette action est irréversible.
+                This action cannot be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogClose render={<Button variant="ghost" />}>
-                Annuler
+                Cancel
               </AlertDialogClose>
               <AlertDialogClose render={<Button variant="destructive" />}>
-                Supprimer
+                Delete
               </AlertDialogClose>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -44,11 +44,11 @@ export default function AlertDialogPage() {
       usage={`import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogClose } from "@/components/ui/AlertDialog"
 
 <AlertDialog>
-  <AlertDialogTrigger render={<Button />}>Ouvrir</AlertDialogTrigger>
+  <AlertDialogTrigger render={<Button />}>Open</AlertDialogTrigger>
   <AlertDialogContent>
-    <AlertDialogTitle>Confirmer</AlertDialogTitle>
-    <AlertDialogDescription>Cette action est irréversible.</AlertDialogDescription>
-    <AlertDialogClose render={<Button />}>Fermer</AlertDialogClose>
+    <AlertDialogTitle>Confirm</AlertDialogTitle>
+    <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+    <AlertDialogClose render={<Button />}>Close</AlertDialogClose>
   </AlertDialogContent>
 </AlertDialog>`}
     />

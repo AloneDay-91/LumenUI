@@ -12,19 +12,19 @@ export default function AccordionPage() {
   return (
     <ComponentDocs
       name="Accordion"
-      description="Panneaux repliables avec titres. Construit sur @base-ui/react/accordion."
+      description="Collapsible panels with headings. Built on @base-ui/react/accordion."
       preview={
         <Accordion className="w-full max-w-md" defaultValue={["faq-1"]}>
           <AccordionItem value="faq-1">
-            <AccordionTrigger>Qu’est-ce que Lumen UI ?</AccordionTrigger>
+            <AccordionTrigger>What is Lumen UI?</AccordionTrigger>
             <AccordionPanel>
-              Un système copy-paste. Les comportements viennent de Base UI.
+              A copy-paste system. Behavior comes from Base UI.
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem value="faq-2">
-            <AccordionTrigger>Puis-je modifier le style ?</AccordionTrigger>
+            <AccordionTrigger>Can I change the style?</AccordionTrigger>
             <AccordionPanel>
-              Oui. Le chrome vit dans votre dépôt.
+              Yes. The chrome lives in your repo.
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
@@ -34,7 +34,7 @@ export default function AccordionPage() {
 <Accordion defaultValue={["faq-1"]}>
   <AccordionItem value="faq-1">
     <AccordionTrigger>Question</AccordionTrigger>
-    <AccordionPanel>Réponse</AccordionPanel>
+    <AccordionPanel>Answer</AccordionPanel>
   </AccordionItem>
 </Accordion>`}
     />

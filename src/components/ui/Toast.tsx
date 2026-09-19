@@ -43,7 +43,7 @@ function Toaster() {
                   buttonVariants({ size: "icon-xs", variant: "ghost" }),
                   "shrink-0 text-muted-foreground hover:text-foreground"
                 )}
-                aria-label="Fermer"
+                aria-label="Close"
               >
                 <XIcon className="size-3.5" />
               </ToastPrimitive.Close>

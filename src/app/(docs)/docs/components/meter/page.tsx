@@ -5,7 +5,7 @@ export default function MeterPage() {
   return (
     <ComponentDocs
       name="Meter"
-      description="Affichage d’une valeur dans une plage. Construit sur @base-ui/react/meter."
+      description="Display of a value within a range. Built on @base-ui/react/meter."
       preview={<Meter className="w-56" value={64} max={100} />}
       usage={`import { Meter } from "@/components/ui/Meter"
 

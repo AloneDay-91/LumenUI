@@ -14,7 +14,7 @@ export default function ContextMenuPage() {
   return (
     <ComponentDocs
       name="Context Menu"
-      description="Menu au pointeur, clic droit ou appui long. Construit sur @base-ui/react/context-menu."
+      description="Pointer menu, right-click or long-press. Built on @base-ui/react/context-menu."
       preview={
         <ContextMenu>
           <ContextMenuTrigger
@@ -26,22 +26,22 @@ export default function ContextMenuPage() {
               />
             }
           >
-            Clic droit ici
+            Right-click here
           </ContextMenuTrigger>
           <ContextMenuContent>
-            <ContextMenuItem>Copier</ContextMenuItem>
-            <ContextMenuItem>Coller</ContextMenuItem>
+            <ContextMenuItem>Copy</ContextMenuItem>
+            <ContextMenuItem>Paste</ContextMenuItem>
             <ContextMenuSeparator />
-            <ContextMenuItem>Supprimer</ContextMenuItem>
+            <ContextMenuItem>Delete</ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>
       }
       usage={`import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "@/components/ui/ContextMenu"
 
 <ContextMenu>
-  <ContextMenuTrigger>Zone</ContextMenuTrigger>
+  <ContextMenuTrigger>Area</ContextMenuTrigger>
   <ContextMenuContent>
-    <ContextMenuItem>Copier</ContextMenuItem>
+    <ContextMenuItem>Copy</ContextMenuItem>
   </ContextMenuContent>
 </ContextMenu>`}
     />
