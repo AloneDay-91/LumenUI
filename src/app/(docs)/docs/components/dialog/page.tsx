@@ -17,18 +17,18 @@ export default function DialogPage() {
   return (
     <ComponentDocs
       name="Dialog"
-      description="Popup au-dessus de la page. Construit sur @base-ui/react/dialog."
+      description="Popup over the page. Built on @base-ui/react/dialog."
       preview={
         <Dialog>
-          <DialogTrigger render={<Button />}>Ouvrir</DialogTrigger>
+          <DialogTrigger render={<Button />}>Open</DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Notifications</DialogTitle>
-              <DialogDescription>Vous êtes à jour.</DialogDescription>
+              <DialogDescription>You are up to date.</DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <DialogClose render={<Button variant="secondary" />}>
-                Fermer
+                Close
               </DialogClose>
             </DialogFooter>
           </DialogContent>
@@ -37,9 +37,9 @@ export default function DialogPage() {
       usage={`import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/Dialog"
 
 <Dialog>
-  <DialogTrigger render={<Button />}>Ouvrir</DialogTrigger>
+  <DialogTrigger render={<Button />}>Open</DialogTrigger>
   <DialogContent>
-    <DialogTitle>Titre</DialogTitle>
+    <DialogTitle>Title</DialogTitle>
     <DialogDescription>Description</DialogDescription>
   </DialogContent>
 </Dialog>`}

@@ -7,23 +7,23 @@ export default function ToolbarPage() {
   return (
     <ComponentDocs
       name="Toolbar"
-      description="Groupe de boutons et contrôles. Construit sur @base-ui/react/toolbar."
+      description="Group of buttons and controls. Built on @base-ui/react/toolbar."
       preview={
         <Toolbar>
           <ToolbarGroup>
-            <ToolbarButton>Gras</ToolbarButton>
-            <ToolbarButton>Italique</ToolbarButton>
+            <ToolbarButton>Bold</ToolbarButton>
+            <ToolbarButton>Italic</ToolbarButton>
           </ToolbarGroup>
           <ToolbarSeparator />
-          <ToolbarButton>Lien</ToolbarButton>
+          <ToolbarButton>Link</ToolbarButton>
         </Toolbar>
       }
       usage={`import { Toolbar, ToolbarButton, ToolbarSeparator } from "@/components/ui/Toolbar"
 
 <Toolbar>
-  <ToolbarButton>Gras</ToolbarButton>
+  <ToolbarButton>Bold</ToolbarButton>
   <ToolbarSeparator />
-  <ToolbarButton>Lien</ToolbarButton>
+  <ToolbarButton>Link</ToolbarButton>
 </Toolbar>`}
     />
   )

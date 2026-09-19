@@ -39,7 +39,7 @@ export default function ChangelogPage() {
 
       <PageIntro
         title="Changelog"
-        description="Notes de version de Lumen UI. La pastille à gauche d'une page du sommaire signale une nouveauté de la dernière version."
+        description="Lumen UI release notes. A dot to the left of a sidebar page marks something new in the latest version."
       />
 
       <div className="space-y-12">

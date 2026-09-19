@@ -18,7 +18,7 @@ export function DocsBreadcrumb() {
 
   return (
     <nav
-      aria-label="Fil d'Ariane"
+      aria-label="Breadcrumb"
       className="flex min-w-0 items-center gap-1.5 text-xs"
     >
       {sectionHref ? (

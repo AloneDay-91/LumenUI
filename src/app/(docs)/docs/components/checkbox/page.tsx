@@ -8,7 +8,7 @@ export default function CheckboxPage() {
   return (
     <ComponentDocs
       name="Checkbox"
-      description="Case à cocher stylable. Construit sur @base-ui/react/checkbox."
+      description="Styleable checkbox. Built on @base-ui/react/checkbox."
       preview={
         <Label className="gap-2">
           <Checkbox defaultChecked />

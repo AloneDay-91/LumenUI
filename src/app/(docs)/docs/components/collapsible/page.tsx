@@ -12,22 +12,22 @@ export default function CollapsiblePage() {
   return (
     <ComponentDocs
       name="Collapsible"
-      description="Panneau contrôlé par un bouton. Construit sur @base-ui/react/collapsible."
+      description="Panel controlled by a button. Built on @base-ui/react/collapsible."
       preview={
         <Collapsible className="w-full max-w-md">
           <CollapsibleTrigger render={<Button variant="outline" />}>
-            Afficher les détails
+            Show details
           </CollapsibleTrigger>
           <CollapsiblePanel className="pt-3">
-            Tokens, CVA, Base UI. Le code vit dans votre dépôt.
+            Tokens, CVA, Base UI. The code lives in your repo.
           </CollapsiblePanel>
         </Collapsible>
       }
       usage={`import { Collapsible, CollapsibleTrigger, CollapsiblePanel } from "@/components/ui/Collapsible"
 
 <Collapsible>
-  <CollapsibleTrigger render={<Button />}>Ouvrir</CollapsibleTrigger>
-  <CollapsiblePanel>Contenu</CollapsiblePanel>
+  <CollapsibleTrigger render={<Button />}>Open</CollapsibleTrigger>
+  <CollapsiblePanel>Content</CollapsiblePanel>
 </Collapsible>`}
     />
   )

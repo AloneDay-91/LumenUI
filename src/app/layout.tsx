@@ -27,8 +27,7 @@ export const metadata: Metadata = {
     default: "Lumen UI",
     template: "%s · Lumen UI",
   },
-  description:
-    "Système de design copy-paste. Composants construits sur Base UI.",
+  description: "Copy-paste design system. Components built on Base UI.",
 }
 
 export default function RootLayout({
@@ -38,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="fr"
+      lang="en"
       suppressHydrationWarning
       className={cn(inter.variable, fraunces.variable, jetbrains.variable)}
       data-scroll-behavior="smooth"
@@ -46,10 +45,10 @@ export default function RootLayout({
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <a
-            href="#contenu"
+            href="#content"
             className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-primary focus:px-3 focus:py-1.5 focus:text-sm focus:text-primary-foreground"
           >
-            Aller au contenu
+            Skip to content
           </a>
           <div className="root min-h-dvh">{children}</div>
         </ThemeProvider>

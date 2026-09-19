@@ -18,11 +18,11 @@ import {
 import { GITHUB_URL, SITE_NAME } from "@/lib/site"
 
 const mobileLinks = [
-  { title: "Accueil", href: "/" },
-  { title: "Exemples", href: "/exemples" },
+  { title: "Home", href: "/" },
+  { title: "Examples", href: "/examples" },
   { title: "Documentation", href: "/docs" },
   { title: "Installation", href: "/docs/installation" },
-  { title: "Composants", href: "/docs/components/button" },
+  { title: "Components", href: "/docs/components/button" },
   { title: "Styles", href: "/docs/styles" },
   { title: "GitHub", href: GITHUB_URL, target: "_blank" as const },
 ]
@@ -47,7 +47,7 @@ export function MarketingMobileNav() {
       <Drawer swipeDirection="left">
         <DrawerTrigger
           className="inline-flex size-9 items-center justify-center text-muted-foreground outline-none hover:text-foreground focus-visible:text-foreground"
-          aria-label="Ouvrir le menu"
+          aria-label="Open menu"
         >
           <ListIcon className="size-5" />
         </DrawerTrigger>
@@ -58,7 +58,7 @@ export function MarketingMobileNav() {
               <DrawerClose nativeButton={false} render={<SiteLogo />} />
               <DrawerClose
                 className="inline-flex size-8 shrink-0 items-center justify-center text-muted-foreground outline-none hover:text-foreground"
-                aria-label="Fermer le menu"
+                aria-label="Close menu"
               >
                 <XIcon className="size-4" />
               </DrawerClose>

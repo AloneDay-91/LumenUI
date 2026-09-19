@@ -11,10 +11,10 @@ export default function PreviewCardPage() {
   return (
     <ComponentDocs
       name="Preview Card"
-      description="Aperçu d’une destination au survol d’un lien. Construit sur @base-ui/react/preview-card."
+      description="Destination preview on link hover. Built on @base-ui/react/preview-card."
       preview={
         <p className="text-sm">
-          Découvrir{" "}
+          Discover{" "}
           <PreviewCard>
             <PreviewCardTrigger
               href="https://base-ui.com"
@@ -25,7 +25,7 @@ export default function PreviewCardPage() {
             <PreviewCardContent>
               <p className="text-sm font-medium">Base UI</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Composants accessibles, non stylés.
+                Accessible, unstyled components.
               </p>
             </PreviewCardContent>
           </PreviewCard>
@@ -36,7 +36,7 @@ export default function PreviewCardPage() {
 
 <PreviewCard>
   <PreviewCardTrigger href="https://base-ui.com">Base UI</PreviewCardTrigger>
-  <PreviewCardContent>Aperçu</PreviewCardContent>
+  <PreviewCardContent>Preview</PreviewCardContent>
 </PreviewCard>`}
     />
   )

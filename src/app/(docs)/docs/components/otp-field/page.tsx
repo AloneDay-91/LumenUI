@@ -7,7 +7,7 @@ export default function OTPFieldPage() {
   return (
     <ComponentDocs
       name="OTP Field"
-      description="Code à usage unique, une case par caractère. Construit sur @base-ui/react/otp-field."
+      description="One-time code, one cell per character. Built on @base-ui/react/otp-field."
       preview={
         <OTPField length={6}>
           <OTPFieldInput />

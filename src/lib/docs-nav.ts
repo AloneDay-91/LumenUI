@@ -10,7 +10,7 @@ export type DocsNavSection = {
 
 export const docsSections: DocsNavSection[] = [
   {
-    title: "Démarrage",
+    title: "Getting started",
     items: [
       { name: "Introduction", href: "/docs" },
       { name: "Installation", href: "/docs/installation" },
@@ -18,11 +18,11 @@ export const docsSections: DocsNavSection[] = [
     ],
   },
   {
-    title: "Fondations",
+    title: "Foundations",
     items: [{ name: "Styles", href: "/docs/styles" }],
   },
   {
-    title: "Composants",
+    title: "Components",
     items: [
       { name: "Accordion", href: "/docs/components/accordion" },
       { name: "Alert", href: "/docs/components/alert" },

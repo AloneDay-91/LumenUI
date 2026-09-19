@@ -60,22 +60,51 @@ const addedComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
-    version: "0.3.0",
-    date: "2026-09-18",
+    version: "0.4.0",
+    date: "2026-09-19",
     summary:
-      "Changelog dans la documentation, pastilles de nouveauté et page d'exemples en bento.",
+      "English docs, copy-paste CSS tokens, API reference tabs, and expandable code blocks.",
     items: [
       {
         kind: "added",
-        text: "Changelog dans la documentation, indicateur de nouveauté et version affichée.",
-        href: "/docs/changelog",
-        new: true,
+        text: "API reference tab on every component page: parts, props, types, and defaults.",
       },
       {
         kind: "added",
-        text: "Page d'exemples en bento, hors documentation.",
-        href: "/exemples",
+        text: "Copy-paste CSS variable sheet for consumer globals.css.",
+        href: "/docs/styles",
         new: true,
+      },
+      {
+        kind: "changed",
+        text: "Default language is English. Examples live at /examples.",
+        href: "/examples",
+      },
+      {
+        kind: "changed",
+        text: "Long code blocks collapse, with Show more and a larger dialog.",
+      },
+      {
+        kind: "fixed",
+        text: "Light-mode highlighter contrast and code block line spacing.",
+      },
+    ],
+  },
+  {
+    version: "0.3.0",
+    date: "2026-09-18",
+    summary:
+      "Docs changelog, novelty dots, and a composed examples bento.",
+    items: [
+      {
+        kind: "added",
+        text: "Changelog in the docs, novelty indicator, and displayed version.",
+        href: "/docs/changelog",
+      },
+      {
+        kind: "added",
+        text: "Examples page as a bento of composed usages, outside the docs layout.",
+        href: "/examples",
       },
     ],
   },
@@ -83,26 +112,26 @@ export const changelog: ChangelogRelease[] = [
     version: "0.2.0",
     date: "2026-09-18",
     summary:
-      "Première version du design system : tokens, catalogue Base UI, documentation Polar / Medusa, landing.",
+      "First design-system release: tokens, Base UI catalog, Polar / Medusa docs, landing.",
     items: [
       {
         kind: "added",
-        text: "Tokens CSS, thème clair / sombre et Tailwind v4.",
+        text: "CSS tokens, light / dark theme, and Tailwind v4.",
         href: "/docs/styles",
       },
       {
         kind: "added",
-        text: "Documentation Polar / Medusa : sidebar, fil d'Ariane, TOC, recherche.",
+        text: "Polar / Medusa docs: sidebar, breadcrumb, TOC, search.",
         href: "/docs",
       },
       {
         kind: "added",
-        text: "Catalogue de composants Base UI.",
+        text: "Base UI component catalog.",
         links: addedComponents,
       },
       {
         kind: "changed",
-        text: "Restyle des composants existants : Alert, Badge, Button, Card, Input, Label, Select, Skeleton, Textarea.",
+        text: "Restyle of existing components: Alert, Badge, Button, Card, Input, Label, Select, Skeleton, Textarea.",
       },
     ],
   },
@@ -111,7 +140,7 @@ export const changelog: ChangelogRelease[] = [
 export function getLatestChangelog() {
   const [latest] = changelog
   if (!latest) {
-    throw new Error("Changelog vide.")
+    throw new Error("Changelog is empty.")
   }
   return latest
 }
@@ -147,11 +176,11 @@ export function isNewDocsPage(href: string) {
 export function changelogKindLabel(kind: ChangelogKind) {
   switch (kind) {
     case "added":
-      return "Ajouté"
+      return "Added"
     case "changed":
-      return "Modifié"
+      return "Changed"
     case "fixed":
-      return "Corrigé"
+      return "Fixed"
     default: {
       const exhaustive: never = kind
       return exhaustive
@@ -160,7 +189,7 @@ export function changelogKindLabel(kind: ChangelogKind) {
 }
 
 export function formatChangelogDate(iso: string) {
-  return new Intl.DateTimeFormat("fr-FR", {
+  return new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",

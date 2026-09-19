@@ -14,22 +14,22 @@ export default function MenuPage() {
   return (
     <ComponentDocs
       name="Menu"
-      description="Liste d’actions en menu déroulant. Construit sur @base-ui/react/menu."
+      description="Dropdown list of actions. Built on @base-ui/react/menu."
       preview={
         <Menu>
           <MenuTrigger render={<Button variant="outline" />}>Song</MenuTrigger>
           <MenuContent>
-            <MenuItem>Ajouter à la bibliothèque</MenuItem>
-            <MenuItem>Ajouter à une playlist</MenuItem>
+            <MenuItem>Add to library</MenuItem>
+            <MenuItem>Add to a playlist</MenuItem>
             <MenuSeparator />
-            <MenuItem>Partager</MenuItem>
+            <MenuItem>Share</MenuItem>
           </MenuContent>
         </Menu>
       }
       usage={`import { Menu, MenuTrigger, MenuContent, MenuItem } from "@/components/ui/Menu"
 
 <Menu>
-  <MenuTrigger render={<Button />}>Ouvrir</MenuTrigger>
+  <MenuTrigger render={<Button />}>Open</MenuTrigger>
   <MenuContent>
     <MenuItem>Action</MenuItem>
   </MenuContent>

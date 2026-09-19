@@ -1,41 +1,26 @@
-import HeadingsSetter from "@/components/docs/HeadingsSetter"
-import { CodeBlock } from "@/components/docs/CodeBlock"
-import { PageIntro, Preview } from "@/components/docs/Preview"
+import { ComponentDocs } from "@/components/docs/ComponentDocs"
+import { Preview } from "@/components/docs/Preview"
 import { Badge } from "@/components/ui/Badge"
 
 export default function BadgePage() {
   return (
-    <>
-      <HeadingsSetter
-        headings={[
-          { id: "badge", text: "Badge", level: 1 },
-          { id: "usage", text: "Utilisation", level: 2 },
-          { id: "variants", text: "Variantes", level: 2 },
-        ]}
-      />
-      <div className="space-y-12">
-        <PageIntro
-          eyebrow="Composants"
-          title="Badge"
-          description="Label court, police mono, coins pill. Pour versions, statuts, catégories."
-        />
-        <Preview className="flex-wrap gap-2">
+    <ComponentDocs
+      name="Badge"
+      description="Short label, mono type, pill corners. For versions, statuses, categories."
+      preview={
+        <>
           <Badge>v0.2</Badge>
           <Badge variant="secondary">Beta</Badge>
           <Badge variant="outline">Docs</Badge>
-        </Preview>
-        <section className="space-y-4">
-          <h2 id="usage">
-            Utilisation
-          </h2>
-          <CodeBlock code={`import { Badge } from "@/components/ui/Badge"
+        </>
+      }
+      usage={`import { Badge } from "@/components/ui/Badge"
 
-<Badge variant="outline">Docs</Badge>`} />
-        </section>
+<Badge variant="outline">Docs</Badge>`}
+      extraHeadings={[{ id: "variants", text: "Variants", level: 2 }]}
+      extra={
         <section className="space-y-4">
-          <h2 id="variants">
-            Variantes
-          </h2>
+          <h2 id="variants">Variants</h2>
           <Preview className="flex-wrap gap-2">
             <Badge>default</Badge>
             <Badge variant="secondary">secondary</Badge>
@@ -45,7 +30,7 @@ export default function BadgePage() {
             <Badge variant="warning">warning</Badge>
           </Preview>
         </section>
-      </div>
-    </>
+      }
+    />
   )
 }

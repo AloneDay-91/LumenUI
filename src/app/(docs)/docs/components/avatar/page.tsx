@@ -5,7 +5,7 @@ export default function AvatarPage() {
   return (
     <ComponentDocs
       name="Avatar"
-      description="Image de profil avec repli sur les initiales. Construit sur @base-ui/react/avatar."
+      description="Profile image with initials fallback. Built on @base-ui/react/avatar."
       preview={
         <div className="flex items-center gap-2">
           <Avatar>

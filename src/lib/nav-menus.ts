@@ -21,19 +21,19 @@ export type NavMenu = {
 export const navMenus: NavMenu[] = [
   {
     id: "system",
-    title: "Système",
+    title: "System",
     featured: {
-      title: "Commencer",
+      title: "Get started",
       items: [
         { href: "/docs", label: "Introduction" },
         { href: "/docs/installation", label: "Installation" },
-        { href: "/exemples", label: "Exemples" },
+        { href: "/examples", label: "Examples" },
         { href: "/docs/changelog", label: "Changelog" },
       ],
     },
     sections: [
       {
-        title: "Fondations",
+        title: "Foundations",
         items: [{ href: "/docs/styles", label: "Styles" }],
       },
       {
@@ -44,9 +44,9 @@ export const navMenus: NavMenu[] = [
   },
   {
     id: "components",
-    title: "Composants",
+    title: "Components",
     featured: {
-      title: "Les plus utilisés",
+      title: "Most used",
       items: [
         { href: "/docs/components/button", label: "Button" },
         { href: "/docs/components/dialog", label: "Dialog" },
@@ -55,7 +55,7 @@ export const navMenus: NavMenu[] = [
     },
     sections: [
       {
-        title: "Formulaires",
+        title: "Forms",
         items: [
           { href: "/docs/components/input", label: "Input" },
           { href: "/docs/components/field", label: "Field" },

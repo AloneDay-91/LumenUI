@@ -7,7 +7,7 @@ export default function SliderPage() {
   return (
     <ComponentDocs
       name="Slider"
-      description="Contrôle de plage stylable. Construit sur @base-ui/react/slider."
+      description="Styleable range control. Built on @base-ui/react/slider."
       preview={<Slider className="w-56" defaultValue={40} />}
       usage={`import { Slider } from "@/components/ui/Slider"
 

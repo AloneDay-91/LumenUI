@@ -75,15 +75,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --sh-identifier: var(--foreground);
-  --sh-keyword: oklch(0.42 0.1 48);
-  --sh-string: oklch(0.4 0.09 148);
-  --sh-class: oklch(0.38 0.08 78);
-  --sh-property: oklch(0.44 0.08 38);
-  --sh-entity: oklch(0.36 0.07 95);
-  --sh-jsxliterals: oklch(0.4 0.08 155);
-  --sh-sign: oklch(0.55 0.02 90);
-  --sh-comment: oklch(0.556 0 0);
+  --sh-identifier: oklch(0.28 0.02 90);
+  --sh-keyword: oklch(0.48 0.2 42);
+  --sh-string: oklch(0.4 0.18 148);
+  --sh-class: oklch(0.5 0.19 75);
+  --sh-property: oklch(0.45 0.18 28);
+  --sh-entity: oklch(0.4 0.16 100);
+  --sh-jsxliterals: oklch(0.38 0.16 168);
+  --sh-sign: oklch(0.4 0.08 80);
+  --sh-comment: oklch(0.52 0.03 90);
 }
 
 .dark {
@@ -171,6 +171,30 @@
 
 .docs-article :where(code):not(pre code) {
   @apply rounded-md bg-muted px-1 py-0.5 font-mono text-xs;
+}
+
+.docs-article :where(table) {
+  @apply w-full min-w-[36rem] border-collapse text-left text-sm;
+}
+
+.docs-article :where(th) {
+  @apply border-b border-border px-3 py-2 text-xs font-medium text-muted-foreground;
+}
+
+.docs-article :where(td) {
+  @apply border-b border-border px-3 py-2.5 align-top text-muted-foreground;
+}
+
+.docs-article :where(td:first-child, th:first-child) {
+  @apply pl-0;
+}
+
+.docs-article :where(td:last-child, th:last-child) {
+  @apply pr-0;
+}
+
+.docs-article :where(td code) {
+  @apply break-all whitespace-pre-wrap;
 }
 
 .docs-code {

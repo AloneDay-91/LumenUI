@@ -16,13 +16,13 @@ export default function AutocompletePage() {
   return (
     <ComponentDocs
       name="Autocomplete"
-      description="Champ qui suggère des options pendant la saisie. Construit sur @base-ui/react/autocomplete."
+      description="Field that suggests options as you type. Built on @base-ui/react/autocomplete."
       preview={
         <div className="w-64">
           <Autocomplete items={items}>
-            <AutocompleteInput placeholder="Rechercher un framework" />
+            <AutocompleteInput placeholder="Search a framework" />
             <AutocompleteContent>
-              <AutocompleteEmpty>Aucun résultat</AutocompleteEmpty>
+              <AutocompleteEmpty>No results</AutocompleteEmpty>
               <AutocompleteList>
                 {(item) => (
                   <AutocompleteItem key={item} value={item}>
@@ -37,7 +37,7 @@ export default function AutocompletePage() {
       usage={`import { Autocomplete, AutocompleteInput, AutocompleteContent, AutocompleteList, AutocompleteItem } from "@/components/ui/Autocomplete"
 
 <Autocomplete items={["Next.js", "Astro"]}>
-  <AutocompleteInput placeholder="Rechercher" />
+  <AutocompleteInput placeholder="Search" />
   <AutocompleteContent>
     <AutocompleteList>
       {(item) => <AutocompleteItem key={item} value={item}>{item}</AutocompleteItem>}

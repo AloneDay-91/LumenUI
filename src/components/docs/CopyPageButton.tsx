@@ -74,7 +74,7 @@ export function CopyPageButton() {
         className="h-auto rounded-none border-0 px-2.5 hover:bg-muted"
       >
         {copied === "page" ? <CheckIcon /> : <CopyIcon />}
-        {copied === "page" ? "Copiée" : "Copier"}
+        {copied === "page" ? "Copied" : "Copy"}
       </Button>
       <Separator
         orientation="vertical"
@@ -87,7 +87,7 @@ export function CopyPageButton() {
               variant="ghost"
               size="icon-sm"
               className="h-auto w-7 rounded-none border-0 hover:bg-muted"
-              aria-label="Ouvrir dans une IA, voir le markdown ou copier le lien"
+              aria-label="Open in an AI, view markdown, or copy the link"
             >
               <ChevronDownIcon className="size-3.5" />
             </Button>
@@ -100,7 +100,7 @@ export function CopyPageButton() {
             rel="noreferrer"
           >
             <FileTextIcon />
-            Voir en Markdown
+            View as Markdown
           </DropdownMenuLinkItem>
           <DropdownMenuSeparator />
           {docsAiProviders.map((provider) => (
@@ -124,7 +124,7 @@ export function CopyPageButton() {
             onClick={() => copy(pageUrl, "link")}
           >
             {copied === "link" ? <CheckIcon /> : <LinkIcon />}
-            {copied === "link" ? "Lien copié" : "Copier le lien"}
+            {copied === "link" ? "Link copied" : "Copy link"}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

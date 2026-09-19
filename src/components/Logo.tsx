@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-/** Carrés superposés — même construction que le wordmark du portfolio. */
+/** Overlapping squares — same construction as the portfolio wordmark. */
 export function Logo({ className }: { className?: string }) {
   return (
     <svg
