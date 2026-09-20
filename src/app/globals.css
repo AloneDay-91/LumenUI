@@ -132,6 +132,20 @@
 
   html {
     @apply font-sans scroll-smooth;
+    --update-banner-height: 2.25rem;
+  }
+
+  html[data-update-banner="dismissed"] {
+    --update-banner-height: 0rem;
+  }
+
+  html[data-update-banner="dismissed"] [data-slot="update-banner"] {
+    display: none;
+  }
+
+  html[data-docs-nav-open] {
+    overflow: hidden;
+    overscroll-behavior: none;
   }
 
   body {

@@ -162,8 +162,25 @@ function NavigationMenuPortal({
   )
 }
 
+function NavigationMenuBackdrop({
+  className,
+  ...props
+}: NavigationMenuPrimitive.Backdrop.Props) {
+  return (
+    <NavigationMenuPrimitive.Backdrop
+      data-slot="navigation-menu-backdrop"
+      className={cn(
+        "pointer-events-none fixed inset-0 z-0 hidden bg-background/40 backdrop-blur-sm data-open:block",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 function NavigationMenuPositioner({
   className,
+  children,
   side = "bottom",
   align = "start",
   sideOffset = 0,
@@ -182,7 +199,9 @@ function NavigationMenuPositioner({
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </NavigationMenuPrimitive.Positioner>
   )
 }
 
@@ -194,7 +213,7 @@ function NavigationMenuPopup({
     <NavigationMenuPrimitive.Popup
       data-slot="navigation-menu-popup"
       className={cn(
-        "w-full overflow-hidden border-b border-transparent bg-background text-foreground duration-150 data-open:border-border data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-1 data-closed:animate-out data-closed:fade-out-0",
+        "relative z-10 w-full overflow-hidden border-b border-transparent bg-background text-foreground duration-150 data-open:border-border data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-1 data-closed:animate-out data-closed:fade-out-0",
         className
       )}
       {...props}
@@ -260,6 +279,7 @@ export {
   NavigationMenuIcon,
   NavigationMenuLink,
   NavigationMenuPortal,
+  NavigationMenuBackdrop,
   NavigationMenuPositioner,
   NavigationMenuPopup,
   NavigationMenuViewport,

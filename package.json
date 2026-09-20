@@ -2,6 +2,14 @@
   "name": "design-system-lumenui",
   "version": "0.5.0",
   "private": true,
+  "homepage": "https://github.com/AloneDay-91/LumenUI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AloneDay-91/LumenUI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AloneDay-91/LumenUI/issues"
+  },
   "engines": {
     "node": "22"
   },

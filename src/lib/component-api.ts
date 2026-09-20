@@ -863,6 +863,9 @@ export const componentApis: Record<string, ComponentApi> = {
           description: "Portal target. Defaults to the NavigationMenu root.",
         },
       ]),
+      part("NavigationMenuBackdrop", "Page blur while the mega menu is open. Unmounts on close.", [
+        className,
+      ]),
       part("NavigationMenuPositioner", "Full-width overlay under the bar.", [
         className,
         {

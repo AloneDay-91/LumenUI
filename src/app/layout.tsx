@@ -3,6 +3,8 @@ import type { ReactNode } from "react"
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google"
 
 import { ThemeProvider } from "@/components/ThemeProvider"
+import { UpdateBanner } from "@/components/UpdateBanner"
+import { getUpdateBannerBootstrap } from "@/lib/update-banner"
 import { cn } from "@/lib/utils"
 
 import "./globals.css"
@@ -47,6 +49,9 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
+        <script
+          dangerouslySetInnerHTML={{ __html: getUpdateBannerBootstrap() }}
+        />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <a
             href="#content"
@@ -54,7 +59,10 @@ export default function RootLayout({
           >
             Skip to content
           </a>
-          <div className="root min-h-dvh">{children}</div>
+          <div className="root min-h-dvh">
+            <UpdateBanner />
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

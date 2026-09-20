@@ -1,11 +1,11 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { LandingShowcase } from "@/components/marketing/LandingShowcase"
-import { buttonVariants } from "@/components/ui/button-variants"
-import { Separator } from "@/components/ui/Separator"
-import { docsSections } from "@/lib/docs-nav"
-import { LANDING_MAX_WIDTH } from "@/lib/site"
-import { cn } from "@/lib/utils"
+import { LandingShowcase } from "@/components/marketing/LandingShowcase";
+import { buttonVariants } from "@/components/ui/button-variants";
+import { Separator } from "@/components/ui/Separator";
+import { docsSections } from "@/lib/docs-nav";
+import { LANDING_MAX_WIDTH } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const principles = [
   {
@@ -28,10 +28,10 @@ const principles = [
     title: "Keyboard first",
     body: "Visible focus, disabled states, native composition. Nothing decorative at the expense of the keyboard.",
   },
-]
+];
 
 const componentItems =
-  docsSections.find((section) => section.title === "Components")?.items ?? []
+  docsSections.find((section) => section.title === "Components")?.items ?? [];
 
 export default function Home() {
   return (
@@ -39,7 +39,7 @@ export default function Home() {
       id="content"
       className={cn(
         "mx-auto w-full flex-1 px-6 pt-2 pb-10 md:px-12 md:py-16",
-        LANDING_MAX_WIDTH
+        LANDING_MAX_WIDTH,
       )}
     >
       <section className="mb-10 max-w-3xl md:mb-14">
@@ -118,7 +118,8 @@ export default function Home() {
           Copy the first file
         </h2>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-          Dependencies, tokens, then Button. Everything else is copied on demand.
+          Dependencies, tokens, then Button. Everything else is copied on
+          demand.
         </p>
         <Link
           href="/docs/installation"
@@ -128,5 +129,5 @@ export default function Home() {
         </Link>
       </section>
     </main>
-  )
+  );
 }

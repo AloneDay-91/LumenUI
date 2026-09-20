@@ -1,14 +1,11 @@
-import Link from "next/link"
-
 import { ComponentDocs } from "@/components/docs/ComponentDocs"
+import { MegaMenuPanel } from "@/components/marketing/MegaMenuPanel"
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuGroup,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuPanel,
   NavigationMenuPopup,
   NavigationMenuPortal,
   NavigationMenuPositioner,
@@ -31,54 +28,7 @@ export default function NavigationMenuPage() {
                 <NavigationMenuItem key={menu.id} value={menu.id}>
                   <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <NavigationMenuPanel>
-                      <NavigationMenuGroup title={menu.featured.title}>
-                        <div className="flex flex-col items-start gap-4">
-                          {menu.featured.items.map((item) => (
-                            <NavigationMenuLink
-                              key={item.href + item.label}
-                              variant="featured"
-                              render={<Link href={item.href} />}
-                            >
-                              {item.label}
-                            </NavigationMenuLink>
-                          ))}
-                        </div>
-                      </NavigationMenuGroup>
-                      <div className="grid grid-cols-2 gap-x-8 gap-y-10">
-                        {menu.sections.map((section) => (
-                          <NavigationMenuGroup
-                            key={section.title}
-                            title={section.title}
-                          >
-                            <ul className="flex flex-col items-start gap-3">
-                              {section.items.map((item) => {
-                                const external = item.href.startsWith("http")
-                                return (
-                                  <li key={item.href + item.label}>
-                                    {external ? (
-                                      <NavigationMenuLink
-                                        href={item.href}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                      >
-                                        {item.label}
-                                      </NavigationMenuLink>
-                                    ) : (
-                                      <NavigationMenuLink
-                                        render={<Link href={item.href} />}
-                                      >
-                                        {item.label}
-                                      </NavigationMenuLink>
-                                    )}
-                                  </li>
-                                )
-                              })}
-                            </ul>
-                          </NavigationMenuGroup>
-                        ))}
-                      </div>
-                    </NavigationMenuPanel>
+                    <MegaMenuPanel menu={menu} className="max-w-none" />
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
