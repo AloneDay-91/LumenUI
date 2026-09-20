@@ -23,7 +23,7 @@ export function UpdateBanner() {
   return (
     <div
       data-slot="update-banner"
-      className="top-0 z-50 border-b border-border bg-muted/70 text-xs backdrop-blur-sm"
+      className="sticky top-0 z-90 border-b border-border bg-muted text-xs backdrop-blur-sm"
     >
       <div className="relative flex h-9 items-center justify-center gap-2 px-10">
         <span className="size-1.5 shrink-0 rounded-full bg-new" aria-hidden />
