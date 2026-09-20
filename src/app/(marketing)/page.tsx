@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import { LandingShowcase } from "@/components/marketing/LandingShowcase";
-import { buttonVariants } from "@/components/ui/button-variants";
-import { Separator } from "@/components/ui/Separator";
-import { docsSections } from "@/lib/docs-nav";
-import { LANDING_MAX_WIDTH } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import { LandingShowcase } from "@/components/marketing/LandingShowcase"
+import { Badge } from "@/components/ui/Badge"
+import { buttonVariants } from "@/components/ui/button-variants"
+import { docsSections } from "@/lib/docs-nav"
+import { formatDocsVersion, LANDING_MAX_WIDTH } from "@/lib/site"
+import { cn } from "@/lib/utils"
 
 const principles = [
   {
@@ -28,29 +28,30 @@ const principles = [
     title: "Keyboard first",
     body: "Visible focus, disabled states, native composition. Nothing decorative at the expense of the keyboard.",
   },
-];
+]
 
 const componentItems =
-  docsSections.find((section) => section.title === "Components")?.items ?? [];
+  docsSections.find((section) => section.title === "Components")?.items ?? []
 
 export default function Home() {
   return (
     <main
       id="content"
       className={cn(
-        "mx-auto w-full flex-1 px-6 pt-2 pb-10 md:px-12 md:py-16",
-        LANDING_MAX_WIDTH,
+        "mx-auto w-full flex-1 px-6 pt-10 pb-16 md:px-12 md:pt-20 md:pb-24",
+        LANDING_MAX_WIDTH
       )}
     >
-      <section className="mb-10 max-w-3xl md:mb-14">
-        <h1 className="mb-4 text-3xl leading-[1.15] font-medium tracking-tight text-pretty md:text-5xl">
+      <section className="flex flex-col items-center text-center">
+        <Badge variant="outline">{formatDocsVersion()}</Badge>
+        <h1 className="mt-6 max-w-2xl text-4xl leading-[1.1] font-medium tracking-tight text-pretty md:text-5xl">
           The code lives in your repo.
         </h1>
-        <p className="mb-8 max-w-xl text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
           Lumen UI is a copy-paste system. Base UI handles focus, keyboard, and
           portals. The chrome — warm paper, pills, no blue — stays yours.
         </p>
-        <div className="flex flex-wrap gap-2.5">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
           <Link href="/docs" className={cn(buttonVariants({ size: "lg" }))}>
             Documentation
           </Link>
@@ -61,37 +62,42 @@ export default function Home() {
             Examples
           </Link>
         </div>
+
+        <div className="relative mt-14 w-full md:mt-16">
+          <div className="max-h-110 overflow-hidden mask-[linear-gradient(to_bottom,black_68%,transparent)] md:max-h-160">
+            <LandingShowcase />
+          </div>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 -bottom-px h-2/5 bg-linear-to-t from-background from-5% via-background/50 to-transparent"
+          />
+        </div>
       </section>
 
-      <LandingShowcase />
-
-      <section className="mt-24 mb-24">
-        <h2 className="mb-6 text-base font-medium tracking-tight text-foreground">
+      <section className="mt-24 md:mt-32">
+        <h2 className="mb-10 text-sm font-medium tracking-tight text-muted-foreground">
           Principles
         </h2>
-        {principles.map((item, index) => (
-          <div key={item.period}>
-            <div className="grid gap-1 py-6 sm:grid-cols-[4.5rem_1fr]">
+        <ul className="grid gap-x-16 gap-y-10 sm:grid-cols-2">
+          {principles.map((item) => (
+            <li key={item.period}>
               <p className="font-mono text-xs text-muted-foreground">
                 {item.period}
               </p>
-              <div>
-                <p className="text-sm font-medium">{item.title}</p>
-                <p className="mt-1 max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
-                  {item.body}
-                </p>
-              </div>
-            </div>
-            {index < principles.length - 1 ? <Separator /> : null}
-          </div>
-        ))}
+              <p className="mt-3 text-sm font-medium">{item.title}</p>
+              <p className="mt-1 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">
+                {item.body}
+              </p>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="mb-24">
-        <div className="mb-6 flex items-baseline justify-between gap-4">
+      <section className="mt-24 md:mt-32">
+        <div className="mb-8 flex items-baseline justify-between gap-4">
           <h2
             id="components"
-            className="text-base font-medium tracking-tight text-foreground"
+            className="text-sm font-medium tracking-tight text-muted-foreground"
           >
             Components
           </h2>
@@ -113,21 +119,21 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="mb-8 max-w-xl">
-        <h2 className="mb-3 text-base font-medium tracking-tight text-foreground">
+      <section className="mt-24 border-t border-border pt-12 md:mt-32 md:pt-16">
+        <h2 className="text-2xl font-medium tracking-tight md:text-3xl">
           Copy the first file
         </h2>
-        <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
           Dependencies, tokens, then Button. Everything else is copied on
           demand.
         </p>
         <Link
           href="/docs/installation"
-          className={cn(buttonVariants({ size: "lg" }))}
+          className={cn(buttonVariants({ size: "lg" }), "mt-8")}
         >
           Installation
         </Link>
       </section>
     </main>
-  );
+  )
 }
