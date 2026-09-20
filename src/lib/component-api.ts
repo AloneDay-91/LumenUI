@@ -216,6 +216,57 @@ export const componentApis: Record<string, ComponentApi> = {
       ]),
     ],
   },
+  breadcrumb: {
+    slug: "breadcrumb",
+    source: "src/components/ui/Breadcrumb.tsx",
+    parts: [
+      part("Breadcrumb", 'Native <nav> with aria-label="Breadcrumb".', [
+        className,
+        children,
+      ]),
+      part("BreadcrumbList", "Ordered list of the steps.", [
+        className,
+        children,
+      ]),
+      part("BreadcrumbItem", "One step.", [className, children]),
+      part("BreadcrumbLink", "Link to an ancestor step.", [
+        className,
+        {
+          name: "href",
+          type: "string",
+          description: "Target of the step. Omit it when you pass render.",
+        },
+        render,
+        children,
+      ]),
+      part("BreadcrumbPage", "Current step. Sets aria-current=\"page\".", [
+        className,
+        children,
+      ]),
+      part("BreadcrumbSeparator", "Divider. Defaults to a chevron.", [
+        className,
+        {
+          name: "children",
+          type: "React.ReactNode",
+          default: "<ChevronRightIcon />",
+          description: "Replaces the chevron.",
+        },
+      ]),
+      part(
+        "BreadcrumbEllipsis",
+        "Native <button> standing in for collapsed steps. Pair it with a DropdownMenuTrigger.",
+        [
+          className,
+          {
+            name: "children",
+            type: "React.ReactNode",
+            default: "<MoreHorizontalIcon />",
+            description: "Replaces the ellipsis glyph.",
+          },
+        ]
+      ),
+    ],
+  },
   button: {
     slug: "button",
     source: "src/components/ui/Button.tsx",
@@ -246,8 +297,42 @@ export const componentApis: Record<string, ComponentApi> = {
           type: "boolean",
           description: "Disable pointer and fade the chrome.",
         },
+        {
+          name: "focusableWhenDisabled",
+          type: "boolean",
+          default: "false",
+          description:
+            "Keep focus on the button while disabled. Use it for loading states.",
+        },
+        {
+          name: "type",
+          type: '"button" | "submit" | "reset"',
+          description:
+            "Not implied as on a native button: set \"submit\" to submit a form.",
+        },
         children,
       ]),
+    ],
+  },
+  "button-group": {
+    slug: "button-group",
+    source: "src/components/ui/ButtonGroup.tsx",
+    parts: [
+      part("ButtonGroup", 'Joins buttons into one control. role="group".', [
+        className,
+        {
+          name: "orientation",
+          type: '"horizontal" | "vertical"',
+          default: '"horizontal"',
+          description: "Direction the buttons stack in.",
+        },
+        children,
+      ]),
+      part(
+        "ButtonGroupSeparator",
+        "Divider between filled segments. Outline buttons share borders instead.",
+        [className]
+      ),
     ],
   },
   card: {
@@ -368,6 +453,135 @@ export const componentApis: Record<string, ComponentApi> = {
         children,
       ]),
       part("ComboboxEmpty", "Shown when nothing matches.", [className, children]),
+    ],
+  },
+  command: {
+    slug: "command",
+    source: "src/components/ui/Command.tsx",
+    primitive: "cmdk",
+    parts: [
+      part("Command", "Root. Accepts cmdk Command props.", [
+        className,
+        {
+          name: "value",
+          type: "string",
+          description: "Controlled value of the highlighted item.",
+        },
+        {
+          name: "onValueChange",
+          type: "(value: string) => void",
+          description: "Called when the highlighted item changes.",
+        },
+        {
+          name: "filter",
+          type: "(value: string, search: string, keywords?: string[]) => number",
+          description: "Custom scoring. Return 0 to hide an item.",
+        },
+        {
+          name: "shouldFilter",
+          type: "boolean",
+          default: "true",
+          description: "Set to false when you filter items yourself.",
+        },
+        {
+          name: "loop",
+          type: "boolean",
+          default: "false",
+          description: "Wrap the selection at both ends of the list.",
+        },
+      ]),
+      part("CommandDialog", "Command wrapped in the Lumen Dialog.", [
+        className,
+        open,
+        onOpenChange,
+        {
+          name: "title",
+          type: "string",
+          default: '"Command palette"',
+          description: "Screen-reader title of the dialog.",
+        },
+        {
+          name: "description",
+          type: "string",
+          default: '"Search for a command to run."',
+          description: "Screen-reader description of the dialog.",
+        },
+        children,
+      ]),
+      part("CommandInput", "Search field. Renders a leading search icon.", [
+        className,
+        { name: "value", type: "string", description: "Controlled search text." },
+        {
+          name: "onValueChange",
+          type: "(search: string) => void",
+          description: "Called when the search text changes.",
+        },
+        {
+          name: "placeholder",
+          type: "string",
+          description: "Placeholder of the field.",
+        },
+      ]),
+      part("CommandList", "Scrollable container of the results.", [
+        className,
+        children,
+      ]),
+      part("CommandEmpty", "Shown when nothing matches.", [className, children]),
+      part("CommandGroup", "Titled section of items.", [
+        className,
+        {
+          name: "heading",
+          type: "React.ReactNode",
+          description: "Label rendered above the items.",
+        },
+        {
+          name: "value",
+          type: "string",
+          description: "Group identity. Defaults to the heading.",
+        },
+        children,
+      ]),
+      part("CommandItem", "One selectable command.", [
+        className,
+        {
+          name: "value",
+          type: "string",
+          description: "Value matched by the filter. Defaults to the text content.",
+        },
+        {
+          name: "keywords",
+          type: "string[]",
+          description: "Extra terms the filter matches against.",
+        },
+        {
+          name: "onSelect",
+          type: "(value: string) => void",
+          description: "Called on click or Enter.",
+        },
+        {
+          name: "disabled",
+          type: "boolean",
+          description: "Disable this item.",
+        },
+        children,
+      ]),
+      part("CommandSeparator", "Divider between groups.", [className]),
+      part("CommandShortcut", "Right-aligned Kbd keycap.", [
+        className,
+        {
+          name: "size",
+          type: '"sm" | "default" | "lg"',
+          default: '"default"',
+          description: "Forwarded to Kbd.",
+        },
+        {
+          name: "variant",
+          type: '"default" | "outline" | "ghost"',
+          default: '"default"',
+          description: "Forwarded to Kbd.",
+        },
+        children,
+      ]),
     ],
   },
   "context-menu": {
@@ -520,6 +734,39 @@ export const componentApis: Record<string, ComponentApi> = {
           type: "boolean",
           description: "Draws the destructive ring.",
         },
+      ]),
+    ],
+  },
+  kbd: {
+    slug: "kbd",
+    source: "src/components/ui/Kbd.tsx",
+    parts: [
+      part("Kbd", "Renders a native <kbd> keycap.", [
+        className,
+        {
+          name: "size",
+          type: '"sm" | "default" | "lg"',
+          default: '"default"',
+          description: "Cap height. Inherited from KbdGroup when unset.",
+        },
+        {
+          name: "variant",
+          type: '"default" | "outline" | "ghost"',
+          default: '"default"',
+          description:
+            "Surface of the key. ghost tints the current text colour, for keys on a filled surface.",
+        },
+        children,
+      ]),
+      part("KbdGroup", "Row of keys. Separators are plain text.", [
+        className,
+        {
+          name: "size",
+          type: '"sm" | "default" | "lg"',
+          default: '"default"',
+          description: "Sets the gap and cascades to the nested Kbd.",
+        },
+        children,
       ]),
     ],
   },
@@ -866,6 +1113,25 @@ export const componentApis: Record<string, ComponentApi> = {
       ]),
     ],
   },
+  spinner: {
+    slug: "spinner",
+    source: "src/components/ui/Spinner.tsx",
+    parts: [
+      part(
+        "Spinner",
+        'Spinning lucide icon. role="status", labelled "Loading".',
+        [
+          className,
+          {
+            name: "aria-hidden",
+            type: "boolean",
+            description:
+              "Set it when the surrounding control already announces the pending state.",
+          },
+        ]
+      ),
+    ],
+  },
   switch: {
     slug: "switch",
     source: "src/components/ui/Switch.tsx",
@@ -1049,6 +1315,248 @@ export const componentApis: Record<string, ComponentApi> = {
       ]),
       part("TooltipTrigger", "Hover or focus target.", [render, children]),
       part("TooltipContent", "Hint popup.", [className, children]),
+    ],
+  },
+  "aspect-ratio": {
+    slug: "aspect-ratio",
+    source: "src/components/ui/AspectRatio.tsx",
+    parts: [
+      part("AspectRatio", "Box locked to a ratio. Images cover. Other children clip.", [
+        className,
+        {
+          name: "ratio",
+          type: "number",
+          default: "16 / 9",
+          description: "Width divided by height.",
+        },
+        children,
+      ]),
+    ],
+  },
+  empty: {
+    slug: "empty",
+    source: "src/components/ui/Empty.tsx",
+    parts: [
+      part("Empty", "Dashed panel for an empty list or table.", [
+        className,
+        children,
+      ]),
+      part("EmptyHeader", "Icon, title, and description stack.", [
+        className,
+        children,
+      ]),
+      part("EmptyMedia", "Optional glyph well.", [
+        className,
+        {
+          name: "variant",
+          type: '"icon" | "ghost"',
+          default: '"icon"',
+          description: "Well, or a bare icon on the paper.",
+        },
+        children,
+      ]),
+      part("EmptyTitle", "Short heading.", [className, children]),
+      part("EmptyDescription", "What is missing, and what to do.", [
+        className,
+        children,
+      ]),
+      part("EmptyContent", "Actions under the copy.", [className, children]),
+    ],
+  },
+  "input-group": {
+    slug: "input-group",
+    source: "src/components/ui/InputGroup.tsx",
+    parts: [
+      part("InputGroup", "One field with addons. The ring sits on the group.", [
+        className,
+        children,
+      ]),
+      part("InputGroupAddon", "Prefix or suffix slot.", [
+        className,
+        {
+          name: "align",
+          type: '"start" | "end"',
+          default: '"start"',
+          description: "Which side the addon sits on.",
+        },
+        children,
+      ]),
+      part("InputGroupInput", "The text field. Also accepts the shared Input.", [
+        className,
+        {
+          name: "placeholder",
+          type: "string",
+          description: "Native placeholder.",
+        },
+      ]),
+      part("InputGroupText", "Mono label inside an addon.", [
+        className,
+        children,
+      ]),
+    ],
+  },
+  pagination: {
+    slug: "pagination",
+    source: "src/components/ui/Pagination.tsx",
+    parts: [
+      part("Pagination", 'Native <nav> with aria-label="Pagination".', [
+        className,
+        children,
+      ]),
+      part("PaginationContent", "List of items.", [className, children]),
+      part("PaginationItem", "One item.", [className, children]),
+      part("PaginationLink", "Page Button. Ghost, or secondary when current.", [
+        className,
+        {
+          name: "isActive",
+          type: "boolean",
+          description: 'Marks the current page and sets aria-current="page".',
+        },
+        children,
+      ]),
+      part("PaginationPrevious", "Previous page Button.", [
+        className,
+        children,
+      ]),
+      part("PaginationNext", "Next page Button.", [className, children]),
+      part("PaginationEllipsis", "Collapsed range. aria-hidden.", [className]),
+    ],
+  },
+  rating: {
+    slug: "rating",
+    source: "src/components/ui/Rating.tsx",
+    parts: [
+      part("Rating", "Star radiogroup. Arrow keys move the score.", [
+        className,
+        {
+          name: "value",
+          type: "number",
+          description: "Controlled score.",
+        },
+        {
+          name: "defaultValue",
+          type: "number",
+          default: "0",
+          description: "Uncontrolled initial score.",
+        },
+        {
+          name: "onValueChange",
+          type: "(value: number) => void",
+          description: "Called when the score changes.",
+        },
+        {
+          name: "max",
+          type: "number",
+          default: "5",
+          description: "Number of stars.",
+        },
+        {
+          name: "readOnly",
+          type: "boolean",
+          default: "false",
+          description: "Paint the score without making it a control.",
+        },
+        {
+          name: "label",
+          type: "string",
+          default: '"Rating"',
+          description: "Accessible name of the group.",
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "Optional hidden input name for forms.",
+        },
+      ]),
+    ],
+  },
+  stepper: {
+    slug: "stepper",
+    source: "src/components/ui/Stepper.tsx",
+    parts: [
+      part("Stepper", "Ordered list of steps. The rail is drawn on each item.", [
+        className,
+        {
+          name: "orientation",
+          type: '"horizontal" | "vertical"',
+          default: '"horizontal"',
+          description: "Layout of the steps.",
+        },
+        children,
+      ]),
+      part("StepperItem", "One step.", [
+        className,
+        {
+          name: "status",
+          type: '"complete" | "current" | "upcoming"',
+          default: '"upcoming"',
+          description: 'Current sets aria-current="step".',
+        },
+        children,
+      ]),
+      part("StepperIndicator", "Index, replaced by a check when complete.", [
+        className,
+        children,
+      ]),
+      part("StepperContent", "Title and description beside or under the index.", [
+        className,
+        children,
+      ]),
+      part("StepperTitle", "Step name.", [className, children]),
+      part("StepperDescription", "Optional supporting line.", [
+        className,
+        children,
+      ]),
+    ],
+  },
+  table: {
+    slug: "table",
+    source: "src/components/ui/Table.tsx",
+    parts: [
+      part("Table", "Native table in a bordered, rounded wrap.", [
+        className,
+        children,
+      ]),
+      part("TableHeader", "thead. Muted wash.", [className, children]),
+      part("TableBody", "tbody.", [className, children]),
+      part("TableFooter", "tfoot. A rule, not a second header.", [
+        className,
+        children,
+      ]),
+      part("TableRow", "tr. Hover tint. data-state=selected.", [
+        className,
+        children,
+      ]),
+      part("TableHead", "th. Muted, left-aligned.", [className, children]),
+      part("TableCell", "td.", [className, children]),
+      part("TableCaption", "caption above, inside the wrap.", [
+        className,
+        children,
+      ]),
+    ],
+  },
+  timeline: {
+    slug: "timeline",
+    source: "src/components/ui/Timeline.tsx",
+    parts: [
+      part("Timeline", "Vertical list of events.", [className, children]),
+      part("TimelineItem", "One event.", [className, children]),
+      part("TimelineMarker", "Dot on the rule.", [className]),
+      part("TimelineSeparator", "Vertical rule. Hidden on the last item.", [
+        className,
+      ]),
+      part("TimelineContent", "Title, time, and copy.", [className, children]),
+      part("TimelineTitle", "Event name.", [className, children]),
+      part("TimelineTime", "Native <time>.", [
+        className,
+        {
+          name: "dateTime",
+          type: "string",
+          description: "Machine-readable timestamp.",
+        },
+        children,
+      ]),
+      part("TimelineDescription", "What happened.", [className, children]),
     ],
   },
 }

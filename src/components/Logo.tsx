@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils"
 
 /** Overlapping squares — same construction as the portfolio wordmark. */
+export const LOGO_PATH =
+  "M2.6 2.6h13.4v13.4H2.6zM8 8h13.4v13.4H8z"
+
 export function Logo({ className }: { className?: string }) {
   return (
     <svg
@@ -12,7 +15,7 @@ export function Logo({ className }: { className?: string }) {
       <path
         fill="currentColor"
         fillRule="evenodd"
-        d="M2.6 2.6h13.4v13.4H2.6zM8 8h13.4v13.4H8z"
+        d={LOGO_PATH}
       />
     </svg>
   )

@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
         destination: "/examples",
         permanent: false,
       },
+      {
+        source: "/docs/themes",
+        destination: "/docs/styles",
+        permanent: false,
+      },
+      {
+        source: "/themes",
+        destination: "/docs/styles",
+        permanent: false,
+      },
     ]
   },
 };

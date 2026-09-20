@@ -39,7 +39,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(inter.variable, fraunces.variable, jetbrains.variable)}
+      className={cn(
+        inter.variable,
+        fraunces.variable,
+        jetbrains.variable
+      )}
       data-scroll-behavior="smooth"
     >
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">

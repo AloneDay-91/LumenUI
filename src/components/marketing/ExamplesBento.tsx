@@ -77,6 +77,7 @@ import {
 import { Field, FieldControl, FieldLabel } from "@/components/ui/Field"
 import { Fieldset, FieldsetLegend } from "@/components/ui/Fieldset"
 import { Input } from "@/components/ui/Input"
+import { Kbd } from "@/components/ui/Kbd"
 import { Label } from "@/components/ui/Label"
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/Menu"
 import { Meter } from "@/components/ui/Meter"
@@ -415,9 +416,7 @@ function PaletteTile() {
                 className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left text-sm hover:bg-background/60"
               >
                 {command}
-                <kbd className="rounded-lg bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-                  ⌘K
-                </kbd>
+                <Kbd className="bg-background">⌘K</Kbd>
               </button>
             ))
           )}

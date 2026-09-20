@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { Search } from "lucide-react"
-import { useEffect, useId } from "react"
+import { Search } from "lucide-react";
+import { useEffect, useId } from "react";
 
-import { useDocsSearch } from "@/components/docs/DocsSearchContext"
-import { Badge } from "@/components/ui/Badge"
-import { Input } from "@/components/ui/Input"
-import { cn } from "@/lib/utils"
+import { useDocsSearch } from "@/components/docs/DocsSearchContext";
+import { Input } from "@/components/ui/Input";
+import { Kbd } from "@/components/ui/Kbd";
+import { cn } from "@/lib/utils";
 
 export function DocsSearch({ className }: { className?: string }) {
-  const { query, setQuery } = useDocsSearch()
-  const id = useId()
+  const { query, setQuery } = useDocsSearch();
+  const id = useId();
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault()
-        document.getElementById(id)?.focus()
+        event.preventDefault();
+        document.getElementById(id)?.focus();
       }
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [id])
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [id]);
 
   return (
     <div className={cn("relative w-full max-w-sm", className)}>
@@ -35,12 +35,13 @@ export function DocsSearch({ className }: { className?: string }) {
         aria-label="Search the documentation"
         className="pr-14 pl-8"
       />
-      <Badge
+      <Kbd
         variant="outline"
+        size="sm"
         className="pointer-events-none absolute top-1/2 right-2 hidden -translate-y-1/2 sm:inline-flex"
       >
-        ⌘K
-      </Badge>
+        ⌘ K
+      </Kbd>
     </div>
-  )
+  );
 }

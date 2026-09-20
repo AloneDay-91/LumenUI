@@ -33,7 +33,7 @@ export function Preview({
   return (
     <Card
       className={cn(
-        "min-h-36 flex-row flex-wrap items-center justify-center gap-4 px-6 py-10",
+        "w-full min-h-36 flex-row flex-wrap items-center justify-center gap-4 px-6 py-10",
         className
       )}
     >

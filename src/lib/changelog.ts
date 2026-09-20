@@ -58,7 +58,49 @@ const addedComponents: ChangelogLink[] = [
   { name: "Tooltip", href: "/docs/components/tooltip", new: true },
 ]
 
+const nativeComponents: ChangelogLink[] = [
+  { name: "Aspect Ratio", href: "/docs/components/aspect-ratio", new: true },
+  { name: "Breadcrumb", href: "/docs/components/breadcrumb", new: true },
+  { name: "Button Group", href: "/docs/components/button-group", new: true },
+  { name: "Command", href: "/docs/components/command", new: true },
+  { name: "Empty", href: "/docs/components/empty", new: true },
+  { name: "Input Group", href: "/docs/components/input-group", new: true },
+  { name: "Kbd", href: "/docs/components/kbd", new: true },
+  { name: "Pagination", href: "/docs/components/pagination", new: true },
+  { name: "Rating", href: "/docs/components/rating", new: true },
+  { name: "Spinner", href: "/docs/components/spinner", new: true },
+  { name: "Stepper", href: "/docs/components/stepper", new: true },
+  { name: "Table", href: "/docs/components/table", new: true },
+  { name: "Timeline", href: "/docs/components/timeline", new: true },
+]
+
 export const changelog: ChangelogRelease[] = [
+  {
+    version: "0.5.0",
+    date: "2026-09-20",
+    summary:
+      "Thirteen new native components, a logo favicon, and full-width docs previews.",
+    items: [
+      {
+        kind: "added",
+        text: "Native components outside Base UI — framed table, stepper, command, and more.",
+        links: nativeComponents,
+      },
+      {
+        kind: "added",
+        text: "Favicon and Apple touch icon from the Lumen mark.",
+      },
+      {
+        kind: "changed",
+        text: "Docs previews always fill the card. Smaller examples stay centered.",
+      },
+      {
+        kind: "changed",
+        text: "Themes playground removed. /themes and /docs/themes redirect to Styles.",
+        href: "/docs/styles",
+      },
+    ],
+  },
   {
     version: "0.4.0",
     date: "2026-09-19",

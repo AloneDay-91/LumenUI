@@ -173,27 +173,35 @@
   @apply rounded-md bg-muted px-1 py-0.5 font-mono text-xs;
 }
 
-.docs-article :where(table) {
+.docs-article :where(table:not([data-slot="table"])) {
   @apply w-full min-w-[36rem] border-collapse text-left text-sm;
 }
 
-.docs-article :where(th) {
+.docs-article :where(table:not([data-slot="table"]) th) {
   @apply border-b border-border px-3 py-2 text-xs font-medium text-muted-foreground;
 }
 
-.docs-article :where(td) {
+.docs-article :where(table:not([data-slot="table"]) td) {
   @apply border-b border-border px-3 py-2.5 align-top text-muted-foreground;
 }
 
-.docs-article :where(td:first-child, th:first-child) {
+.docs-article
+  :where(
+    table:not([data-slot="table"]) td:first-child,
+    table:not([data-slot="table"]) th:first-child
+  ) {
   @apply pl-0;
 }
 
-.docs-article :where(td:last-child, th:last-child) {
+.docs-article
+  :where(
+    table:not([data-slot="table"]) td:last-child,
+    table:not([data-slot="table"]) th:last-child
+  ) {
   @apply pr-0;
 }
 
-.docs-article :where(td code) {
+.docs-article :where(table:not([data-slot="table"]) td code) {
   @apply break-all whitespace-pre-wrap;
 }
 

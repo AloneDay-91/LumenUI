@@ -78,7 +78,7 @@ export function CopyPageButton() {
       </Button>
       <Separator
         orientation="vertical"
-        className="self-stretch data-vertical:h-auto"
+        className="self-stretch data-vertical:h-auto w-[1px]"
       />
       <DropdownMenu>
         <DropdownMenuTrigger
