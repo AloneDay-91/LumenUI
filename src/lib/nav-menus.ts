@@ -104,6 +104,7 @@ export const navMenus: NavMenu[] = [
           { href: "/docs/components/tabs", label: "Tabs" },
           { href: "/docs/components/pagination", label: "Pagination" },
           { href: "/docs/components/navigation-menu", label: "Navigation Menu" },
+          { href: "/docs/components/sidebar", label: "Sidebar" },
           { href: "/docs/components/menubar", label: "Menubar" },
           { href: "/docs/components/stepper", label: "Stepper" },
         ],

@@ -48,7 +48,7 @@ const start = [
   {
     href: "/examples",
     title: "Examples",
-    description: "A bento of usages, outside the docs.",
+    description: "Composed cards, outside the docs.",
   },
   {
     href: "/docs/changelog",
@@ -78,7 +78,9 @@ export default function DocsPage() {
         <AlertTitle>Copy-paste, not a library</AlertTitle>
         <AlertDescription>
           If you are starting, begin with installation. For the visual language,
-          see styles. The rest of the reference is in the sidebar.
+          see styles. The rest of the reference is in the sidebar. Agents can
+          read the whole system at <code>/llms.txt</code>, or the full corpus
+          at <code>/llms-full.txt</code>.
         </AlertDescription>
       </Alert>
 

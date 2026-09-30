@@ -76,6 +76,34 @@ const nativeComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "0.6.0",
+    date: "2026-09-30",
+    summary:
+      "A collapsible sidebar, an examples gallery, and an llms.txt corpus for agents.",
+    items: [
+      {
+        kind: "added",
+        text: "Collapsible sidebar: expanded, icon, off-canvas, and a drawer below the md breakpoint.",
+        href: "/docs/components/sidebar",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Agents can read the whole system at /llms.txt, or the full docs, usage, API, and source at /llms-full.txt.",
+      },
+      {
+        kind: "changed",
+        text: "Examples are a card gallery of composed usages.",
+        href: "/examples",
+      },
+      {
+        kind: "fixed",
+        text: "Separator follows data-orientation, so horizontal and vertical rules stay visible.",
+        href: "/docs/components/separator",
+      },
+    ],
+  },
+  {
     version: "0.5.0",
     date: "2026-09-20",
     summary:

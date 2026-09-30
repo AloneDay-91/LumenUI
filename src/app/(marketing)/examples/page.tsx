@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 
-import { ExamplesBento } from "@/components/marketing/ExamplesBento"
+import { ExamplesGallery } from "@/components/marketing/ExamplesGallery"
 import { LANDING_MAX_WIDTH } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Examples",
-  description: "Composed usages of Lumen UI components, as a bento.",
+  description: "The same composed examples as the card gallery: charts, forms, empty states, and account flows.",
 }
 
 export default function ExamplesPage() {
@@ -19,7 +19,7 @@ export default function ExamplesPage() {
       )}
     >
       <h1 className="sr-only">Examples</h1>
-      <ExamplesBento />
+      <ExamplesGallery />
     </main>
   )
 }

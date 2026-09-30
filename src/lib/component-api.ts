@@ -1083,6 +1083,159 @@ export const componentApis: Record<string, ComponentApi> = {
       ]),
     ],
   },
+  sidebar: {
+    slug: "sidebar",
+    source: "src/components/ui/Sidebar.tsx",
+    parts: [
+      part(
+        "SidebarProvider",
+        "Shell. Owns open state, the mobile drawer, and the ⌘B / Ctrl+B shortcut.",
+        [
+          className,
+          {
+            name: "defaultOpen",
+            type: "boolean",
+            default: "true",
+            description: "Uncontrolled initial desktop state.",
+          },
+          open,
+          {
+            name: "onOpenChange",
+            type: "(open: boolean) => void",
+            description: "Called when the desktop sidebar opens or closes.",
+          },
+          {
+            name: "shortcut",
+            type: "boolean",
+            default: "true",
+            description: "Listen for ⌘B / Ctrl+B. Turn off when several sidebars share a page.",
+          },
+          children,
+        ]
+      ),
+      part(
+        "Sidebar",
+        "The panel. Below md it becomes a Drawer. collapsible=\"none\" stays open.",
+        [
+          className,
+          {
+            name: "side",
+            type: '"left" | "right"',
+            default: '"left"',
+            description: "Edge the panel sits on.",
+          },
+          {
+            name: "variant",
+            type: '"sidebar" | "floating" | "inset"',
+            default: '"sidebar"',
+            description:
+              "Flat column, floating card, or inset — pair inset with SidebarInset.",
+          },
+          {
+            name: "collapsible",
+            type: '"offcanvas" | "icon" | "none"',
+            default: '"offcanvas"',
+            description: "Slides away, shrinks to icons, or stays open.",
+          },
+          children,
+        ]
+      ),
+      part("SidebarTrigger", "Ghost icon button. Toggles desktop or the mobile drawer.", [
+        className,
+        children,
+      ]),
+      part("SidebarRail", "Edge hit target that toggles the desktop sidebar.", [
+        className,
+      ]),
+      part("SidebarInset", "Main column. With variant=\"inset\" it becomes the paper card.", [
+        className,
+        children,
+      ]),
+      part("SidebarHeader", "Top of the panel.", [className, children]),
+      part("SidebarContent", "Scrollable middle. Put groups here.", [
+        className,
+        children,
+      ]),
+      part("SidebarFooter", "Pinned to the bottom of the panel.", [
+        className,
+        children,
+      ]),
+      part("SidebarGroup", "Section inside the content.", [className, children]),
+      part("SidebarGroupLabel", "Section title. Pass render to make it a CollapsibleTrigger.", [
+        className,
+        render,
+        children,
+      ]),
+      part("SidebarGroupAction", "Icon button at the end of a group label.", [
+        className,
+        children,
+      ]),
+      part("SidebarGroupContent", "Body of a group.", [className, children]),
+      part("SidebarMenu", "List of actions.", [className, children]),
+      part("SidebarMenuItem", "One row. Position anchor for the badge and action.", [
+        className,
+        children,
+      ]),
+      part("SidebarMenuButton", "Pill row. Tooltip shows when the sidebar is collapsed to icons.", [
+        className,
+        {
+          name: "isActive",
+          type: "boolean",
+          default: "false",
+          description: "Marks the current destination.",
+        },
+        {
+          name: "tooltip",
+          type: "string",
+          description: "Label shown beside the icon when collapsed.",
+        },
+        {
+          name: "size",
+          type: '"default" | "sm" | "lg"',
+          default: '"default"',
+          description: "Row height.",
+        },
+        render,
+        children,
+      ]),
+      part("SidebarMenuAction", "Hover action on the trailing edge of a row.", [
+        className,
+        children,
+      ]),
+      part("SidebarMenuBadge", "Outline badge pinned to the row.", [
+        className,
+        children,
+      ]),
+      part("SidebarMenuSkeleton", "Placeholder row.", [
+        className,
+        {
+          name: "showIcon",
+          type: "boolean",
+          default: "false",
+          description: "Reserve a square for the icon.",
+        },
+      ]),
+      part("SidebarMenuSub", "Nested list. Hidden in icon mode.", [
+        className,
+        children,
+      ]),
+      part("SidebarMenuSubItem", "One nested row.", [className, children]),
+      part("SidebarMenuSubButton", "Nested pill. Defaults to an anchor.", [
+        className,
+        {
+          name: "isActive",
+          type: "boolean",
+          default: "false",
+          description: "Marks the current nested destination.",
+        },
+        render,
+        children,
+      ]),
+      part("SidebarSeparator", "Hairline between sections. Uses Separator.", [
+        className,
+      ]),
+    ],
+  },
   skeleton: {
     slug: "skeleton",
     source: "src/components/ui/Skeleton.tsx",

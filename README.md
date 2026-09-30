@@ -88,9 +88,9 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 
 ## Changelog
 
-Latest: **v0.5.0** — native components, logo favicon, full-width previews.
+Latest: **v0.6.0** — sidebar, examples gallery, and an llms.txt corpus for agents.
 
-See [`src/lib/changelog.ts`](src/lib/changelog.ts) or the [v0.5.0 tag](https://github.com/AloneDay-91/LumenUI/releases/tag/v0.5.0).
+See [`src/lib/changelog.ts`](src/lib/changelog.ts).
 
 ## Source
 

@@ -66,6 +66,7 @@ export const docsSections: DocsNavSection[] = [
       { name: "Scroll Area", href: "/docs/components/scroll-area" },
       { name: "Select", href: "/docs/components/select" },
       { name: "Separator", href: "/docs/components/separator" },
+      { name: "Sidebar", href: "/docs/components/sidebar" },
       { name: "Skeleton", href: "/docs/components/skeleton" },
       { name: "Slider", href: "/docs/components/slider" },
       { name: "Spinner", href: "/docs/components/spinner" },

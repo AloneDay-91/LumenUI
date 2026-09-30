@@ -1,9 +1,16 @@
 import { access, readFile, readdir } from "node:fs/promises"
 import path from "node:path"
 
+import {
+  changelog,
+  changelogKindLabel,
+  formatChangelogDate,
+  type ChangelogKind,
+} from "@/lib/changelog"
 import { getComponentApi } from "@/lib/component-api"
 import { getDocsLocation } from "@/lib/docs-nav"
-import { SITE_NAME } from "@/lib/site"
+import { LUMEN_GLOBAL_CSS } from "@/lib/lumen-css"
+import { formatDocsVersion, SITE_NAME } from "@/lib/site"
 
 const UI_DIR = path.join(process.cwd(), "src/components/ui")
 const SKIP_PACKAGES = new Set(["react", "react-dom", "next"])
@@ -24,7 +31,6 @@ export async function getDocsMarkdown(pathname: string, origin: string) {
   const description =
     extractQuotedProp(pageSource, "description") ?? title
   const usage = extractTemplateProp(pageSource, "usage")
-  const codeBlocks = extractCodeBlocks(pageSource)
   const componentSlug = pathname.startsWith("/docs/components/")
     ? pathname.slice("/docs/components/".length)
     : undefined
@@ -63,16 +69,11 @@ export async function getDocsMarkdown(pathname: string, origin: string) {
     lines.push("## Usage", "", "```tsx", usage.trim(), "```", "")
   }
 
-  if (!usage && codeBlocks.length > 0) {
-    lines.push("## Excerpts", "")
-    for (const block of codeBlocks) {
-      const lang = block.language ?? "tsx"
-      const heading = block.filename ? `### \`${block.filename}\`` : undefined
-      if (heading) {
-        lines.push(heading, "")
-      }
-      lines.push(`\`\`\`${lang}`, block.code.trim(), "```", "")
-    }
+  if (pathname === "/docs/changelog") {
+    appendChangelog(lines, origin)
+  } else {
+    const related = await readRelatedExampleSources(pageSource)
+    appendDocBlocks(lines, [pageSource, ...related].flatMap(extractDocBlocks))
   }
 
   if (componentSlug) {
@@ -145,21 +146,152 @@ function extractTemplateProp(source: string, name: string) {
   return source.match(new RegExp(`${name}=\\{\`([\\s\\S]*?)\`\\}`))?.[1]
 }
 
-function extractCodeBlocks(source: string) {
-  const blocks: { filename?: string; language?: string; code: string }[] = []
-  const regex =
-    /<CodeBlock\b([^>]*)code=\{\`([\s\S]*?)\`\}/g
+type DocBlock =
+  | { kind: "heading"; text: string }
+  | { kind: "paragraph"; text: string }
+  | { kind: "code"; filename?: string; language?: string; code: string }
 
-  for (const match of source.matchAll(regex)) {
+function extractDocBlocks(source: string) {
+  const blocks: (DocBlock & { index: number })[] = []
+
+  for (const match of source.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)) {
+    const text = inlineText(match[1] ?? "")
+    if (text) {
+      blocks.push({ kind: "heading", text, index: match.index ?? 0 })
+    }
+  }
+
+  for (const match of source.matchAll(/<p(?![^>]*\bclassName=)\b[^>]*>([\s\S]*?)<\/p>/g)) {
+    const text = inlineText(match[1] ?? "")
+    if (text) {
+      blocks.push({ kind: "paragraph", text, index: match.index ?? 0 })
+    }
+  }
+
+  for (const match of source.matchAll(/<CodeBlock\b([^>]*?)code=\{\`([\s\S]*?)\`\}/g)) {
     const attrs = match[1] ?? ""
     blocks.push({
+      kind: "code",
       filename: attrs.match(/filename="([^"]+)"/)?.[1],
       language: attrs.match(/language="([^"]+)"/)?.[1],
       code: match[2] ?? "",
+      index: match.index ?? 0,
     })
   }
 
-  return blocks
+  for (const match of source.matchAll(/<CodeBlock\b([^>]*?)code=\{LUMEN_GLOBAL_CSS\}/g)) {
+    const attrs = match[1] ?? ""
+    blocks.push({
+      kind: "code",
+      filename: attrs.match(/filename="([^"]+)"/)?.[1] ?? "app/globals.css",
+      language: attrs.match(/language="([^"]+)"/)?.[1] ?? "css",
+      code: LUMEN_GLOBAL_CSS,
+      index: match.index ?? 0,
+    })
+  }
+
+  return blocks.sort((a, b) => a.index - b.index)
+}
+
+function appendDocBlocks(lines: string[], blocks: DocBlock[]) {
+  for (const block of blocks) {
+    switch (block.kind) {
+      case "heading":
+        lines.push(`## ${block.text}`, "")
+        break
+      case "paragraph":
+        lines.push(block.text, "")
+        break
+      case "code": {
+        if (block.filename) {
+          lines.push(`### \`${block.filename}\``, "")
+        }
+        const lang = block.language ?? "tsx"
+        lines.push(`\`\`\`${lang}`, block.code.trim(), "```", "")
+        break
+      }
+      default: {
+        const exhaustive: never = block
+        return exhaustive
+      }
+    }
+  }
+}
+
+function inlineText(value: string) {
+  return value
+    .replace(/<code>([\s\S]*?)<\/code>/g, "`$1`")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\{`([^`]+)`\}/g, "$1")
+    .replace(/\{[A-Za-z0-9_.]+\}/g, "")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#39;", "'")
+    .replaceAll("&amp;", "&")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
+async function readRelatedExampleSources(pageSource: string) {
+  const extraNames = new Set(
+    [...pageSource.matchAll(/extra=\{<([A-Z]\w*)/g)].map((match) => match[1] ?? "")
+  )
+  if (extraNames.size === 0) {
+    return []
+  }
+
+  const sources: string[] = []
+  for (const match of pageSource.matchAll(/import\s+\{([^}]+)\}\s+from\s+["'](@\/[^"']+)["']/g)) {
+    const names = (match[1] ?? "").split(",").map((part) => {
+      const bits = part.trim().split(/\s+/)
+      return bits.at(-1) ?? ""
+    })
+    if (!names.some((name) => extraNames.has(name))) {
+      continue
+    }
+
+    const spec = match[2] ?? ""
+    const base = path.join(process.cwd(), "src", spec.slice(2))
+    for (const candidate of [base, `${base}.tsx`, `${base}.ts`]) {
+      if (await exists(candidate)) {
+        sources.push(await readFile(candidate, "utf8"))
+        break
+      }
+    }
+  }
+
+  return sources
+}
+
+const changelogKinds: ChangelogKind[] = ["added", "changed", "fixed"]
+
+function appendChangelog(lines: string[], origin: string) {
+  for (const release of changelog) {
+    lines.push(
+      `## ${formatDocsVersion(release.version)}`,
+      "",
+      release.summary,
+      "",
+      formatChangelogDate(release.date),
+      ""
+    )
+
+    for (const kind of changelogKinds) {
+      const items = release.items.filter((item) => item.kind === kind)
+      if (items.length === 0) {
+        continue
+      }
+
+      lines.push(`### ${changelogKindLabel(kind)}`, "")
+      for (const item of items) {
+        const href = item.href ? ` (${origin}${item.href})` : ""
+        lines.push(`- ${item.text}${href}`)
+        for (const link of item.links ?? []) {
+          lines.push(`  - [${link.name}](${origin}${link.href})`)
+        }
+      }
+      lines.push("")
+    }
+  }
 }
 
 async function findUiFile(slug: string) {
