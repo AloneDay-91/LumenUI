@@ -80,7 +80,7 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 | Page | What it is |
 | --- | --- |
 | `/docs` | Introduction |
-| `/docs/installation` | Dependencies, tokens, `cn()` |
+| `/docs/installation` | CLI, dependencies, tokens, `cn()` |
 | `/docs/styles` | Palette, type, theming |
 | `/docs/components/button` | First component to copy |
 | `/docs/changelog` | Release notes |
@@ -88,7 +88,7 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 
 ## Changelog
 
-Latest: **v0.6.0** — sidebar, examples gallery, and an llms.txt corpus for agents.
+Latest: **v0.7.0** — charts, carousel, calendar, date picker, item, typography, and a copy CLI.
 
 See [`src/lib/changelog.ts`](src/lib/changelog.ts).
 

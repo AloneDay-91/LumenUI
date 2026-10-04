@@ -1,0 +1,19 @@
+{
+  "name": "toolbar",
+  "title": "Toolbar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button-variants",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Toolbar.tsx",
+      "content": "\"use client\"\n\nimport { Toolbar as ToolbarPrimitive } from \"@base-ui/react/toolbar\"\n\nimport { buttonVariants } from \"@/components/ui/button-variants\"\nimport { cn } from \"@/lib/utils\"\n\nfunction Toolbar({ className, ...props }: ToolbarPrimitive.Root.Props) {\n  return (\n    <ToolbarPrimitive.Root\n      data-slot=\"toolbar\"\n      className={cn(\n        \"flex w-fit items-center gap-1 rounded-full border border-border bg-background p-1\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ToolbarButton({ className, ...props }: ToolbarPrimitive.Button.Props) {\n  return (\n    <ToolbarPrimitive.Button\n      data-slot=\"toolbar-button\"\n      className={cn(buttonVariants({ variant: \"ghost\", size: \"sm\" }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToolbarSeparator({\n  className,\n  ...props\n}: ToolbarPrimitive.Separator.Props) {\n  return (\n    <ToolbarPrimitive.Separator\n      data-slot=\"toolbar-separator\"\n      className={cn(\"h-4 w-px bg-border\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToolbarGroup({ className, ...props }: ToolbarPrimitive.Group.Props) {\n  return (\n    <ToolbarPrimitive.Group\n      data-slot=\"toolbar-group\"\n      className={cn(\"flex items-center gap-0.5\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Toolbar, ToolbarButton, ToolbarSeparator, ToolbarGroup }\n"
+    }
+  ]
+}

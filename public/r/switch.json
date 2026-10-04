@@ -1,0 +1,18 @@
+{
+  "name": "switch",
+  "title": "Switch",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Switch.tsx",
+      "content": "\"use client\"\n\nimport { Switch as SwitchPrimitive } from \"@base-ui/react/switch\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Switch({ className, ...props }: SwitchPrimitive.Root.Props) {\n  return (\n    <SwitchPrimitive.Root\n      data-slot=\"switch\"\n      className={cn(\n        \"inline-flex h-5 w-8 shrink-0 items-center rounded-full bg-input/80 p-0.5 outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50 data-checked:bg-primary\",\n        className\n      )}\n      {...props}\n    >\n      <SwitchPrimitive.Thumb\n        data-slot=\"switch-thumb\"\n        className=\"block size-4 rounded-full bg-background shadow-sm transition-transform data-checked:translate-x-3\"\n      />\n    </SwitchPrimitive.Root>\n  )\n}\n\nexport { Switch }\n"
+    }
+  ]
+}

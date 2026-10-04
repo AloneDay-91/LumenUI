@@ -1,0 +1,19 @@
+{
+  "name": "button",
+  "title": "Button",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button-variants",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Button.tsx",
+      "content": "\"use client\"\n\nimport { Button as ButtonPrimitive } from \"@base-ui/react/button\"\n\nimport { cn } from \"@/lib/utils\"\nimport {\n  buttonVariants,\n  type ButtonVariantProps,\n} from \"@/components/ui/button-variants\"\n\nfunction Button({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  nativeButton,\n  render,\n  ...props\n}: ButtonPrimitive.Props & ButtonVariantProps) {\n  return (\n    <ButtonPrimitive\n      data-slot=\"button\"\n      render={render}\n      nativeButton={nativeButton ?? !render}\n      className={cn(buttonVariants({ variant, size }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Button }\n"
+    }
+  ]
+}

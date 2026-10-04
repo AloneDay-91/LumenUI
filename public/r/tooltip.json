@@ -1,0 +1,19 @@
+{
+  "name": "tooltip",
+  "title": "Tooltip",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Tooltip.tsx",
+      "content": "\"use client\"\n\nimport { Tooltip as TooltipPrimitive } from \"@base-ui/react/tooltip\"\n\nimport { popupClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction TooltipProvider(props: TooltipPrimitive.Provider.Props) {\n  return <TooltipPrimitive.Provider data-slot=\"tooltip-provider\" {...props} />\n}\n\nfunction Tooltip(props: TooltipPrimitive.Root.Props) {\n  return <TooltipPrimitive.Root data-slot=\"tooltip\" {...props} />\n}\n\nfunction TooltipTrigger(props: TooltipPrimitive.Trigger.Props) {\n  return <TooltipPrimitive.Trigger data-slot=\"tooltip-trigger\" {...props} />\n}\n\nfunction TooltipContent({\n  className,\n  sideOffset = 6,\n  ...props\n}: TooltipPrimitive.Popup.Props &\n  Pick<TooltipPrimitive.Positioner.Props, \"side\" | \"sideOffset\">) {\n  return (\n    <TooltipPrimitive.Portal>\n      <TooltipPrimitive.Positioner\n        className=\"isolate z-50 outline-none\"\n        sideOffset={sideOffset}\n      >\n        <TooltipPrimitive.Popup\n          data-slot=\"tooltip-content\"\n          className={cn(\n            popupClassName,\n            \"z-50 max-w-xs px-2.5 py-1.5 text-xs\",\n            className\n          )}\n          {...props}\n        />\n      </TooltipPrimitive.Positioner>\n    </TooltipPrimitive.Portal>\n  )\n}\n\nexport { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent }\n"
+    }
+  ]
+}

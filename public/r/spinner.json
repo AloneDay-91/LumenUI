@@ -1,0 +1,18 @@
+{
+  "name": "spinner",
+  "title": "Spinner",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Spinner.tsx",
+      "content": "import { LoaderCircleIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Spinner({ className, ...props }: React.ComponentProps<\"svg\">) {\n  return (\n    <LoaderCircleIcon\n      data-slot=\"spinner\"\n      // No size here: inside a Button the size rules of buttonVariants apply,\n      // and standalone it inherits the 1em default of a lucide icon.\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"animate-spin\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Spinner }\n"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
-import { ComponentDocs } from "@/components/docs/ComponentDocs"
-import { Separator } from "@/components/ui/Separator"
+import { ComponentDocs } from "@/components/docs/ComponentDocs";
+import { Separator } from "@/components/ui/Separator";
 
 export default function SeparatorPage() {
   return (
@@ -17,5 +17,5 @@ export default function SeparatorPage() {
 
 <Separator />`}
     />
-  )
+  );
 }

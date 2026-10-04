@@ -1,0 +1,684 @@
+{
+  "name": "lumen",
+  "items": [
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert Dialog",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "Aspect Ratio",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "autocomplete",
+      "title": "Autocomplete",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button-variants",
+        "utils"
+      ]
+    },
+    {
+      "name": "button-group",
+      "title": "Button Group",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "calendar",
+      "title": "Calendar",
+      "dependencies": [
+        "@daypicker/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-variants",
+        "utils"
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "carousel",
+      "title": "Carousel",
+      "dependencies": [
+        "embla-carousel",
+        "embla-carousel-autoplay",
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkbox-group",
+      "title": "Checkbox Group",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "command",
+      "title": "Command",
+      "dependencies": [
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dialog",
+        "kbd",
+        "utils"
+      ]
+    },
+    {
+      "name": "context-menu",
+      "title": "Context Menu",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "title": "Date Picker",
+      "dependencies": [
+        "@daypicker/react",
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover",
+        "utils"
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "empty",
+      "title": "Empty",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "fieldset",
+      "title": "Fieldset",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "form",
+      "title": "Form",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "input-group",
+      "title": "Input Group",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "item",
+      "title": "Item",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "separator",
+        "utils"
+      ]
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "menu",
+      "title": "Menu",
+      "dependencies": [],
+      "registryDependencies": [
+        "dropdown-menu"
+      ]
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "meter",
+      "title": "Meter",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "title": "Navigation Menu",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "number-field",
+      "title": "Number Field",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "otp-field",
+      "title": "OTP Field",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "preview-card",
+      "title": "Preview Card",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "rating",
+      "title": "Rating",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "button-variants",
+        "drawer",
+        "scroll-area",
+        "separator",
+        "skeleton",
+        "tooltip",
+        "utils"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "timeline",
+      "title": "Timeline",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-variants",
+        "utils"
+      ]
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toolbar",
+      "title": "Toolbar",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button-variants",
+        "utils"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "typography",
+      "title": "Typography",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    }
+  ]
+}

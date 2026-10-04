@@ -1,0 +1,23 @@
+{
+  "name": "lumenui",
+  "version": "0.7.0",
+  "description": "Copy Lumen UI components into your project.",
+  "type": "module",
+  "bin": {
+    "lumenui": "./bin/lumenui.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "registry"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AloneDay-91/LumenUI.git",
+    "directory": "cli"
+  },
+  "license": "MIT"
+}

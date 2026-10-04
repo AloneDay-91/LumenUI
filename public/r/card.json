@@ -1,0 +1,18 @@
+{
+  "name": "card",
+  "title": "Card",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Card.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst cardVariants = cva(\n  \"group/card flex flex-col overflow-hidden rounded-[min(var(--radius-4xl),24px)] text-sm\",\n  {\n    variants: {\n      variant: {\n        default: \"border border-border bg-card text-card-foreground\",\n        secondary: \"bg-secondary text-secondary-foreground\",\n      },\n      size: {\n        default: \"gap-5 py-5\",\n        sm: \"gap-4 py-4\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nfunction Card({\n  className,\n  size = \"default\",\n  variant = \"default\",\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof cardVariants>) {\n  return (\n    <div\n      data-slot=\"card\"\n      data-size={size}\n      data-variant={variant}\n      className={cn(cardVariants({ size, variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-header\"\n      className={cn(\"grid items-start gap-1.5 px-5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-title\"\n      className={cn(\"font-heading text-sm font-medium\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-description\"\n      className={cn(\"text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"card-content\" className={cn(\"px-5\", className)} {...props} />\n  )\n}\n\nfunction CardFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-footer\"\n      className={cn(\"flex items-center px-5\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Card,\n  CardHeader,\n  CardFooter,\n  CardTitle,\n  CardDescription,\n  CardContent,\n  cardVariants,\n}\n"
+    }
+  ]
+}

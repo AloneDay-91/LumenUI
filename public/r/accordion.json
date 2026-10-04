@@ -1,0 +1,19 @@
+{
+  "name": "accordion",
+  "title": "Accordion",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Accordion.tsx",
+      "content": "\"use client\"\n\nimport { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\"\nimport { ChevronDownIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {\n  return (\n    <AccordionPrimitive.Root\n      data-slot=\"accordion\"\n      className={cn(\"flex w-full flex-col\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {\n  return (\n    <AccordionPrimitive.Item\n      data-slot=\"accordion-item\"\n      className={cn(\"border-b border-border\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionTrigger({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Trigger.Props) {\n  return (\n    <AccordionPrimitive.Header className=\"flex\">\n      <AccordionPrimitive.Trigger\n        data-slot=\"accordion-trigger\"\n        className={cn(\n          \"flex flex-1 items-center justify-between gap-3 py-3 text-left text-sm font-medium outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50 [&[data-panel-open]>svg]:rotate-180\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        <ChevronDownIcon className=\"size-4 shrink-0 text-muted-foreground transition-transform duration-200\" />\n      </AccordionPrimitive.Trigger>\n    </AccordionPrimitive.Header>\n  )\n}\n\nfunction AccordionPanel({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Panel.Props) {\n  return (\n    <AccordionPrimitive.Panel\n      data-slot=\"accordion-panel\"\n      className={cn(\n        \"h-[var(--accordion-panel-height)] overflow-hidden text-sm text-muted-foreground transition-[height] duration-200 data-ending-style:h-0 data-starting-style:h-0\",\n        className\n      )}\n      {...props}\n    >\n      <div className=\"pb-3\">{children}</div>\n    </AccordionPrimitive.Panel>\n  )\n}\n\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionPanel }\n"
+    }
+  ]
+}

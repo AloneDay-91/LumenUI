@@ -74,7 +74,46 @@ const nativeComponents: ChangelogLink[] = [
   { name: "Timeline", href: "/docs/components/timeline", new: true },
 ]
 
+const releaseComponents: ChangelogLink[] = [
+  { name: "Calendar", href: "/docs/components/calendar", new: true },
+  { name: "Carousel", href: "/docs/components/carousel", new: true },
+  { name: "Chart", href: "/docs/components/chart", new: true },
+  { name: "Date Picker", href: "/docs/components/date-picker", new: true },
+  { name: "Item", href: "/docs/components/item", new: true },
+  { name: "Typography", href: "/docs/components/typography", new: true },
+]
+
 export const changelog: ChangelogRelease[] = [
+  {
+    version: "0.7.0",
+    date: "2026-10-04",
+    summary:
+      "Charts, a carousel, a calendar, a date picker, item rows, typography, and a copy CLI.",
+    items: [
+      {
+        kind: "added",
+        text: "Chart, carousel, calendar, date picker, item, and typography.",
+        links: releaseComponents,
+      },
+      {
+        kind: "added",
+        text: "lumenui add, rm, and add all copy a component and install its npm dependencies.",
+        href: "/docs/installation",
+      },
+      {
+        kind: "added",
+        text: "LLMs page for the plain-text index and the full corpus.",
+        href: "/docs/llms",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "The Components section opens the component index.",
+        href: "/docs/components",
+        new: true,
+      },
+    ],
+  },
   {
     version: "0.6.0",
     date: "2026-09-30",

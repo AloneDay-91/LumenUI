@@ -1,0 +1,20 @@
+{
+  "name": "combobox",
+  "title": "Combobox",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Combobox.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Combobox as ComboboxPrimitive } from \"@base-ui/react/combobox\"\nimport { CheckIcon, ChevronDownIcon } from \"lucide-react\"\n\nimport { inputClassName, menuItemClassName, popupClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction Combobox(props: React.ComponentProps<typeof ComboboxPrimitive.Root>) {\n  return <ComboboxPrimitive.Root data-slot=\"combobox\" {...props} />\n}\n\nfunction ComboboxInput({ className, ...props }: ComboboxPrimitive.Input.Props) {\n  return (\n    <ComboboxPrimitive.Input\n      data-slot=\"combobox-input\"\n      className={cn(inputClassName, className)}\n      {...props}\n    />\n  )\n}\n\nfunction ComboboxTrigger({ className, ...props }: ComboboxPrimitive.Trigger.Props) {\n  return (\n    <ComboboxPrimitive.Trigger\n      data-slot=\"combobox-trigger\"\n      className={cn(\n        \"inline-flex size-8 items-center justify-center rounded-full text-muted-foreground outline-none hover:bg-muted\",\n        className\n      )}\n      {...props}\n    >\n      <ChevronDownIcon className=\"size-4\" />\n    </ComboboxPrimitive.Trigger>\n  )\n}\n\nfunction ComboboxContent({\n  className,\n  children,\n  ...props\n}: ComboboxPrimitive.Popup.Props) {\n  return (\n    <ComboboxPrimitive.Portal>\n      <ComboboxPrimitive.Positioner className=\"isolate z-50 outline-none\" sideOffset={4}>\n        <ComboboxPrimitive.Popup\n          data-slot=\"combobox-content\"\n          className={cn(\n            popupClassName,\n            \"z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-y-auto p-1\",\n            className\n          )}\n          {...props}\n        >\n          {children}\n        </ComboboxPrimitive.Popup>\n      </ComboboxPrimitive.Positioner>\n    </ComboboxPrimitive.Portal>\n  )\n}\n\nfunction ComboboxList(props: ComboboxPrimitive.List.Props) {\n  return <ComboboxPrimitive.List data-slot=\"combobox-list\" {...props} />\n}\n\nfunction ComboboxItem({\n  className,\n  children,\n  ...props\n}: ComboboxPrimitive.Item.Props) {\n  return (\n    <ComboboxPrimitive.Item\n      data-slot=\"combobox-item\"\n      className={cn(menuItemClassName, \"pr-8\", className)}\n      {...props}\n    >\n      {children}\n      <ComboboxPrimitive.ItemIndicator className=\"absolute right-2\">\n        <CheckIcon className=\"size-3.5\" />\n      </ComboboxPrimitive.ItemIndicator>\n    </ComboboxPrimitive.Item>\n  )\n}\n\nfunction ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {\n  return (\n    <ComboboxPrimitive.Empty\n      data-slot=\"combobox-empty\"\n      className={cn(\"px-2 py-1.5 text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Combobox,\n  ComboboxInput,\n  ComboboxTrigger,\n  ComboboxContent,\n  ComboboxList,\n  ComboboxItem,\n  ComboboxEmpty,\n}\n"
+    }
+  ]
+}

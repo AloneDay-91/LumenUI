@@ -1,0 +1,18 @@
+{
+  "name": "checkbox-group",
+  "title": "Checkbox Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "CheckboxGroup.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CheckboxGroup as CheckboxGroupPrimitive } from \"@base-ui/react/checkbox-group\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction CheckboxGroup({\n  className,\n  ...props\n}: React.ComponentProps<typeof CheckboxGroupPrimitive>) {\n  return (\n    <CheckboxGroupPrimitive\n      data-slot=\"checkbox-group\"\n      className={cn(\"flex flex-col gap-2\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { CheckboxGroup }\n"
+    }
+  ]
+}

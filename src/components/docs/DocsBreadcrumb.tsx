@@ -21,7 +21,20 @@ export function DocsBreadcrumb() {
     return null
   }
 
-  const sectionHref = location.section.items[0]?.href
+  const sectionHref = location.section.href ?? location.section.items[0]?.href
+  const onSection = location.section.href === pathname
+
+  if (onSection) {
+    return (
+      <Breadcrumb className="min-w-0">
+        <BreadcrumbList className="flex-nowrap">
+          <BreadcrumbItem>
+            <BreadcrumbPage>{location.section.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    )
+  }
 
   return (
     <Breadcrumb className="min-w-0">

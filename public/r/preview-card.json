@@ -1,0 +1,19 @@
+{
+  "name": "preview-card",
+  "title": "Preview Card",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "PreviewCard.tsx",
+      "content": "\"use client\"\n\nimport { PreviewCard as PreviewCardPrimitive } from \"@base-ui/react/preview-card\"\n\nimport { popupClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction PreviewCard(props: PreviewCardPrimitive.Root.Props) {\n  return <PreviewCardPrimitive.Root data-slot=\"preview-card\" {...props} />\n}\n\nfunction PreviewCardTrigger(props: PreviewCardPrimitive.Trigger.Props) {\n  return <PreviewCardPrimitive.Trigger data-slot=\"preview-card-trigger\" {...props} />\n}\n\nfunction PreviewCardContent({\n  className,\n  sideOffset = 8,\n  ...props\n}: PreviewCardPrimitive.Popup.Props &\n  Pick<PreviewCardPrimitive.Positioner.Props, \"side\" | \"sideOffset\">) {\n  return (\n    <PreviewCardPrimitive.Portal>\n      <PreviewCardPrimitive.Positioner\n        className=\"isolate z-50 outline-none\"\n        sideOffset={sideOffset}\n      >\n        <PreviewCardPrimitive.Popup\n          data-slot=\"preview-card-content\"\n          className={cn(popupClassName, \"z-50 w-72 p-4\", className)}\n          {...props}\n        />\n      </PreviewCardPrimitive.Positioner>\n    </PreviewCardPrimitive.Portal>\n  )\n}\n\nexport { PreviewCard, PreviewCardTrigger, PreviewCardContent }\n"
+    }
+  ]
+}

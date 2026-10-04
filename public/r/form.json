@@ -1,0 +1,18 @@
+{
+  "name": "form",
+  "title": "Form",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Form.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Form as FormPrimitive } from \"@base-ui/react/form\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Form({ className, ...props }: React.ComponentProps<typeof FormPrimitive>) {\n  return (\n    <FormPrimitive\n      data-slot=\"form\"\n      className={cn(\"flex flex-col gap-4\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Form }\n"
+    }
+  ]
+}

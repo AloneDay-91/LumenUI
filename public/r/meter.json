@@ -1,0 +1,18 @@
+{
+  "name": "meter",
+  "title": "Meter",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Meter.tsx",
+      "content": "\"use client\"\n\nimport { Meter as MeterPrimitive } from \"@base-ui/react/meter\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Meter({ className, children, ...props }: MeterPrimitive.Root.Props) {\n  return (\n    <MeterPrimitive.Root\n      data-slot=\"meter\"\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    >\n      {children ?? (\n        <MeterPrimitive.Track className=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n          <MeterPrimitive.Indicator className=\"h-full bg-primary\" />\n        </MeterPrimitive.Track>\n      )}\n    </MeterPrimitive.Root>\n  )\n}\n\nexport { Meter }\n"
+    }
+  ]
+}

@@ -29,9 +29,23 @@ export function DocsContents({ onNavigate }: { onNavigate?: () => void }) {
       ) : (
         filteredSections.map((section) => (
           <div key={section.title}>
-            <p className="mb-2 px-2 text-xs font-medium text-muted-foreground">
-              {section.title}
-            </p>
+            {section.href ? (
+              <Link
+                href={section.href}
+                onClick={onNavigate}
+                aria-current={pathname === section.href ? "page" : undefined}
+                className={cn(
+                  "mb-2 block rounded-lg px-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  pathname === section.href && "text-foreground"
+                )}
+              >
+                {section.title}
+              </Link>
+            ) : (
+              <p className="mb-2 px-2 text-xs font-medium text-muted-foreground">
+                {section.title}
+              </p>
+            )}
             <ul className="flex flex-col gap-0.5">
               {section.items.map((item) => {
                 const active = isNavActive(pathname, item.href)

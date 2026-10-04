@@ -1,0 +1,18 @@
+{
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "ScrollArea.tsx",
+      "content": "\"use client\"\n\nimport { ScrollArea as ScrollAreaPrimitive } from \"@base-ui/react/scroll-area\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction ScrollArea({\n  className,\n  children,\n  ...props\n}: ScrollAreaPrimitive.Root.Props) {\n  return (\n    <ScrollAreaPrimitive.Root\n      data-slot=\"scroll-area\"\n      className={cn(\"relative\", className)}\n      {...props}\n    >\n      <ScrollAreaPrimitive.Viewport\n        data-slot=\"scroll-area-viewport\"\n        className=\"size-full overflow-hidden rounded-[inherit]\"\n      >\n        {children}\n      </ScrollAreaPrimitive.Viewport>\n      <ScrollAreaPrimitive.Scrollbar\n        data-slot=\"scroll-area-scrollbar\"\n        className=\"m-1 flex w-1.5 justify-center rounded-full bg-transparent\"\n      >\n        <ScrollAreaPrimitive.Thumb className=\"w-full rounded-full bg-foreground/20\" />\n      </ScrollAreaPrimitive.Scrollbar>\n    </ScrollAreaPrimitive.Root>\n  )\n}\n\nexport { ScrollArea }\n"
+    }
+  ]
+}

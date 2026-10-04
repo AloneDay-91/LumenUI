@@ -1,0 +1,18 @@
+{
+  "name": "otp-field",
+  "title": "OTP Field",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "OTPField.tsx",
+      "content": "\"use client\"\n\nimport { OTPField as OTPFieldPrimitive } from \"@base-ui/react/otp-field\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction OTPField({ className, ...props }: OTPFieldPrimitive.Root.Props) {\n  return (\n    <OTPFieldPrimitive.Root\n      data-slot=\"otp-field\"\n      className={cn(\"flex items-center gap-2\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction OTPFieldInput({ className, ...props }: OTPFieldPrimitive.Input.Props) {\n  return (\n    <OTPFieldPrimitive.Input\n      data-slot=\"otp-field-input\"\n      className={cn(\n        \"size-9 rounded-xl border border-transparent bg-input/50 text-center text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction OTPFieldSeparator({\n  className,\n  ...props\n}: OTPFieldPrimitive.Separator.Props) {\n  return (\n    <OTPFieldPrimitive.Separator\n      data-slot=\"otp-field-separator\"\n      className={cn(\"text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { OTPField, OTPFieldInput, OTPFieldSeparator }\n"
+    }
+  ]
+}

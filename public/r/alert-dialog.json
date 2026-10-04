@@ -1,0 +1,19 @@
+{
+  "name": "alert-dialog",
+  "title": "Alert Dialog",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "AlertDialog.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { AlertDialog as AlertDialogPrimitive } from \"@base-ui/react/alert-dialog\"\n\nimport { backdropClassName, popupClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction AlertDialog(props: AlertDialogPrimitive.Root.Props) {\n  return <AlertDialogPrimitive.Root data-slot=\"alert-dialog\" {...props} />\n}\n\nfunction AlertDialogTrigger(props: AlertDialogPrimitive.Trigger.Props) {\n  return <AlertDialogPrimitive.Trigger data-slot=\"alert-dialog-trigger\" {...props} />\n}\n\nfunction AlertDialogClose(props: AlertDialogPrimitive.Close.Props) {\n  return <AlertDialogPrimitive.Close data-slot=\"alert-dialog-close\" {...props} />\n}\n\nfunction AlertDialogContent({\n  className,\n  ...props\n}: AlertDialogPrimitive.Popup.Props) {\n  return (\n    <AlertDialogPrimitive.Portal>\n      <AlertDialogPrimitive.Backdrop\n        data-slot=\"alert-dialog-backdrop\"\n        className={backdropClassName}\n      />\n      <AlertDialogPrimitive.Popup\n        data-slot=\"alert-dialog-content\"\n        className={cn(\n          popupClassName,\n          \"fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 p-5 sm:max-w-md\",\n          className\n        )}\n        {...props}\n      />\n    </AlertDialogPrimitive.Portal>\n  )\n}\n\nfunction AlertDialogHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-dialog-header\"\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDialogFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-dialog-footer\"\n      className={cn(\"flex flex-col-reverse gap-2 sm:flex-row sm:justify-end\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDialogTitle({\n  className,\n  ...props\n}: AlertDialogPrimitive.Title.Props) {\n  return (\n    <AlertDialogPrimitive.Title\n      data-slot=\"alert-dialog-title\"\n      className={cn(\"text-sm font-medium\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDialogDescription({\n  className,\n  ...props\n}: AlertDialogPrimitive.Description.Props) {\n  return (\n    <AlertDialogPrimitive.Description\n      data-slot=\"alert-dialog-description\"\n      className={cn(\"text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  AlertDialog,\n  AlertDialogTrigger,\n  AlertDialogClose,\n  AlertDialogContent,\n  AlertDialogHeader,\n  AlertDialogFooter,\n  AlertDialogTitle,\n  AlertDialogDescription,\n}\n"
+    }
+  ]
+}

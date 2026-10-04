@@ -1,0 +1,19 @@
+{
+  "name": "checkbox",
+  "title": "Checkbox",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Checkbox.tsx",
+      "content": "\"use client\"\n\nimport { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\"\nimport { CheckIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {\n  return (\n    <CheckboxPrimitive.Root\n      data-slot=\"checkbox\"\n      className={cn(\n        \"flex size-4 items-center justify-center rounded-md border border-transparent bg-input/50 text-primary-foreground transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50 data-checked:bg-primary data-checked:text-primary-foreground aria-invalid:border-destructive\",\n        className\n      )}\n      {...props}\n    >\n      <CheckboxPrimitive.Indicator\n        data-slot=\"checkbox-indicator\"\n        className=\"flex items-center justify-center text-current data-unchecked:hidden\"\n      >\n        <CheckIcon className=\"size-3\" />\n      </CheckboxPrimitive.Indicator>\n    </CheckboxPrimitive.Root>\n  )\n}\n\nexport { Checkbox }\n"
+    }
+  ]
+}

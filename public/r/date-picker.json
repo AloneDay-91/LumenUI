@@ -1,0 +1,23 @@
+{
+  "name": "date-picker",
+  "title": "Date Picker",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@daypicker/react",
+    "date-fns",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "popover",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "DatePicker.tsx",
+      "content": "\"use client\";\n\nimport { format, isSameDay } from \"date-fns\";\nimport type { DateRange } from \"@daypicker/react\";\nimport { CalendarIcon } from \"lucide-react\";\nimport * as React from \"react\";\n\nimport { Button } from \"@/components/ui/Button\";\nimport { Calendar } from \"@/components/ui/Calendar\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/Popover\";\nimport { cn } from \"@/lib/utils\";\n\nconst dateFormat = \"MMM d, yyyy\";\n\ntype DatePickerShared = {\n  placeholder?: string;\n  disabled?: boolean;\n  className?: string;\n  id?: string;\n};\n\ntype DatePickerSingleProps = DatePickerShared & {\n  mode?: \"single\";\n  value?: Date;\n  defaultValue?: Date;\n  onValueChange?: (date: Date | undefined) => void;\n};\n\ntype DatePickerRangeProps = DatePickerShared & {\n  mode: \"range\";\n  value?: DateRange;\n  defaultValue?: DateRange;\n  onValueChange?: (range: DateRange | undefined) => void;\n};\n\ntype DatePickerProps = DatePickerSingleProps | DatePickerRangeProps;\n\nfunction formatSingle(date: Date | undefined, placeholder: string) {\n  return date ? format(date, dateFormat) : placeholder;\n}\n\nfunction formatRange(range: DateRange | undefined, placeholder: string) {\n  if (!range?.from) return placeholder;\n  if (!range.to || isSameDay(range.from, range.to))\n    return format(range.from, dateFormat);\n  return `${format(range.from, dateFormat)} – ${format(range.to, dateFormat)}`;\n}\n\nfunction DatePicker(props: DatePickerProps) {\n  const { placeholder, disabled, className, id } = props;\n  const [open, setOpen] = React.useState(false);\n  const [singleState, setSingleState] = React.useState<Date | undefined>(\n    props.mode === \"range\" ? undefined : props.defaultValue,\n  );\n  const [rangeState, setRangeState] = React.useState<DateRange | undefined>(\n    props.mode === \"range\" ? props.defaultValue : undefined,\n  );\n  const controlled = \"value\" in props;\n\n  if (props.mode === \"range\") {\n    const range = controlled ? props.value : rangeState;\n    const label = formatRange(range, placeholder ?? \"Pick a range\");\n\n    return (\n      <Popover open={open} onOpenChange={setOpen}>\n        <PopoverTrigger\n          disabled={disabled}\n          render={\n            <Button\n              id={id}\n              variant=\"outline\"\n              disabled={disabled}\n              className={cn(\n                \"min-w-52 justify-start font-normal\",\n                !range?.from && \"text-muted-foreground\",\n                className,\n              )}\n            />\n          }\n        >\n          <CalendarIcon data-icon=\"inline-start\" />\n          {label}\n        </PopoverTrigger>\n        <PopoverContent align=\"start\" className=\"w-auto p-3\">\n          <Calendar\n            autoFocus\n            mode=\"range\"\n            selected={range}\n            onSelect={(next) => {\n              if (!controlled) setRangeState(next);\n              props.onValueChange?.(next);\n              if (next?.from && next.to && !isSameDay(next.from, next.to))\n                setOpen(false);\n            }}\n          />\n        </PopoverContent>\n      </Popover>\n    );\n  }\n\n  const date = controlled ? props.value : singleState;\n  const label = formatSingle(date, placeholder ?? \"Pick a date\");\n\n  return (\n    <Popover open={open} onOpenChange={setOpen}>\n      <PopoverTrigger\n        disabled={disabled}\n        render={\n          <Button\n            id={id}\n            variant=\"outline\"\n            disabled={disabled}\n            className={cn(\n              \"min-w-52 justify-start font-normal\",\n              !date && \"text-muted-foreground\",\n              className,\n            )}\n          />\n        }\n      >\n        <CalendarIcon data-icon=\"inline-start\" />\n        {label}\n      </PopoverTrigger>\n      <PopoverContent align=\"start\" className=\"w-auto p-3\">\n        <Calendar\n          autoFocus\n          mode=\"single\"\n          selected={date}\n          onSelect={(next) => {\n            if (!controlled) setSingleState(next);\n            props.onValueChange?.(next);\n            setOpen(false);\n          }}\n        />\n      </PopoverContent>\n    </Popover>\n  );\n}\n\nexport { DatePicker, type DatePickerProps };\n"
+    }
+  ]
+}

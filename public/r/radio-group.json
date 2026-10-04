@@ -1,0 +1,18 @@
+{
+  "name": "radio-group",
+  "title": "Radio Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "RadioGroup.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Radio as RadioPrimitive } from \"@base-ui/react/radio\"\nimport { RadioGroup as RadioGroupPrimitive } from \"@base-ui/react/radio-group\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction RadioGroup({\n  className,\n  ...props\n}: React.ComponentProps<typeof RadioGroupPrimitive>) {\n  return (\n    <RadioGroupPrimitive\n      data-slot=\"radio-group\"\n      className={cn(\"flex flex-col gap-2\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {\n  return (\n    <RadioPrimitive.Root\n      data-slot=\"radio-group-item\"\n      className={cn(\n        \"flex size-4 items-center justify-center rounded-full border border-transparent bg-input/50 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50 data-checked:bg-primary\",\n        className\n      )}\n      {...props}\n    >\n      <RadioPrimitive.Indicator className=\"size-1.5 rounded-full bg-primary-foreground data-unchecked:hidden\" />\n    </RadioPrimitive.Root>\n  )\n}\n\nexport { RadioGroup, RadioGroupItem }\n"
+    }
+  ]
+}

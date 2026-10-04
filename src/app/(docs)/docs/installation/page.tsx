@@ -10,6 +10,7 @@ export default function InstallationPage() {
       <HeadingsSetter
         headings={[
           { id: "installation", text: "Installation", level: 1 },
+          { id: "cli", text: "CLI", level: 2 },
           { id: "dependencies", text: "Dependencies", level: 2 },
           { id: "tokens", text: "CSS variables", level: 2 },
           { id: "utility", text: "Utility", level: 2 },
@@ -20,7 +21,7 @@ export default function InstallationPage() {
         <PageIntro
           eyebrow="Getting started"
           title="Installation"
-          description="Lumen UI is not a package. You drop the foundations, then copy the components you need."
+          description="Lumen UI is not a component package. The CLI copies the source into your repo."
         />
 
         <Alert>
@@ -29,6 +30,24 @@ export default function InstallationPage() {
             You own the code. Base UI primitives stay a dependency. Lumen styles do not.
           </AlertDescription>
         </Alert>
+
+        <section className="space-y-4">
+          <h2 id="cli">CLI</h2>
+          <p>
+            <code>init</code> writes <code>lumen.json</code> and <code>cn()</code>.{" "}
+            <code>add</code> copies the component, the local files it needs, and
+            installs the npm packages. <code>rm</code> deletes that component.
+            Shared files stay while something else still imports them.
+          </p>
+          <CodeBlock
+            language="bash"
+            code={`npx lumenui init
+npx lumenui add button
+npx lumenui add button card dialog
+npx lumenui add all
+npx lumenui rm button`}
+          />
+        </section>
 
         <section className="space-y-4">
           <h2 id="dependencies">Dependencies</h2>

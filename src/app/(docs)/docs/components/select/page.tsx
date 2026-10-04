@@ -1,14 +1,13 @@
-"use client"
+"use client";
 
-import { ComponentDocs } from "@/components/docs/ComponentDocs"
-import { Label } from "@/components/ui/Label"
+import { ComponentDocs } from "@/components/docs/ComponentDocs";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/Select"
+} from "@/components/ui/Select";
 
 export default function SelectPage() {
   return (
@@ -16,10 +15,9 @@ export default function SelectPage() {
       name="Select"
       description="Base UI dropdown. Portal, positioner, keyboard. This is no longer a native select."
       preview={
-        <div className="grid w-full max-w-sm gap-2">
-          <Label htmlFor="framework">Stack</Label>
+        <div className="grid w-full items-center justify-center gap-2">
           <Select defaultValue="next">
-            <SelectTrigger id="framework" className="w-full">
+            <SelectTrigger id="framework" className="w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -42,5 +40,5 @@ export default function SelectPage() {
   </SelectContent>
 </Select>`}
     />
-  )
+  );
 }

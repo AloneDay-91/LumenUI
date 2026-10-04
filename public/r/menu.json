@@ -1,0 +1,16 @@
+{
+  "name": "menu",
+  "title": "Menu",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "dropdown-menu"
+  ],
+  "files": [
+    {
+      "name": "Menu.tsx",
+      "content": "export {\n  DropdownMenu as Menu,\n  DropdownMenuTrigger as MenuTrigger,\n  DropdownMenuContent as MenuContent,\n  DropdownMenuItem as MenuItem,\n  DropdownMenuLinkItem as MenuLinkItem,\n  DropdownMenuSeparator as MenuSeparator,\n  DropdownMenuShortcut as MenuShortcut,\n  DropdownMenuSub as MenuSub,\n  DropdownMenuSubTrigger as MenuSubTrigger,\n  DropdownMenuSubContent as MenuSubContent,\n  DropdownMenuCheckboxItem as MenuCheckboxItem,\n} from \"@/components/ui/DropdownMenu\"\n"
+    }
+  ]
+}

@@ -18,6 +18,9 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "cli/**",
+      "scripts/**",
+      "public/r/**",
     ],
     rules: {
       "react/no-unescaped-entities": "off", // Désactiver pour les blocs de code

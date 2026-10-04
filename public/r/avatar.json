@@ -1,0 +1,18 @@
+{
+  "name": "avatar",
+  "title": "Avatar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Avatar.tsx",
+      "content": "\"use client\"\n\nimport { Avatar as AvatarPrimitive } from \"@base-ui/react/avatar\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Avatar({ className, ...props }: AvatarPrimitive.Root.Props) {\n  return (\n    <AvatarPrimitive.Root\n      data-slot=\"avatar\"\n      className={cn(\n        \"relative flex size-8 shrink-0 overflow-hidden rounded-full bg-muted\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {\n  return (\n    <AvatarPrimitive.Image\n      data-slot=\"avatar-image\"\n      className={cn(\"size-full object-cover\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarFallback({ className, ...props }: AvatarPrimitive.Fallback.Props) {\n  return (\n    <AvatarPrimitive.Fallback\n      data-slot=\"avatar-fallback\"\n      className={cn(\n        \"flex size-full items-center justify-center text-xs font-medium text-muted-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Avatar, AvatarImage, AvatarFallback }\n"
+    }
+  ]
+}

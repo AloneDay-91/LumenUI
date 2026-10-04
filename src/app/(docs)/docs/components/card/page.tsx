@@ -1,7 +1,7 @@
-import { CodeBlock } from "@/components/docs/CodeBlock"
-import { ComponentDocs } from "@/components/docs/ComponentDocs"
-import { Preview } from "@/components/docs/Preview"
-import { Button } from "@/components/ui/Button"
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { ComponentDocs } from "@/components/docs/ComponentDocs";
+import { Preview } from "@/components/docs/Preview";
+import { Button } from "@/components/ui/Button";
 import {
   Card,
   CardContent,
@@ -9,13 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/Card"
+} from "@/components/ui/Card";
 
-function ReleaseCard({
-  variant,
-}: {
-  variant?: "default" | "secondary"
-}) {
+function ReleaseCard({ variant }: { variant?: "default" | "secondary" }) {
   return (
     <Card className="max-w-sm flex-1" variant={variant}>
       <CardHeader>
@@ -28,12 +24,15 @@ function ReleaseCard({
         <p className="text-sm text-muted-foreground">Lumen UI 0.2</p>
       </CardContent>
       <CardFooter>
-        <Button size="sm" variant={variant === "secondary" ? "outline" : "default"}>
+        <Button
+          size="sm"
+          variant={variant === "secondary" ? "outline" : "default"}
+        >
           Read
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
 export default function CardPage() {
@@ -66,5 +65,5 @@ export default function CardPage() {
         </section>
       }
     />
-  )
+  );
 }

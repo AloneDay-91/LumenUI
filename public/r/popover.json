@@ -1,0 +1,19 @@
+{
+  "name": "popover",
+  "title": "Popover",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Popover.tsx",
+      "content": "\"use client\"\n\nimport { Popover as PopoverPrimitive } from \"@base-ui/react/popover\"\n\nimport { popupClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction Popover(props: PopoverPrimitive.Root.Props) {\n  return <PopoverPrimitive.Root data-slot=\"popover\" {...props} />\n}\n\nfunction PopoverTrigger(props: PopoverPrimitive.Trigger.Props) {\n  return <PopoverPrimitive.Trigger data-slot=\"popover-trigger\" {...props} />\n}\n\nfunction PopoverClose(props: PopoverPrimitive.Close.Props) {\n  return <PopoverPrimitive.Close data-slot=\"popover-close\" {...props} />\n}\n\nfunction PopoverContent({\n  className,\n  align = \"center\",\n  sideOffset = 6,\n  ...props\n}: PopoverPrimitive.Popup.Props &\n  Pick<PopoverPrimitive.Positioner.Props, \"align\" | \"side\" | \"sideOffset\">) {\n  return (\n    <PopoverPrimitive.Portal>\n      <PopoverPrimitive.Positioner\n        className=\"isolate z-50 outline-none\"\n        align={align}\n        sideOffset={sideOffset}\n      >\n        <PopoverPrimitive.Popup\n          data-slot=\"popover-content\"\n          className={cn(popupClassName, \"z-50 w-72 p-4\", className)}\n          {...props}\n        />\n      </PopoverPrimitive.Positioner>\n    </PopoverPrimitive.Portal>\n  )\n}\n\nfunction PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {\n  return (\n    <PopoverPrimitive.Title\n      data-slot=\"popover-title\"\n      className={cn(\"text-sm font-medium\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction PopoverDescription({\n  className,\n  ...props\n}: PopoverPrimitive.Description.Props) {\n  return (\n    <PopoverPrimitive.Description\n      data-slot=\"popover-description\"\n      className={cn(\"text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Popover,\n  PopoverTrigger,\n  PopoverClose,\n  PopoverContent,\n  PopoverTitle,\n  PopoverDescription,\n}\n"
+    }
+  ]
+}

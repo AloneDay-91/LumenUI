@@ -1,0 +1,18 @@
+{
+  "name": "menubar",
+  "title": "Menubar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Menubar.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Menubar as MenubarPrimitive } from \"@base-ui/react/menubar\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Menubar({\n  className,\n  ...props\n}: React.ComponentProps<typeof MenubarPrimitive>) {\n  return (\n    <MenubarPrimitive\n      data-slot=\"menubar\"\n      className={cn(\n        \"flex h-9 items-center gap-0.5 rounded-full border border-border bg-background p-1\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Menubar }\n"
+    }
+  ]
+}

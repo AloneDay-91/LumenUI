@@ -1,0 +1,19 @@
+{
+  "name": "autocomplete",
+  "title": "Autocomplete",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Autocomplete.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Autocomplete as AutocompletePrimitive } from \"@base-ui/react/autocomplete\"\n\nimport { inputClassName, menuItemClassName, popupClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction Autocomplete(props: React.ComponentProps<typeof AutocompletePrimitive.Root>) {\n  return <AutocompletePrimitive.Root data-slot=\"autocomplete\" {...props} />\n}\n\nfunction AutocompleteInput({\n  className,\n  ...props\n}: AutocompletePrimitive.Input.Props) {\n  return (\n    <AutocompletePrimitive.Input\n      data-slot=\"autocomplete-input\"\n      className={cn(inputClassName, className)}\n      {...props}\n    />\n  )\n}\n\nfunction AutocompleteContent({\n  className,\n  children,\n  ...props\n}: AutocompletePrimitive.Popup.Props) {\n  return (\n    <AutocompletePrimitive.Portal>\n      <AutocompletePrimitive.Positioner className=\"isolate z-50 outline-none\" sideOffset={4}>\n        <AutocompletePrimitive.Popup\n          data-slot=\"autocomplete-content\"\n          className={cn(\n            popupClassName,\n            \"z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-y-auto p-1\",\n            className\n          )}\n          {...props}\n        >\n          {children}\n        </AutocompletePrimitive.Popup>\n      </AutocompletePrimitive.Positioner>\n    </AutocompletePrimitive.Portal>\n  )\n}\n\nfunction AutocompleteList(props: AutocompletePrimitive.List.Props) {\n  return <AutocompletePrimitive.List data-slot=\"autocomplete-list\" {...props} />\n}\n\nfunction AutocompleteItem({\n  className,\n  ...props\n}: AutocompletePrimitive.Item.Props) {\n  return (\n    <AutocompletePrimitive.Item\n      data-slot=\"autocomplete-item\"\n      className={cn(menuItemClassName, className)}\n      {...props}\n    />\n  )\n}\n\nfunction AutocompleteEmpty({\n  className,\n  ...props\n}: AutocompletePrimitive.Empty.Props) {\n  return (\n    <AutocompletePrimitive.Empty\n      data-slot=\"autocomplete-empty\"\n      className={cn(\"px-2 py-1.5 text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Autocomplete,\n  AutocompleteInput,\n  AutocompleteContent,\n  AutocompleteList,\n  AutocompleteItem,\n  AutocompleteEmpty,\n}\n"
+    }
+  ]
+}

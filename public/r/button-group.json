@@ -1,0 +1,18 @@
+{
+  "name": "button-group",
+  "title": "Button Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "ButtonGroup.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst buttonGroupVariants = cva(\n  // The outer ends keep the pill radius, the inner edges square off, so a group\n  // reads as one control. Logical radii (s/e) so it mirrors under dir=\"rtl\".\n  \"group/button-group flex items-center [&>*]:rounded-none [&>*]:focus-visible:relative [&>*]:focus-visible:z-10\",\n  {\n    variants: {\n      orientation: {\n        horizontal:\n          \"flex-row -space-x-px [&>*:first-child]:rounded-s-full [&>*:last-child]:rounded-e-full\",\n        // Not rounded-t-full: on a button that is wider than it is tall, a full\n        // radius turns the end segments into domes. And stretch, so stacked\n        // segments share one width instead of tracking their label length.\n        vertical:\n          \"flex-col items-stretch -space-y-px [&>*:first-child]:rounded-t-xl [&>*:last-child]:rounded-b-xl\",\n      },\n    },\n    defaultVariants: {\n      orientation: \"horizontal\",\n    },\n  }\n)\n\nfunction ButtonGroup({\n  className,\n  orientation = \"horizontal\",\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof buttonGroupVariants>) {\n  return (\n    <div\n      data-slot=\"button-group\"\n      role=\"group\"\n      data-orientation={orientation}\n      className={cn(buttonGroupVariants({ orientation }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction ButtonGroupSeparator({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"button-group-separator\"\n      role=\"separator\"\n      className={cn(\n        \"relative z-10 self-stretch bg-border group-data-[orientation=vertical]/button-group:h-px group-data-[orientation=vertical]/button-group:w-auto w-px\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ButtonGroup, ButtonGroupSeparator, buttonGroupVariants }\n"
+    }
+  ]
+}

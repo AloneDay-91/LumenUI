@@ -1,0 +1,20 @@
+{
+  "name": "number-field",
+  "title": "Number Field",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "NumberField.tsx",
+      "content": "\"use client\"\n\nimport { NumberField as NumberFieldPrimitive } from \"@base-ui/react/number-field\"\nimport { MinusIcon, PlusIcon } from \"lucide-react\"\n\nimport { inputClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction NumberField({ className, ...props }: NumberFieldPrimitive.Root.Props) {\n  return (\n    <NumberFieldPrimitive.Root\n      data-slot=\"number-field\"\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction NumberFieldGroup({ className, ...props }: NumberFieldPrimitive.Group.Props) {\n  return (\n    <NumberFieldPrimitive.Group\n      data-slot=\"number-field-group\"\n      className={cn(\"flex\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction NumberFieldInput({ className, ...props }: NumberFieldPrimitive.Input.Props) {\n  return (\n    <NumberFieldPrimitive.Input\n      data-slot=\"number-field-input\"\n      className={cn(inputClassName, \"rounded-none text-center\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction NumberFieldIncrement({\n  className,\n  ...props\n}: NumberFieldPrimitive.Increment.Props) {\n  return (\n    <NumberFieldPrimitive.Increment\n      data-slot=\"number-field-increment\"\n      className={cn(\n        \"flex size-8 items-center justify-center rounded-r-2xl bg-input/50 text-muted-foreground outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    >\n      <PlusIcon className=\"size-3.5\" />\n    </NumberFieldPrimitive.Increment>\n  )\n}\n\nfunction NumberFieldDecrement({\n  className,\n  ...props\n}: NumberFieldPrimitive.Decrement.Props) {\n  return (\n    <NumberFieldPrimitive.Decrement\n      data-slot=\"number-field-decrement\"\n      className={cn(\n        \"flex size-8 items-center justify-center rounded-l-2xl bg-input/50 text-muted-foreground outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    >\n      <MinusIcon className=\"size-3.5\" />\n    </NumberFieldPrimitive.Decrement>\n  )\n}\n\nexport {\n  NumberField,\n  NumberFieldGroup,\n  NumberFieldInput,\n  NumberFieldIncrement,\n  NumberFieldDecrement,\n}\n"
+    }
+  ]
+}

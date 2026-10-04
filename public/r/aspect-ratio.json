@@ -1,0 +1,16 @@
+{
+  "name": "aspect-ratio",
+  "title": "Aspect Ratio",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "AspectRatio.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction AspectRatio({\n  className,\n  ratio = 16 / 9,\n  style,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  ratio?: number\n}) {\n  return (\n    <div\n      data-slot=\"aspect-ratio\"\n      className={cn(\n        \"relative w-full min-w-0 overflow-hidden\",\n        \"[&_img]:size-full [&_img]:object-cover\",\n        \"[&_video]:size-full [&_video]:object-cover\",\n        className\n      )}\n      style={{ aspectRatio: String(ratio), ...style }}\n      {...props}\n    />\n  )\n}\n\nexport { AspectRatio }\n"
+    }
+  ]
+}

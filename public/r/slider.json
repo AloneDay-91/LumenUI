@@ -1,0 +1,18 @@
+{
+  "name": "slider",
+  "title": "Slider",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Slider.tsx",
+      "content": "\"use client\"\n\nimport { Slider as SliderPrimitive } from \"@base-ui/react/slider\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Slider({ className, children, ...props }: SliderPrimitive.Root.Props) {\n  return (\n    <SliderPrimitive.Root\n      data-slot=\"slider\"\n      className={cn(\"flex w-full flex-col gap-2\", className)}\n      {...props}\n    >\n      {children ?? (\n        <SliderPrimitive.Control className=\"flex w-full items-center\">\n          <SliderPrimitive.Track className=\"relative h-1 w-full rounded-full bg-muted select-none\">\n            <SliderPrimitive.Indicator className=\"rounded-full bg-primary select-none\" />\n            <SliderPrimitive.Thumb className=\"size-4 rounded-full bg-background ring-1 ring-foreground/10 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/30\" />\n          </SliderPrimitive.Track>\n        </SliderPrimitive.Control>\n      )}\n    </SliderPrimitive.Root>\n  )\n}\n\nexport { Slider }\n"
+    }
+  ]
+}

@@ -163,59 +163,59 @@
   }
 }
 
-.docs-article :where(h1) {
+.docs-article :where(h1):not([data-slot="typography"] *) {
   @apply text-xl leading-tight font-medium tracking-tight md:text-2xl;
 }
 
-.docs-article :where(h2) {
+.docs-article :where(h2):not([data-slot="typography"] *) {
   @apply mt-8 mb-2 scroll-mt-36 text-sm font-medium tracking-tight;
 }
 
-.docs-article :where(h3) {
+.docs-article :where(h3):not([data-slot="typography"] *) {
   @apply mt-6 mb-2 scroll-mt-36 text-sm font-medium tracking-tight;
 }
 
-.docs-article :where(p) {
+.docs-article :where(p):not([data-slot="typography"] *) {
   @apply max-w-[65ch] text-sm leading-6 text-muted-foreground;
 }
 
-.docs-article :where(p a, li a) {
+.docs-article :where(p a, li a):not([data-slot="typography"] *) {
   @apply text-foreground underline-offset-4 hover:underline;
 }
 
-.docs-article :where(code):not(pre code) {
+.docs-article :where(code):not(pre code):not([data-slot="typography"] *) {
   @apply rounded-md bg-muted px-1 py-0.5 font-mono text-xs;
 }
 
-.docs-article :where(table:not([data-slot="table"])) {
+.docs-article :where(table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *)) {
   @apply w-full min-w-[36rem] border-collapse text-left text-sm;
 }
 
-.docs-article :where(table:not([data-slot="table"]) th) {
+.docs-article :where(table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) th) {
   @apply border-b border-border px-3 py-2 text-xs font-medium text-muted-foreground;
 }
 
-.docs-article :where(table:not([data-slot="table"]) td) {
+.docs-article :where(table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) td) {
   @apply border-b border-border px-3 py-2.5 align-top text-muted-foreground;
 }
 
 .docs-article
   :where(
-    table:not([data-slot="table"]) td:first-child,
-    table:not([data-slot="table"]) th:first-child
+    table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) td:first-child,
+    table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) th:first-child
   ) {
   @apply pl-0;
 }
 
 .docs-article
   :where(
-    table:not([data-slot="table"]) td:last-child,
-    table:not([data-slot="table"]) th:last-child
+    table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) td:last-child,
+    table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) th:last-child
   ) {
   @apply pr-0;
 }
 
-.docs-article :where(table:not([data-slot="table"]) td code) {
+.docs-article :where(table:not([data-slot="table"]):not([data-slot="calendar-grid"]):not([data-slot="typography"] *) td code) {
   @apply break-all whitespace-pre-wrap;
 }
 

@@ -1,0 +1,19 @@
+{
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Breadcrumb.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\nimport { ChevronRightIcon, MoreHorizontalIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Breadcrumb({ ...props }: React.ComponentProps<\"nav\">) {\n  return <nav data-slot=\"breadcrumb\" aria-label=\"Breadcrumb\" {...props} />\n}\n\nfunction BreadcrumbList({ className, ...props }: React.ComponentProps<\"ol\">) {\n  return (\n    <ol\n      data-slot=\"breadcrumb-list\"\n      className={cn(\n        \"flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction BreadcrumbItem({ className, ...props }: React.ComponentProps<\"li\">) {\n  return (\n    <li\n      data-slot=\"breadcrumb-item\"\n      className={cn(\"inline-flex min-w-0 items-center gap-1.5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction BreadcrumbLink({\n  className,\n  render,\n  ...props\n}: useRender.ComponentProps<\"a\">) {\n  return useRender({\n    defaultTagName: \"a\",\n    props: mergeProps<\"a\">(\n      {\n        className: cn(\n          \"truncate transition-colors hover:text-foreground\",\n          className\n        ),\n      },\n      props\n    ),\n    render,\n    state: { slot: \"breadcrumb-link\" },\n  })\n}\n\nfunction BreadcrumbPage({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"breadcrumb-page\"\n      // Not a link, but announced as the current step rather than as plain text.\n      role=\"link\"\n      aria-disabled=\"true\"\n      aria-current=\"page\"\n      className={cn(\"truncate font-medium text-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction BreadcrumbSeparator({\n  children,\n  className,\n  ...props\n}: React.ComponentProps<\"li\">) {\n  return (\n    <li\n      data-slot=\"breadcrumb-separator\"\n      role=\"presentation\"\n      aria-hidden=\"true\"\n      className={cn(\n        \"[&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:text-muted-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {children ?? <ChevronRightIcon />}\n    </li>\n  )\n}\n\nfunction BreadcrumbEllipsis({\n  className,\n  children,\n  type = \"button\",\n  ...props\n}: React.ComponentProps<\"button\">) {\n  return (\n    // A native <button>: the collapsed steps have to stay reachable, and Base UI\n    // requires a real button under a menu trigger to keep its semantics.\n    <button\n      data-slot=\"breadcrumb-ellipsis\"\n      type={type}\n      className={cn(\n        \"flex size-5 items-center justify-center rounded-md transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none [&>svg]:size-3.5\",\n        className\n      )}\n      {...props}\n    >\n      {children ?? <MoreHorizontalIcon />}\n      <span className=\"sr-only\">More</span>\n    </button>\n  )\n}\n\nexport {\n  Breadcrumb,\n  BreadcrumbList,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n  BreadcrumbEllipsis,\n}\n"
+    }
+  ]
+}

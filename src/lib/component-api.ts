@@ -335,6 +335,43 @@ export const componentApis: Record<string, ComponentApi> = {
       ),
     ],
   },
+  calendar: {
+    slug: "calendar",
+    source: "src/components/ui/Calendar.tsx",
+    primitive: "@daypicker/react",
+    parts: [
+      part("Calendar", "Month grid. Forwards DayPicker props.", [
+        className,
+        {
+          name: "mode",
+          type: '"single" | "multiple" | "range"',
+          description: "What a click selects. Omit it for a calendar with no selection.",
+        },
+        {
+          name: "selected",
+          type: "Date | Date[] | DateRange",
+          description: "The current selection. The shape follows mode.",
+        },
+        {
+          name: "onSelect",
+          type: "(selected, triggerDate, modifiers, event) => void",
+          description: "Called when the selection changes.",
+        },
+        {
+          name: "showOutsideDays",
+          type: "boolean",
+          default: "true",
+          description: "Show the days that belong to the previous and next months.",
+        },
+        {
+          name: "navLayout",
+          type: '"around" | "after"',
+          default: '"around"',
+          description: "Around places the chevrons on either side of the month label.",
+        },
+      ]),
+    ],
+  },
   card: {
     slug: "card",
     source: "src/components/ui/Card.tsx",
@@ -360,6 +397,85 @@ export const componentApis: Record<string, ComponentApi> = {
       part("CardDescription", "Supporting copy.", [className, children]),
       part("CardContent", "Body.", [className, children]),
       part("CardFooter", "Actions row.", [className, children]),
+    ],
+  },
+  carousel: {
+    slug: "carousel",
+    source: "src/components/ui/Carousel.tsx",
+    primitive: "embla-carousel-react",
+    parts: [
+      part("Carousel", "Root. Owns the Embla API and the slide context.", [
+        className,
+        {
+          name: "orientation",
+          type: '"horizontal" | "vertical"',
+          default: '"horizontal"',
+          description: "Axis. Horizontal chevrons point sideways; vertical ones point up and down.",
+        },
+        {
+          name: "opts",
+          type: "EmblaOptionsType",
+          description: "Embla options. loop, align, startIndex, dragFree. axis follows orientation unless set here.",
+        },
+        {
+          name: "autoplay",
+          type: "boolean | number",
+          default: "false",
+          description:
+            "Advance on a timer. true waits 4s. A number is the delay in ms. Loops unless opts.loop is false. Pauses while the pointer is over the carousel.",
+        },
+        {
+          name: "plugins",
+          type: "EmblaPluginType[]",
+          description: "Extra Embla plugins, passed through to useEmblaCarousel.",
+        },
+        {
+          name: "setApi",
+          type: "(api: CarouselApi) => void",
+          description: "Receives the Embla API once it exists.",
+        },
+        children,
+      ]),
+      part("CarouselContent", "Viewport. Overflow is clipped here. Set a height for a vertical carousel.", [
+        className,
+        children,
+      ]),
+      part("CarouselItem", "One slide. basis-full until you override it.", [
+        className,
+        children,
+      ]),
+      part("CarouselPrevious", "Outline icon button. Disabled when Embla cannot scroll back.", [
+        className,
+      ]),
+      part("CarouselNext", "Outline icon button. Disabled when Embla cannot scroll forward.", [
+        className,
+      ]),
+      part("CarouselDots", "Ink dots. The current snap is a short pill.", [className]),
+    ],
+  },
+  chart: {
+    slug: "chart",
+    source: "src/components/ui/Chart.tsx",
+    primitive: "recharts",
+    parts: [
+      part("Chart", "Responsive frame. Config keys become --color-<key> on the container.", [
+        className,
+        {
+          name: "config",
+          type: "Record<string, { label?: string; color?: string }>",
+          description: "Series labels. Color defaults to the ink scale; set color to override a tone.",
+        },
+        children,
+      ]),
+      part("ChartGrid", "Horizontal hairlines in the border token. Accepts Recharts CartesianGrid props.", [
+        className,
+      ]),
+      part("ChartXAxis", "Muted ticks, no axis line. Accepts Recharts XAxis props.", [className]),
+      part("ChartYAxis", "Muted ticks, no axis line. Accepts Recharts YAxis props.", [className]),
+      part("ChartTooltip", "Recharts Tooltip with the Lumen popup content.", [className]),
+      part("ChartTooltipContent", "Label, ink dot, and a tabular value.", [className]),
+      part("ChartLegend", "Recharts Legend with text dots.", [className]),
+      part("ChartLegendContent", "Row of series labels.", [className]),
     ],
   },
   checkbox: {
@@ -602,6 +718,48 @@ export const componentApis: Record<string, ComponentApi> = {
         className,
         { name: "checked", type: "boolean", description: "Checked state." },
         children,
+      ]),
+    ],
+  },
+  "date-picker": {
+    slug: "date-picker",
+    source: "src/components/ui/DatePicker.tsx",
+    primitive: "@daypicker/react",
+    parts: [
+      part("DatePicker", "Outline button. Opens a calendar in a popover.", [
+        className,
+        {
+          name: "mode",
+          type: '"single" | "range"',
+          default: '"single"',
+          description: "One day, or a start and an end. Range stays open until both are set.",
+        },
+        {
+          name: "value",
+          type: "Date | DateRange",
+          description: "Controlled selection. Date in single mode, DateRange in range mode.",
+        },
+        {
+          name: "defaultValue",
+          type: "Date | DateRange",
+          description: "Initial selection when value is not set.",
+        },
+        {
+          name: "onValueChange",
+          type: "(value: Date | DateRange | undefined) => void",
+          description: "Called when the selection changes.",
+        },
+        {
+          name: "placeholder",
+          type: "string",
+          default: '"Pick a date"',
+          description: "Shown while nothing is selected. Range defaults to Pick a range.",
+        },
+        {
+          name: "disabled",
+          type: "boolean",
+          description: "Disables the trigger.",
+        },
       ]),
     ],
   },
@@ -1473,6 +1631,26 @@ export const componentApis: Record<string, ComponentApi> = {
       part("TooltipContent", "Hint popup.", [className, children]),
     ],
   },
+  typography: {
+    slug: "typography",
+    source: "src/components/ui/Typography.tsx",
+    parts: [
+      part(
+        "Typography",
+        "Styles the HTML inside it. article for reading, compact for a tight panel.",
+        [
+          className,
+          {
+            name: "variant",
+            type: '"article" | "compact"',
+            default: "article",
+            description: "Reading rhythm, or a tighter one.",
+          },
+          children,
+        ]
+      ),
+    ],
+  },
   "aspect-ratio": {
     slug: "aspect-ratio",
     source: "src/components/ui/AspectRatio.tsx",
@@ -1546,6 +1724,59 @@ export const componentApis: Record<string, ComponentApi> = {
         },
       ]),
       part("InputGroupText", "Mono label inside an addon.", [
+        className,
+        children,
+      ]),
+    ],
+  },
+  item: {
+    slug: "item",
+    source: "src/components/ui/Item.tsx",
+    primitive: "@base-ui/react/use-render",
+    parts: [
+      part("Item", "One row. Title, description, media, and actions.", [
+        className,
+        render,
+        {
+          name: "variant",
+          type: '"default" | "outline" | "muted"',
+          default: '"default"',
+          description: "Bare, card edge, or muted fill.",
+        },
+        {
+          name: "size",
+          type: '"default" | "sm" | "xs"',
+          default: '"default"',
+          description: "Padding, and the size of the media well.",
+        },
+        children,
+      ]),
+      part("ItemGroup", "Stack of rows.", [className, children]),
+      part("ItemSeparator", "Line between rows. The Separator component.", [
+        className,
+      ]),
+      part("ItemMedia", "Icon well, image, or any leading media.", [
+        className,
+        {
+          name: "variant",
+          type: '"default" | "icon" | "image"',
+          default: '"default"',
+          description: "Bare slot, rounded well for an icon, or a clipped image.",
+        },
+        children,
+      ]),
+      part("ItemContent", "Title and description.", [className, children]),
+      part("ItemTitle", "Row heading.", [className, children]),
+      part("ItemDescription", "Supporting line. Clamped to two lines.", [
+        className,
+        children,
+      ]),
+      part("ItemActions", "Buttons or a trailing icon.", [className, children]),
+      part("ItemHeader", "Full-width row above the content.", [
+        className,
+        children,
+      ]),
+      part("ItemFooter", "Full-width row below the content.", [
         className,
         children,
       ]),

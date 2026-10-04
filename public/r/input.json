@@ -1,0 +1,19 @@
+{
+  "name": "input",
+  "title": "Input",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Input.tsx",
+      "content": "import { Input as InputPrimitive } from \"@base-ui/react/input\"\nimport type { ComponentProps } from \"react\"\n\nimport { inputClassName } from \"@/components/ui/styles\"\nimport { cn } from \"@/lib/utils\"\n\nfunction Input({ className, type, ...props }: ComponentProps<\"input\">) {\n  return (\n    <InputPrimitive\n      type={type}\n      data-slot=\"input\"\n      className={cn(inputClassName, className)}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n"
+    }
+  ]
+}
