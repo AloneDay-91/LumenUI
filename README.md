@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v0.6.0"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
+  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v0.7.0"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
   <a href="https://github.com/AloneDay-91/LumenUI/stargazers"><img src="https://img.shields.io/github/stars/AloneDay-91/LumenUI?style=flat-square&color=171717" alt="Stars" /></a>
   <a href="https://github.com/AloneDay-91/LumenUI/commits/main"><img src="https://img.shields.io/github/last-commit/AloneDay-91/LumenUI?style=flat-square&color=555" alt="Last commit" /></a>
   <img src="https://img.shields.io/badge/Next.js-16-171717?style=flat-square" alt="Next.js 16" />
