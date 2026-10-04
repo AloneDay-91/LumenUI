@@ -1,6 +1,6 @@
 {
   "name": "design-system-lumenui",
-  "version": "0.7.0",
+  "version": "0.7.2",
   "private": true,
   "homepage": "https://github.com/AloneDay-91/LumenUI",
   "repository": {
@@ -18,7 +18,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "registry": "node scripts/build-registry.mjs"
+    "registry": "node scripts/build-registry.mjs",
+    "version": "node scripts/sync-cli-version.mjs && git add cli/package.json"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

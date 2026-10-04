@@ -41,11 +41,11 @@ export default function InstallationPage() {
           </p>
           <CodeBlock
             language="bash"
-            code={`npx lumenui init
-npx lumenui add button
-npx lumenui add button card dialog
-npx lumenui add all
-npx lumenui rm button`}
+            code={`npx @aloneday/lumenui@latest init
+npx @aloneday/lumenui@latest add button
+npx @aloneday/lumenui@latest add button card dialog
+npx @aloneday/lumenui@latest add all
+npx @aloneday/lumenui@latest rm button`}
           />
         </section>
 

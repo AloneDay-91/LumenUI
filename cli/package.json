@@ -1,10 +1,10 @@
 {
-  "name": "lumenui",
-  "version": "0.7.0",
+  "name": "@aloneday/lumenui",
+  "version": "0.7.2",
   "description": "Copy Lumen UI components into your project.",
   "type": "module",
   "bin": {
-    "lumenui": "./bin/lumenui.js"
+    "lumenui": "bin/lumenui.js"
   },
   "files": [
     "bin",
@@ -14,10 +14,14 @@
   "engines": {
     "node": ">=22"
   },
+  "homepage": "https://ui.elouanb.fr/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AloneDay-91/LumenUI.git",
     "directory": "cli"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

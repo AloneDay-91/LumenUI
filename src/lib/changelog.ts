@@ -85,6 +85,31 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "0.7.2",
+    date: "2026-10-04",
+    summary: "The CLI homepage is the documentation site.",
+    items: [
+      {
+        kind: "changed",
+        text: "The npm package homepage is https://ui.elouanb.fr/.",
+        href: "/docs/installation",
+      },
+    ],
+  },
+  {
+    version: "0.7.1",
+    date: "2026-10-04",
+    summary: "The CLI is on npm, at the same version as the site.",
+    items: [
+      {
+        kind: "added",
+        text: "npx @aloneday/lumenui@latest installs the CLI. A GitHub release publishes that same version.",
+        href: "/docs/installation",
+        new: true,
+      },
+    ],
+  },
+  {
     version: "0.7.0",
     date: "2026-10-04",
     summary:
@@ -255,20 +280,25 @@ export function getLatestChangelog() {
 }
 
 export function getNewDocsHrefs(version = getLatestChangelog().version) {
-  const release = changelog.find((entry) => entry.version === version)
+  const latest = changelog.find((entry) => entry.version === version)
   const hrefs = new Set<string>()
 
-  if (!release) {
+  if (!latest) {
     return hrefs
   }
 
-  for (const item of release.items) {
-    if (item.new && item.href) {
-      hrefs.add(item.href)
+  for (const release of changelog) {
+    if (release.date !== latest.date) {
+      continue
     }
-    for (const link of item.links ?? []) {
-      if (link.new) {
-        hrefs.add(link.href)
+    for (const item of release.items) {
+      if (item.new && item.href) {
+        hrefs.add(item.href)
+      }
+      for (const link of item.links ?? []) {
+        if (link.new) {
+          hrefs.add(link.href)
+        }
       }
     }
   }
