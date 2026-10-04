@@ -1,11 +1,12 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { LandingShowcase } from "@/components/marketing/LandingShowcase"
-import { Badge } from "@/components/ui/Badge"
-import { buttonVariants } from "@/components/ui/button-variants"
-import { docsSections } from "@/lib/docs-nav"
-import { formatDocsVersion, LANDING_MAX_WIDTH } from "@/lib/site"
-import { cn } from "@/lib/utils"
+import { CopyCommand } from "@/components/marketing/CopyCommand";
+import { LandingShowcase } from "@/components/marketing/LandingShowcase";
+import { Badge } from "@/components/ui/Badge";
+import { buttonVariants } from "@/components/ui/button-variants";
+import { docsSections } from "@/lib/docs-nav";
+import { formatDocsVersion, LANDING_MAX_WIDTH } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const principles = [
   {
@@ -28,10 +29,10 @@ const principles = [
     title: "Keyboard first",
     body: "Visible focus, disabled states, native composition. Nothing decorative at the expense of the keyboard.",
   },
-]
+];
 
 const componentItems =
-  docsSections.find((section) => section.title === "Components")?.items ?? []
+  docsSections.find((section) => section.title === "Components")?.items ?? [];
 
 export default function Home() {
   return (
@@ -39,11 +40,17 @@ export default function Home() {
       id="content"
       className={cn(
         "mx-auto w-full flex-1 px-6 pt-10 pb-16 md:px-12 md:pt-20 md:pb-24",
-        LANDING_MAX_WIDTH
+        LANDING_MAX_WIDTH,
       )}
     >
       <section className="flex flex-col items-center text-center">
-        <Badge variant="outline">{formatDocsVersion()}</Badge>
+        <Badge variant="outline">
+          <span
+            className="size-1.5 shrink-0 rounded-full bg-new mr-1"
+            aria-hidden="true"
+          ></span>
+          {formatDocsVersion()}
+        </Badge>
         <h1 className="mt-6 max-w-2xl text-4xl leading-[1.1] font-medium tracking-tight text-pretty md:text-5xl">
           The code lives in your repo.
         </h1>
@@ -52,15 +59,12 @@ export default function Home() {
           portals. The chrome — warm paper, pills, no blue — stays yours.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
-          <Link href="/docs" className={cn(buttonVariants({ size: "lg" }))}>
-            Documentation
-          </Link>
-          <Link
-            href="/examples"
-            className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
-          >
-            Examples
-          </Link>
+          <div className="flex items-center justify-center gap-2.5">
+            <Link href="/docs" className={cn(buttonVariants({ size: "lg" }))}>
+              Documentation
+            </Link>
+          </div>
+          <CopyCommand />
         </div>
 
         <div className="relative mt-14 w-full md:mt-16">
@@ -135,5 +139,5 @@ export default function Home() {
         </Link>
       </section>
     </main>
-  )
+  );
 }

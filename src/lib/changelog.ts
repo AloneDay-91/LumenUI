@@ -85,6 +85,17 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "0.7.3",
+    date: "2026-10-04",
+    summary: "The landing page copies the init command.",
+    items: [
+      {
+        kind: "added",
+        text: "The home page copies npx @aloneday/lumenui@latest init.",
+      },
+    ],
+  },
+  {
     version: "0.7.2",
     date: "2026-10-04",
     summary: "The CLI homepage is the documentation site.",

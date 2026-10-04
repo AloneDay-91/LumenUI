@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v0.7.2"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
+  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v0.7.3"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
   <a href="https://github.com/AloneDay-91/LumenUI/stargazers"><img src="https://img.shields.io/github/stars/AloneDay-91/LumenUI?style=flat-square&color=171717" alt="Stars" /></a>
   <a href="https://github.com/AloneDay-91/LumenUI/commits/main"><img src="https://img.shields.io/github/last-commit/AloneDay-91/LumenUI?style=flat-square&color=555" alt="Last commit" /></a>
   <img src="https://img.shields.io/badge/Next.js-16-171717?style=flat-square" alt="Next.js 16" />
@@ -88,7 +88,7 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 
 ## Changelog
 
-Latest: **v0.7.2** — the CLI homepage is [ui.elouanb.fr](https://ui.elouanb.fr/).
+Latest: **v0.7.3** — the home page copies `npx @aloneday/lumenui@latest init`.
 
 See [`src/lib/changelog.ts`](src/lib/changelog.ts).
 
