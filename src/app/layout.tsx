@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import type { ReactNode } from "react"
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google"
 
@@ -64,6 +65,14 @@ export default function RootLayout({
             {children}
           </div>
         </ThemeProvider>
+        {process.env.NODE_ENV === "production" ? (
+          <Script
+            defer
+            src="https://analytics.mmi23f03.fr/script.js"
+            data-website-id="f4f5dd3f-9dfb-4235-943b-d64b304b5fdc"
+            strategy="afterInteractive"
+          />
+        ) : null}
       </body>
     </html>
   )
