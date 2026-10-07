@@ -231,6 +231,20 @@ function inlineText(value: string) {
     .trim()
 }
 
+function docsComponentName(spec: string) {
+  const prefix = "@/components/docs/"
+  if (!spec.startsWith(prefix)) {
+    return undefined
+  }
+
+  const name = spec.slice(prefix.length)
+  if (!/^[A-Za-z0-9_-]+$/.test(name)) {
+    return undefined
+  }
+
+  return name
+}
+
 async function readRelatedExampleSources(pageSource: string) {
   const extraNames = new Set(
     [...pageSource.matchAll(/extra=\{<([A-Z]\w*)/g)].map((match) => match[1] ?? "")
@@ -249,13 +263,16 @@ async function readRelatedExampleSources(pageSource: string) {
       continue
     }
 
-    const spec = match[2] ?? ""
-    const base = path.join(process.cwd(), "src", spec.slice(2))
-    for (const candidate of [base, `${base}.tsx`, `${base}.ts`]) {
-      if (await exists(candidate)) {
-        sources.push(await readFile(candidate, "utf8"))
-        break
-      }
+    const name = docsComponentName(match[2] ?? "")
+    if (!name) {
+      continue
+    }
+    const tsx = path.join(process.cwd(), "src/components/docs", `${name}.tsx`)
+    const ts = path.join(process.cwd(), "src/components/docs", `${name}.ts`)
+    if (await exists(tsx)) {
+      sources.push(await readFile(tsx, "utf8"))
+    } else if (await exists(ts)) {
+      sources.push(await readFile(ts, "utf8"))
     }
   }
 

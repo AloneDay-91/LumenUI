@@ -1,2 +1,17 @@
 [variables]
 NIXPACKS_NODE_VERSION = "22"
+
+# Nixpacks sets NPM_CONFIG_PRODUCTION=false. npm 9 warns to replace that
+# deprecated flag with --omit=dev, which would drop Tailwind and TypeScript
+# before the build. Install devDependencies, then remove them.
+[phases.install]
+cmds = ["env -u NPM_CONFIG_PRODUCTION npm ci --include=dev"]
+
+[phases.build]
+cmds = [
+  "env -u NPM_CONFIG_PRODUCTION npm run build",
+  "env -u NPM_CONFIG_PRODUCTION npm prune --omit=dev",
+]
+
+[start]
+cmd = "env -u NPM_CONFIG_PRODUCTION npm run start"
