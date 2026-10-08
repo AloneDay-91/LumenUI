@@ -110,7 +110,7 @@ function Calendar({
         button_next: cn(around && "absolute top-0 right-0", classNames?.button_next),
         month_grid: cn("w-max border-collapse", classNames?.month_grid),
         weekday: cn(
-          "size-8 p-0 text-center text-[0.6875rem] font-medium text-muted-foreground",
+          "size-8 p-0 text-center text-xs font-medium text-muted-foreground",
           classNames?.weekday
         ),
         day: cn("size-8 p-0 text-center align-middle", classNames?.day),

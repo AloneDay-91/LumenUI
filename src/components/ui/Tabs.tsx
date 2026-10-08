@@ -85,7 +85,7 @@ function TabsPanel({
     <TabsPrimitive.Panel
       data-slot="tabs-panel"
       keepMounted={keepMounted}
-      className={cn("text-sm outline-none", className)}
+      className={cn("text-xs outline-none", className)}
       {...props}
     />
   )

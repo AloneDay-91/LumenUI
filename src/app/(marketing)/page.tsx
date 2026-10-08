@@ -1,143 +1,163 @@
+import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { preload } from "react-dom";
 
 import { CopyCommand } from "@/components/marketing/CopyCommand";
-import { LandingShowcase } from "@/components/marketing/LandingShowcase";
-import { Badge } from "@/components/ui/Badge";
+import { FeatureCarousel } from "@/components/marketing/FeatureCarousel";
+import { FeatureCli } from "@/components/marketing/FeatureCli";
+import { FeatureComposed } from "@/components/marketing/FeatureComposed";
+import { FeatureForms } from "@/components/marketing/FeatureForms";
+import { FeatureTokens } from "@/components/marketing/FeatureTokens";
+import { HeroProduct } from "@/components/marketing/HeroProduct";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { Card } from "@/components/ui/Card";
 import { docsSections } from "@/lib/docs-nav";
-import { formatDocsVersion, LANDING_MAX_WIDTH } from "@/lib/site";
+import { getHeroRows } from "@/lib/hero-registry";
+import { StackMark } from "@/components/marketing/StackMarks";
+import { HERO_BACKGROUND, LANDING_MAX_WIDTH, STACK } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const principles = [
-  {
-    period: "01",
-    title: "Copy-paste",
-    body: "You copy the file. It lives in your repo. No package to version.",
-  },
-  {
-    period: "02",
-    title: "Base UI",
-    body: "Focus, keyboard, portals: behavior comes from the primitives. The chrome is Lumen.",
-  },
-  {
-    period: "03",
-    title: "Same paper",
-    body: "Warm tokens, pills, Inter. Fraunces on the wordmark only.",
-  },
-  {
-    period: "04",
-    title: "Keyboard first",
-    body: "Visible focus, disabled states, native composition. Nothing decorative at the expense of the keyboard.",
-  },
-];
 
 const componentItems =
   docsSections.find((section) => section.title === "Components")?.items ?? [];
 
+const paletteItems = componentItems.map((item) => ({
+  name: item.name,
+  slug: item.href.split("/").pop() ?? item.href,
+}));
+
+const container = cn("mx-auto w-full px-6 md:px-12", LANDING_MAX_WIDTH);
+
 export default function Home() {
+  preload(HERO_BACKGROUND, { as: "image", fetchPriority: "low" });
+
+  const tableRows = getHeroRows().filter((row) =>
+    ["button", "card", "tabs"].includes(row.slug),
+  );
+
   return (
-    <main
-      id="content"
-      className={cn(
-        "mx-auto w-full flex-1 px-6 pt-10 pb-16 md:px-12 md:pt-20 md:pb-24",
-        LANDING_MAX_WIDTH,
-      )}
-    >
-      <section className="flex flex-col items-center text-center">
-        <Badge variant="outline">
-          <span
-            className="size-1.5 shrink-0 rounded-full bg-new mr-1"
-            aria-hidden="true"
-          ></span>
-          {formatDocsVersion()}
-        </Badge>
-        <h1 className="mt-6 max-w-2xl text-4xl leading-[1.1] font-medium tracking-tight text-pretty md:text-5xl">
-          The code lives in your repo.
-        </h1>
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Lumen UI is a copy-paste system. Base UI handles focus, keyboard, and
-          portals. The chrome — warm paper, pills, no blue — stays yours.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
-          <div className="flex items-center justify-center gap-2.5">
-            <Link href="/docs" className={cn(buttonVariants({ size: "lg" }))}>
-              Documentation
+    <main id="content" className="w-full flex-1">
+      <div className="relative">
+        {/* Painting: gone behind the headline, peaks behind the product, gone
+            again before the product's own fade starts. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-center mask-[linear-gradient(to_bottom,transparent,transparent_25rem,black_33rem,black_35rem,transparent_42rem)] motion-safe:animate-[lumen-paint_900ms_ease-out_both] md:mask-[linear-gradient(to_bottom,transparent,transparent_16rem,black_30rem,black_32rem,transparent_40rem)] dark:opacity-40"
+          style={{ backgroundImage: `url(${HERO_BACKGROUND})` }}
+        />
+
+        <section
+          className={cn(
+            container,
+            "relative flex flex-col items-center pt-10 text-center md:pt-16",
+          )}
+        >
+          <h1 className="max-w-2xl text-4xl leading-[1.1] font-medium tracking-tight text-balance md:text-5xl">
+            The code lives in your repo.
+          </h1>
+          <p className="mt-5 max-w-lg text-sm leading-relaxed text-pretty text-muted-foreground">
+            {componentItems.length} React components built on Base UI and
+            Tailwind CSS 4. The CLI copies the source into your project, so
+            every file is yours to edit.
+          </p>
+          <div className="mt-7 flex w-full flex-col items-center gap-2.5 sm:w-auto sm:flex-row">
+            <CopyCommand />
+            <Link
+              href="/docs/components"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "w-full sm:w-auto",
+              )}
+            >
+              Browse components
+              <ArrowRightIcon data-icon="inline-end" />
             </Link>
           </div>
-          <CopyCommand />
-        </div>
-
-        <div className="relative mt-14 w-full md:mt-16">
-          <div className="max-h-110 overflow-hidden mask-[linear-gradient(to_bottom,black_68%,transparent)] md:max-h-160">
-            <LandingShowcase />
-          </div>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 -bottom-px h-2/5 bg-linear-to-t from-background from-5% via-background/50 to-transparent"
-          />
-        </div>
-      </section>
-
-      <section className="mt-24 md:mt-32">
-        <h2 className="mb-10 text-sm font-medium tracking-tight text-muted-foreground">
-          Principles
-        </h2>
-        <ul className="grid gap-x-16 gap-y-10 sm:grid-cols-2">
-          {principles.map((item) => (
-            <li key={item.period}>
-              <p className="font-mono text-xs text-muted-foreground">
-                {item.period}
-              </p>
-              <p className="mt-3 text-sm font-medium">{item.title}</p>
-              <p className="mt-1 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">
-                {item.body}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-24 md:mt-32">
-        <div className="mb-8 flex items-baseline justify-between gap-4">
-          <h2
-            id="components"
-            className="text-sm font-medium tracking-tight text-muted-foreground"
+          <ul
+            aria-label="Built on"
+            className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1.5 font-mono text-xs text-muted-foreground"
           >
-            Components
-          </h2>
-          <p className="font-mono text-xs text-muted-foreground">
-            {String(componentItems.length).padStart(2, "0")}
-          </p>
-        </div>
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3 md:grid-cols-4">
-          {componentItems.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+            {STACK.map((item) => (
+              <li key={item.label} className="inline-flex items-center gap-1.5">
+                {item.id ? <StackMark id={item.id} /> : null}
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <section className="mt-24 border-t border-border pt-12 md:mt-32 md:pt-16">
-        <h2 className="text-2xl font-medium tracking-tight md:text-3xl">
-          Copy the first file
-        </h2>
-        <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Dependencies, tokens, then Button. Everything else is copied on
-          demand.
-        </p>
-        <Link
-          href="/docs/installation"
-          className={cn(buttonVariants({ size: "lg" }), "mt-8")}
+        <div className={cn(container, "relative pt-12 pb-12 md:pt-14")}>
+          <HeroProduct items={paletteItems} />
+        </div>
+      </div>
+
+      <div className={cn(container, "pb-16 md:pb-24")}>
+        <FeatureCli />
+        <FeatureForms />
+        <FeatureCarousel tableRows={tableRows} />
+        <FeatureTokens />
+        <FeatureComposed />
+
+        <section className="reveal mt-24 md:mt-32">
+          <div className="mb-8 flex items-baseline justify-between gap-4">
+            <h2
+              id="components"
+              className="text-sm font-medium tracking-tight text-muted-foreground"
+            >
+              Components
+            </h2>
+            <p className="font-mono text-xs text-muted-foreground">
+              {String(componentItems.length).padStart(2, "0")}
+            </p>
+          </div>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3 md:grid-cols-4">
+            {componentItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <Card
+          variant="secondary"
+          className="mt-24 gap-0 py-0 md:mt-32"
         >
-          Installation
-        </Link>
-      </section>
+          <div className="flex flex-col gap-8 px-6 py-8 md:flex-row md:items-end md:justify-between md:px-8 md:py-10">
+            <div className="max-w-xl">
+              <p className="font-mono text-xs tracking-widest text-muted-foreground">
+                Next
+              </p>
+              <h2 className="mt-3 text-3xl leading-[1.1] font-medium tracking-tight text-balance md:text-4xl">
+                Copy the first file.
+              </h2>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+                Dependencies, tokens, then Button. Everything else is copied on
+                demand.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
+              <Link
+                href="/docs/installation"
+                className={cn(buttonVariants({ size: "lg" }))}
+              >
+                Installation
+                <ArrowRightIcon data-icon="inline-end" />
+              </Link>
+              <Link
+                href="/docs/components"
+                className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+              >
+                Browse components
+              </Link>
+            </div>
+          </div>
+        </Card>
+      </div>
     </main>
   );
 }

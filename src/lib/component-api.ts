@@ -545,6 +545,24 @@ export const componentApis: Record<string, ComponentApi> = {
       part("CollapsiblePanel", "Animated content.", [className, children]),
     ],
   },
+  "color-picker": {
+    slug: "color-picker",
+    source: "src/components/ui/ColorPicker.tsx",
+    parts: [
+      part("ColorPicker", "Swatch trigger. The popup edits hue, saturation, brightness, and hex.", [
+        className,
+        { name: "value", type: "string", description: "Controlled hex color, #rrggbb." },
+        { name: "defaultValue", type: "string", default: "#262626", description: "Uncontrolled initial hex." },
+        {
+          name: "onValueChange",
+          type: "(value: string) => void",
+          description: "Called with a normalized #rrggbb color.",
+        },
+        { name: "disabled", type: "boolean", description: "Prevents opening the popup." },
+        { name: "aria-label", type: "string", default: "Color", description: "Name of the color being edited." },
+      ]),
+    ],
+  },
   combobox: {
     slug: "combobox",
     source: "src/components/ui/Combobox.tsx",

@@ -11,7 +11,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
       <table
         data-slot="table"
         className={cn(
-          "w-full caption-top border-separate border-spacing-0 text-sm",
+          "w-full caption-top border-separate border-spacing-0 text-xs",
           className
         )}
         {...props}
@@ -71,7 +71,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
     <th
       data-slot="table-head"
       className={cn(
-        "h-11 border-b border-border px-5 text-left align-middle text-xs font-medium text-muted-foreground",
+        "h-9 border-b border-border px-5 text-left align-middle text-xs font-medium text-muted-foreground",
         className
       )}
       {...props}

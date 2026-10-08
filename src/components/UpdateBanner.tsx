@@ -20,6 +20,8 @@ export function UpdateBanner() {
     }
   }, [pathname, release.version]);
 
+  if (pathname.startsWith("/block-preview")) return null;
+
   return (
     <div
       data-slot="update-banner"

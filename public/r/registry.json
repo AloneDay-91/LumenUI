@@ -184,6 +184,16 @@
       ]
     },
     {
+      "name": "color-picker",
+      "title": "Color Picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "input",
+        "popover",
+        "utils"
+      ]
+    },
+    {
       "name": "combobox",
       "title": "Combobox",
       "dependencies": [

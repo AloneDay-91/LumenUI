@@ -13,6 +13,7 @@ Usage
   lumenui init [--css]
   lumenui add <component>...
   lumenui add all
+  lumenui preset <file.css>
   lumenui rm <component>...
   lumenui list
 
@@ -42,6 +43,9 @@ export async function run(argv) {
       return
     case "add":
       add(cwd, registry, positionals, flags)
+      return
+    case "preset":
+      applyPreset(cwd, positionals[0], flags)
       return
     case "rm":
     case "remove":
@@ -197,6 +201,47 @@ function deleteItem(project, config, item, flags) {
     rmSync(destination)
     console.log(`remove ${path.relative(project, destination)}`)
   }
+}
+
+const PRESET_START = "/* lumen-preset:start */"
+const PRESET_END = "/* lumen-preset:end */"
+
+function applyPreset(cwd, file, flags) {
+  if (!file) {
+    throw new Error("Pass the preset file. Example: lumenui preset lumen-preset.css")
+  }
+  const project = resolveProject(cwd)
+  const sourcePath = path.resolve(cwd, file)
+  if (!existsSync(sourcePath)) {
+    throw new Error(`Could not read ${file}`)
+  }
+  const source = readFileSync(sourcePath, "utf8").trim()
+  const block = source.includes(PRESET_START)
+    ? `${source}\n`
+    : `${PRESET_START}\n${source}\n${PRESET_END}\n`
+  const destination = existsSync(path.join(project, "src"))
+    ? path.join(project, "src/app/globals.css")
+    : path.join(project, "app/globals.css")
+  if (!existsSync(destination)) {
+    throw new Error(
+      `No ${path.relative(project, destination)}. Run lumenui init --css first.`
+    )
+  }
+  const current = readFileSync(destination, "utf8")
+  const pattern = new RegExp(`${escapeRegExp(PRESET_START)}[\\s\\S]*?${escapeRegExp(PRESET_END)}\\n?`)
+  const next = pattern.test(current)
+    ? current.replace(pattern, block)
+    : `${current.trimEnd()}\n\n${block}`
+  if (flags["dry-run"]) {
+    console.log(`update ${path.relative(project, destination)}`)
+    return
+  }
+  writeFileSync(destination, next.endsWith("\n") ? next : `${next}\n`)
+  console.log(`update ${path.relative(project, destination)}`)
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 
 function writeTokens(project, css, flags) {

@@ -15,14 +15,19 @@ export const docsSections: DocsNavSection[] = [
     items: [
       { name: "Introduction", href: "/docs" },
       { name: "Installation", href: "/docs/installation" },
+      { name: "Frameworks", href: "/docs/frameworks" },
       { name: "Changelog", href: "/docs/changelog" },
       { name: "Examples", href: "/examples" },
+      { name: "Blocks", href: "/blocks" },
       { name: "LLMs", href: "/docs/llms" },
     ],
   },
   {
     title: "Foundations",
-    items: [{ name: "Styles", href: "/docs/styles" }],
+    items: [
+      { name: "Styles", href: "/docs/styles" },
+      { name: "Customize", href: "/customize" },
+    ],
   },
   {
     title: "Components",
@@ -45,6 +50,7 @@ export const docsSections: DocsNavSection[] = [
       { name: "Checkbox", href: "/docs/components/checkbox" },
       { name: "Checkbox Group", href: "/docs/components/checkbox-group" },
       { name: "Collapsible", href: "/docs/components/collapsible" },
+      { name: "Color Picker", href: "/docs/components/color-picker" },
       { name: "Combobox", href: "/docs/components/combobox" },
       { name: "Command", href: "/docs/components/command" },
       { name: "Context Menu", href: "/docs/components/context-menu" },
