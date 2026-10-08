@@ -1,6 +1,11 @@
 "use client"
 
-import { useEffect, useState, type PointerEvent } from "react"
+import {
+  useEffect,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+} from "react"
 
 import { Input } from "@/components/ui/Input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover"
@@ -160,7 +165,7 @@ function ColorPicker({
           "disabled:pointer-events-none disabled:opacity-50",
           className,
         )}
-        style={{ "--swatch": swatch }}
+        style={{ "--swatch": swatch } as CSSProperties}
       />
       <PopoverContent align="start" className="flex w-56 flex-col px-3">
         <div className="py-2">
