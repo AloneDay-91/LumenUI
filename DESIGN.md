@@ -28,12 +28,13 @@ Interdit : bleu interactif, violet IA, titres 7xl.
 - Marketing : header `px-6 py-6 md:px-12`. NavigationMenu = mega menu pleine largeur (triggers `text-sm text-muted-foreground`, panneau overlay `absolute` sous la barre, `border-b`, le contenu reste en place).
 - Docs : layout Polar / Medusa / Mintlify — header + recherche ⌘K, sidebar groupée, article, TOC « Sur cette page », fil d’Ariane, pager. Tokens et composants Lumen, pas le chrome Polar.
 - Portals : `.root { isolation: isolate }` pour Dialog, Menu, Select, Popover, Tooltip, Toast.
-- Hero landing : photo + carte intérieure `bg-secondary rounded-lg`
+- Hero landing : peinture pleine largeur (masque transparent → opaque → transparent, effacée avant le fondu de la carte), capture produit à plat `rounded-[min(var(--radius-4xl),24px)]` rognée par un masque bas, `aria-hidden` + `inert`, une seule palette Command flottante (seul élément sans masque, seule ombre : ce qui flotte est vivant, ce qui est à plat est décor)
 - Listes : lignes + `Separator`
 
 ## Components
 
 - Buttons: `rounded-full`, `text-xs`, `h-8`
+- CTA hero : taille par défaut (`h-8 text-xs rounded-full`), pastille primaire = commande d'installation copiable
 - Inputs / Select: `h-8 rounded-2xl border-transparent bg-input/50`
 - Cards: `rounded-[min(var(--radius-4xl),24px)]`
 - Badges: `h-5 rounded-2xl`
