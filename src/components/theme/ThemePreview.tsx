@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type ReactNode } from "react";
+import { useId, type CSSProperties, type ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, Cell, Pie, PieChart } from "recharts";
 import {
   ArrowLeftIcon,
@@ -284,7 +284,7 @@ function Swatch({ token }: { token: (typeof swatches)[number] }) {
     <div className="flex flex-col items-center gap-2">
       <div
         className="relative aspect-square w-full rounded-lg bg-(--swatch) after:absolute after:inset-0 after:rounded-lg after:border after:border-border after:mix-blend-darken dark:after:mix-blend-lighten"
-        style={{ "--swatch": `var(--${token})` }}
+        style={{ "--swatch": `var(--${token})` } as CSSProperties}
       />
       <div className="max-w-full truncate font-mono text-[0.6rem] text-muted-foreground">
         --{token}
