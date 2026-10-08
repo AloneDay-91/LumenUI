@@ -55,6 +55,14 @@ export function MarketingNav() {
               ))}
               <NavigationMenuItem>
                 <NavigationMenuLink
+                  render={<Link href="/customize" />}
+                  variant="muted"
+                >
+                  Customize
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noreferrer"

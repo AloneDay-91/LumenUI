@@ -16,8 +16,8 @@ const kbdVariants = cva(
       size: {
         default:
           "h-6 min-w-6 px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-5 min-w-5 px-1.5 text-[0.6875rem] [&_svg:not([class*='size-'])]:size-[0.6875rem]",
-        lg: "h-7 min-w-7 px-2.5 text-[0.8125rem] [&_svg:not([class*='size-'])]:size-[0.8125rem]",
+        sm: "h-5 min-w-5 px-1.5 text-xs [&_svg:not([class*='size-'])]:size-3",
+        lg: "h-7 min-w-7 px-2.5 text-xs [&_svg:not([class*='size-'])]:size-3",
       },
       variant: {
         default: "bg-secondary text-secondary-foreground",
@@ -36,8 +36,8 @@ const kbdGroupVariants = cva("inline-flex items-center", {
   variants: {
     size: {
       default: "gap-1.5 text-xs",
-      sm: "gap-1 text-[0.6875rem]",
-      lg: "gap-2 text-[0.8125rem]",
+      sm: "gap-1 text-xs",
+      lg: "gap-2 text-xs",
     },
   },
   defaultVariants: {

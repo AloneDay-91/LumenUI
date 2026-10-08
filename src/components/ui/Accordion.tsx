@@ -56,7 +56,7 @@ function AccordionPanel({
     <AccordionPrimitive.Panel
       data-slot="accordion-panel"
       className={cn(
-        "h-[var(--accordion-panel-height)] overflow-hidden text-sm text-muted-foreground transition-[height] duration-200 data-ending-style:h-0 data-starting-style:h-0",
+        "h-[var(--accordion-panel-height)] overflow-hidden text-xs text-muted-foreground transition-[height] duration-200 data-ending-style:h-0 data-starting-style:h-0",
         className
       )}
       {...props}

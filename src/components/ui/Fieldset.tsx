@@ -18,7 +18,7 @@ function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props)
   return (
     <FieldsetPrimitive.Legend
       data-slot="fieldset-legend"
-      className={cn("text-sm font-medium", className)}
+      className={cn("text-xs font-medium", className)}
       {...props}
     />
   )

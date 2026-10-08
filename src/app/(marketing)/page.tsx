@@ -10,8 +10,10 @@ import { FeatureForms } from "@/components/marketing/FeatureForms";
 import { FeatureTokens } from "@/components/marketing/FeatureTokens";
 import { HeroProduct } from "@/components/marketing/HeroProduct";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { Card } from "@/components/ui/Card";
 import { docsSections } from "@/lib/docs-nav";
 import { getHeroRows } from "@/lib/hero-registry";
+import { StackMark } from "@/components/marketing/StackMarks";
 import { HERO_BACKGROUND, LANDING_MAX_WIDTH, STACK } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +77,10 @@ export default function Home() {
             className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1.5 font-mono text-xs text-muted-foreground"
           >
             {STACK.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item.label} className="inline-flex items-center gap-1.5">
+                {item.id ? <StackMark id={item.id} /> : null}
+                {item.label}
+              </li>
             ))}
           </ul>
         </section>
@@ -118,21 +123,40 @@ export default function Home() {
           </ul>
         </section>
 
-        <section className="mt-24 border-t border-border pt-12 md:mt-32 md:pt-16">
-          <h2 className="text-2xl font-medium tracking-tight md:text-3xl">
-            Copy the first file
-          </h2>
-          <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Dependencies, tokens, then Button. Everything else is copied on
-            demand.
-          </p>
-          <Link
-            href="/docs/installation"
-            className={cn(buttonVariants({ size: "lg" }), "mt-8")}
-          >
-            Installation
-          </Link>
-        </section>
+        <Card
+          variant="secondary"
+          className="mt-24 gap-0 py-0 md:mt-32"
+        >
+          <div className="flex flex-col gap-8 px-6 py-8 md:flex-row md:items-end md:justify-between md:px-8 md:py-10">
+            <div className="max-w-xl">
+              <p className="font-mono text-xs tracking-widest text-muted-foreground">
+                Next
+              </p>
+              <h2 className="mt-3 text-3xl leading-[1.1] font-medium tracking-tight text-balance md:text-4xl">
+                Copy the first file.
+              </h2>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+                Dependencies, tokens, then Button. Everything else is copied on
+                demand.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
+              <Link
+                href="/docs/installation"
+                className={cn(buttonVariants({ size: "lg" }))}
+              >
+                Installation
+                <ArrowRightIcon data-icon="inline-end" />
+              </Link>
+              <Link
+                href="/docs/components"
+                className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+              >
+                Browse components
+              </Link>
+            </div>
+          </div>
+        </Card>
       </div>
     </main>
   );

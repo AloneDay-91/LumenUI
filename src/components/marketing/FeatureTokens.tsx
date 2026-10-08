@@ -1,21 +1,27 @@
-import { Keyboard, Layers, Moon, SquareStack } from "lucide-react";
+import { Keyboard, Moon, SquareStack } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { PANEL_RADIUS } from "@/components/marketing/FeatureIntro";
+import { StackMark, type StackMarkId } from "@/components/marketing/StackMarks";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Toggle } from "@/components/ui/Toggle";
 import { ToggleGroup } from "@/components/ui/ToggleGroup";
+import { COMPAT } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const highlights = [
+const highlights: Array<{
+  icon?: typeof SquareStack;
+  mark?: StackMarkId;
+  title: string;
+  body: string;
+}> = [
   {
     icon: SquareStack,
     title: "Copy-paste",
     body: "You copy the file. It lives in your repo, with no package to version.",
   },
   {
-    icon: Layers,
+    mark: "base-ui",
     title: "Base UI",
     body: "Focus, keyboard, and portals come from the primitives.",
   },
@@ -104,40 +110,32 @@ export function FeatureTokens() {
 
         <div className="bg-background pb-10 md:ps-10">
           <h3 className="text-lg font-medium tracking-tight">
-            Meters that read at a glance
+            Compatible with the stack you already ship
           </h3>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Meter and Progress share one rounded track. Segment it for quotas,
-            budgets, and limits.
+            React for the tree, Tailwind for the styles, Base UI for behavior.
+            The CLI does not add a component package on top.
           </p>
           <Stack>
-            <p className="text-sm font-medium">Repo size</p>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              Files copied by the CLI, by type
-            </p>
-            <div className="mt-4 flex h-5 overflow-hidden rounded-full bg-[repeating-linear-gradient(90deg,var(--border)_0_1px,transparent_1px_4px)]">
-              <span className="w-1/4 bg-foreground" />
-              <span className="w-[15%] bg-muted-foreground" />
-            </div>
-            <div className="mt-4 flex gap-12">
-              <div>
-                <p className="text-lg font-medium">40%</p>
-                <p className="text-xs text-muted-foreground">Used</p>
-              </div>
-              <div>
-                <p className="text-lg font-medium">60%</p>
-                <p className="text-xs text-muted-foreground">Free</p>
-              </div>
-            </div>
-            <ul className="mt-4 flex flex-col gap-1.5 border-t border-dashed border-border pt-3 text-xs text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-foreground" />
-                Components (25%)
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-muted-foreground" />
-                Tokens (15%)
-              </li>
+            <ul className="flex flex-col gap-4">
+              {COMPAT.map((item) => (
+                <li key={item.id} className="flex items-start gap-3">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-xl border border-border">
+                    <StackMark id={item.id} className="size-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="flex items-baseline gap-2 text-sm font-medium">
+                      {item.name}
+                      <span className="font-mono text-xs font-normal text-muted-foreground">
+                        {item.version}
+                      </span>
+                    </span>
+                    <span className="mt-0.5 block text-xs leading-relaxed text-muted-foreground">
+                      {item.body}
+                    </span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </Stack>
         </div>
@@ -147,7 +145,11 @@ export function FeatureTokens() {
         {highlights.map((item) => (
           <li key={item.title} className="flex flex-col gap-2.5">
             <span className="inline-flex items-center gap-2 text-sm font-medium">
-              <item.icon className="size-4 shrink-0" aria-hidden />
+              {item.icon ? (
+                <item.icon className="size-4 shrink-0" aria-hidden />
+              ) : item.mark ? (
+                <StackMark id={item.mark} className="size-4" />
+              ) : null}
               {item.title}
             </span>
             <span className="text-sm leading-relaxed text-muted-foreground">

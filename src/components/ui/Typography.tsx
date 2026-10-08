@@ -11,7 +11,7 @@ const typographyVariants = cva("w-full text-foreground", {
       article:
         "max-w-[65ch] [--type-size:0.875rem] [--type-leading:1.7] [--type-flow:1.25rem]",
       compact:
-        "max-w-none [--type-size:0.8125rem] [--type-leading:1.55] [--type-flow:0.75rem]",
+        "max-w-none [--type-size:0.75rem] [--type-leading:1.55] [--type-flow:0.75rem]",
     },
   },
   defaultVariants: {

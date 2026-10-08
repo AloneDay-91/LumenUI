@@ -85,6 +85,37 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.0",
+    date: "2026-10-08",
+    summary: "Customize, blocks, Color Picker and a new home page.",
+    items: [
+      {
+        kind: "added",
+        text: "Customize previews colors, type, radius and shadow, then exports a preset for the CLI.",
+        href: "/customize",
+      },
+      {
+        kind: "added",
+        text: "Blocks ship as copyable kits.",
+        href: "/blocks",
+      },
+      {
+        kind: "added",
+        text: "Color Picker.",
+        href: "/docs/components/color-picker",
+      },
+      {
+        kind: "added",
+        text: "Frameworks guide.",
+        href: "/docs/frameworks",
+      },
+      {
+        kind: "changed",
+        text: "The home page shows a product hero with a Command palette and a Customize link in the navbar.",
+      },
+    ],
+  },
+  {
     version: "0.7.3",
     date: "2026-10-04",
     summary: "The landing page copies the init command.",

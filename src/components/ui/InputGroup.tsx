@@ -52,7 +52,7 @@ function InputGroupInput({
     <input
       data-slot="input"
       className={cn(
-        "h-full min-w-0 flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+        "h-full min-w-0 flex-1 bg-transparent px-3 text-xs outline-none placeholder:text-muted-foreground",
         "group-has-data-[align=start]/input-group:ps-1 group-has-data-[align=end]/input-group:pe-1",
         className
       )}

@@ -1,3 +1,4 @@
+import { blockCategories } from "@/lib/block-categories"
 import { GITHUB_URL } from "@/lib/site"
 
 export type NavMenuLink = {
@@ -27,7 +28,9 @@ export const navMenus: NavMenu[] = [
       items: [
         { href: "/docs", label: "Introduction" },
         { href: "/docs/installation", label: "Installation" },
+        { href: "/docs/frameworks", label: "Frameworks" },
         { href: "/docs/styles", label: "Styles" },
+        { href: "/customize", label: "Customize" },
         { href: "/examples", label: "Examples" },
         { href: "/docs/changelog", label: "Changelog" },
       ],
@@ -38,6 +41,7 @@ export const navMenus: NavMenu[] = [
         items: [
           { href: "/docs", label: "Documentation" },
           { href: "/docs/installation", label: "Installation" },
+          { href: "/docs/frameworks", label: "Frameworks" },
           { href: "/docs/styles", label: "Tokens and type" },
           { href: "/docs/changelog", label: "Changelog" },
         ],
@@ -84,6 +88,7 @@ export const navMenus: NavMenu[] = [
           { href: "/docs/components/date-picker", label: "Date Picker" },
           { href: "/docs/components/field", label: "Field" },
           { href: "/docs/components/checkbox", label: "Checkbox" },
+          { href: "/docs/components/color-picker", label: "Color Picker" },
           { href: "/docs/components/switch", label: "Switch" },
         ],
       },
@@ -136,6 +141,38 @@ export const navMenus: NavMenu[] = [
           { href: "/docs/components/progress", label: "Progress" },
           { href: "/docs/components/rating", label: "Rating" },
         ],
+      },
+    ],
+  },
+  {
+    id: "blocks",
+    title: "Blocks",
+    featured: {
+      title: "Kits",
+      items: [
+        { href: "/blocks", label: "All blocks" },
+        { href: "/blocks/headers", label: "Headers" },
+        { href: "/blocks/heroes", label: "Heroes" },
+      ],
+    },
+    sections: [
+      {
+        title: "Marketing",
+        items: blockCategories
+          .filter((category) => category.group === "Marketing")
+          .map((category) => ({
+            href: `/blocks/${category.slug}`,
+            label: category.title,
+          })),
+      },
+      {
+        title: "Account",
+        items: blockCategories
+          .filter((category) => category.group === "Account")
+          .map((category) => ({
+            href: `/blocks/${category.slug}`,
+            label: category.title,
+          })),
       },
     ],
   },

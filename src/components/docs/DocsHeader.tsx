@@ -4,6 +4,10 @@ import * as React from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
+import { BlocksNav } from "@/components/blocks/BlocksSidebar";
+import { KitSelect } from "@/components/blocks/KitProvider";
+import { SiteNavMenu } from "@/components/blocks/SiteNavMenu";
+import { ThemeControls } from "@/components/theme/ThemeControls";
 import { DocsContents } from "@/components/docs/DocsContents";
 import { DocsSearch } from "@/components/docs/DocsSearch";
 import { ThemeToggle } from "@/components/docs/ThemeToggle";
@@ -16,6 +20,8 @@ export function DocsHeader() {
   const [open, setOpen] = React.useState(false);
   const close = () => setOpen(false);
   const pathname = usePathname();
+  const blocks = pathname.startsWith("/blocks");
+  const customize = pathname === "/customize";
 
   React.useEffect(() => {
     setOpen(false);
@@ -66,15 +72,28 @@ export function DocsHeader() {
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </Button>
           <SiteLogo onClick={close} />
-          <span className="hidden text-xs text-muted-foreground lg:inline">
-            Documentation
-          </span>
-          <Badge
-            variant="outline"
-            className="font-mono text-[10px] text-muted-foreground"
-          >
-            {formatDocsVersion()}
-          </Badge>
+          {blocks ? (
+            <span className="hidden items-center gap-2 md:inline-flex">
+              <span className="text-xs text-muted-foreground">Blocks</span>
+              <KitSelect className="w-32" />
+            </span>
+          ) : customize ? (
+            <span className="hidden text-xs text-muted-foreground md:inline">
+              Customize
+            </span>
+          ) : (
+            <span className="hidden text-xs text-muted-foreground lg:inline">
+              Documentation
+            </span>
+          )}
+          {blocks || customize ? null : (
+            <Badge
+              variant="outline"
+              className="font-mono text-[10px] text-muted-foreground"
+            >
+              {formatDocsVersion()}
+            </Badge>
+          )}
         </div>
         <div className="hidden md:block">
           <DocsSearch className="max-w-none" />
@@ -97,6 +116,7 @@ export function DocsHeader() {
             </svg>
             <span className="sr-only">GitHub</span>
           </Button>
+          {blocks || customize ? <SiteNavMenu /> : null}
         </div>
       </div>
       {open ? (
@@ -104,8 +124,19 @@ export function DocsHeader() {
           id="docs-mobile-nav"
           className="fixed inset-x-0 top-[calc(var(--update-banner-height)+3.5rem)] bottom-0 z-40 space-y-4 overflow-y-auto overscroll-contain border-t border-border bg-background px-4 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden"
         >
-          <DocsSearch className="max-w-none" />
-          <DocsContents onNavigate={close} />
+          {blocks ? (
+            <>
+              <KitSelect className="w-full" />
+              <BlocksNav onNavigate={close} />
+            </>
+          ) : customize ? (
+            <ThemeControls onNavigate={close} />
+          ) : (
+            <>
+              <DocsSearch className="max-w-none" />
+              <DocsContents onNavigate={close} />
+            </>
+          )}
         </div>
       ) : null}
     </header>

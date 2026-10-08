@@ -27,7 +27,7 @@ function PreviewCardContent({
       >
         <PreviewCardPrimitive.Popup
           data-slot="preview-card-content"
-          className={cn(popupClassName, "z-50 w-72 p-4", className)}
+          className={cn(popupClassName, "z-50 w-72 p-4 text-xs", className)}
           {...props}
         />
       </PreviewCardPrimitive.Positioner>

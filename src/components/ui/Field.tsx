@@ -19,7 +19,7 @@ function FieldLabel({ className, ...props }: FieldPrimitive.Label.Props) {
   return (
     <FieldPrimitive.Label
       data-slot="field-label"
-      className={cn("text-sm font-medium", className)}
+      className={cn("text-xs font-medium", className)}
       {...props}
     />
   )

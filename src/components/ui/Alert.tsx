@@ -58,7 +58,7 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        "text-sm text-muted-foreground md:text-pretty [&_p:not(:last-child)]:mb-4",
+        "text-xs text-muted-foreground md:text-pretty [&_p:not(:last-child)]:mb-4",
         className
       )}
       {...props}
