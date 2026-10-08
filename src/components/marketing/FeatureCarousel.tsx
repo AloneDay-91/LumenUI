@@ -50,6 +50,7 @@ import {
 } from "@/components/ui/Timeline";
 import { useToastManager } from "@/components/ui/Toast";
 import type { HeroRow } from "@/lib/hero-registry";
+import { useQuietCommand } from "@/lib/use-quiet-command";
 
 const exportsByDay = Array.from({ length: 28 }, (_, index) => ({
   day: index + 1,
@@ -154,18 +155,32 @@ function TimelineSlide() {
 }
 
 function CommandSlide() {
+  // cmdk scrolls its selected item into view on mount, which would drag the
+  // page down to this slide. Stay unselected until the visitor engages.
+  const { active, commandProps } = useQuietCommand("dialog");
+
   return (
     <Slide
       name="Command"
       caption="gives you search, grouped results, and shortcuts with full keyboard navigation."
     >
-      <Command className="h-auto w-full shadow-lg ring-1 ring-foreground/5">
+      <Command
+        {...commandProps}
+        className="h-auto w-full shadow-lg ring-1 ring-foreground/5"
+      >
         <CommandInput placeholder="Search components…" />
         <CommandList className="max-h-36">
           <CommandGroup heading="Overlays">
-            <CommandItem>Dialog</CommandItem>
-            <CommandItem>Drawer</CommandItem>
-            <CommandItem>Popover</CommandItem>
+            {["Dialog", "Drawer", "Popover"].map((name) => (
+              <CommandItem
+                key={name}
+                value={name.toLowerCase()}
+                data-active={active === name.toLowerCase()}
+                className="data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
+              >
+                {name}
+              </CommandItem>
+            ))}
           </CommandGroup>
         </CommandList>
       </Command>

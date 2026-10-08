@@ -14,6 +14,7 @@ import { Kbd } from "@/components/ui/Kbd";
 import { popupClassName } from "@/components/ui/styles";
 import { useToastManager } from "@/components/ui/Toast";
 import { useCopy } from "@/lib/use-copy";
+import { useQuietCommand } from "@/lib/use-quiet-command";
 import { cn } from "@/lib/utils";
 
 export type PaletteItem = { name: string; slug: string };
@@ -42,7 +43,8 @@ function search(items: PaletteItem[], query: string) {
  */
 export function HeroPalette({ items }: { items: PaletteItem[] }) {
   const [query, setQuery] = useState("dia");
-  const [active, setActive] = useState("dialog");
+  const { active, engaged, idleValue, commandProps } =
+    useQuietCommand("dialog");
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const toast = useToastManager();
@@ -107,8 +109,8 @@ export function HeroPalette({ items }: { items: PaletteItem[] }) {
         label="Add a component"
         shouldFilter={false}
         loop
-        value={current}
-        onValueChange={setActive}
+        {...commandProps}
+        value={engaged ? current : idleValue}
         className="h-auto rounded-none bg-transparent"
       >
         <CommandInput

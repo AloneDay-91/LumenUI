@@ -38,7 +38,7 @@ export function FeatureForms() {
                 <Input
                   id="landing-email"
                   type="email"
-                  defaultValue="elouan@studio"
+                  defaultValue="elouan@lumenui.fr"
                   aria-invalid
                 />
                 <p className="text-xs text-destructive">
@@ -54,7 +54,9 @@ export function FeatureForms() {
             </div>
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-sm font-medium">Forms with every state built in</h3>
+            <h3 className="text-sm font-medium">
+              Forms with every state built in
+            </h3>
             <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Field, Input, and Select share one focus ring, one invalid style,
               and one disabled style.
@@ -72,7 +74,9 @@ export function FeatureForms() {
               <ItemGroup className="rounded-[20px] bg-background px-3 py-1.5 ring-1 ring-border">
                 {addable.map((component, index) => (
                   <div key={component.name}>
-                    {index > 0 ? <ItemSeparator className="my-0 border-dashed" /> : null}
+                    {index > 0 ? (
+                      <ItemSeparator className="my-0 border-dashed" />
+                    ) : null}
                     <Item className="px-0">
                       <ItemMedia variant="icon">
                         <SquareStack />
