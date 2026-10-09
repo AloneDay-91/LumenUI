@@ -66,7 +66,7 @@ export function BlocksShell({ children }: { children: ReactNode }) {
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
-            <div className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+            <div className="mx-auto w-full max-w-[110rem] flex-1 px-4 py-8 sm:px-6 lg:px-8">
               {children}
             </div>
           </SidebarInset>
