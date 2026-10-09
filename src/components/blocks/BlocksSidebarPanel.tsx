@@ -3,8 +3,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { blockCount, listedCategories } from "@/components/blocks/BlocksGallery"
-import { KitSwitcher } from "@/components/blocks/KitProvider"
+import {
+  blockCount,
+  kitCategories,
+  listedGroups,
+} from "@/components/blocks/BlocksGallery"
+import { KitSwitcher, useKit } from "@/components/blocks/KitProvider"
 import {
   Sidebar,
   SidebarContent,
@@ -19,8 +23,6 @@ import {
 } from "@/components/ui/Sidebar"
 import { formatDocsVersion } from "@/lib/site"
 
-const groups = ["Marketing", "Account"] as const
-
 function Count({ value }: { value: number }) {
   return (
     <span className="font-mono text-[11px] font-normal text-muted-foreground">
@@ -32,6 +34,8 @@ function Count({ value }: { value: number }) {
 /** Floating cards on a tinted ground. Sticky, so it runs to the bottom of the screen. */
 export function BlocksSidebar() {
   const pathname = usePathname()
+  const { active } = useKit()
+  const categories = kitCategories(active.id)
 
   return (
     <Sidebar
@@ -56,22 +60,18 @@ export function BlocksSidebar() {
                   }
                 >
                   <span className="flex-1 truncate">All blocks</span>
-                  <Count value={listedCategories.length} />
+                  <Count value={categories.length} />
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {groups
-          .filter((group) =>
-            listedCategories.some((category) => category.group === group),
-          )
-          .map((group) => (
+        {listedGroups(active.id).map((group) => (
             <SidebarGroup key={group}>
               <SidebarGroupLabel>{group}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {listedCategories
+                  {categories
                     .filter((category) => category.group === group)
                     .map((category) => {
                       const href = `/blocks/${category.slug}`

@@ -1,4 +1,6 @@
-export const blockPreviewIds = [
+import { dashboardBlockMeta } from "@/lib/dashboard-blocks"
+
+const lumenPreviewIds = [
   "site-hero",
   "site-header",
   "landing-hero",
@@ -11,6 +13,9 @@ export const blockPreviewIds = [
   "component-index",
   "installation",
   "site-footer",
-] as const
+]
 
-export type BlockPreviewId = (typeof blockPreviewIds)[number]
+export const blockPreviewIds: string[] = [
+  ...lumenPreviewIds,
+  ...dashboardBlockMeta.map((block) => block.id),
+]
