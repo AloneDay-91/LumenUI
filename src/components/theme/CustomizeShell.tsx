@@ -23,12 +23,13 @@ export function CustomizeShell({ children }: { children: ReactNode }) {
                 <p className="text-xs text-muted-foreground">Customize</p>
               </div>
             </div>
-            <div
+            <main
               id="content"
-              className="min-h-0 min-w-0 flex-1 overflow-auto bg-background"
+              className="relative min-h-0 min-w-0 flex-1 overflow-auto bg-background"
             >
+              <h1 className="sr-only">Customize</h1>
               {children}
-            </div>
+            </main>
           </div>
         </div>
       </div>

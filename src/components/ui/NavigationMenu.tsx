@@ -65,7 +65,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  "cursor-pointer text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:text-foreground data-popup-open:text-foreground"
+  "-mx-2 -my-1 cursor-pointer rounded-full px-2 py-1 text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 data-popup-open:text-foreground"
 )
 
 function NavigationMenuTrigger({
@@ -114,14 +114,14 @@ function NavigationMenuContent({
 }
 
 const navigationMenuLinkVariants = cva(
-  "inline-flex items-center gap-2 text-foreground transition-colors outline-none hover:text-muted-foreground focus-visible:text-muted-foreground",
+  "inline-flex items-center gap-2 rounded-full text-foreground transition-colors outline-none hover:text-muted-foreground focus-visible:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
   {
     variants: {
       variant: {
         default: "text-sm",
         featured: "text-lg font-normal",
         muted:
-          "text-sm text-muted-foreground hover:text-foreground focus-visible:text-foreground",
+          "-mx-2 -my-1 px-2 py-1 text-sm text-muted-foreground hover:text-foreground focus-visible:text-foreground",
       },
     },
     defaultVariants: {

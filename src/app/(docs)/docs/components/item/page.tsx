@@ -19,7 +19,7 @@ import {
 
 const people = [
   { initials: "IN", name: "Ink", text: "One black, then quieter greys." },
-  { initials: "TY", name: "Type", text: "Inter for the UI, Fraunces for the wordmark." },
+  { initials: "TY", name: "Type", text: "Inter for the UI, Fraunces as an optional heading font." },
   { initials: "PI", name: "Pills", text: "Actions are round. Cards are not." },
 ]
 

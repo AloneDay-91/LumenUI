@@ -119,20 +119,6 @@ export function BlockView({
               <Maximize2 className="size-3.5" />
             </Button>
           ) : null}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="max-w-full font-mono"
-            onClick={() => copy(command)}
-          >
-            <span className="min-w-0 truncate">{command}</span>
-            {copied ? (
-              <CheckIcon data-icon="inline-end" />
-            ) : (
-              <CopyIcon data-icon="inline-end" />
-            )}
-          </Button>
         </div>
       </header>
 
@@ -141,7 +127,7 @@ export function BlockView({
           className={cn(
             fullscreen
               ? "fixed inset-0 z-100 flex flex-col bg-background"
-              : "overflow-x-auto bg-muted/40",
+              : "overflow-x-auto bg-muted/40 p-3",
           )}
         >
           {fullscreen ? (
@@ -174,8 +160,7 @@ export function BlockView({
               src={`/block-preview/${id}`}
               className={cn(
                 "block border-0 bg-background",
-                device !== "desktop" && "ring-1 ring-border",
-                desktopFill && "h-full w-full",
+                desktopFill ? "h-full w-full" : "rounded-2xl ring-1 ring-border",
               )}
               style={
                 desktopFill
@@ -191,8 +176,24 @@ export function BlockView({
         </div>
       )}
 
-      <footer className="border-t border-border px-4 py-3">
-        <p className="text-xs leading-relaxed text-muted-foreground">{description}</p>
+      <footer className="flex flex-col gap-3 border-t border-border px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="max-w-prose text-xs leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="max-w-full font-mono"
+          onClick={() => copy(command)}
+        >
+          <span className="min-w-0 truncate">{command}</span>
+          {copied ? (
+            <CheckIcon data-icon="inline-end" />
+          ) : (
+            <CopyIcon data-icon="inline-end" />
+          )}
+        </Button>
       </footer>
     </article>
   )

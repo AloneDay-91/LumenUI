@@ -1,41 +1,12 @@
-import { Keyboard, Moon, SquareStack } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { StackMark, type StackMarkId } from "@/components/marketing/StackMarks";
+import { StackMark } from "@/components/marketing/StackMarks";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Toggle } from "@/components/ui/Toggle";
 import { ToggleGroup } from "@/components/ui/ToggleGroup";
 import { COMPAT } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const highlights: Array<{
-  icon?: typeof SquareStack;
-  mark?: StackMarkId;
-  title: string;
-  body: string;
-}> = [
-  {
-    icon: SquareStack,
-    title: "Copy-paste",
-    body: "You copy the file. It lives in your repo, with no package to version.",
-  },
-  {
-    mark: "base-ui",
-    title: "Base UI",
-    body: "Focus, keyboard, and portals come from the primitives.",
-  },
-  {
-    icon: Keyboard,
-    title: "Keyboard first",
-    body: "Visible focus and native composition on every control.",
-  },
-  {
-    icon: Moon,
-    title: "Light and dark",
-    body: "One set of tokens, two themes, no interactive blue.",
-  },
-];
 
 /** Two cards peeking out behind the main one, fading out at the bottom. */
 function Stack({ children }: { children: ReactNode }) {
@@ -62,7 +33,7 @@ function ThemeCard({ dark }: { dark?: boolean }) {
     <div
       className={cn(
         "rounded-2xl bg-background p-3 text-foreground ring-1 ring-border",
-        dark && "dark",
+        dark ? "dark" : "light",
       )}
     >
       <Card size="sm" className="gap-3 py-3">
@@ -84,7 +55,7 @@ export function FeatureTokens() {
   return (
     <section className="reveal mt-24 md:mt-32">
       <div className="grid gap-px bg-border md:grid-cols-2">
-        <div className="bg-background pb-10 md:pe-10">
+        <div className="bg-background md:pe-10">
           <h3 className="text-lg font-medium tracking-tight">
             Light and dark from one set of tokens
           </h3>
@@ -108,7 +79,7 @@ export function FeatureTokens() {
           </Stack>
         </div>
 
-        <div className="bg-background pb-10 md:ps-10">
+        <div className="bg-background md:ps-10">
           <h3 className="text-lg font-medium tracking-tight">
             Compatible with the stack you already ship
           </h3>
@@ -140,24 +111,6 @@ export function FeatureTokens() {
           </Stack>
         </div>
       </div>
-
-      <ul className="grid gap-8 border-t border-border pt-10 sm:grid-cols-2 lg:grid-cols-4">
-        {highlights.map((item) => (
-          <li key={item.title} className="flex flex-col gap-2.5">
-            <span className="inline-flex items-center gap-2 text-sm font-medium">
-              {item.icon ? (
-                <item.icon className="size-4 shrink-0" aria-hidden />
-              ) : item.mark ? (
-                <StackMark id={item.mark} className="size-4" />
-              ) : null}
-              {item.title}
-            </span>
-            <span className="text-sm leading-relaxed text-muted-foreground">
-              {item.body}
-            </span>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

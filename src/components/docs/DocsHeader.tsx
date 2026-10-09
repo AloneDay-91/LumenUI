@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
-import { BlocksNav } from "@/components/blocks/BlocksSidebar";
 import { KitSelect } from "@/components/blocks/KitProvider";
 import { SiteNavMenu } from "@/components/blocks/SiteNavMenu";
 import { ThemeControls } from "@/components/theme/ThemeControls";
@@ -15,6 +15,11 @@ import { SiteLogo } from "@/components/marketing/SiteLogo";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { formatDocsVersion, GITHUB_URL } from "@/lib/site";
+
+// The blocks registry is heavy: it loads with the blocks menu, not with every docs page.
+const BlocksNav = dynamic(() =>
+  import("@/components/blocks/BlocksSidebar").then((module) => module.BlocksNav),
+);
 
 export function DocsHeader() {
   const [open, setOpen] = React.useState(false);
@@ -72,12 +77,7 @@ export function DocsHeader() {
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </Button>
           <SiteLogo onClick={close} />
-          {blocks ? (
-            <span className="hidden items-center gap-2 md:inline-flex">
-              <span className="text-xs text-muted-foreground">Blocks</span>
-              <KitSelect className="w-32" />
-            </span>
-          ) : customize ? (
+          {blocks ? null : customize ? (
             <span className="hidden text-xs text-muted-foreground md:inline">
               Customize
             </span>

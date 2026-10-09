@@ -1,9 +1,5 @@
-import type { ReactNode } from "react"
+import { docsMetadata } from "@/lib/docs-metadata"
 
-export default function DocsInnerLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
-  return children
-}
+export { default } from "@/components/docs/DocsRouteLayout"
+
+export const generateMetadata = () => docsMetadata("/docs")

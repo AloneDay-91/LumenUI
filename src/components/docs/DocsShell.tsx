@@ -33,12 +33,12 @@ export function DocsShell({ children }: { children: ReactNode }) {
               <DocsBreadcrumb />
             </div>
           </div>
-          <div className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+          <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
             <article id="content" className="docs-article">
               {children}
               <DocsPager />
             </article>
-          </div>
+          </main>
         </div>
         <DocsAside />
       </div>

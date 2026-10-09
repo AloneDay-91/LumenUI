@@ -576,8 +576,8 @@ export function ThemePreview() {
   const heading = headingLabel(preset.heading, sans);
 
   return (
-    <div className="w-max p-3">
-      <div className="grid w-[2400px] grid-cols-7 items-start gap-3 xl:w-[2800px]">
+    <div className="p-3 md:w-max">
+      <div className="grid w-full grid-cols-1 items-start gap-3 md:w-[2400px] md:grid-cols-7 xl:w-[2800px]">
         <Column>
           <Card>
             <CardContent className="flex flex-col gap-6">

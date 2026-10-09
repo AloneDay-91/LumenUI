@@ -148,10 +148,11 @@ function MiniBars({ values }: { values: number[] }) {
   )
 }
 
-function Meter({ value }: { value: number }) {
+function Meter({ value, label }: { value: number; label: string }) {
   return (
     <div
       role="progressbar"
+      aria-label={label}
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={100}
@@ -208,7 +209,7 @@ function ContributionCard() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Panel>
             <p className="text-[10px] font-medium tracking-wider text-muted-foreground uppercase">Upcoming</p>
-            <span className="font-heading text-lg font-semibold">May 25, 2024</span>
+            <span className="font-heading text-lg font-semibold">May 25, 2026</span>
             <span className="text-sm text-muted-foreground">$1,000 scheduled</span>
           </Panel>
           <Panel>
@@ -382,6 +383,7 @@ function PayoutCard() {
             </span>
           </div>
           <Slider
+            aria-label="Payout threshold"
             min={50}
             max={10000}
             step={50}
@@ -398,7 +400,7 @@ function PayoutCard() {
         </Field>
         <Field>
           <FieldLabel>Notes</FieldLabel>
-          <Textarea placeholder="Add any notes for this payout configuration..." className="min-h-24" />
+          <Textarea aria-label="Payout notes" placeholder="Add any notes for this payout configuration..." className="min-h-24" />
         </Field>
       </CardContent>
       <CardFooter>
@@ -515,7 +517,7 @@ function SavingsRingCard() {
         </div>
       </CardContent>
       <CardFooter className="flex-col items-stretch gap-0">
-        <Row label="Projected Finish" value="October 2024" strong />
+        <Row label="Projected Finish" value="October 2026" strong />
         <Separator className="my-3" />
         <Row label="Monthly Average" value="$1,250" strong />
         <Separator className="my-3" />
@@ -567,7 +569,7 @@ function TargetsCard() {
       <CardHeader className="grid-cols-[1fr_auto]">
         <div>
           <CardTitle>Savings Targets</CardTitle>
-          <CardDescription>Active milestones for 2024</CardDescription>
+          <CardDescription>Active milestones for 2026</CardDescription>
         </div>
         <Button variant="outline" size="sm">
           New Goal
@@ -577,7 +579,7 @@ function TargetsCard() {
         <Panel className="gap-3">
           <p className="text-[10px] font-medium tracking-wider text-muted-foreground uppercase">Retirement</p>
           <span className="text-3xl font-semibold tabular-nums">$420,000</span>
-          <Meter value={65} />
+          <Meter value={65} label="Retirement" />
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">65% achieved</span>
             <span className="font-medium tabular-nums">$273,000</span>
@@ -586,7 +588,7 @@ function TargetsCard() {
         <Panel className="gap-3">
           <p className="text-[10px] font-medium tracking-wider text-muted-foreground uppercase">Real Estate</p>
           <span className="text-3xl font-semibold tabular-nums">$85,000</span>
-          <Meter value={32} />
+          <Meter value={32} label="Real Estate" />
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">32% achieved</span>
             <span className="font-medium tabular-nums">$27,200</span>
@@ -671,9 +673,11 @@ function TransactionsCard() {
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium">{row.name}</p>
-              <p className="text-xs text-muted-foreground">{row.category}</p>
+              <p className="truncate text-xs text-muted-foreground">
+                {row.category}
+                <span className="hidden sm:inline"> · {row.when}</span>
+              </p>
             </div>
-            <span className="hidden text-xs text-muted-foreground sm:block">{row.when}</span>
             <span className={cn("text-sm font-semibold tabular-nums", row.positive && "text-foreground")}>
               {row.amount}
             </span>
@@ -1204,7 +1208,7 @@ function PowerCard() {
         <span className="text-sm text-muted-foreground">Battery Level</span>
         <div className="flex items-center gap-2">
           <div className="flex-1">
-            <Meter value={85} />
+            <Meter value={85} label="Battery level" />
           </div>
           <span className="text-sm font-medium tabular-nums">85%</span>
         </div>
@@ -1235,9 +1239,9 @@ function ConnectBankCard() {
 }
 
 const UPCOMING = [
-  { name: "Netflix Subscription", date: "Apr 15, 2024", amount: "$19.99" },
-  { name: "Rent Payment", date: "Apr 1, 2024", amount: "$2,400.00" },
-  { name: "Auto Insurance", date: "Apr 22, 2024", amount: "$186.00" },
+  { name: "Netflix Subscription", date: "Apr 15, 2026", amount: "$19.99" },
+  { name: "Rent Payment", date: "Apr 1, 2026", amount: "$2,400.00" },
+  { name: "Auto Insurance", date: "Apr 22, 2026", amount: "$186.00" },
 ] as const
 
 function CalendarCard() {

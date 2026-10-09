@@ -72,7 +72,7 @@ function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="item-group"
-      role="list"
+      role="group"
       className={cn("flex w-full flex-col", className)}
       {...props}
     />

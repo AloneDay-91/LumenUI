@@ -15,7 +15,7 @@ import {
 const sheets = [
   { index: "01", title: "Paper", text: "The page is the surface." },
   { index: "02", title: "Ink", text: "One black, then quieter greys." },
-  { index: "03", title: "Type", text: "Inter for the UI, Fraunces for the wordmark." },
+  { index: "03", title: "Type", text: "Inter for the UI, Fraunces as an optional heading font." },
   { index: "04", title: "Pills", text: "Actions are round. Cards are not." },
 ]
 

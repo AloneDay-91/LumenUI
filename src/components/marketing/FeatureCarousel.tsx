@@ -121,12 +121,14 @@ function ChartSlide() {
   );
 }
 
-function TimelineSlide() {
-  const releases = [
-    { version: "v0.5.0", date: "2026-09-20", label: "20 Sep" },
-    { version: "v0.6.0", date: "2026-09-30", label: "30 Sep" },
-    { version: "v0.7.0", date: "2026-10-04", label: "4 Oct", latest: true },
-  ];
+export type CarouselRelease = {
+  version: string;
+  date: string;
+  label: string;
+  latest?: boolean;
+};
+
+function TimelineSlide({ releases }: { releases: CarouselRelease[] }) {
 
   return (
     <Slide
@@ -303,7 +305,13 @@ function ToastSlide() {
   );
 }
 
-export function FeatureCarousel({ tableRows }: { tableRows: HeroRow[] }) {
+export function FeatureCarousel({
+  tableRows,
+  releases,
+}: {
+  tableRows: HeroRow[];
+  releases: CarouselRelease[];
+}) {
   return (
     <section className="reveal mt-24 md:mt-32">
       <Carousel
@@ -323,7 +331,7 @@ export function FeatureCarousel({ tableRows }: { tableRows: HeroRow[] }) {
         </div>
         <CarouselContent>
           <ChartSlide />
-          <TimelineSlide />
+          <TimelineSlide releases={releases} />
           <CommandSlide />
           <TableSlide rows={tableRows} />
           <StepperSlide />
