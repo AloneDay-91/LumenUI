@@ -36,7 +36,7 @@ export function DocsSearch({ className }: { className?: string }) {
         className="pr-14 pl-8"
       />
       <Kbd
-        variant="outline"
+        variant="default"
         size="sm"
         className="pointer-events-none absolute top-1/2 right-2 hidden -translate-y-1/2 sm:inline-flex"
       >

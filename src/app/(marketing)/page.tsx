@@ -5,12 +5,11 @@ import { preload } from "react-dom";
 import { CopyCommand } from "@/components/marketing/CopyCommand";
 import { FeatureCarousel } from "@/components/marketing/FeatureCarousel";
 import { FeatureCli } from "@/components/marketing/FeatureCli";
-import { FeatureComposed } from "@/components/marketing/FeatureComposed";
-import { FeatureForms } from "@/components/marketing/FeatureForms";
 import { FeatureTokens } from "@/components/marketing/FeatureTokens";
 import { HeroProduct } from "@/components/marketing/HeroProduct";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { Card } from "@/components/ui/Card";
+import { changelog } from "@/lib/changelog";
 import { docsSections } from "@/lib/docs-nav";
 import { getHeroRows } from "@/lib/hero-registry";
 import { StackMark } from "@/components/marketing/StackMarks";
@@ -26,6 +25,23 @@ const paletteItems = componentItems.map((item) => ({
 }));
 
 const container = cn("mx-auto w-full px-6 md:px-12", LANDING_MAX_WIDTH);
+
+const shortDate = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  timeZone: "UTC",
+});
+
+/** The three latest releases, oldest first, straight from the changelog. */
+const releases = changelog
+  .slice(0, 3)
+  .reverse()
+  .map((release, index, list) => ({
+    version: `v${release.version}`,
+    date: release.date,
+    label: shortDate.format(new Date(release.date)),
+    latest: index === list.length - 1,
+  }));
 
 export default function Home() {
   preload(HERO_BACKGROUND, { as: "image", fetchPriority: "low" });
@@ -46,43 +62,43 @@ export default function Home() {
         />
 
         <section
-          className={cn(
-            container,
-            "relative flex flex-col items-center pt-10 text-center md:pt-16",
-          )}
+          className={cn(container, "relative pt-10 md:pt-16")}
         >
-          <h1 className="max-w-2xl text-4xl leading-[1.1] font-medium tracking-tight text-balance md:text-5xl">
-            The code lives in your repo.
-          </h1>
-          <p className="mt-5 max-w-lg text-sm leading-relaxed text-pretty text-muted-foreground">
-            {componentItems.length} React components built on Base UI and
-            Tailwind CSS 4. The CLI copies the source into your project, so
-            every file is yours to edit.
-          </p>
-          <div className="mt-7 flex w-full flex-col items-center gap-2.5 sm:w-auto sm:flex-row">
-            <CopyCommand />
-            <Link
-              href="/docs/components"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "w-full sm:w-auto",
-              )}
+          {/* Same width as the product below, so the left edges line up. */}
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-start text-left">
+            <h1 className="max-w-2xl text-4xl leading-[1.1] font-medium tracking-tight text-balance md:text-5xl">
+              The code lives in your repo.
+            </h1>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-pretty text-muted-foreground">
+              {componentItems.length} React components built on Base UI and
+              Tailwind CSS 4. The CLI copies the source into your project, so
+              every file is yours to edit.
+            </p>
+            <div className="mt-7 flex w-full flex-col items-stretch gap-2.5 sm:w-auto sm:flex-row sm:items-center">
+              <CopyCommand />
+              <Link
+                href="/docs/components"
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "w-full sm:w-auto",
+                )}
+              >
+                Browse components
+                <ArrowRightIcon data-icon="inline-end" />
+              </Link>
+            </div>
+            <ul
+              aria-label="Built on"
+              className="mt-6 flex flex-wrap gap-x-6 gap-y-1.5 font-mono text-xs text-muted-foreground"
             >
-              Browse components
-              <ArrowRightIcon data-icon="inline-end" />
-            </Link>
+              {STACK.map((item) => (
+                <li key={item.label} className="inline-flex items-center gap-1.5">
+                  {item.id ? <StackMark id={item.id} /> : null}
+                  {item.label}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul
-            aria-label="Built on"
-            className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1.5 font-mono text-xs text-muted-foreground"
-          >
-            {STACK.map((item) => (
-              <li key={item.label} className="inline-flex items-center gap-1.5">
-                {item.id ? <StackMark id={item.id} /> : null}
-                {item.label}
-              </li>
-            ))}
-          </ul>
         </section>
 
         <div className={cn(container, "relative pt-12 pb-12 md:pt-14")}>
@@ -92,10 +108,8 @@ export default function Home() {
 
       <div className={cn(container, "pb-16 md:pb-24")}>
         <FeatureCli />
-        <FeatureForms />
-        <FeatureCarousel tableRows={tableRows} />
+        <FeatureCarousel tableRows={tableRows} releases={releases} />
         <FeatureTokens />
-        <FeatureComposed />
 
         <section className="reveal mt-24 md:mt-32">
           <div className="mb-8 flex items-baseline justify-between gap-4">

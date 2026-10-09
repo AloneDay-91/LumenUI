@@ -4,7 +4,13 @@ import { Slider as SliderPrimitive } from "@base-ui/react/slider"
 
 import { cn } from "@/lib/utils"
 
-function Slider({ className, children, ...props }: SliderPrimitive.Root.Props) {
+function Slider({
+  className,
+  children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  ...props
+}: SliderPrimitive.Root.Props) {
   return (
     <SliderPrimitive.Root
       data-slot="slider"
@@ -15,7 +21,10 @@ function Slider({ className, children, ...props }: SliderPrimitive.Root.Props) {
         <SliderPrimitive.Control className="flex w-full items-center">
           <SliderPrimitive.Track className="relative h-1 w-full rounded-full bg-muted select-none">
             <SliderPrimitive.Indicator className="rounded-full bg-primary select-none" />
-            <SliderPrimitive.Thumb className="size-4 rounded-full bg-background ring-1 ring-foreground/10 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/30" />
+            <SliderPrimitive.Thumb
+              aria-label={ariaLabel}
+              aria-labelledby={ariaLabelledBy}
+              className="size-4 rounded-full bg-background ring-1 ring-foreground/10 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/30" />
           </SliderPrimitive.Track>
         </SliderPrimitive.Control>
       )}

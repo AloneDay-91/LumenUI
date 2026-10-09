@@ -45,7 +45,7 @@ export const defaultPreset: ThemePreset = {
     secondary: "#f5f5f5",
     "secondary-foreground": "#262626",
     muted: "#f5f5f5",
-    "muted-foreground": "#737373",
+    "muted-foreground": "#696969",
     destructive: "#dc3d43",
     border: "#e4e0da",
     ring: "#a3a3a3",

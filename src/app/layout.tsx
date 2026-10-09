@@ -3,8 +3,10 @@ import Script from "next/script"
 import type { ReactNode } from "react"
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google"
 
+import { LogoSprite } from "@/components/LogoSprite"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import { UpdateBanner } from "@/components/UpdateBanner"
+import { SITE_URL } from "@/lib/site"
 import { getUpdateBannerBootstrap } from "@/lib/update-banner"
 import { cn } from "@/lib/utils"
 
@@ -26,6 +28,7 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Lumen UI",
     template: "%s · Lumen UI",
@@ -53,6 +56,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{ __html: getUpdateBannerBootstrap() }}
         />
+        <LogoSprite />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <a
             href="#content"

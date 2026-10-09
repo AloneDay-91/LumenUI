@@ -85,6 +85,44 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.1",
+    date: "2026-10-09",
+    summary:
+      "New logo, a lighter home page, a rounder Blocks layout and an accessibility pass.",
+    items: [
+      {
+        kind: "changed",
+        text: "New logo: the Lumen UI symbol and wordmark from the logo kit. The favicon, the app icon and the share image follow.",
+      },
+      {
+        kind: "changed",
+        text: "The home page keeps three feature sections, aligns the hero to the left and ends on a footer over the painting, with a back-to-top button.",
+      },
+      {
+        kind: "changed",
+        text: "Blocks use a floating sidebar and rounded cards. The kit select moved into the sidebar, and categories with no block yet are hidden.",
+        href: "/blocks",
+      },
+      {
+        kind: "fixed",
+        text: "The light and dark demo shows a light card in dark mode.",
+      },
+      {
+        kind: "fixed",
+        text: "Customize no longer scrolls the whole page sideways.",
+        href: "/customize",
+      },
+      {
+        kind: "fixed",
+        text: "Muted text, and the soft destructive Button and Badge, meet AA contrast.",
+      },
+      {
+        kind: "fixed",
+        text: "Docs pages have their own title and description, a main landmark and a focus ring on the main menu. Sliders and progress bars in the examples have names.",
+      },
+    ],
+  },
+  {
     version: "1.0.0",
     date: "2026-10-08",
     summary: "Customize, blocks, Color Picker and a new home page.",

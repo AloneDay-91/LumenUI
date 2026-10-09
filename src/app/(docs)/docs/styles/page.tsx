@@ -48,7 +48,7 @@ const typefaces = [
   {
     sample: "Fraunces",
     className: "font-serif",
-    role: "font-serif — wordmark only",
+    role: "font-serif — optional heading font",
   },
   {
     sample: "JetBrains Mono",

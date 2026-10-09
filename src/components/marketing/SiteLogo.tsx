@@ -1,17 +1,21 @@
-import Link from "next/link"
-
-import { Logo } from "@/components/Logo"
+import Link from "next/link";
 
 export function SiteLogo({ onClick }: { onClick?: () => void }) {
   return (
     <Link
       href="/"
       onClick={onClick}
-      className="inline-flex items-center gap-2.5 font-serif text-sm font-medium"
+      aria-label="Lumen UI"
+      className="inline-flex items-center"
     >
-      <Logo />
-      Lumen UI
+      <svg
+        viewBox="0 -10 682.5 120"
+        fill="currentColor"
+        aria-hidden="true"
+        className="h-[18px] w-[102.4px] shrink-0 overflow-visible"
+      >
+        <use href="#lumen-lockup" />
+      </svg>
     </Link>
-  )
+  );
 }
-

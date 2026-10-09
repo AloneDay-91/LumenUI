@@ -754,30 +754,39 @@ export function InstallationCta() {
     id: "site-footer",
     kit: "footers",
     title: "Site footer",
-    description: "The wordmark, the site links, then GitHub and the year.",
+    description:
+      "An inverted panel: the wordmark, the install command, the site links, then the year, the version and GitHub.",
     command: `${CLI} button`,
     full: true,
     code: `import Link from "next/link"
 
 export function SiteFooter() {
   return (
-    <footer className="w-full border-t border-border px-6 py-12">
-      <div className="grid gap-12 md:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)]">
-        <div>
-          <a href="/" className="font-serif text-sm font-medium">Lumen UI</a>
-          <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-            Copy-paste components. The files live in your repo.
-          </p>
-        </div>
-        <nav className="grid grid-cols-2 gap-8 sm:grid-cols-3 text-sm">
-          <div>
-            <p className="font-medium">Start</p>
-            <ul className="mt-4 flex flex-col gap-2.5 text-muted-foreground">
-              <li><Link href="/docs">Introduction</Link></li>
-              <li><Link href="/docs/installation">Installation</Link></li>
-            </ul>
+    <footer className="px-2 pb-2">
+      <div className="dark overflow-hidden rounded-[28px] bg-background text-foreground">
+        <div className="mx-auto w-full max-w-6xl px-6 pt-10 pb-6 md:px-12 md:pt-14">
+          <div className="flex flex-col gap-12 md:flex-row md:justify-between">
+            <div className="max-w-xs">
+              <a href="/" className="text-sm font-medium">Lumen UI</a>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Copy-paste components. The files live in your repo.
+              </p>
+            </div>
+            <nav className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
+              <div>
+                <p className="font-medium">Start</p>
+                <ul className="mt-4 flex flex-col gap-2.5 text-muted-foreground">
+                  <li><Link href="/docs">Introduction</Link></li>
+                  <li><Link href="/docs/installation">Installation</Link></li>
+                </ul>
+              </div>
+            </nav>
           </div>
-        </nav>
+          <div className="mt-12 flex items-center justify-between border-t border-border pt-5 text-xs text-muted-foreground">
+            <p>© 2026 Lumen UI</p>
+            <p className="font-mono">v1.0.1</p>
+          </div>
+        </div>
       </div>
     </footer>
   )

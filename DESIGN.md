@@ -20,7 +20,7 @@ Interdit : bleu interactif, violet IA, titres 7xl.
 ## Typography
 
 - Inter (`font-sans`) — corps `text-sm`, h1 docs `text-xl md:text-2xl`, h2 `text-sm font-medium`
-- Fraunces (`font-serif`) — wordmark uniquement
+- Fraunces (`font-serif`) — police de titre optionnelle (Customize) ; le logo (symbole + texte) vient du kit, voir `LogoSprite`
 - JetBrains Mono (`font-mono`) — code
 
 ## Layout
