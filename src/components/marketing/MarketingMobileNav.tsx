@@ -4,8 +4,9 @@ import type { ComponentProps } from "react"
 import Link from "next/link"
 import { XIcon } from "lucide-react"
 
-import { SiteLogo } from "@/components/marketing/SiteLogo"
+import { AskLumen } from "@/components/docs/AskLumen"
 import { ThemeToggle } from "@/components/docs/ThemeToggle"
+import { SiteLogo } from "@/components/marketing/SiteLogo"
 import {
   Drawer,
   DrawerClose,
@@ -46,64 +47,67 @@ export function MarketingMobileNav() {
   return (
     <div className="flex w-full items-center justify-between py-6 md:hidden">
       <SiteLogo />
-      <Drawer swipeDirection="left">
-        <DrawerTrigger
-          className="inline-flex size-9 items-center justify-center text-muted-foreground outline-none hover:text-foreground focus-visible:text-foreground"
-          aria-label="Open menu"
-        >
-          <ListIcon className="size-5" />
-        </DrawerTrigger>
-        <DrawerPopup className="relative rounded-none p-0 ring-0 data-[swipe-direction=left]:rounded-none">
-          <DrawerContent className="max-w-none">
-            <DrawerHeader className="flex flex-row items-center justify-between pt-4">
-              <DrawerTitle className="sr-only">{SITE_NAME}</DrawerTitle>
-              <DrawerClose nativeButton={false} render={<SiteLogo />} />
-              <DrawerClose
-                className="inline-flex size-8 shrink-0 items-center justify-center text-muted-foreground outline-none hover:text-foreground"
-                aria-label="Close menu"
-              >
-                <XIcon className="size-4" />
-              </DrawerClose>
-            </DrawerHeader>
-            <nav className="flex flex-col gap-1 py-2">
-              {mobileLinks.map((item) =>
-                item.target === "_blank" ? (
-                  <DrawerClose
-                    key={item.title}
-                    nativeButton={false}
-                    render={
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="py-1 text-lg tracking-tight text-foreground"
-                      />
-                    }
-                  >
-                    {item.title}
-                  </DrawerClose>
-                ) : (
-                  <DrawerClose
-                    key={item.title}
-                    nativeButton={false}
-                    render={
-                      <Link
-                        href={item.href}
-                        className="py-1 text-lg tracking-tight text-foreground"
-                      />
-                    }
-                  >
-                    {item.title}
-                  </DrawerClose>
-                )
-              )}
-            </nav>
-            <div className="mt-4">
-              <ThemeToggle />
-            </div>
-          </DrawerContent>
-        </DrawerPopup>
-      </Drawer>
+      <div className="flex items-center gap-1">
+        <AskLumen />
+        <Drawer swipeDirection="left">
+          <DrawerTrigger
+            className="inline-flex size-9 items-center justify-center text-muted-foreground outline-none hover:text-foreground focus-visible:text-foreground"
+            aria-label="Open menu"
+          >
+            <ListIcon className="size-5" />
+          </DrawerTrigger>
+          <DrawerPopup className="relative rounded-none p-0 ring-0 data-[swipe-direction=left]:rounded-none">
+            <DrawerContent className="max-w-none">
+              <DrawerHeader className="flex flex-row items-center justify-between pt-4">
+                <DrawerTitle className="sr-only">{SITE_NAME}</DrawerTitle>
+                <DrawerClose nativeButton={false} render={<SiteLogo />} />
+                <DrawerClose
+                  className="inline-flex size-8 shrink-0 items-center justify-center text-muted-foreground outline-none hover:text-foreground"
+                  aria-label="Close menu"
+                >
+                  <XIcon className="size-4" />
+                </DrawerClose>
+              </DrawerHeader>
+              <nav className="flex flex-col gap-1 py-2">
+                {mobileLinks.map((item) =>
+                  item.target === "_blank" ? (
+                    <DrawerClose
+                      key={item.title}
+                      nativeButton={false}
+                      render={
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="py-1 text-lg tracking-tight text-foreground"
+                        />
+                      }
+                    >
+                      {item.title}
+                    </DrawerClose>
+                  ) : (
+                    <DrawerClose
+                      key={item.title}
+                      nativeButton={false}
+                      render={
+                        <Link
+                          href={item.href}
+                          className="py-1 text-lg tracking-tight text-foreground"
+                        />
+                      }
+                    >
+                      {item.title}
+                    </DrawerClose>
+                  ),
+                )}
+              </nav>
+              <div className="mt-4">
+                <ThemeToggle />
+              </div>
+            </DrawerContent>
+          </DrawerPopup>
+        </Drawer>
+      </div>
     </div>
   )
 }

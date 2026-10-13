@@ -85,6 +85,42 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.2",
+    date: "2026-10-13",
+    summary:
+      "Dashboard kit, a fixed Blocks layout, Command footer, and search in the header.",
+    items: [
+      {
+        kind: "added",
+        text: "Dashboard kit: sidebars, stats, charts, tables, activity, settings and full pages.",
+        href: "/blocks",
+      },
+      {
+        kind: "added",
+        text: "CommandFooter under the list, with a muted ground and keyboard hints.",
+        href: "/docs/components/command",
+      },
+      {
+        kind: "added",
+        text: "Header search opens a Command palette. Ask Lumen sits next to it.",
+      },
+      {
+        kind: "changed",
+        text: "Blocks keep a fixed shell: only the inset content scrolls. The site navbar sits beside the logo; the hamburger holds GitHub and the theme.",
+        href: "/blocks",
+      },
+      {
+        kind: "changed",
+        text: "Sidebar inset matches the paper card pattern: flush panel, bordered SidebarInset.",
+        href: "/docs/components/sidebar",
+      },
+      {
+        kind: "fixed",
+        text: "Progress and Meter use en-US for aria-valuetext, so SSR and the browser stay in sync.",
+      },
+    ],
+  },
+  {
     version: "1.0.1",
     date: "2026-10-09",
     summary:

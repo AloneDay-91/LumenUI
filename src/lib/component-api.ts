@@ -716,6 +716,10 @@ export const componentApis: Record<string, ComponentApi> = {
         },
         children,
       ]),
+      part("CommandFooter", "Bar under the list for hints or actions.", [
+        className,
+        children,
+      ]),
     ],
   },
   "context-menu": {

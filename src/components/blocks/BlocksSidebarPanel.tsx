@@ -12,7 +12,6 @@ import { KitSwitcher, useKit } from "@/components/blocks/KitProvider"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -21,7 +20,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/Sidebar"
-import { formatDocsVersion } from "@/lib/site"
 
 function Count({ value }: { value: number }) {
   return (
@@ -31,17 +29,14 @@ function Count({ value }: { value: number }) {
   )
 }
 
-/** Floating cards on a tinted ground. Sticky, so it runs to the bottom of the screen. */
+/** Flush nav on the tinted ground. Height comes from the fixed Blocks shell. */
 export function BlocksSidebar() {
   const pathname = usePathname()
   const { active } = useKit()
   const categories = kitCategories(active.id)
 
   return (
-    <Sidebar
-      variant="inset"
-      className="sticky top-[calc(var(--update-banner-height)+3.5rem)] h-[calc(100dvh-var(--update-banner-height)-3.5rem)] self-start [&_[data-slot=sidebar-inner]]:rounded-[24px]"
-    >
+    <Sidebar variant="inset" className="h-full">
       <SidebarHeader className="p-2">
         <KitSwitcher />
       </SidebarHeader>
@@ -100,11 +95,6 @@ export function BlocksSidebar() {
             </SidebarGroup>
           ))}
       </SidebarContent>
-      <SidebarFooter className="border-t border-foreground/5 px-5 py-3">
-        <p className="font-mono text-[11px] text-muted-foreground">
-          {formatDocsVersion()}
-        </p>
-      </SidebarFooter>
     </Sidebar>
   )
 }

@@ -12,7 +12,7 @@
   "files": [
     {
       "name": "Meter.tsx",
-      "content": "\"use client\"\n\nimport { Meter as MeterPrimitive } from \"@base-ui/react/meter\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Meter({ className, children, ...props }: MeterPrimitive.Root.Props) {\n  return (\n    <MeterPrimitive.Root\n      data-slot=\"meter\"\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    >\n      {children ?? (\n        <MeterPrimitive.Track className=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n          <MeterPrimitive.Indicator className=\"h-full bg-primary\" />\n        </MeterPrimitive.Track>\n      )}\n    </MeterPrimitive.Root>\n  )\n}\n\nexport { Meter }\n"
+      "content": "\"use client\"\n\nimport { Meter as MeterPrimitive } from \"@base-ui/react/meter\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Meter({\n  className,\n  children,\n  locale = \"en-US\",\n  ...props\n}: MeterPrimitive.Root.Props) {\n  return (\n    <MeterPrimitive.Root\n      data-slot=\"meter\"\n      // One locale on the server and in the browser, so \"60%\" does not become \"60 %\".\n      locale={locale}\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    >\n      {children ?? (\n        <MeterPrimitive.Track className=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n          <MeterPrimitive.Indicator className=\"h-full bg-primary\" />\n        </MeterPrimitive.Track>\n      )}\n    </MeterPrimitive.Root>\n  )\n}\n\nexport { Meter }\n"
     }
   ]
 }

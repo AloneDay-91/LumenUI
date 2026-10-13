@@ -435,12 +435,22 @@
 }
 
 [data-slot="drawer-popup"][data-swipe-direction="right"] {
+  --drawer-width: 20rem;
   height: 100%;
-  width: calc(20rem + var(--bleed));
+  width: calc(var(--drawer-width) + var(--bleed));
   max-width: calc(100vw - 3rem + var(--bleed));
   margin-right: calc(-1 * var(--bleed));
   padding-right: calc(1.25rem + var(--bleed));
   transform: translateX(var(--drawer-swipe-movement-x));
+}
+
+/* Flush to the edge — no swipe bleed padding (e.g. Ask Lumen). */
+[data-slot="drawer-popup"][data-swipe-direction="right"][data-drawer-flush] {
+  --bleed: 0px;
+  width: var(--drawer-width);
+  max-width: 100vw;
+  margin-right: 0;
+  padding-right: 0;
 }
 
 [data-slot="drawer-popup"][data-swipe-direction="right"][data-starting-style],
@@ -451,8 +461,9 @@
 }
 
 [data-slot="drawer-popup"][data-swipe-direction="left"] {
+  --drawer-width: 20rem;
   height: 100%;
-  width: calc(20rem + var(--bleed));
+  width: calc(var(--drawer-width) + var(--bleed));
   max-width: calc(100vw - 3rem + var(--bleed));
   margin-left: calc(-1 * var(--bleed));
   padding-left: calc(1.25rem + var(--bleed));

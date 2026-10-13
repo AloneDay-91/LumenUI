@@ -12,7 +12,7 @@
   "files": [
     {
       "name": "Progress.tsx",
-      "content": "\"use client\"\n\nimport { Progress as ProgressPrimitive } from \"@base-ui/react/progress\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Progress({ className, children, ...props }: ProgressPrimitive.Root.Props) {\n  return (\n    <ProgressPrimitive.Root\n      data-slot=\"progress\"\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    >\n      {children ?? (\n        <ProgressPrimitive.Track className=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n          <ProgressPrimitive.Indicator className=\"h-full bg-primary transition-all\" />\n        </ProgressPrimitive.Track>\n      )}\n    </ProgressPrimitive.Root>\n  )\n}\n\nexport { Progress }\n"
+      "content": "\"use client\"\n\nimport { Progress as ProgressPrimitive } from \"@base-ui/react/progress\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Progress({\n  className,\n  children,\n  locale = \"en-US\",\n  ...props\n}: ProgressPrimitive.Root.Props) {\n  return (\n    <ProgressPrimitive.Root\n      data-slot=\"progress\"\n      // One locale on the server and in the browser, so \"60%\" does not become \"60 %\".\n      locale={locale}\n      className={cn(\"flex flex-col gap-1.5\", className)}\n      {...props}\n    >\n      {children ?? (\n        <ProgressPrimitive.Track className=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n          <ProgressPrimitive.Indicator className=\"h-full bg-primary transition-all\" />\n        </ProgressPrimitive.Track>\n      )}\n    </ProgressPrimitive.Root>\n  )\n}\n\nexport { Progress }\n"
     }
   ]
 }
