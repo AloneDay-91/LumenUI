@@ -5,9 +5,11 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { LayoutDashboard } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Logo } from "@/components/Logo";
 import {
@@ -18,19 +20,58 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
+import {
+  blockKits,
+  getBlockCategory,
+  type BlockKitId,
+} from "@/lib/block-categories";
 import { cn } from "@/lib/utils";
 
-export type BlockKit = {
-  id: string;
-  name: string;
-};
+export type BlockKit = (typeof blockKits)[number];
 
-/** Kits ship in the source. Adding one is a code change, not a control in the select. */
-const KITS: BlockKit[] = [{ id: "lumen", name: "Lumen" }];
+const KITS: readonly BlockKit[] = blockKits;
 const ACTIVE_KEY = "lumen-block-kit";
 
+function isKitId(id: string): id is BlockKitId {
+  return KITS.some((kit) => kit.id === id);
+}
+
+/** The kit a /blocks/<category> URL belongs to, if any. */
+function kitOfPath(pathname: string) {
+  return getBlockCategory(pathname.split("/")[2] ?? "")?.kit;
+}
+
+const savedListeners = new Set<() => void>();
+
+function subscribeSaved(listener: () => void) {
+  savedListeners.add(listener);
+  window.addEventListener("storage", listener);
+  return () => {
+    savedListeners.delete(listener);
+    window.removeEventListener("storage", listener);
+  };
+}
+
+function readSaved() {
+  return window.localStorage.getItem(ACTIVE_KEY);
+}
+
+function saveKit(id: BlockKitId) {
+  if (readSaved() === id) return;
+  window.localStorage.setItem(ACTIVE_KEY, id);
+  for (const listener of savedListeners) listener();
+}
+
+function KitMark({ kit, className }: { kit: BlockKit; className?: string }) {
+  return kit.id === "dashboard" ? (
+    <LayoutDashboard className={className} />
+  ) : (
+    <Logo className={className} />
+  );
+}
+
 type KitContextValue = {
-  kits: BlockKit[];
+  kits: readonly BlockKit[];
   active: BlockKit;
   setActiveId: (id: string) => void;
 };
@@ -38,25 +79,28 @@ type KitContextValue = {
 const KitContext = createContext<KitContextValue | null>(null);
 
 export function KitProvider({ children }: { children: ReactNode }) {
-  const [activeId, setActiveId] = useState(KITS[0].id);
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem(ACTIVE_KEY);
-    if (saved && KITS.some((kit) => kit.id === saved)) setActiveId(saved);
-  }, []);
-
+  const pathname = usePathname();
+  const router = useRouter();
+  const saved = useSyncExternalStore(subscribeSaved, readSaved, () => null);
+  // A category page shows its own kit. Elsewhere, the last kit picked comes back.
+  const fromPath = kitOfPath(pathname);
+  const activeId: BlockKitId =
+    fromPath ?? (saved && isKitId(saved) ? saved : KITS[0].id);
   const active = KITS.find((kit) => kit.id === activeId) ?? KITS[0];
 
-  function select(id: string) {
-    if (!KITS.some((kit) => kit.id === id)) return;
-    setActiveId(id);
-    window.localStorage.setItem(ACTIVE_KEY, id);
-  }
+  useEffect(() => {
+    if (fromPath) saveKit(fromPath);
+  }, [fromPath]);
 
-  const value = useMemo(
-    () => ({ kits: KITS, active, setActiveId: select }),
-    [active],
-  );
+  const value = useMemo(() => {
+    function select(id: string) {
+      if (!isKitId(id)) return;
+      saveKit(id);
+      // A category of the other kit would contradict the select: go to the index.
+      if (fromPath && fromPath !== id) router.push("/blocks");
+    }
+    return { kits: KITS, active, setActiveId: select };
+  }, [active, fromPath, router]);
 
   return <KitContext.Provider value={value}>{children}</KitContext.Provider>;
 }
@@ -116,7 +160,7 @@ export function KitSwitcher({ className }: { className?: string }) {
         )}
       >
         <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-          <Logo className="size-4" />
+          <KitMark kit={active} className="size-4" />
         </span>
         <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
           <SelectValue className="flex-none text-xs font-medium" />
@@ -133,7 +177,7 @@ export function KitSwitcher({ className }: { className?: string }) {
             >
               <span className="flex items-center gap-2">
                 <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  <Logo className="size-3" />
+                  <KitMark kit={kit} className="size-3" />
                 </span>
                 {kit.name}
               </span>

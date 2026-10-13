@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
+import { AskLumen } from "@/components/docs/AskLumen";
+import { ThemeToggle } from "@/components/docs/ThemeToggle";
 import { MegaMenuPanel } from "@/components/marketing/MegaMenuPanel";
 import { SiteLogo } from "@/components/marketing/SiteLogo";
-import { ThemeToggle } from "@/components/docs/ThemeToggle";
 import { buttonVariants } from "@/components/ui/button-variants";
 import {
   NavigationMenu,
@@ -75,6 +76,7 @@ export function MarketingNav() {
           </div>
 
           <div className="flex items-center gap-2">
+            <AskLumen />
             <ThemeToggle />
             <Link href="/docs" className={cn(buttonVariants())}>
               Documentation

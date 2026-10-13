@@ -153,6 +153,7 @@ export const navMenus: NavMenu[] = [
         { href: "/blocks", label: "All blocks" },
         { href: "/blocks/headers", label: "Headers" },
         { href: "/blocks/heroes", label: "Heroes" },
+        { href: "/blocks/pages", label: "Dashboard" },
       ],
     },
     sections: [
@@ -169,6 +170,15 @@ export const navMenus: NavMenu[] = [
         title: "Account",
         items: blockCategories
           .filter((category) => category.group === "Account")
+          .map((category) => ({
+            href: `/blocks/${category.slug}`,
+            label: category.title,
+          })),
+      },
+      {
+        title: "Dashboard",
+        items: blockCategories
+          .filter((category) => category.kit === "dashboard")
           .map((category) => ({
             href: `/blocks/${category.slug}`,
             label: category.title,

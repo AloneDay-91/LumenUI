@@ -3,16 +3,22 @@
 import Link from "next/link"
 import { useState, type ReactNode } from "react"
 
+import { allBlocks } from "@/components/blocks/all-blocks"
 import { BlockThumb } from "@/components/blocks/BlockThumb"
 import { BlockView } from "@/components/blocks/BlockView"
 import { useKit } from "@/components/blocks/KitProvider"
-import { lumenBlocks } from "@/components/blocks/lumen-blocks"
 import { Toggle } from "@/components/ui/Toggle"
 import { ToggleGroup } from "@/components/ui/ToggleGroup"
-import { blockCategories, type BlockCategorySlug } from "@/lib/block-categories"
+import {
+  blockCategories,
+  kitGroups,
+  type BlockCategorySlug,
+  type BlockGroup,
+  type BlockKitId,
+} from "@/lib/block-categories"
 
 export function blockCount(slug: BlockCategorySlug) {
-  const listed = lumenBlocks.filter((block) => block.kit === slug).length
+  const listed = allBlocks.filter((block) => block.kit === slug).length
   return slug === "heroes" ? listed + 1 : listed
 }
 
@@ -21,17 +27,36 @@ export const listedCategories = blockCategories.filter(
   (category) => blockCount(category.slug) > 0,
 )
 
-export function BlocksGallery({ kit }: { kit: BlockCategorySlug }) {
-  const { active } = useKit()
-  const visible =
-    active.id === "lumen"
-      ? lumenBlocks.filter((block) => block.kit === kit)
-      : []
+/** The listed categories of one kit, for the sidebar and the index. */
+export function kitCategories(kit: BlockKitId) {
+  return listedCategories.filter((category) => category.kit === kit)
+}
+
+/** Groups of a kit that have at least one listed category. */
+export function listedGroups(kit: BlockKitId) {
+  const categories = kitCategories(kit)
+  return kitGroups(kit).filter((group) =>
+    categories.some((category) => category.group === group),
+  )
+}
+
+/**
+ * The blocks of one category. A category belongs to one kit, so the active kit
+ * does not filter here. `sources` carries code read from files at build time.
+ */
+export function BlocksGallery({
+  kit,
+  sources,
+}: {
+  kit: BlockCategorySlug
+  sources?: Record<string, string>
+}) {
+  const visible = allBlocks.filter((block) => block.kit === kit)
 
   if (visible.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
-        {active.name} has no blocks in this section yet.
+        This section has no blocks yet.
       </p>
     )
   }
@@ -46,31 +71,32 @@ export function BlocksGallery({ kit }: { kit: BlockCategorySlug }) {
           title={block.title}
           description={block.description}
           command={block.command}
-          code={block.code}
+          code={sources?.[block.id] ?? block.code}
         />
       ))}
     </div>
   )
 }
 
-type Filter = "all" | (typeof blockCategories)[number]["group"]
-
-const groups = (["Marketing", "Account"] as const).filter((group) =>
-  listedCategories.some((category) => category.group === group),
-)
-
-const filters: Array<{ id: Filter; label: string }> = [
-  { id: "all", label: "All" },
-  ...groups.map((group) => ({ id: group, label: group })),
-]
+type Filter = "all" | BlockGroup
 
 const pad = (value: number) => String(value).padStart(2, "0")
 
 export function CategoryIndex({ header }: { header: ReactNode }) {
+  const { active } = useKit()
   const [filter, setFilter] = useState<Filter>("all")
-  const visible = listedCategories.filter(
-    (category) => filter === "all" || category.group === filter,
+  const categories = kitCategories(active.id)
+  const groups = listedGroups(active.id)
+  // A filter left over from the other kit falls back to all.
+  const current: Filter =
+    filter !== "all" && groups.includes(filter) ? filter : "all"
+  const visible = categories.filter(
+    (category) => current === "all" || category.group === current,
   )
+  const filters: Array<{ id: Filter; label: string }> = [
+    { id: "all", label: "All" },
+    ...groups.map((group) => ({ id: group, label: group })),
+  ]
 
   return (
     <>
@@ -79,7 +105,7 @@ export function CategoryIndex({ header }: { header: ReactNode }) {
         {groups.length > 1 ? (
           <ToggleGroup
             aria-label="Filter by group"
-            value={[filter]}
+            value={[current]}
             onValueChange={(value) => {
               const next = value[0] as Filter | undefined
               if (next) setFilter(next)
@@ -91,9 +117,8 @@ export function CategoryIndex({ header }: { header: ReactNode }) {
                 <span className="font-mono text-[10px] font-normal opacity-70">
                   {pad(
                     item.id === "all"
-                      ? listedCategories.length
-                      : listedCategories.filter((c) => c.group === item.id)
-                          .length,
+                      ? categories.length
+                      : categories.filter((c) => c.group === item.id).length,
                   )}
                 </span>
               </Toggle>
@@ -101,7 +126,7 @@ export function CategoryIndex({ header }: { header: ReactNode }) {
           </ToggleGroup>
         ) : null}
       </div>
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {visible.map((category) => (
           <li key={category.slug}>
             <Link

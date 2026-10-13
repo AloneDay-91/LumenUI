@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 
-import { lumenBlocks } from "@/components/blocks/lumen-blocks"
+import { allBlocks } from "@/components/blocks/all-blocks"
 
 export function BlockPreviewSizer() {
   useEffect(() => {
@@ -31,7 +31,7 @@ export function BlockPreviewSizer() {
 }
 
 export function BlockPreviewBody({ id }: { id: string }) {
-  const block = lumenBlocks.find((item) => item.id === id)
+  const block = allBlocks.find((item) => item.id === id)
   if (!block) return null
 
   return (

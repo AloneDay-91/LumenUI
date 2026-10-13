@@ -3,12 +3,15 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { blockCount, listedCategories } from "@/components/blocks/BlocksGallery"
-import { KitSwitcher } from "@/components/blocks/KitProvider"
+import {
+  blockCount,
+  kitCategories,
+  listedGroups,
+} from "@/components/blocks/BlocksGallery"
+import { KitSwitcher, useKit } from "@/components/blocks/KitProvider"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -17,9 +20,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/Sidebar"
-import { formatDocsVersion } from "@/lib/site"
-
-const groups = ["Marketing", "Account"] as const
 
 function Count({ value }: { value: number }) {
   return (
@@ -29,15 +29,14 @@ function Count({ value }: { value: number }) {
   )
 }
 
-/** Floating cards on a tinted ground. Sticky, so it runs to the bottom of the screen. */
+/** Flush nav on the tinted ground. Height comes from the fixed Blocks shell. */
 export function BlocksSidebar() {
   const pathname = usePathname()
+  const { active } = useKit()
+  const categories = kitCategories(active.id)
 
   return (
-    <Sidebar
-      variant="inset"
-      className="sticky top-[calc(var(--update-banner-height)+3.5rem)] h-[calc(100dvh-var(--update-banner-height)-3.5rem)] self-start [&_[data-slot=sidebar-inner]]:rounded-[24px]"
-    >
+    <Sidebar variant="inset" className="h-full">
       <SidebarHeader className="p-2">
         <KitSwitcher />
       </SidebarHeader>
@@ -56,22 +55,18 @@ export function BlocksSidebar() {
                   }
                 >
                   <span className="flex-1 truncate">All blocks</span>
-                  <Count value={listedCategories.length} />
+                  <Count value={categories.length} />
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {groups
-          .filter((group) =>
-            listedCategories.some((category) => category.group === group),
-          )
-          .map((group) => (
+        {listedGroups(active.id).map((group) => (
             <SidebarGroup key={group}>
               <SidebarGroupLabel>{group}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {listedCategories
+                  {categories
                     .filter((category) => category.group === group)
                     .map((category) => {
                       const href = `/blocks/${category.slug}`
@@ -100,11 +95,6 @@ export function BlocksSidebar() {
             </SidebarGroup>
           ))}
       </SidebarContent>
-      <SidebarFooter className="border-t border-foreground/5 px-5 py-3">
-        <p className="font-mono text-[11px] text-muted-foreground">
-          {formatDocsVersion()}
-        </p>
-      </SidebarFooter>
     </Sidebar>
   )
 }

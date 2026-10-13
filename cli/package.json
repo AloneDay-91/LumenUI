@@ -1,6 +1,6 @@
 {
   "name": "@aloneday/lumenui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Copy Lumen UI components into your project.",
   "type": "module",
   "bin": {
