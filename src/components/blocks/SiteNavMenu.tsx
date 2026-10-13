@@ -1,11 +1,14 @@
 "use client"
 
 import { Menu } from "lucide-react"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/Button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLinkItem,
   DropdownMenuSeparator,
   DropdownMenuSub,
@@ -26,6 +29,56 @@ function SectionLinks({ section }: { section: NavMenuSection }) {
         <NavLink key={`${item.href}-${item.label}`} item={item} />
       ))}
     </div>
+  )
+}
+
+function ThemeChoice({
+  label,
+  value,
+  active,
+  onSelect,
+}: {
+  label: string
+  value: "light" | "dark"
+  active: boolean
+  onSelect: (value: "light" | "dark") => void
+}) {
+  return (
+    <DropdownMenuItem onClick={() => onSelect(value)}>
+      <span className="flex size-3.5 items-center justify-center" aria-hidden>
+        {active ? <span className="size-1.5 rounded-full bg-foreground" /> : null}
+      </span>
+      {label}
+    </DropdownMenuItem>
+  )
+}
+
+function ThemeChoices() {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const active = mounted ? resolvedTheme : null
+
+  return (
+    <>
+      <p className="px-2 pt-2 pb-1 text-xs text-muted-foreground">Theme</p>
+      <ThemeChoice
+        label="Light"
+        value="light"
+        active={active === "light"}
+        onSelect={setTheme}
+      />
+      <ThemeChoice
+        label="Dark"
+        value="dark"
+        active={active === "dark"}
+        onSelect={setTheme}
+      />
+    </>
   )
 }
 
@@ -78,6 +131,8 @@ export function SiteNavMenu() {
         <DropdownMenuLinkItem href={GITHUB_URL} target="_blank" rel="noreferrer">
           GitHub
         </DropdownMenuLinkItem>
+        <DropdownMenuSeparator />
+        <ThemeChoices />
       </DropdownMenuContent>
     </DropdownMenu>
   )

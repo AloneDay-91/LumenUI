@@ -1,0 +1,77 @@
+/* Ships with Tabs: the sliding indicator and the panel transitions. Imported by Tabs.tsx. */
+@layer components {
+  [data-slot="tabs-indicator"] {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: var(--active-tab-width);
+    height: var(--active-tab-height);
+    translate: var(--active-tab-left) var(--active-tab-top);
+    pointer-events: none;
+    transition-property: translate, width, height;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-slot="tabs-panels"] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  [data-slot="tabs-panel"] {
+    grid-area: 1 / 1;
+  }
+
+  [data-slot="tabs-panel"][hidden]:not([data-starting-style]):not(
+      [data-ending-style]
+    ) {
+    display: none;
+  }
+
+  [data-slot="tabs-panel"][data-starting-style],
+  [data-slot="tabs-panel"][data-ending-style] {
+    display: block;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-slot="tabs-panel"] {
+      transition:
+        opacity 175ms ease,
+        transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    [data-slot="tabs-panel"][data-starting-style][data-activation-direction="left"] {
+      transform: translateX(-50%);
+    }
+
+    [data-slot="tabs-panel"][data-starting-style][data-activation-direction="right"] {
+      transform: translateX(50%);
+    }
+
+    [data-slot="tabs-panel"][data-ending-style][data-activation-direction="left"] {
+      transform: translateX(50%);
+    }
+
+    [data-slot="tabs-panel"][data-ending-style][data-activation-direction="right"] {
+      transform: translateX(-50%);
+    }
+
+    [data-slot="tabs-panel"][data-starting-style][data-activation-direction="up"] {
+      transform: translateY(-50%);
+    }
+
+    [data-slot="tabs-panel"][data-starting-style][data-activation-direction="down"] {
+      transform: translateY(50%);
+    }
+
+    [data-slot="tabs-panel"][data-ending-style][data-activation-direction="up"] {
+      transform: translateY(50%);
+    }
+
+    [data-slot="tabs-panel"][data-ending-style][data-activation-direction="down"] {
+      transform: translateY(-50%);
+    }
+  }
+}

@@ -16,6 +16,7 @@ import {
   Command,
   CommandDialog,
   CommandEmpty,
+  CommandFooter,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -23,6 +24,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/Command";
+import { Kbd } from "@/components/ui/Kbd";
 
 function CommandPaletteDemo() {
   const [open, setOpen] = React.useState(false);
@@ -78,6 +80,21 @@ function CommandPaletteDemo() {
             </CommandItem>
           </CommandGroup>
         </CommandList>
+        <CommandFooter>
+          <span className="inline-flex items-center gap-1">
+            <Kbd size="sm">↑</Kbd>
+            <Kbd size="sm">↓</Kbd>
+            Navigate
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Kbd size="sm">↵</Kbd>
+            Open
+          </span>
+          <span className="ms-auto inline-flex items-center gap-1">
+            <Kbd size="sm">esc</Kbd>
+            Close
+          </span>
+        </CommandFooter>
       </CommandDialog>
     </>
   );
@@ -104,9 +121,21 @@ export default function CommandPage() {
               <CommandItem disabled>Tokens</CommandItem>
             </CommandGroup>
           </CommandList>
+          <CommandFooter>
+            <span className="inline-flex items-center gap-1">
+              <Kbd size="sm">↑</Kbd>
+              <Kbd size="sm">↓</Kbd>
+              Navigate
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <Kbd size="sm">↵</Kbd>
+              Open
+            </span>
+          </CommandFooter>
         </Command>
       }
-      usage={`import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/Command"
+      usage={`import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandFooter } from "@/components/ui/Command"
+import { Kbd } from "@/components/ui/Kbd"
 
 <Command>
   <CommandInput placeholder="Search a component…" />
@@ -117,6 +146,13 @@ export default function CommandPage() {
       <CommandItem>Dialog</CommandItem>
     </CommandGroup>
   </CommandList>
+  <CommandFooter>
+    <span className="inline-flex items-center gap-1">
+      <Kbd size="sm">↑</Kbd>
+      <Kbd size="sm">↓</Kbd>
+      Navigate
+    </span>
+  </CommandFooter>
 </Command>`}
       extraHeadings={[{ id: "dialog", text: "Command palette", level: 2 }]}
       extra={
@@ -156,6 +192,17 @@ React.useEffect(() => {
       </CommandItem>
     </CommandGroup>
   </CommandList>
+  <CommandFooter>
+    <span className="inline-flex items-center gap-1">
+      <Kbd size="sm">↑</Kbd>
+      <Kbd size="sm">↓</Kbd>
+      Navigate
+    </span>
+    <span className="ms-auto inline-flex items-center gap-1">
+      <Kbd size="sm">esc</Kbd>
+      Close
+    </span>
+  </CommandFooter>
 </CommandDialog>`}
           />
         </section>

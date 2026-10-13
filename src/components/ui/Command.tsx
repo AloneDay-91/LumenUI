@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Command as CommandPrimitive } from "cmdk"
-import { SearchIcon } from "lucide-react"
+import * as React from "react";
+import { Command as CommandPrimitive } from "cmdk";
+import { SearchIcon } from "lucide-react";
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
-} from "@/components/ui/Dialog"
-import { Kbd } from "@/components/ui/Kbd"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/Dialog";
+import { Kbd } from "@/components/ui/Kbd";
+import { cn } from "@/lib/utils";
 
 function Command({
   className,
@@ -22,11 +22,11 @@ function Command({
       data-slot="command"
       className={cn(
         "flex h-full w-full flex-col overflow-hidden rounded-2xl bg-popover text-popover-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CommandDialog({
@@ -36,10 +36,10 @@ function CommandDialog({
   children,
   ...props
 }: Omit<React.ComponentProps<typeof Dialog>, "children"> & {
-  title?: string
-  description?: string
-  className?: string
-  children?: React.ReactNode
+  title?: string;
+  description?: string;
+  className?: string;
+  children?: React.ReactNode;
 }) {
   return (
     <Dialog {...props}>
@@ -54,7 +54,7 @@ function CommandDialog({
         </Command>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 function CommandInput({
@@ -71,12 +71,12 @@ function CommandInput({
         data-slot="command-input"
         className={cn(
           "h-full w-full min-w-0 bg-transparent text-xs outline-none placeholder:text-muted-foreground disabled:pointer-events-none disabled:opacity-50",
-          className
+          className,
         )}
         {...props}
       />
     </div>
-  )
+  );
 }
 
 function CommandList({
@@ -89,7 +89,7 @@ function CommandList({
       className={cn("max-h-72 scroll-py-1 overflow-y-auto p-1", className)}
       {...props}
     />
-  )
+  );
 }
 
 function CommandEmpty({
@@ -99,10 +99,13 @@ function CommandEmpty({
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
-      className={cn("py-6 text-center text-xs text-muted-foreground", className)}
+      className={cn(
+        "py-6 text-center text-xs text-muted-foreground",
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
 function CommandGroup({
@@ -114,11 +117,11 @@ function CommandGroup({
       data-slot="command-group"
       className={cn(
         "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CommandItem({
@@ -130,11 +133,11 @@ function CommandItem({
       data-slot="command-item"
       className={cn(
         "relative flex min-h-7 cursor-default items-center gap-2 rounded-xl px-2 py-1.5 text-xs outline-hidden select-none data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CommandSeparator({
@@ -147,11 +150,11 @@ function CommandSeparator({
       data-slot="command-separator"
       className={cn(
         "-mx-1 my-1 h-px bg-foreground/5 dark:bg-foreground/10",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CommandShortcut({
@@ -164,7 +167,20 @@ function CommandShortcut({
       className={cn("ms-auto", className)}
       {...props}
     />
-  )
+  );
+}
+
+function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="command-footer"
+      className={cn(
+        "flex shrink-0 items-center gap-3 border-t border-foreground/5 bg-muted/50 px-3 py-2 text-xs text-muted-foreground dark:border-foreground/10",
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 export {
@@ -177,4 +193,5 @@ export {
   CommandItem,
   CommandSeparator,
   CommandShortcut,
-}
+  CommandFooter,
+};

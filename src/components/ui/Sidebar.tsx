@@ -224,13 +224,14 @@ function Sidebar({
       data-slot="sidebar-inner"
       data-variant={variant}
       className={cn(
-        "flex h-full min-h-0 w-full flex-col bg-background text-foreground",
+        "flex h-full min-h-0 w-full flex-col text-foreground",
         !isMobile &&
           variant === "sidebar" &&
-          "border-border group-data-[side=left]/sidebar:border-r group-data-[side=right]/sidebar:border-l",
+          "border-border bg-background group-data-[side=left]/sidebar:border-r group-data-[side=right]/sidebar:border-l",
         !isMobile &&
-          variant !== "sidebar" &&
-          "rounded-2xl bg-card ring-1 ring-foreground/5 dark:ring-foreground/10"
+          variant === "floating" &&
+          "rounded-2xl border border-border bg-card",
+        !isMobile && variant === "inset" && "bg-transparent"
       )}
     >
       {children}
@@ -332,8 +333,9 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       data-slot="sidebar-inset"
       className={cn(
         "relative flex min-h-0 min-w-0 flex-1 flex-col bg-background",
-        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:rounded-2xl md:peer-data-[variant=inset]:bg-card md:peer-data-[variant=inset]:ring-1 md:peer-data-[variant=inset]:ring-foreground/5 md:dark:peer-data-[variant=inset]:ring-foreground/10",
+        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:border md:peer-data-[variant=inset]:border-border md:peer-data-[variant=inset]:bg-background",
         "md:peer-data-[variant=inset]:peer-data-[side=left]:ml-0 md:peer-data-[variant=inset]:peer-data-[side=right]:mr-0",
+        "md:peer-data-[variant=inset]:peer-data-[state=collapsed]:peer-data-[side=left]:ml-2 md:peer-data-[variant=inset]:peer-data-[state=collapsed]:peer-data-[side=right]:mr-2",
         className
       )}
       {...props}

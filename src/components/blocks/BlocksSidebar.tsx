@@ -3,27 +3,24 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { listedCategories } from "@/components/blocks/BlocksGallery"
+import { kitCategories, listedGroups } from "@/components/blocks/BlocksGallery"
+import { useKit } from "@/components/blocks/KitProvider"
 import { cn } from "@/lib/utils"
-
-const groups = ["Marketing", "Account"] as const
 
 export function BlocksNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname()
+  const { active } = useKit()
+  const categories = kitCategories(active.id)
 
   return (
     <nav aria-label="Blocks" className="flex flex-col gap-6">
-      {groups
-        .filter((group) =>
-          listedCategories.some((category) => category.group === group),
-        )
-        .map((group) => (
+      {listedGroups(active.id).map((group) => (
         <div key={group}>
           <p className="mb-2 px-2 text-xs font-medium text-muted-foreground">
             {group}
           </p>
           <ul className="flex flex-col gap-0.5">
-            {listedCategories
+            {categories
               .filter((category) => category.group === group)
               .map((category) => {
                 const href = `/blocks/${category.slug}`
