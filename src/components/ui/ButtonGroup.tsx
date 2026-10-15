@@ -6,17 +6,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonGroupVariants = cva(
-  // The outer ends keep the pill radius, the inner edges square off, so a group
-  // reads as one control. Logical radii (s/e) so it mirrors under dir="rtl".
+  // The outer ends follow --radius-4xl (pill at the default token), the inner
+  // edges square off, so a group reads as one control. Logical radii (s/e) so
+  // it mirrors under dir="rtl".
   "group/button-group flex items-center [&>*]:rounded-none [&>*]:focus-visible:relative [&>*]:focus-visible:z-10",
   {
     variants: {
       orientation: {
         horizontal:
-          "flex-row -space-x-px [&>*:first-child]:rounded-s-full [&>*:last-child]:rounded-e-full",
-        // Not rounded-t-full: on a button that is wider than it is tall, a full
-        // radius turns the end segments into domes. And stretch, so stacked
-        // segments share one width instead of tracking their label length.
+          "flex-row -space-x-px [&>*:first-child]:rounded-s-4xl [&>*:last-child]:rounded-e-4xl",
+        // Not a full end radius: on a button that is wider than it is tall, that
+        // turns the end segments into domes. And stretch, so stacked segments
+        // share one width instead of tracking their label length.
         vertical:
           "flex-col items-stretch -space-y-px [&>*:first-child]:rounded-t-xl [&>*:last-child]:rounded-b-xl",
       },

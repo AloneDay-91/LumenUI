@@ -208,7 +208,8 @@ const labelId = React.useId()
             <h2 id="group">Button group</h2>
             <p>
               <code>ButtonGroup</code> joins buttons into one control: the outer
-              ends keep the pill radius, the inner edges square off.
+              ends follow the theme radius (pill at the default token), the
+              inner edges square off.
             </p>
             <Preview className="flex-wrap items-center gap-6">
               <ButtonGroup>
@@ -308,11 +309,12 @@ const labelId = React.useId()
           <section className="space-y-4">
             <h2 id="shape">Shape</h2>
             <p>
-              Lumen buttons are pills by default. Override the radius with a
+              Buttons use <code>rounded-4xl</code>, so they follow the theme{" "}
+              <code>--radius</code> token (pill at the default). Override with a
               class when a square corner suits the surface better.
             </p>
             <Preview className="flex-wrap items-center gap-3">
-              <Button>Pill</Button>
+              <Button>Default</Button>
               <Button className="rounded-2xl">Rounded</Button>
               <Button className="rounded-sm">Square</Button>
             </Preview>

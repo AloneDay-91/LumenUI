@@ -85,6 +85,24 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.3",
+    date: "2026-10-15",
+    summary:
+      "Buttons follow the theme radius token, and outline matches in light and dark.",
+    items: [
+      {
+        kind: "changed",
+        text: "Button and ButtonGroup use rounded-4xl so corners track --radius (pill at the default token).",
+        href: "/docs/components/button",
+      },
+      {
+        kind: "fixed",
+        text: "Outline buttons keep bg-background in dark mode instead of going transparent.",
+        href: "/docs/components/button",
+      },
+    ],
+  },
+  {
     version: "1.0.2",
     date: "2026-10-13",
     summary:
