@@ -85,6 +85,17 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.4",
+    date: "2026-10-15",
+    summary: "CLI releases publish to npm through Trusted Publisher (OIDC).",
+    items: [
+      {
+        kind: "changed",
+        text: "The Publish CLI workflow uses GitHub OIDC instead of a long-lived npm token.",
+      },
+    ],
+  },
+  {
     version: "1.0.3",
     date: "2026-10-15",
     summary:

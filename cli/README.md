@@ -34,4 +34,4 @@ lumenui list
 
 Node.js 22 or newer.
 
-A GitHub release of Lumen UI publishes this package at the same version.
+A GitHub release of Lumen UI publishes this package at the same version via npm Trusted Publisher (OIDC).
