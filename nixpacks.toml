@@ -1,5 +1,5 @@
 [variables]
-NIXPACKS_NODE_VERSION = "22"
+NIXPACKS_NODE_VERSION = "22.23.4"
 
 # Nixpacks sets NPM_CONFIG_PRODUCTION=false. npm 9 warns to replace that
 # deprecated flag with --omit=dev, which would drop Tailwind and TypeScript

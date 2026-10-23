@@ -85,6 +85,18 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.5",
+    date: "2026-10-23",
+    summary:
+      "Node.js pinned to the October 2026 security releases (22.23.4 / 24.22.1).",
+    items: [
+      {
+        kind: "fixed",
+        text: "Site, Nixpacks, and .nvmrc require Node 22.23.4. The CLI publish workflow uses Node 24.22.1.",
+      },
+    ],
+  },
+  {
     version: "1.0.4",
     date: "2026-10-15",
     summary: "CLI releases publish to npm through Trusted Publisher (OIDC).",

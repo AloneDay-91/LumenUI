@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v1.0.4"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
+  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v1.0.5"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
   <a href="https://github.com/AloneDay-91/LumenUI/stargazers"><img src="https://img.shields.io/github/stars/AloneDay-91/LumenUI?style=flat-square&color=171717" alt="Stars" /></a>
   <a href="https://github.com/AloneDay-91/LumenUI/commits/main"><img src="https://img.shields.io/github/last-commit/AloneDay-91/LumenUI?style=flat-square&color=555" alt="Last commit" /></a>
   <img src="https://img.shields.io/badge/Next.js-16-171717?style=flat-square" alt="Next.js 16" />
@@ -60,7 +60,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000). Docs live at `/docs`.
 
-Node 22 is required (`engines` in `package.json`).
+Node 22.23.4 is required (`engines` in `package.json`).
 
 ## Copy a component
 
@@ -88,7 +88,7 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 
 ## Changelog
 
-Latest: **v1.0.4** — CLI releases publish to npm through Trusted Publisher (OIDC).
+Latest: **v1.0.5** — Node.js pinned to the October 2026 security releases (22.23.4 / 24.22.1).
 
 See [`src/lib/changelog.ts`](src/lib/changelog.ts).
 
