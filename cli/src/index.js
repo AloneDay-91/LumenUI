@@ -71,7 +71,12 @@ function init(cwd, registry, flags) {
   if (!flags["dry-run"]) {
     writeConfig(project, config)
   }
-  installPackages(project, missingPackages(project, utils.dependencies), flags)
+  installPackages(
+    project,
+    registry,
+    missingPackages(project, utils.dependencies),
+    flags
+  )
 
   if (flags.css) {
     writeTokens(project, registry.css, flags)
@@ -111,7 +116,12 @@ function add(cwd, registry, names, flags) {
   if (!flags["dry-run"]) {
     writeConfig(project, config)
   }
-  installPackages(project, missingPackages(project, [...packages]), flags)
+  installPackages(
+    project,
+    registry,
+    missingPackages(project, [...packages]),
+    flags
+  )
 }
 
 function remove(cwd, registry, names, flags) {
@@ -262,10 +272,44 @@ function writeTokens(project, css, flags) {
 }
 
 function fileDestination(project, config, fileName) {
-  if (fileName === "utils.ts") {
-    return path.join(project, config.paths.lib, "utils.ts")
+  const safeName = registryFileName(fileName)
+  const relative =
+    safeName === "utils.ts"
+      ? path.join(config.paths.lib, "utils.ts")
+      : path.join(config.paths.ui, safeName)
+  return resolveInsideProject(project, relative)
+}
+
+function registryFileName(fileName) {
+  const base = path.basename(fileName)
+  if (base !== fileName || base === "" || base === "." || base === "..") {
+    throw new Error(`Invalid registry file name "${fileName}"`)
   }
-  return path.join(project, config.paths.ui, fileName)
+  return base
+}
+
+function resolveInsideProject(project, relativePath) {
+  const root = path.resolve(project)
+  const destination = path.resolve(root, relativePath)
+  const prefix = root.endsWith(path.sep) ? root : `${root}${path.sep}`
+  if (destination !== root && !destination.startsWith(prefix)) {
+    throw new Error(`Refusing to write outside the project: ${relativePath}`)
+  }
+  return destination
+}
+
+function assertSafeProjectPath(value, label) {
+  if (typeof value !== "string" || value.trim() === "") {
+    throw new Error(`Invalid ${label}`)
+  }
+  if (path.isAbsolute(value)) {
+    throw new Error(`${label} must be a relative path`)
+  }
+  const segments = value.split(/[/\\]/)
+  if (segments.some((segment) => segment === "..")) {
+    throw new Error(`${label} must not contain ".."`)
+  }
+  return value.replace(/\\/g, "/")
 }
 
 function rewriteImports(content, config) {
@@ -369,9 +413,12 @@ function readConfig(project) {
     return undefined
   }
   const config = JSON.parse(readFileSync(file, "utf8"))
+  const defaults = defaultConfig(project)
   config.installed ??= []
-  config.aliases ??= defaultConfig(project).aliases
-  config.paths ??= defaultConfig(project).paths
+  config.aliases ??= defaults.aliases
+  config.paths ??= defaults.paths
+  config.paths.ui = assertSafeProjectPath(config.paths.ui, "paths.ui")
+  config.paths.lib = assertSafeProjectPath(config.paths.lib, "paths.lib")
   return config
 }
 
@@ -418,10 +465,35 @@ function missingPackages(project, packages) {
   return packages.filter((name) => !present.has(name))
 }
 
-function installPackages(project, packages, flags) {
+const PACKAGE_NAME_RE =
+  /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
+
+function allowedRegistryPackages(registry) {
+  const allowed = new Set()
+  for (const item of Object.values(registry.items ?? {})) {
+    for (const dependency of item.dependencies ?? []) {
+      allowed.add(dependency)
+    }
+  }
+  return allowed
+}
+
+function assertInstallablePackages(registry, packages) {
+  const allowed = allowedRegistryPackages(registry)
+  for (const name of packages) {
+    if (!PACKAGE_NAME_RE.test(name) || name.includes("..") || !allowed.has(name)) {
+      throw new Error(
+        `Refusing to install "${name}". Only packages declared in the Lumen registry are allowed.`
+      )
+    }
+  }
+}
+
+function installPackages(project, registry, packages, flags) {
   if (packages.length === 0) {
     return
   }
+  assertInstallablePackages(registry, packages)
   const manager = packageManager(project)
   const args = installArgs(manager, packages)
   if (flags["dry-run"]) {
@@ -454,9 +526,18 @@ function packageManager(project) {
 
 function installArgs(manager, packages) {
   if (manager === "npm") {
-    return ["install", ...packages]
+    return ["install", "--ignore-scripts", ...packages]
   }
-  return ["add", ...packages]
+  if (manager === "yarn") {
+    return ["add", "--ignore-scripts", ...packages]
+  }
+  if (manager === "pnpm") {
+    return ["add", "--ignore-scripts", ...packages]
+  }
+  if (manager === "bun") {
+    return ["add", "--ignore-scripts", ...packages]
+  }
+  return ["add", "--ignore-scripts", ...packages]
 }
 
 function loadRegistry() {

@@ -85,6 +85,31 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.6",
+    date: "2026-10-23",
+    summary:
+      "Kbd glyph alignment, CLI path and install hardening, and Next.js 16.4.2.",
+    items: [
+      {
+        kind: "fixed",
+        text: "Kbd swaps ⌘ and arrow glyphs for Lucide icons at 1em so mono fallbacks no longer dwarf the letter.",
+        href: "/docs/components/kbd",
+      },
+      {
+        kind: "fixed",
+        text: "CLI rejects path traversal in lumen.json and only installs packages declared in the registry, with --ignore-scripts.",
+      },
+      {
+        kind: "fixed",
+        text: "LLM and markdown routes use the canonical SITE_URL instead of request Host / X-Forwarded-* headers.",
+      },
+      {
+        kind: "fixed",
+        text: "Next.js upgraded to 16.4.2. Analytics script loads with SRI. CLI publish uses a protected npm-publish environment.",
+      },
+    ],
+  },
+  {
     version: "1.0.5",
     date: "2026-10-23",
     summary:

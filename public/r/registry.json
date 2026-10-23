@@ -355,7 +355,8 @@
       "name": "kbd",
       "title": "Kbd",
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority",
+        "lucide-react"
       ],
       "registryDependencies": [
         "utils"

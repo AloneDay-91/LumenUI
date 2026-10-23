@@ -1,4 +1,5 @@
 import { getDocsMarkdown } from "@/lib/docs-markdown"
+import { getRequestOrigin } from "@/lib/llms"
 
 export async function GET(
   request: Request,
@@ -6,7 +7,7 @@ export async function GET(
 ) {
   const { slug } = await context.params
   const pathname = slug?.length ? `/docs/${slug.join("/")}` : "/docs"
-  const markdown = await getDocsMarkdown(pathname, getOrigin(request))
+  const markdown = await getDocsMarkdown(pathname, getRequestOrigin(request))
 
   if (!markdown) {
     return new Response("Not found", { status: 404 })
@@ -19,14 +20,4 @@ export async function GET(
       "Cache-Control": "public, max-age=60",
     },
   })
-}
-
-function getOrigin(request: Request) {
-  const url = new URL(request.url)
-  const forwardedHost = request.headers.get("x-forwarded-host")
-  const forwardedProto = request.headers.get("x-forwarded-proto")
-  const host = forwardedHost ?? request.headers.get("host") ?? url.host
-  const protocol = forwardedProto ?? url.protocol.replace(":", "")
-
-  return `${protocol}://${host}`
 }

@@ -3,15 +3,14 @@ import path from "node:path"
 
 import { getDocsMarkdown } from "@/lib/docs-markdown"
 import { docsNav, docsSections } from "@/lib/docs-nav"
-import { SITE_NAME, SITE_VERSION } from "@/lib/site"
+import { SITE_NAME, SITE_URL, SITE_VERSION } from "@/lib/site"
 
-const indexCache = new Map<string, string>()
-const fullCache = new Map<string, string>()
+let indexCache: string | undefined
+let fullCache: string | undefined
 
-export async function getLlmsIndex(origin: string) {
-  const cached = indexCache.get(origin)
-  if (cached) {
-    return cached
+export async function getLlmsIndex(origin = SITE_URL) {
+  if (indexCache) {
+    return indexCache
   }
 
   const lines = [
@@ -43,14 +42,13 @@ export async function getLlmsIndex(origin: string) {
   }
 
   const body = `${lines.join("\n").trim()}\n`
-  indexCache.set(origin, body)
+  indexCache = body
   return body
 }
 
-export async function getLlmsFull(origin: string) {
-  const cached = fullCache.get(origin)
-  if (cached) {
-    return cached
+export async function getLlmsFull(origin = SITE_URL) {
+  if (fullCache) {
+    return fullCache
   }
 
   const parts = [
@@ -71,18 +69,13 @@ export async function getLlmsFull(origin: string) {
   }
 
   const body = `${parts.join("\n").trim()}\n`
-  fullCache.set(origin, body)
+  fullCache = body
   return body
 }
 
-export function getRequestOrigin(request: Request) {
-  const url = new URL(request.url)
-  const forwardedHost = request.headers.get("x-forwarded-host")
-  const forwardedProto = request.headers.get("x-forwarded-proto")
-  const host = forwardedHost ?? request.headers.get("host") ?? url.host
-  const protocol = forwardedProto ?? url.protocol.replace(":", "")
-
-  return `${protocol}://${host}`
+/** Canonical public origin. Never trust request Host / X-Forwarded-* for links. */
+export function getRequestOrigin(_request?: Request) {
+  return SITE_URL
 }
 
 async function readPageDescription(pathname: string) {
