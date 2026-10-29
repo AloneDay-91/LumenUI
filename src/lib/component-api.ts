@@ -209,7 +209,18 @@ export const componentApis: Record<string, ComponentApi> = {
           name: "variant",
           type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "success" | "warning"',
           default: '"default"',
-          description: "Visual tone.",
+          description: "Visual tone. Ignored when color is set.",
+        },
+        {
+          name: "color",
+          type: '"gray" | "indigo" | "cyan" | "orange" | "crimson" | "jade"',
+          description: "Soft hue. Jade is the status green.",
+        },
+        {
+          name: "highContrast",
+          type: "boolean",
+          default: "false",
+          description: "Fills the pill with the hue instead of a wash.",
         },
         render,
         children,
@@ -372,6 +383,53 @@ export const componentApis: Record<string, ComponentApi> = {
       ]),
     ],
   },
+  callout: {
+    slug: "callout",
+    source: "src/components/ui/Callout.tsx",
+    parts: [
+      part("Callout", "Notice. Soft wash, surface, or outline.", [
+        className,
+        {
+          name: "variant",
+          type: '"soft" | "surface" | "outline"',
+          default: '"soft"',
+          description: "Wash, wash plus a line, or the line alone.",
+        },
+        {
+          name: "size",
+          type: '"sm" | "default" | "lg"',
+          default: '"default"',
+          description: "Padding and type size.",
+        },
+        {
+          name: "color",
+          type: '"gray" | "indigo" | "cyan" | "orange" | "crimson" | "jade"',
+          default: '"gray"',
+          description: "Hue of the wash, the line, and the type.",
+        },
+        {
+          name: "highContrast",
+          type: "boolean",
+          default: "false",
+          description: "Deepens the hue.",
+        },
+        {
+          name: "role",
+          type: "string",
+          description: 'Set to "alert" when the reader must hear it at once.',
+        },
+        children,
+      ]),
+      part("CalloutIcon", "Leading icon. Aligns to the first line.", [
+        className,
+        children,
+      ]),
+      part("CalloutText", "The sentence. Links are underlined.", [
+        className,
+        children,
+      ]),
+    ],
+  },
   card: {
     slug: "card",
     source: "src/components/ui/Card.tsx",
@@ -382,7 +440,7 @@ export const componentApis: Record<string, ComponentApi> = {
           name: "variant",
           type: '"default" | "secondary"',
           default: '"default"',
-          description: "Outline paper, or muted fill without a border.",
+          description: "Outline paper, or the field fill without a border.",
         },
         {
           name: "size",
@@ -739,6 +797,73 @@ export const componentApis: Record<string, ComponentApi> = {
       part("ContextMenuCheckboxItem", "Checkable row.", [
         className,
         { name: "checked", type: "boolean", description: "Checked state." },
+        children,
+      ]),
+    ],
+  },
+  "data-list": {
+    slug: "data-list",
+    source: "src/components/ui/DataList.tsx",
+    parts: [
+      part("DataList", "Description list. Horizontal rows share one label column.", [
+        className,
+        {
+          name: "orientation",
+          type: '"horizontal" | "vertical"',
+          default: '"horizontal"',
+          description: "Label beside the value, or above it.",
+        },
+        {
+          name: "size",
+          type: '"sm" | "default" | "lg"',
+          default: '"default"',
+          description: "Row gap, and the size of the value. lg also grows the label.",
+        },
+        children,
+      ]),
+      part("DataListItem", "One pair. A horizontal list uses a subgrid so every label lines up.", [
+        className,
+        {
+          name: "align",
+          type: '"start" | "center" | "end" | "baseline" | "stretch"',
+          default: '"baseline"',
+          description: "Aligns the label with the value. Center a badge or a button.",
+        },
+        children,
+      ]),
+      part("DataListLabel", "The key. Renders a dt. Horizontal labels start at 7.5rem.", [
+        className,
+        {
+          name: "width",
+          type: "React.CSSProperties['width']",
+          description: "Fixed label width.",
+        },
+        {
+          name: "minWidth",
+          type: "React.CSSProperties['minWidth']",
+          description: "Overrides the shared label column. 5.5rem matches a short key.",
+        },
+        {
+          name: "maxWidth",
+          type: "React.CSSProperties['maxWidth']",
+          description: "Caps the label column.",
+        },
+        {
+          name: "color",
+          type: '"gray" | "indigo" | "cyan" | "orange" | "crimson"',
+          default: '"gray"',
+          description: "Label hue. Gray is the muted default.",
+        },
+        {
+          name: "highContrast",
+          type: "boolean",
+          default: "false",
+          description: "Uses the full ink of the hue instead of the softer tint.",
+        },
+        children,
+      ]),
+      part("DataListValue", "The value. Renders a flex dd, so a badge and an action sit on one line.", [
+        className,
         children,
       ]),
     ],
@@ -1515,13 +1640,35 @@ export const componentApis: Record<string, ComponentApi> = {
           description: "Tab list axis.",
         },
       ]),
-      part("TabsList", "Tab row.", [className, children]),
+      part("TabsList", "Tab row. Pill by default, or an underline with variant=\"line\".", [
+        className,
+        {
+          name: "variant",
+          type: '"pill" | "line"',
+          default: '"pill"',
+          description: "Pill track, or a bottom rule with a sliding underline.",
+        },
+        {
+          name: "color",
+          type: '"gray" | "indigo" | "cyan" | "orange" | "crimson" | "jade"',
+          description: "Hue of the line variant: the underline and the active label.",
+        },
+        {
+          name: "highContrast",
+          type: "boolean",
+          default: "false",
+          description: "Deepens the line hue.",
+        },
+        children,
+      ]),
       part("TabsTab", "One tab.", [
         className,
         { name: "value", type: "string", description: "Tab identity." },
         children,
       ]),
-      part("TabsIndicator", "Sliding pill behind the active tab.", [className]),
+      part("TabsIndicator", "Slides behind the active pill, or along the line.", [
+        className,
+      ]),
       part("TabsPanels", "Panel stack.", [className, children]),
       part("TabsPanel", "One panel.", [
         className,
@@ -1544,6 +1691,15 @@ export const componentApis: Record<string, ComponentApi> = {
         className,
         { name: "rows", type: "number", description: "Visible rows." },
         { name: "disabled", type: "boolean", description: "Disable the field." },
+      ]),
+    ],
+  },
+  "theme-toggle": {
+    slug: "theme-toggle",
+    source: "src/components/ui/ThemeToggle.tsx",
+    parts: [
+      part("ThemeToggle", "Ghost icon button. Sun for light, moon for dark.", [
+        className,
       ]),
     ],
   },
@@ -1975,6 +2131,10 @@ export function componentSlug(name: string) {
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
     .replace(/[\s_]+/g, "-")
     .toLowerCase()
+}
+
+export function componentInstallCommand(slug: string) {
+  return `npx @aloneday/lumenui@latest add ${slug}`
 }
 
 export function apiPartId(name: string) {

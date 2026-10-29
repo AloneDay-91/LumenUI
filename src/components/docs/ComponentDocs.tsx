@@ -5,7 +5,12 @@ import { ComponentApi } from "@/components/docs/ComponentApi"
 import { DocsPageTabs } from "@/components/docs/DocsPageTabs"
 import type { Heading } from "@/components/docs/DocsTOCContext"
 import { PageIntro, Preview } from "@/components/docs/Preview"
-import { getApiHeadings, getComponentApi } from "@/lib/component-api"
+import {
+  componentInstallCommand,
+  componentSlug,
+  getApiHeadings,
+  getComponentApi,
+} from "@/lib/component-api"
 
 export function ComponentDocs({
   name,
@@ -25,7 +30,9 @@ export function ComponentDocs({
   extraHeadings?: Heading[]
 }) {
   const api = getComponentApi(name)
+  const install = componentInstallCommand(api?.slug ?? componentSlug(name))
   const usageHeadings: Heading[] = [
+    { id: "installation", text: "Installation", level: 2 },
     { id: "usage", text: "Usage", level: 2 },
     ...extraHeadings,
   ]
@@ -42,6 +49,10 @@ export function ComponentDocs({
         apiHeadings={apiHeadings}
         usage={
           <>
+            <section className="space-y-4">
+              <h2 id="installation">Installation</h2>
+              <CodeBlock language="bash" code={install} />
+            </section>
             <section className="space-y-4">
               <h2 id="usage">Usage</h2>
               {typeof usage === "string" ? <CodeBlock code={usage} /> : usage}

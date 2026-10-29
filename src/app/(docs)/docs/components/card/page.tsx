@@ -39,7 +39,7 @@ export default function CardPage() {
   return (
     <ComponentDocs
       name="Card"
-      description="Flat surface, no shadow. Default for outlines. Secondary for portfolio chrome: muted fill, no border."
+      description="Flat surface, no shadow. Default for outlines. Secondary uses the field fill, with no border."
       preview={<ReleaseCard />}
       usage={`import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card"
 
@@ -60,7 +60,7 @@ export default function CardPage() {
           </Preview>
           <CodeBlock
             code={`<Card>Outline, paper fill.</Card>
-<Card variant="secondary">No border, secondary fill.</Card>`}
+<Card variant="secondary">No border, field fill.</Card>`}
           />
         </section>
       }

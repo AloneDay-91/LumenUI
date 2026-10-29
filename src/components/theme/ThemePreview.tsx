@@ -132,6 +132,7 @@ import { ToggleGroup } from "@/components/ui/ToggleGroup";
 import { useThemeDraft } from "@/components/theme/theme-draft";
 import { HERO_BACKGROUND } from "@/lib/site";
 import type { HeadingFont, SansFont } from "@/lib/theme-preset";
+import { cn } from "@/lib/utils";
 
 const swatches = [
   "background",
@@ -571,12 +572,17 @@ function Ring({ ratio }: { ratio: number }) {
 }
 
 export function ThemePreview() {
-  const { preset } = useThemeDraft();
+  const { preset, palette } = useThemeDraft();
   const sans = sansLabel(preset.sans);
   const heading = headingLabel(preset.heading, sans);
 
   return (
-    <div className="p-3 md:w-max">
+    <div
+      className={cn(
+        "bg-background p-3 text-foreground md:w-max",
+        palette === "dark" ? "dark" : "light",
+      )}
+    >
       <div className="grid w-full grid-cols-1 items-start gap-3 md:w-[2400px] md:grid-cols-7 xl:w-[2800px]">
         <Column>
           <Card>

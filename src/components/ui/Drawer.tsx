@@ -32,7 +32,11 @@ function DrawerBackdrop({
   return (
     <DrawerPrimitive.Backdrop
       data-slot="drawer-backdrop"
-      className={className}
+      className={cn(
+        "fixed inset-0 z-50 bg-black/40 opacity-[calc(1-var(--drawer-swipe-progress,0))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)]",
+        "data-starting-style:opacity-0 data-ending-style:opacity-0 data-swiping:duration-0",
+        className
+      )}
       {...props}
     />
   )
@@ -45,7 +49,7 @@ function DrawerViewport({
   return (
     <DrawerPrimitive.Viewport
       data-slot="drawer-viewport"
-      className={className}
+      className={cn("pointer-events-none fixed inset-0 z-50 flex", className)}
       {...props}
     />
   )
@@ -64,6 +68,11 @@ function DrawerPopup({
           data-slot="drawer-popup"
           className={cn(
             "bg-popover text-popover-foreground p-5 ring-1 ring-foreground/5 outline-none dark:ring-foreground/10",
+            "pointer-events-auto relative overflow-y-auto transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0",
+            "data-[swipe-direction=down]:mt-auto data-[swipe-direction=down]:max-h-[85dvh] data-[swipe-direction=down]:w-full data-[swipe-direction=down]:translate-y-(--drawer-swipe-movement-y) data-[swipe-direction=down]:data-starting-style:translate-y-full data-[swipe-direction=down]:data-ending-style:translate-y-full",
+            "data-[swipe-direction=up]:mb-auto data-[swipe-direction=up]:max-h-[85dvh] data-[swipe-direction=up]:w-full data-[swipe-direction=up]:translate-y-(--drawer-swipe-movement-y) data-[swipe-direction=up]:data-starting-style:-translate-y-full data-[swipe-direction=up]:data-ending-style:-translate-y-full",
+            "data-[swipe-direction=left]:mr-auto data-[swipe-direction=left]:h-full data-[swipe-direction=left]:translate-x-(--drawer-swipe-movement-x) data-[swipe-direction=left]:data-starting-style:-translate-x-full data-[swipe-direction=left]:data-ending-style:-translate-x-full",
+            "data-[swipe-direction=right]:ml-auto data-[swipe-direction=right]:h-full data-[swipe-direction=right]:translate-x-(--drawer-swipe-movement-x) data-[swipe-direction=right]:data-starting-style:translate-x-full data-[swipe-direction=right]:data-ending-style:translate-x-full",
             "data-[swipe-direction=down]:rounded-t-[24px]",
             "data-[swipe-direction=up]:rounded-b-[24px]",
             "data-[swipe-direction=right]:rounded-l-[24px]",

@@ -10,7 +10,7 @@ const cliRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 const HELP = `lumenui — copy Lumen UI components into your project
 
 Usage
-  lumenui init [--css]
+  lumenui init
   lumenui add <component>...
   lumenui add all
   lumenui preset <file.css>
@@ -21,7 +21,9 @@ Options
   --cwd <dir>     Project directory (default: the current directory)
   --force         Remove a component even when others still import it
   --dry-run       Print the files and packages without writing
-  --css           With init, write globals.css when it is missing
+
+init writes lumen.json, cn(), globals.css, and the Tailwind PostCSS config.
+add copies the component and writes that stylesheet when it is not there yet.
 `
 
 export async function run(argv) {
@@ -77,10 +79,7 @@ function init(cwd, registry, flags) {
     missingPackages(project, utils.dependencies),
     flags
   )
-
-  if (flags.css) {
-    writeTokens(project, registry.css, flags)
-  }
+  ensureStyles(project, registry, flags)
 
   console.log("Ready. Add a component with lumenui add button")
 }
@@ -122,6 +121,7 @@ function add(cwd, registry, names, flags) {
     missingPackages(project, [...packages]),
     flags
   )
+  ensureStyles(project, registry, flags)
 }
 
 function remove(cwd, registry, names, flags) {
@@ -229,12 +229,10 @@ function applyPreset(cwd, file, flags) {
   const block = source.includes(PRESET_START)
     ? `${source}\n`
     : `${PRESET_START}\n${source}\n${PRESET_END}\n`
-  const destination = existsSync(path.join(project, "src"))
-    ? path.join(project, "src/app/globals.css")
-    : path.join(project, "app/globals.css")
+  const destination = globalsCssPath(project)
   if (!existsSync(destination)) {
     throw new Error(
-      `No ${path.relative(project, destination)}. Run lumenui init --css first.`
+      `No ${path.relative(project, destination)}. Run lumenui init first.`
     )
   }
   const current = readFileSync(destination, "utf8")
@@ -254,21 +252,107 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 
-function writeTokens(project, css, flags) {
-  const destination = existsSync(path.join(project, "src"))
+const STYLE_PACKAGES = ["tailwindcss", "@tailwindcss/postcss", "tw-animate-css"]
+
+const POSTCSS_CONFIG = `const config = {
+  plugins: ["@tailwindcss/postcss"],
+};
+
+export default config;
+`
+
+const POSTCSS_FILES = [
+  "postcss.config.mjs",
+  "postcss.config.js",
+  "postcss.config.cjs",
+  "postcss.config.ts",
+]
+
+function ensureStyles(project, registry, flags) {
+  if (typeof registry.css !== "string" || registry.css.trim() === "") {
+    throw new Error("Registry is missing the stylesheet")
+  }
+  installCss(project, registry.css, flags)
+  writePostcssConfig(project, flags)
+  installPackages(
+    project,
+    registry,
+    missingPackages(project, STYLE_PACKAGES),
+    flags,
+    { dev: true }
+  )
+}
+
+function globalsCssPath(project) {
+  return existsSync(path.join(project, "src"))
     ? path.join(project, "src/app/globals.css")
     : path.join(project, "app/globals.css")
+}
+
+function hasLumenCss(source) {
+  return source.includes("--font-fraunces") && source.includes("--color-primary")
+}
+
+function installCss(project, css, flags) {
+  const destination = globalsCssPath(project)
+  const relative = path.relative(project, destination)
+  const next = css.endsWith("\n") ? css : `${css}\n`
+
   if (existsSync(destination)) {
-    console.log(`skip ${path.relative(project, destination)} (already exists)`)
+    const current = readFileSync(destination, "utf8")
+    if (hasLumenCss(current)) {
+      console.log(`skip ${relative} (already installed)`)
+      return
+    }
+    const backup = `${destination}.bak`
+    if (flags["dry-run"]) {
+      if (!existsSync(backup)) {
+        console.log(`backup ${path.relative(project, backup)}`)
+      }
+      console.log(`update ${relative}`)
+      return
+    }
+    if (!existsSync(backup)) {
+      writeFileSync(backup, current)
+      console.log(`backup ${path.relative(project, backup)}`)
+    }
+    writeFileSync(destination, next)
+    console.log(`update ${relative}`)
     return
   }
+
   if (flags["dry-run"]) {
-    console.log(`write ${path.relative(project, destination)}`)
+    console.log(`write ${relative}`)
     return
   }
   mkdirSync(path.dirname(destination), { recursive: true })
-  writeFileSync(destination, css)
-  console.log(`add ${path.relative(project, destination)}`)
+  writeFileSync(destination, next)
+  console.log(`add ${relative}`)
+}
+
+function writePostcssConfig(project, flags) {
+  const present = POSTCSS_FILES.map((name) => path.join(project, name)).filter((file) =>
+    existsSync(file)
+  )
+  if (present.length > 0) {
+    const ready = present.some((file) =>
+      readFileSync(file, "utf8").includes("@tailwindcss/postcss")
+    )
+    if (!ready) {
+      console.log(
+        `skip ${path.relative(project, present[0])} (add @tailwindcss/postcss)`
+      )
+    }
+    return
+  }
+
+  const destination = path.join(project, "postcss.config.mjs")
+  if (flags["dry-run"]) {
+    console.log("write postcss.config.mjs")
+    return
+  }
+  writeFileSync(destination, POSTCSS_CONFIG)
+  console.log("add postcss.config.mjs")
 }
 
 function fileDestination(project, config, fileName) {
@@ -469,7 +553,7 @@ const PACKAGE_NAME_RE =
   /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
 
 function allowedRegistryPackages(registry) {
-  const allowed = new Set()
+  const allowed = new Set(STYLE_PACKAGES)
   for (const item of Object.values(registry.items ?? {})) {
     for (const dependency of item.dependencies ?? []) {
       allowed.add(dependency)
@@ -489,13 +573,13 @@ function assertInstallablePackages(registry, packages) {
   }
 }
 
-function installPackages(project, registry, packages, flags) {
+function installPackages(project, registry, packages, flags, options = {}) {
   if (packages.length === 0) {
     return
   }
   assertInstallablePackages(registry, packages)
   const manager = packageManager(project)
-  const args = installArgs(manager, packages)
+  const args = installArgs(manager, packages, options.dev)
   if (flags["dry-run"]) {
     console.log(`${manager} ${args.join(" ")}`)
     return
@@ -524,20 +608,31 @@ function packageManager(project) {
   return "npm"
 }
 
-function installArgs(manager, packages) {
+function devInstallFlag(manager, dev) {
+  if (!dev) {
+    return []
+  }
+  if (manager === "npm" || manager === "pnpm") {
+    return ["--save-dev"]
+  }
+  return ["--dev"]
+}
+
+function installArgs(manager, packages, dev = false) {
+  const devFlag = devInstallFlag(manager, dev)
   if (manager === "npm") {
-    return ["install", "--ignore-scripts", ...packages]
+    return ["install", "--ignore-scripts", ...devFlag, ...packages]
   }
   if (manager === "yarn") {
-    return ["add", "--ignore-scripts", ...packages]
+    return ["add", "--ignore-scripts", ...devFlag, ...packages]
   }
   if (manager === "pnpm") {
-    return ["add", "--ignore-scripts", ...packages]
+    return ["add", "--ignore-scripts", ...devFlag, ...packages]
   }
   if (manager === "bun") {
-    return ["add", "--ignore-scripts", ...packages]
+    return ["add", "--ignore-scripts", ...devFlag, ...packages]
   }
-  return ["add", "--ignore-scripts", ...packages]
+  return ["add", "--ignore-scripts", ...devFlag, ...packages]
 }
 
 function loadRegistry() {

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 import { AskLumen } from "@/components/docs/AskLumen";
-import { ThemeToggle } from "@/components/docs/ThemeToggle";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MegaMenuPanel } from "@/components/marketing/MegaMenuPanel";
 import { SiteLogo } from "@/components/marketing/SiteLogo";
 import { buttonVariants } from "@/components/ui/button-variants";

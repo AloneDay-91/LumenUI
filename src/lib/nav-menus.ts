@@ -112,6 +112,7 @@ export const navMenus: NavMenu[] = [
           { href: "/docs/components/pagination", label: "Pagination" },
           { href: "/docs/components/navigation-menu", label: "Navigation Menu" },
           { href: "/docs/components/sidebar", label: "Sidebar" },
+          { href: "/docs/components/theme-toggle", label: "Theme Toggle" },
           { href: "/docs/components/menubar", label: "Menubar" },
           { href: "/docs/components/stepper", label: "Stepper" },
         ],
@@ -127,6 +128,7 @@ export const navMenus: NavMenu[] = [
           { href: "/docs/components/badge", label: "Badge" },
           { href: "/docs/components/empty", label: "Empty" },
           { href: "/docs/components/item", label: "Item" },
+          { href: "/docs/components/data-list", label: "Data List" },
           { href: "/docs/components/typography", label: "Typography" },
           { href: "/docs/components/timeline", label: "Timeline" },
           { href: "/docs/components/accordion", label: "Accordion" },
@@ -136,6 +138,7 @@ export const navMenus: NavMenu[] = [
         title: "Feedback",
         items: [
           { href: "/docs/components/alert", label: "Alert" },
+          { href: "/docs/components/callout", label: "Callout" },
           { href: "/docs/components/skeleton", label: "Skeleton" },
           { href: "/docs/components/spinner", label: "Spinner" },
           { href: "/docs/components/progress", label: "Progress" },

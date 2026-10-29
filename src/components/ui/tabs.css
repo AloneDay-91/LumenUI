@@ -14,6 +14,60 @@
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  [data-slot="tabs-list"][data-variant="line"] {
+    --tabs-line: var(--foreground);
+    --tabs-active: var(--foreground);
+  }
+
+  [data-slot="tabs-list"][data-variant="line"][data-color="gray"]:not(
+      [data-high-contrast="true"]
+    ) {
+    --tabs-line: var(--muted-foreground);
+    --tabs-active: var(--muted-foreground);
+  }
+
+  [data-slot="tabs-list"][data-variant="line"][data-color="indigo"] {
+    --tabs-line: var(--indigo-ink);
+    --tabs-active: var(--indigo-ink);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-color="cyan"] {
+    --tabs-line: var(--cyan-ink);
+    --tabs-active: var(--cyan-ink);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-color="orange"] {
+    --tabs-line: var(--orange-ink);
+    --tabs-active: var(--orange-ink);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-color="crimson"] {
+    --tabs-line: var(--crimson-ink);
+    --tabs-active: var(--crimson-ink);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-color="jade"] {
+    --tabs-line: var(--jade-ink);
+    --tabs-active: var(--jade-ink);
+  }
+
+  [data-slot="tabs-list"][data-variant="line"][data-high-contrast="true"][data-color="indigo"] {
+    --tabs-line: var(--indigo-ink-strong);
+    --tabs-active: var(--indigo-ink-strong);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-high-contrast="true"][data-color="cyan"] {
+    --tabs-line: var(--cyan-ink-strong);
+    --tabs-active: var(--cyan-ink-strong);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-high-contrast="true"][data-color="orange"] {
+    --tabs-line: var(--orange-ink-strong);
+    --tabs-active: var(--orange-ink-strong);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-high-contrast="true"][data-color="crimson"] {
+    --tabs-line: var(--crimson-ink-strong);
+    --tabs-active: var(--crimson-ink-strong);
+  }
+  [data-slot="tabs-list"][data-variant="line"][data-high-contrast="true"][data-color="jade"] {
+    --tabs-line: var(--jade-ink-strong);
+    --tabs-active: var(--jade-ink-strong);
+  }
+
   [data-slot="tabs-panels"] {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

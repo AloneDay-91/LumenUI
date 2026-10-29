@@ -1,6 +1,8 @@
+import Link from "next/link"
+
 import HeadingsSetter from "@/components/docs/HeadingsSetter"
 import { CodeBlock } from "@/components/docs/CodeBlock"
-import { PageIntro } from "@/components/docs/Preview"
+import { PageIntro, Preview } from "@/components/docs/Preview"
 import { Badge } from "@/components/ui/Badge"
 import {
   Card,
@@ -33,11 +35,24 @@ const tokens = [
   ["--muted-foreground", "Metadata, dates"],
   ["--border", "Dividers, outlines"],
   ["--ring", "Keyboard focus"],
+  ["--accent", "Hover and selected surfaces. Not a brand hue."],
   ["--destructive", "Error, delete"],
+  ["--input", "Field borders"],
   ["--new", "Novelty indicator"],
   ["--radius", "0.625rem — pills scale from this"],
   ["--sidebar", "Docs sidebar surface"],
 ]
+
+const hues = ["gray", "indigo", "cyan", "orange", "crimson", "jade"] as const
+
+const hueLabel: Record<(typeof hues)[number], string> = {
+  gray: "Gray",
+  indigo: "Indigo",
+  cyan: "Cyan",
+  orange: "Orange",
+  crimson: "Crimson",
+  jade: "Jade",
+}
 
 const typefaces = [
   {
@@ -65,6 +80,7 @@ export default function StylesPage() {
           { id: "styles", text: "Styles", level: 1 },
           { id: "copy", text: "Copy", level: 2 },
           { id: "palette", text: "Palette", level: 2 },
+          { id: "color", text: "Color", level: 2 },
           { id: "type", text: "Typography", level: 2 },
           { id: "theming", text: "Theme", level: 2 },
         ]}
@@ -74,7 +90,7 @@ export default function StylesPage() {
         <PageIntro
           eyebrow="Foundations"
           title="Styles"
-          description="Warm-tinted monochrome. Paper, black, greys. No blue or violet accent."
+          description="Warm paper, black, and grey. Hue is optional: gray, indigo, cyan, orange, crimson, and jade."
         />
 
         <section className="space-y-4">
@@ -126,6 +142,44 @@ export default function StylesPage() {
         </section>
 
         <section className="space-y-4">
+          <h2 id="color">Color</h2>
+          <p>
+            The tokens above stay on paper.{" "}
+            <Link href="/docs/components/badge">Badge</Link>,{" "}
+            <Link href="/docs/components/callout">Callout</Link>, and{" "}
+            <Link href="/docs/components/tabs">Tabs</Link> share gray, indigo,
+            cyan, orange, crimson, and jade.{" "}
+            <Link href="/docs/components/data-list">Data List</Link> labels use
+            that set, except jade. Each hue lives in the sheet:{" "}
+            <code>--indigo-ink</code> for type, <code>--indigo-wash</code> for
+            a soft badge, <code>--indigo-panel</code> for a callout,{" "}
+            <code>--indigo-solid</code> for a filled badge. Cyan, orange,
+            crimson, and jade use the same suffixes.
+          </p>
+          <Preview className="flex-col gap-3">
+            <div className="flex flex-wrap justify-center gap-2">
+              {hues.map((hue) => (
+                <Badge key={hue} color={hue}>
+                  {hueLabel[hue]}
+                </Badge>
+              ))}
+            </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {hues.map((hue) => (
+                <Badge key={hue} color={hue} highContrast>
+                  {hueLabel[hue]}
+                </Badge>
+              ))}
+            </div>
+          </Preview>
+          <p>
+            The first row is soft: a tint and saturated type.{" "}
+            <code>highContrast</code> fills the badge and deepens a callout or
+            a tab line. Gray stays on the paper tokens.
+          </p>
+        </section>
+
+        <section className="space-y-4">
           <h2 id="type">Typography</h2>
           <div className="grid gap-4">
             {typefaces.map((face) => (
@@ -152,8 +206,9 @@ export default function StylesPage() {
               <CardDescription>
                 Dark mode is the{" "}
                 <Badge variant="outline">.dark</Badge> class on{" "}
-                <Badge variant="outline">html</Badge>. next-themes reads the
-                system preference.
+                <Badge variant="outline">html</Badge>.{" "}
+                <Link href="/docs/components/theme-toggle">Theme Toggle</Link>{" "}
+                follows the system preference, then a manual choice.
               </CardDescription>
             </CardHeader>
           </Card>

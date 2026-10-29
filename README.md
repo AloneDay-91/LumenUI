@@ -1,30 +1,12 @@
-<p align="center">
-  <img src="src/app/icon.svg" width="48" height="48" alt="Lumen UI" />
-</p>
+![Lumen UI](src/app/icon.svg)
 
-<h1 align="center">Lumen UI</h1>
+# Lumen UI
 
-<p align="center">
-  Copy-paste design system. Base UI for behavior. Warm paper chrome in your repo.
-</p>
+Copy-paste design system. Base UI for behavior. Warm paper chrome in your repo.
 
-<p align="center">
-  <a href="https://github.com/AloneDay-91/LumenUI/releases/tag/v1.0.6"><img src="https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square" alt="Version" /></a>
-  <a href="https://github.com/AloneDay-91/LumenUI/stargazers"><img src="https://img.shields.io/github/stars/AloneDay-91/LumenUI?style=flat-square&color=171717" alt="Stars" /></a>
-  <a href="https://github.com/AloneDay-91/LumenUI/commits/main"><img src="https://img.shields.io/github/last-commit/AloneDay-91/LumenUI?style=flat-square&color=555" alt="Last commit" /></a>
-  <img src="https://img.shields.io/badge/Next.js-16-171717?style=flat-square" alt="Next.js 16" />
-  <img src="https://img.shields.io/badge/React-19-171717?style=flat-square" alt="React 19" />
-  <img src="https://img.shields.io/badge/Tailwind-v4-171717?style=flat-square" alt="Tailwind CSS 4" />
-  <img src="https://img.shields.io/badge/Base_UI-1.8-171717?style=flat-square" alt="Base UI" />
-</p>
+![Version](https://img.shields.io/github/v/tag/AloneDay-91/LumenUI?label=version&color=171717&style=flat-square)![Stars](https://img.shields.io/github/stars/AloneDay-91/LumenUI?style=flat-square&color=171717)![Last commit](https://img.shields.io/github/last-commit/AloneDay-91/LumenUI?style=flat-square&color=555)![Next.js 16](https://img.shields.io/badge/Next.js-16-171717?style=flat-square)![React 19](https://img.shields.io/badge/React-19-171717?style=flat-square)![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-v4-171717?style=flat-square)![Base UI](https://img.shields.io/badge/Base_UI-1.8-171717?style=flat-square)
 
-<p align="center">
-  <a href="https://github.com/AloneDay-91/LumenUI#getting-started">Getting started</a>
-  ·
-  <a href="https://github.com/AloneDay-91/LumenUI/tree/main/src/components/ui">Components</a>
-  ·
-  <a href="https://github.com/AloneDay-91/LumenUI/blob/main/src/lib/changelog.ts">Changelog</a>
-</p>
+[Getting started](https://github.com/AloneDay-91/LumenUI#getting-started) · [Components](https://github.com/AloneDay-91/LumenUI/tree/main/src/components/ui) · [Changelog](https://github.com/AloneDay-91/LumenUI/blob/main/src/lib/changelog.ts)
 
 ---
 
@@ -62,6 +44,15 @@ Open [http://localhost:3000](http://localhost:3000). Docs live at `/docs`.
 
 Node 22.23.4 is required (`engines` in `package.json`).
 
+## CLI
+
+```bash
+npx @aloneday/lumenui@latest init
+npx @aloneday/lumenui@latest add button
+```
+
+`init` writes `lumen.json`, `cn()`, and `globals.css`. `add` copies the component and writes that stylesheet when the project does not already have the Lumen tokens.
+
 ## Copy a component
 
 1. Install the shared dependencies:
@@ -71,7 +62,7 @@ npm install @base-ui/react class-variance-authority clsx tailwind-merge
 npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 ```
 
-2. Paste the tokens from `src/app/globals.css` (or the sheet on the Styles docs page).
+2. Paste the tokens from `src/app/globals.css` (or the sheet on the Styles docs page). The CLI writes this file for you.
 3. Copy `src/lib/utils.ts`.
 4. Copy the file you need from `src/components/ui/`.
 
@@ -88,7 +79,7 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css
 
 ## Changelog
 
-Latest: **v1.0.6** — Kbd glyph alignment, CLI path and install hardening, and Next.js 16.4.2.
+Latest: **v1.0.7** — Data List, Theme Toggle, drawer and toast motion, sidebar hydration, pointer cursors, the CLI stylesheet, and the Customize preview.
 
 See [`src/lib/changelog.ts`](src/lib/changelog.ts).
 

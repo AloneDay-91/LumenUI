@@ -9,7 +9,8 @@ const cardVariants = cva(
     variants: {
       variant: {
         default: "border border-border bg-card text-card-foreground",
-        secondary: "bg-secondary text-secondary-foreground",
+        secondary:
+          "bg-input/50 text-secondary-foreground dark:bg-input/30",
       },
       size: {
         default: "gap-5 py-5",

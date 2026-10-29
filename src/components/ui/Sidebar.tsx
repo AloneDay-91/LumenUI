@@ -219,64 +219,63 @@ function Sidebar({
     setSide(side)
   }, [setSide, side])
 
-  const panel = (
+  const inner = (mobile: boolean) => (
     <div
       data-slot="sidebar-inner"
       data-variant={variant}
       className={cn(
         "flex h-full min-h-0 w-full flex-col text-foreground",
-        !isMobile &&
+        !mobile &&
           variant === "sidebar" &&
           "border-border bg-background group-data-[side=left]/sidebar:border-r group-data-[side=right]/sidebar:border-l",
-        !isMobile &&
+        !mobile &&
           variant === "floating" &&
           "rounded-2xl border border-border bg-card",
-        !isMobile && variant === "inset" && "bg-transparent"
+        !mobile && variant === "inset" && "bg-transparent"
       )}
     >
       {children}
     </div>
   )
 
-  if (isMobile) {
-    return (
-      <Drawer
-        open={openMobile}
-        onOpenChange={setOpenMobile}
-        swipeDirection={side === "left" ? "left" : "right"}
-      >
-        <DrawerPopup
-          className="h-dvh w-(--sidebar-width) max-w-[85vw] rounded-none p-0"
-          style={{ "--sidebar-width": SIDEBAR_WIDTH } as React.CSSProperties}
-        >
-          {panel}
-        </DrawerPopup>
-      </Drawer>
-    )
-  }
-
   return (
-    <div
-      data-slot="sidebar"
-      data-side={side}
-      data-variant={variant}
-      data-state={state}
-      data-collapsible={state === "collapsed" ? collapsible : ""}
-      className={cn(
-        "group/sidebar peer relative hidden h-full shrink-0 overflow-hidden transition-[width] duration-200 ease-out md:block",
-        side === "right" && "order-last",
-        variant !== "sidebar" && state !== "collapsed" && "p-2",
-        variant !== "sidebar" &&
-          state === "collapsed" &&
-          collapsible === "icon" &&
-          "p-2",
-        widthClass(variant, collapsible, open),
-        className
-      )}
-      {...props}
-    >
-      {panel}
-    </div>
+    <>
+      <div
+        data-slot="sidebar"
+        data-side={side}
+        data-variant={variant}
+        data-state={state}
+        data-collapsible={state === "collapsed" ? collapsible : ""}
+        className={cn(
+          "group/sidebar peer relative hidden h-full shrink-0 overflow-hidden transition-[width] duration-200 ease-out md:block",
+          side === "right" && "order-last",
+          variant !== "sidebar" && state !== "collapsed" && "p-2",
+          variant !== "sidebar" &&
+            state === "collapsed" &&
+            collapsible === "icon" &&
+            "p-2",
+          widthClass(variant, collapsible, open),
+          className
+        )}
+        {...props}
+      >
+        {inner(false)}
+      </div>
+      {isMobile ? (
+        <Drawer
+          open={openMobile}
+          onOpenChange={setOpenMobile}
+          swipeDirection={side === "left" ? "left" : "right"}
+        >
+          <DrawerPopup
+            className="h-dvh w-(--sidebar-width) max-w-[85vw] rounded-none p-0"
+            style={{ "--sidebar-width": SIDEBAR_WIDTH } as React.CSSProperties}
+          >
+            {inner(true)}
+          </DrawerPopup>
+        </Drawer>
+      ) : null}
+    </>
   )
 }
 

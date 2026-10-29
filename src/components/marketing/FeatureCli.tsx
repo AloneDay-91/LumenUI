@@ -13,6 +13,10 @@ const points = [
     body: "Base UI, class-variance-authority, and the rest land in package.json.",
   },
   {
+    title: "The stylesheet comes with it",
+    body: "globals.css, Tailwind, and the PostCSS config are written with init and add.",
+  },
+  {
     title: "Remove it the same way",
     body: "rm deletes the component. Shared files stay while something still imports them.",
   },
@@ -20,6 +24,7 @@ const points = [
 
 const tree = [
   { name: "lumen.json", indent: false, tag: "new" },
+  { name: "src/app/globals.css", indent: false, tag: "tokens" },
   { name: "src/lib/", indent: false, muted: true },
   { name: "utils.ts", indent: true, tag: "cn()" },
   { name: "src/components/ui/", indent: false, muted: true },

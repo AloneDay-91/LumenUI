@@ -166,7 +166,8 @@ export function buildPresetCss(preset: ThemePreset) {
   --shadow-lg: ${shadowValue(preset.shadow, "lg")};
 }
 
-:root {
+:root,
+.light {
 ${colorBlock(preset.light)}
 ${radiusBlock(preset.radius)}
   --font-sans: ${sans};
