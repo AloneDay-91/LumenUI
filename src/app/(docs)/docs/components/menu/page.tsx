@@ -14,7 +14,7 @@ export default function MenuPage() {
   return (
     <ComponentDocs
       name="Menu"
-      description="Dropdown list of actions. Built on @base-ui/react/menu."
+      description="Dropdown list of actions. Built on @base-ui/react/menu. The CLI name is menu. It copies DropdownMenu.tsx with it."
       preview={
         <Menu>
           <MenuTrigger render={<Button variant="outline" />}>Song</MenuTrigger>

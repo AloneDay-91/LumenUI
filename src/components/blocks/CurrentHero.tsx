@@ -7,17 +7,9 @@ import { CopyCommand } from "@/components/marketing/CopyCommand"
 import { HeroProduct } from "@/components/marketing/HeroProduct"
 import { StackMark } from "@/components/marketing/StackMarks"
 import { buttonVariants } from "@/components/ui/button-variants"
-import { docsSections } from "@/lib/docs-nav"
+import { componentItems } from "@/lib/docs-nav"
 import { HERO_BACKGROUND, STACK } from "@/lib/site"
 import { cn } from "@/lib/utils"
-
-const componentItems =
-  docsSections.find((section) => section.title === "Components")?.items ?? []
-
-const paletteItems = componentItems.map((item) => ({
-  name: item.name,
-  slug: item.href.split("/").pop() ?? item.href,
-}))
 
 const code = `import { HeroProduct } from "@/components/marketing/HeroProduct"
 import { HERO_BACKGROUND } from "@/lib/site"
@@ -38,7 +30,7 @@ export function SiteHero() {
         </div>
       </section>
       <div className="relative px-6 pt-14 pb-12">
-        <HeroProduct items={[]} />
+        <HeroProduct />
       </div>
     </div>
   )
@@ -87,7 +79,7 @@ export function SiteHero() {
           </div>
         </section>
         <div className="relative px-6 pt-12 pb-12 md:pt-14">
-          <HeroProduct items={paletteItems} />
+          <HeroProduct />
         </div>
       </div>
     </>

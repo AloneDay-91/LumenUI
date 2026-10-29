@@ -21,7 +21,6 @@ export async function getLlmsIndex(origin = SITE_URL) {
     "Each link below is a Markdown page with the description, a usage example, the component API, and the source files to copy. Append `.md` to any `/docs` URL for the same page.",
     "",
     `- [Full documentation](${origin}/llms-full.txt): every page, usage, API, and source in one file.`,
-    `- [Examples](${origin}/examples): composed cards outside the docs.`,
     "",
     "Conventions agents should keep:",
     "",
@@ -74,7 +73,7 @@ export async function getLlmsFull(origin = SITE_URL) {
 }
 
 /** Canonical public origin. Never trust request Host / X-Forwarded-* for links. */
-export function getRequestOrigin(_request?: Request) {
+export function getRequestOrigin() {
   return SITE_URL
 }
 

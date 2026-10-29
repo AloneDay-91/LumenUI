@@ -82,5 +82,5 @@ export const COMPAT = [
   },
 ]
 
-export const HERO_BACKGROUND =
-  "https://images.unsplash.com/photo-1775313088881-649b8d9dc7d8?q=80&w=1600&auto=format&fit=crop"
+/** Unsplash photo 1775313088881, served from public/ so the hero does not depend on a third-party CDN. */
+export const HERO_BACKGROUND = "/images/hero.jpg"

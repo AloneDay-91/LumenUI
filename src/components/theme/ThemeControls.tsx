@@ -15,6 +15,7 @@ import {
 import { useThemeDraft } from "@/components/theme/theme-draft"
 import {
   PRESET_COMMAND,
+  encodePreset,
   colorTokens,
   type ColorToken,
   type HeadingFont,
@@ -43,6 +44,15 @@ const colorLabels: Record<ColorToken, string> = {
 export function ThemeControls({ onNavigate }: { onNavigate?: () => void }) {
   const { preset, setPreset, palette, setPalette, updateColor, reset, css } = useThemeDraft()
   const { copied, copy } = useCopy()
+  const { copied: linkCopied, copy: copyLink } = useCopy()
+
+  function share() {
+    const url = new URL(window.location.href)
+    url.searchParams.set("preset", encodePreset(preset))
+    window.history.replaceState(null, "", `${url.pathname}${url.search}`)
+    void copyLink(url.toString())
+    onNavigate?.()
+  }
 
   function download() {
     const blob = new Blob([css], { type: "text/css" })
@@ -185,12 +195,15 @@ export function ThemeControls({ onNavigate }: { onNavigate?: () => void }) {
       <section className="flex flex-col gap-3">
         <h2 className="text-sm font-medium">Export</h2>
         <p className="text-xs leading-relaxed text-muted-foreground">
-          Download the preset, then add it from your project.
+          Copy a link to this preset, or download it and add it from your project.
         </p>
         <p className="rounded-2xl bg-muted px-3 py-2 font-mono text-xs break-all">{PRESET_COMMAND}</p>
         <div className="flex flex-wrap gap-2">
           <Button type="button" size="sm" onClick={() => copy(css)}>
             {copied ? "Copied" : "Copy CSS"}
+          </Button>
+          <Button type="button" size="sm" variant="outline" onClick={share}>
+            {linkCopied ? "Copied" : "Copy link"}
           </Button>
           <Button type="button" size="sm" variant="outline" onClick={download}>
             Download

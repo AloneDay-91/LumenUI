@@ -10,34 +10,28 @@ type BadgeColor = "gray" | "indigo" | "cyan" | "orange" | "crimson" | "jade"
 
 const badgeColorClass = {
   gray: {
-    soft: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground",
-    contrast:
-      "border-transparent bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
+    soft: "border-transparent bg-secondary text-secondary-foreground",
+    contrast: "border-transparent bg-primary text-primary-foreground",
   },
   indigo: {
-    soft: "border-transparent bg-indigo-wash text-indigo-ink hover:bg-indigo-wash-hover hover:text-indigo-ink",
-    contrast:
-      "border-transparent bg-indigo-solid text-indigo-on-solid hover:bg-indigo-solid hover:text-indigo-on-solid",
+    soft: "border-transparent bg-indigo-wash text-indigo-ink",
+    contrast: "border-transparent bg-indigo-solid text-indigo-on-solid",
   },
   cyan: {
-    soft: "border-transparent bg-cyan-wash text-cyan-ink hover:bg-cyan-wash-hover hover:text-cyan-ink",
-    contrast:
-      "border-transparent bg-cyan-solid text-cyan-on-solid hover:bg-cyan-solid hover:text-cyan-on-solid",
+    soft: "border-transparent bg-cyan-wash text-cyan-ink",
+    contrast: "border-transparent bg-cyan-solid text-cyan-on-solid",
   },
   orange: {
-    soft: "border-transparent bg-orange-wash text-orange-ink hover:bg-orange-wash-hover hover:text-orange-ink",
-    contrast:
-      "border-transparent bg-orange-solid text-orange-on-solid hover:bg-orange-solid hover:text-orange-on-solid",
+    soft: "border-transparent bg-orange-wash text-orange-ink",
+    contrast: "border-transparent bg-orange-solid text-orange-on-solid",
   },
   crimson: {
-    soft: "border-transparent bg-crimson-wash text-crimson-ink hover:bg-crimson-wash-hover hover:text-crimson-ink",
-    contrast:
-      "border-transparent bg-crimson-solid text-crimson-on-solid hover:bg-crimson-solid hover:text-crimson-on-solid",
+    soft: "border-transparent bg-crimson-wash text-crimson-ink",
+    contrast: "border-transparent bg-crimson-solid text-crimson-on-solid",
   },
   jade: {
-    soft: "border-transparent bg-jade-wash text-jade-ink hover:bg-jade-wash-hover hover:text-jade-ink",
-    contrast:
-      "border-transparent bg-jade-solid text-jade-on-solid hover:bg-jade-solid hover:text-jade-on-solid",
+    soft: "border-transparent bg-jade-wash text-jade-ink",
+    contrast: "border-transparent bg-jade-solid text-jade-on-solid",
   },
 } satisfies Record<BadgeColor, { soft: string; contrast: string }>
 
@@ -48,11 +42,11 @@ const badgeVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
-        destructive: "bg-destructive/10 text-red-700 dark:text-destructive",
+        destructive: "bg-destructive/10 text-destructive",
         outline: "border-border text-foreground",
-        ghost: "hover:bg-muted hover:text-muted-foreground",
-        success: "bg-secondary text-secondary-foreground",
-        warning: "bg-secondary text-secondary-foreground",
+        ghost: "",
+        success: badgeColorClass.jade.soft,
+        warning: badgeColorClass.orange.soft,
       },
     },
     defaultVariants: {

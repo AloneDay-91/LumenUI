@@ -11,6 +11,7 @@ export function generateStaticParams() {
 
 export const metadata: Metadata = {
   title: "Block preview",
+  robots: { index: false },
 }
 
 export default async function BlockPreviewPage({

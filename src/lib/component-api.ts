@@ -108,13 +108,20 @@ export const componentApis: Record<string, ComponentApi> = {
     slug: "alert",
     source: "src/components/ui/Alert.tsx",
     parts: [
-      part("Alert", "Status surface. role=\"alert\".", [
+      part("Alert", "Status surface. Destructive uses role=\"alert\". The others use role=\"status\".", [
         className,
         {
           name: "variant",
           type: '"default" | "destructive" | "warning" | "success" | "info"',
           default: '"default"',
-          description: "Visual tone. Stays monochrome.",
+          description:
+            "Visual tone. Info, warning, success, and destructive use the shared hues. Pass role to override the live region.",
+        },
+        {
+          name: "role",
+          type: "string",
+          description:
+            "Defaults to alert for destructive and status for every other variant.",
         },
       ]),
       part("AlertTitle", "Short heading.", [className, children]),
@@ -209,7 +216,8 @@ export const componentApis: Record<string, ComponentApi> = {
           name: "variant",
           type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "success" | "warning"',
           default: '"default"',
-          description: "Visual tone. Ignored when color is set.",
+          description:
+            "Visual tone. Success is jade, warning is orange, destructive uses the destructive token. Ignored when color is set.",
         },
         {
           name: "color",
@@ -1441,6 +1449,13 @@ export const componentApis: Record<string, ComponentApi> = {
             type: '"offcanvas" | "icon" | "none"',
             default: '"offcanvas"',
             description: "Slides away, shrinks to icons, or stays open.",
+          },
+          {
+            name: "expandOnHover",
+            type: "boolean",
+            default: "false",
+            description:
+              "With collapsible=\"icon\": hovering the collapsed rail opens it like the trigger, leaving closes it.",
           },
           children,
         ]

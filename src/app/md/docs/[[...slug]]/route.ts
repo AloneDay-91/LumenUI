@@ -2,12 +2,12 @@ import { getDocsMarkdown } from "@/lib/docs-markdown"
 import { getRequestOrigin } from "@/lib/llms"
 
 export async function GET(
-  request: Request,
+  _request: Request,
   context: { params: Promise<{ slug?: string[] }> }
 ) {
   const { slug } = await context.params
   const pathname = slug?.length ? `/docs/${slug.join("/")}` : "/docs"
-  const markdown = await getDocsMarkdown(pathname, getRequestOrigin(request))
+  const markdown = await getDocsMarkdown(pathname, getRequestOrigin())
 
   if (!markdown) {
     return new Response("Not found", { status: 404 })

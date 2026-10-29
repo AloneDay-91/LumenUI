@@ -2,10 +2,12 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
-  useRef,
+  useMemo,
   useState,
+  useSyncExternalStore,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
@@ -14,6 +16,7 @@ import { useTheme } from "next-themes"
 
 import {
   buildPresetCss,
+  decodePreset,
   defaultPreset,
   type ColorToken,
   type ThemePreset,
@@ -35,6 +38,11 @@ const ThemeDraftContext = createContext<ThemeDraftValue | null>(null)
 
 function loadPreset(): ThemePreset {
   try {
+    const shared = new URLSearchParams(window.location.search).get("preset")
+    if (shared) {
+      const parsed = decodePreset(shared)
+      if (parsed) return parsed
+    }
     const stored = window.localStorage.getItem(STORAGE_KEY)
     if (!stored) return defaultPreset
     return { ...defaultPreset, ...JSON.parse(stored) }
@@ -43,25 +51,33 @@ function loadPreset(): ThemePreset {
   }
 }
 
+function subscribeToNothing() {
+  return () => {}
+}
+
 export function ThemeDraftProvider({ children }: { children: ReactNode }) {
   const { resolvedTheme } = useTheme()
-  const [preset, setPreset] = useState<ThemePreset>(defaultPreset)
-  const [palette, setPalette] = useState<"light" | "dark">("light")
-  const [ready, setReady] = useState(false)
-  const syncedTheme = useRef(false)
+  // The stored draft only exists in the browser: render the default preset on the server.
+  const ready = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false
+  )
+  const stored = useMemo(() => (ready ? loadPreset() : defaultPreset), [ready])
+  const [draft, setDraft] = useState<ThemePreset | null>(null)
+  const preset = draft ?? stored
+  // The palette follows the site theme until someone picks one.
+  const [pickedPalette, setPalette] = useState<"light" | "dark" | null>(null)
+  const palette = pickedPalette ?? (resolvedTheme === "dark" ? "dark" : "light")
   const css = buildPresetCss(preset)
 
-  useEffect(() => {
-    setPreset(loadPreset())
-    setReady(true)
-  }, [])
-
-  useEffect(() => {
-    if (syncedTheme.current) return
-    if (resolvedTheme !== "light" && resolvedTheme !== "dark") return
-    setPalette(resolvedTheme)
-    syncedTheme.current = true
-  }, [resolvedTheme])
+  const setPreset: Dispatch<SetStateAction<ThemePreset>> = useCallback(
+    (action) =>
+      setDraft((current) =>
+        typeof action === "function" ? action(current ?? loadPreset()) : action
+      ),
+    []
+  )
 
   useEffect(() => {
     if (!ready) return
@@ -73,7 +89,7 @@ export function ThemeDraftProvider({ children }: { children: ReactNode }) {
       .replace("/* lumen-preset:end */", "")
     document.head.appendChild(style)
     return () => style.remove()
-  }, [css, ready])
+  }, [css, preset, ready])
 
   function updateColor(token: ColorToken, value: string) {
     setPreset((current) => ({
@@ -83,7 +99,7 @@ export function ThemeDraftProvider({ children }: { children: ReactNode }) {
   }
 
   function reset() {
-    setPreset(defaultPreset)
+    setDraft(defaultPreset)
     window.localStorage.removeItem(STORAGE_KEY)
   }
 

@@ -12,7 +12,7 @@
     "registry"
   ],
   "engines": {
-    "node": ">=22.23.4"
+    "node": "^22.23.4 || >=24.22.1"
   },
   "homepage": "https://ui.elouanb.fr/",
   "repository": {

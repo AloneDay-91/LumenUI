@@ -1,4 +1,5 @@
 import { blockCategories } from "@/lib/block-categories"
+import { componentItems } from "@/lib/docs-nav"
 import { GITHUB_URL } from "@/lib/site"
 
 export type NavMenuLink = {
@@ -12,11 +13,42 @@ export type NavMenuSection = {
   items: NavMenuLink[]
 }
 
+/** Hues from the global sheet (--jade-*, --indigo-*, …). */
+export type NavMenuHue = "jade" | "indigo" | "cyan" | "orange"
+
+/** The card in the last column of a mega menu panel. */
+export type NavMenuCard = {
+  href: string
+  eyebrow: string
+  title: string
+  description: string
+  /** Label of the outline button at the bottom of the card. */
+  tag: string
+  hue: NavMenuHue
+}
+
 export type NavMenu = {
   id: string
   title: string
   featured: NavMenuSection
+  /** Three at most, so the panel stays one row tall. */
   sections: NavMenuSection[]
+  /** Link under the sections to the full list. */
+  more?: NavMenuLink
+  card: NavMenuCard
+}
+
+const dashboardBlocks = blockCategories.filter(
+  (category) => category.kit === "dashboard"
+)
+
+function blockLinks(group: string) {
+  return blockCategories
+    .filter((category) => category.kit === "lumen" && category.group === group)
+    .map((category) => ({
+      href: `/blocks/${category.slug}`,
+      label: category.title,
+    }))
 }
 
 export const navMenus: NavMenu[] = [
@@ -28,39 +60,44 @@ export const navMenus: NavMenu[] = [
       items: [
         { href: "/docs", label: "Introduction" },
         { href: "/docs/installation", label: "Installation" },
+        { href: "/docs/choose", label: "Choose a component" },
+        { href: "/docs/shadcn", label: "From shadcn" },
         { href: "/docs/frameworks", label: "Frameworks" },
-        { href: "/docs/styles", label: "Styles" },
-        { href: "/customize", label: "Customize" },
-        { href: "/examples", label: "Examples" },
-        { href: "/docs/changelog", label: "Changelog" },
       ],
     },
     sections: [
       {
-        title: "Docs",
+        title: "Foundations",
         items: [
-          { href: "/docs", label: "Documentation" },
-          { href: "/docs/installation", label: "Installation" },
-          { href: "/docs/frameworks", label: "Frameworks" },
           { href: "/docs/styles", label: "Tokens and type" },
-          { href: "/docs/changelog", label: "Changelog" },
+          { href: "/docs/accessibility", label: "Accessibility" },
+          { href: "/customize", label: "Customize" },
         ],
       },
       {
-        title: "Highlights",
+        title: "Recipes",
         items: [
-          { href: "/docs/components/table", label: "Table" },
-          { href: "/docs/components/command", label: "Command" },
-          { href: "/docs/components/stepper", label: "Stepper" },
-          { href: "/docs/components/timeline", label: "Timeline" },
-          { href: "/docs/components/rating", label: "Rating" },
+          { href: "/docs/recipes/form", label: "Form" },
+          { href: "/docs/recipes/settings", label: "Settings" },
         ],
       },
       {
-        title: "Source",
-        items: [{ href: GITHUB_URL, label: "GitHub", target: "_blank" }],
+        title: "Resources",
+        items: [
+          { href: "/docs/changelog", label: "Changelog" },
+          { href: "/docs/llms", label: "LLMs" },
+          { href: GITHUB_URL, label: "GitHub", target: "_blank" },
+        ],
       },
     ],
+    card: {
+      href: "/customize",
+      eyebrow: "Theme",
+      title: "Customize",
+      description: "Pick the ink, the radius, and the type. Copy the CSS.",
+      tag: "Open Customize",
+      hue: "cyan",
+    },
   },
   {
     id: "components",
@@ -72,31 +109,22 @@ export const navMenus: NavMenu[] = [
         { href: "/docs/components/input", label: "Input" },
         { href: "/docs/components/dialog", label: "Dialog" },
         { href: "/docs/components/table", label: "Table" },
-        { href: "/docs/components/command", label: "Command" },
       ],
     },
     sections: [
       {
         title: "Forms",
         items: [
-          { href: "/docs/components/input", label: "Input" },
-          { href: "/docs/components/input-group", label: "Input Group" },
-          { href: "/docs/components/textarea", label: "Textarea" },
           { href: "/docs/components/select", label: "Select" },
           { href: "/docs/components/combobox", label: "Combobox" },
-          { href: "/docs/components/calendar", label: "Calendar" },
-          { href: "/docs/components/date-picker", label: "Date Picker" },
-          { href: "/docs/components/field", label: "Field" },
           { href: "/docs/components/checkbox", label: "Checkbox" },
+          { href: "/docs/components/date-picker", label: "Date Picker" },
           { href: "/docs/components/color-picker", label: "Color Picker" },
-          { href: "/docs/components/switch", label: "Switch" },
         ],
       },
       {
         title: "Overlays",
         items: [
-          { href: "/docs/components/dialog", label: "Dialog" },
-          { href: "/docs/components/alert-dialog", label: "Alert Dialog" },
           { href: "/docs/components/drawer", label: "Drawer" },
           { href: "/docs/components/popover", label: "Popover" },
           { href: "/docs/components/tooltip", label: "Tooltip" },
@@ -105,47 +133,28 @@ export const navMenus: NavMenu[] = [
         ],
       },
       {
-        title: "Navigation",
-        items: [
-          { href: "/docs/components/breadcrumb", label: "Breadcrumb" },
-          { href: "/docs/components/tabs", label: "Tabs" },
-          { href: "/docs/components/pagination", label: "Pagination" },
-          { href: "/docs/components/navigation-menu", label: "Navigation Menu" },
-          { href: "/docs/components/sidebar", label: "Sidebar" },
-          { href: "/docs/components/theme-toggle", label: "Theme Toggle" },
-          { href: "/docs/components/menubar", label: "Menubar" },
-          { href: "/docs/components/stepper", label: "Stepper" },
-        ],
-      },
-      {
         title: "Display",
         items: [
-          { href: "/docs/components/card", label: "Card" },
-          { href: "/docs/components/carousel", label: "Carousel" },
+          { href: "/docs/components/sidebar", label: "Sidebar" },
+          { href: "/docs/components/tabs", label: "Tabs" },
           { href: "/docs/components/chart", label: "Chart" },
-          { href: "/docs/components/table", label: "Table" },
-          { href: "/docs/components/avatar", label: "Avatar" },
-          { href: "/docs/components/badge", label: "Badge" },
-          { href: "/docs/components/empty", label: "Empty" },
-          { href: "/docs/components/item", label: "Item" },
-          { href: "/docs/components/data-list", label: "Data List" },
-          { href: "/docs/components/typography", label: "Typography" },
           { href: "/docs/components/timeline", label: "Timeline" },
-          { href: "/docs/components/accordion", label: "Accordion" },
-        ],
-      },
-      {
-        title: "Feedback",
-        items: [
-          { href: "/docs/components/alert", label: "Alert" },
-          { href: "/docs/components/callout", label: "Callout" },
-          { href: "/docs/components/skeleton", label: "Skeleton" },
-          { href: "/docs/components/spinner", label: "Spinner" },
-          { href: "/docs/components/progress", label: "Progress" },
-          { href: "/docs/components/rating", label: "Rating" },
+          { href: "/docs/components/data-list", label: "Data List" },
         ],
       },
     ],
+    more: {
+      href: "/docs/components",
+      label: `All ${componentItems.length} components`,
+    },
+    card: {
+      href: "/docs/components/command",
+      eyebrow: "Search",
+      title: "Command",
+      description: "A palette with groups, shortcuts, and a footer.",
+      tag: "See Command",
+      hue: "indigo",
+    },
   },
   {
     id: "blocks",
@@ -154,39 +163,29 @@ export const navMenus: NavMenu[] = [
       title: "Kits",
       items: [
         { href: "/blocks", label: "All blocks" },
-        { href: "/blocks/headers", label: "Headers" },
-        { href: "/blocks/heroes", label: "Heroes" },
+        { href: "/blocks/heroes", label: "Marketing" },
         { href: "/blocks/pages", label: "Dashboard" },
       ],
     },
     sections: [
-      {
-        title: "Marketing",
-        items: blockCategories
-          .filter((category) => category.group === "Marketing")
-          .map((category) => ({
-            href: `/blocks/${category.slug}`,
-            label: category.title,
-          })),
-      },
-      {
-        title: "Account",
-        items: blockCategories
-          .filter((category) => category.group === "Account")
-          .map((category) => ({
-            href: `/blocks/${category.slug}`,
-            label: category.title,
-          })),
-      },
+      { title: "Marketing", items: blockLinks("Marketing") },
+      { title: "Account", items: blockLinks("Account") },
       {
         title: "Dashboard",
-        items: blockCategories
-          .filter((category) => category.kit === "dashboard")
-          .map((category) => ({
-            href: `/blocks/${category.slug}`,
-            label: category.title,
-          })),
+        items: dashboardBlocks.slice(0, 6).map((category) => ({
+          href: `/blocks/${category.slug}`,
+          label: category.title,
+        })),
       },
     ],
+    more: { href: "/blocks", label: "Browse every block" },
+    card: {
+      href: "/blocks/pages",
+      eyebrow: `Kit · ${dashboardBlocks.length} blocks`,
+      title: "Dashboard",
+      description: "Sidebar, stats, charts, and tables on one layout.",
+      tag: "Browse the kit",
+      hue: "jade",
+    },
   },
 ]

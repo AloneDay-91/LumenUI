@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import Link from "next/link"
 
 import { CodeBlock } from "@/components/docs/CodeBlock"
 import { ComponentApi } from "@/components/docs/ComponentApi"
@@ -11,6 +12,11 @@ import {
   getApiHeadings,
   getComponentApi,
 } from "@/lib/component-api"
+import {
+  installPlan,
+  joinList,
+  type InstallPiece,
+} from "@/lib/install-closure"
 
 export function ComponentDocs({
   name,
@@ -52,6 +58,7 @@ export function ComponentDocs({
             <section className="space-y-4">
               <h2 id="installation">Installation</h2>
               <CodeBlock language="bash" code={install} />
+              <InstallNote slug={api?.slug ?? componentSlug(name)} />
             </section>
             <section className="space-y-4">
               <h2 id="usage">Usage</h2>
@@ -73,4 +80,37 @@ export function ComponentDocs({
       />
     </div>
   )
+}
+
+function InstallNote({ slug }: { slug: string }) {
+  const plan = installPlan(slug)
+  if (!plan || (plan.also.length === 0 && plan.packages.length === 0)) {
+    return null
+  }
+
+  return (
+    <p>
+      {plan.also.length > 0 ? (
+        <>
+          Also writes <InstallList pieces={plan.also} />.{" "}
+        </>
+      ) : null}
+      {plan.packages.length > 0 ? <>Installs {joinList(plan.packages)}.</> : null}
+    </p>
+  )
+}
+
+function InstallList({ pieces }: { pieces: InstallPiece[] }) {
+  return pieces.map((piece, index) => (
+    <span key={`${piece.label}-${index}`}>
+      {separator(index, pieces.length)}
+      {piece.href ? <Link href={piece.href}>{piece.label}</Link> : piece.label}
+    </span>
+  ))
+}
+
+function separator(index: number, length: number) {
+  if (index === 0) return null
+  if (index === length - 1) return length === 2 ? " and " : ", and "
+  return ", "
 }

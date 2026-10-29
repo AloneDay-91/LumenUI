@@ -38,7 +38,6 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/Sidebar"
 import { cn } from "@/lib/utils"
 
@@ -78,7 +77,11 @@ function WorkspaceMark({ className }: { className?: string }) {
   )
 }
 
-/** Inset sidebar. Collapses to icons with the SidebarTrigger or ⌘B. */
+/**
+ * Inset sidebar. Collapses to icons with the SidebarTrigger or ⌘B; hovering
+ * the icons opens it. The content never swaps: labels fade, the search
+ * narrows to its icon and the card folds, so collapsing stays smooth.
+ */
 export function AppSidebar({
   active = "Overview",
   className,
@@ -86,41 +89,44 @@ export function AppSidebar({
   active?: string
   className?: string
 }) {
-  const { state } = useSidebar()
-  const collapsed = state === "collapsed"
-
   return (
-    <Sidebar variant="inset" collapsible="icon" className={className}>
+    <Sidebar
+      variant="inset"
+      collapsible="icon"
+      expandOnHover
+      className={className}
+    >
       <SidebarHeader>
-        {collapsed ? (
-          <WorkspaceMark />
-        ) : (
-          <>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton size="lg" className="h-12 gap-2.5 px-2">
-                  <WorkspaceMark />
-                  <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
-                    <span className="text-sm font-medium">Acme Inc</span>
-                    <span className="text-xs font-normal text-muted-foreground">
-                      Pro plan · 5 seats
-                    </span>
-                  </span>
-                  <ChevronsUpDown className="text-muted-foreground" />
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-            <InputGroup className="mt-1">
-              <InputGroupAddon>
-                <Search />
-              </InputGroupAddon>
-              <InputGroupInput placeholder="Search" aria-label="Search" />
-              <InputGroupAddon align="end">
-                <Kbd size="sm">⌘K</Kbd>
-              </InputGroupAddon>
-            </InputGroup>
-          </>
-        )}
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" tooltip="Acme Inc">
+              <WorkspaceMark />
+              <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
+                <span className="text-sm font-medium text-foreground">Acme Inc</span>
+                <span className="text-xs font-normal text-muted-foreground">
+                  Pro plan · 5 seats
+                </span>
+              </span>
+              <ChevronsUpDown className="text-muted-foreground" />
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+        <InputGroup className="mt-1 overflow-hidden">
+          <InputGroupAddon>
+            <Search />
+          </InputGroupAddon>
+          <InputGroupInput
+            placeholder="Search"
+            aria-label="Search"
+            className="placeholder:transition-opacity group-data-[collapsible=icon]/sidebar:placeholder:opacity-0"
+          />
+          <InputGroupAddon
+            align="end"
+            className="transition-opacity duration-200 group-data-[collapsible=icon]/sidebar:opacity-0"
+          >
+            <Kbd size="sm">⌘K</Kbd>
+          </InputGroupAddon>
+        </InputGroup>
       </SidebarHeader>
       <SidebarContent>
         {nav.map((group) => (
@@ -137,7 +143,7 @@ export function AppSidebar({
                       <item.icon />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
-                    {item.badge && !collapsed ? (
+                    {item.badge ? (
                       <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
                     ) : null}
                   </SidebarMenuItem>
@@ -156,15 +162,13 @@ export function AppSidebar({
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-        {collapsed ? (
-          <Avatar>
-            <AvatarFallback className="bg-primary text-primary-foreground">
-              EB
-            </AvatarFallback>
-          </Avatar>
-        ) : (
-          <>
-            <Card size="sm" variant="secondary" className="gap-3 rounded-2xl">
+        <div className="grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-300 group-data-[collapsible=icon]/sidebar:grid-rows-[0fr] group-data-[collapsible=icon]/sidebar:opacity-0">
+          <div className="min-h-0 overflow-hidden">
+            <Card
+              size="sm"
+              variant="secondary"
+              className="w-[calc(var(--sidebar-width)-1rem)] gap-3 rounded-2xl"
+            >
               <CardHeader className="px-4">
                 <CardTitle className="flex items-center gap-1.5">
                   <Sparkles className="size-3.5" />3 of 5 seats used
@@ -180,26 +184,26 @@ export function AppSidebar({
                 </Button>
               </CardContent>
             </Card>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton size="lg" className="h-12 gap-2.5 px-2">
-                  <Avatar>
-                    <AvatarFallback className="bg-primary text-primary-foreground">
-                      EB
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
-                    <span className="text-sm font-medium">Elouan Bruzek</span>
-                    <span className="text-xs font-normal text-muted-foreground">
-                      elouan@lumen.dev
-                    </span>
-                  </span>
-                  <ChevronsUpDown className="text-muted-foreground" />
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </>
-        )}
+          </div>
+        </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" tooltip="Elouan Bruzek">
+              <Avatar>
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  EB
+                </AvatarFallback>
+              </Avatar>
+              <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
+                <span className="text-sm font-medium text-foreground">Elouan Bruzek</span>
+                <span className="text-xs font-normal text-muted-foreground">
+                  elouan@lumen.dev
+                </span>
+              </span>
+              <ChevronsUpDown className="text-muted-foreground" />
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   )

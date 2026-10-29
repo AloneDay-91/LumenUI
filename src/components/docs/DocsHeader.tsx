@@ -44,9 +44,13 @@ export function DocsHeader() {
   const blocks = pathname.startsWith("/blocks");
   const customize = pathname === "/customize";
 
-  React.useEffect(() => {
+  const [openedOn, setOpenedOn] = React.useState(pathname);
+
+  // Close the mobile nav when the route changes.
+  if (openedOn !== pathname) {
+    setOpenedOn(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   React.useEffect(() => {
     if (!open) return;

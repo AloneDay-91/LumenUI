@@ -1,0 +1,958 @@
+{
+  "accordion": {
+    "title": "Accordion",
+    "internal": false,
+    "files": [
+      "Accordion.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "alert": {
+    "title": "Alert",
+    "internal": false,
+    "files": [
+      "Alert.tsx"
+    ],
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "alert-dialog": {
+    "title": "Alert Dialog",
+    "internal": false,
+    "files": [
+      "AlertDialog.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "aspect-ratio": {
+    "title": "Aspect Ratio",
+    "internal": false,
+    "files": [
+      "AspectRatio.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "autocomplete": {
+    "title": "Autocomplete",
+    "internal": false,
+    "files": [
+      "Autocomplete.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "avatar": {
+    "title": "Avatar",
+    "internal": false,
+    "files": [
+      "Avatar.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "badge": {
+    "title": "Badge",
+    "internal": false,
+    "files": [
+      "Badge.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "breadcrumb": {
+    "title": "Breadcrumb",
+    "internal": false,
+    "files": [
+      "Breadcrumb.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "button": {
+    "title": "Button",
+    "internal": false,
+    "files": [
+      "Button.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "button-variants",
+      "utils"
+    ]
+  },
+  "button-group": {
+    "title": "Button Group",
+    "internal": false,
+    "files": [
+      "ButtonGroup.tsx"
+    ],
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "calendar": {
+    "title": "Calendar",
+    "internal": false,
+    "files": [
+      "Calendar.tsx"
+    ],
+    "dependencies": [
+      "@daypicker/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "button-variants",
+      "utils"
+    ]
+  },
+  "callout": {
+    "title": "Callout",
+    "internal": false,
+    "files": [
+      "Callout.tsx",
+      "callout.css"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "card": {
+    "title": "Card",
+    "internal": false,
+    "files": [
+      "Card.tsx"
+    ],
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "carousel": {
+    "title": "Carousel",
+    "internal": false,
+    "files": [
+      "Carousel.tsx"
+    ],
+    "dependencies": [
+      "embla-carousel",
+      "embla-carousel-autoplay",
+      "embla-carousel-react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
+  "chart": {
+    "title": "Chart",
+    "internal": false,
+    "files": [
+      "Chart.tsx"
+    ],
+    "dependencies": [
+      "recharts"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "checkbox": {
+    "title": "Checkbox",
+    "internal": false,
+    "files": [
+      "Checkbox.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "checkbox-group": {
+    "title": "Checkbox Group",
+    "internal": false,
+    "files": [
+      "CheckboxGroup.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "collapsible": {
+    "title": "Collapsible",
+    "internal": false,
+    "files": [
+      "Collapsible.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "color-picker": {
+    "title": "Color Picker",
+    "internal": false,
+    "files": [
+      "ColorPicker.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "input",
+      "popover",
+      "utils"
+    ]
+  },
+  "combobox": {
+    "title": "Combobox",
+    "internal": false,
+    "files": [
+      "Combobox.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "command": {
+    "title": "Command",
+    "internal": false,
+    "files": [
+      "Command.tsx"
+    ],
+    "dependencies": [
+      "cmdk",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "dialog",
+      "kbd",
+      "utils"
+    ]
+  },
+  "context-menu": {
+    "title": "Context Menu",
+    "internal": false,
+    "files": [
+      "ContextMenu.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "data-list": {
+    "title": "Data List",
+    "internal": false,
+    "files": [
+      "DataList.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "date-picker": {
+    "title": "Date Picker",
+    "internal": false,
+    "files": [
+      "DatePicker.tsx"
+    ],
+    "dependencies": [
+      "@daypicker/react",
+      "date-fns",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "calendar",
+      "popover",
+      "utils"
+    ]
+  },
+  "dialog": {
+    "title": "Dialog",
+    "internal": false,
+    "files": [
+      "Dialog.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "styles",
+      "utils"
+    ]
+  },
+  "drawer": {
+    "title": "Drawer",
+    "internal": false,
+    "files": [
+      "Drawer.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "dropdown-menu": {
+    "title": "Dropdown Menu",
+    "internal": true,
+    "files": [
+      "DropdownMenu.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "empty": {
+    "title": "Empty",
+    "internal": false,
+    "files": [
+      "Empty.tsx"
+    ],
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "field": {
+    "title": "Field",
+    "internal": false,
+    "files": [
+      "Field.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "fieldset": {
+    "title": "Fieldset",
+    "internal": false,
+    "files": [
+      "Fieldset.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "form": {
+    "title": "Form",
+    "internal": false,
+    "files": [
+      "Form.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "input": {
+    "title": "Input",
+    "internal": false,
+    "files": [
+      "Input.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "input-group": {
+    "title": "Input Group",
+    "internal": false,
+    "files": [
+      "InputGroup.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "item": {
+    "title": "Item",
+    "internal": false,
+    "files": [
+      "Item.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "separator",
+      "utils"
+    ]
+  },
+  "kbd": {
+    "title": "Kbd",
+    "internal": false,
+    "files": [
+      "Kbd.tsx"
+    ],
+    "dependencies": [
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "label": {
+    "title": "Label",
+    "internal": false,
+    "files": [
+      "Label.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "menu": {
+    "title": "Menu",
+    "internal": false,
+    "files": [
+      "Menu.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "dropdown-menu"
+    ]
+  },
+  "menubar": {
+    "title": "Menubar",
+    "internal": false,
+    "files": [
+      "Menubar.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "meter": {
+    "title": "Meter",
+    "internal": false,
+    "files": [
+      "Meter.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "navigation-menu": {
+    "title": "Navigation Menu",
+    "internal": false,
+    "files": [
+      "NavigationMenu.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "number-field": {
+    "title": "Number Field",
+    "internal": false,
+    "files": [
+      "NumberField.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "otp-field": {
+    "title": "OTP Field",
+    "internal": false,
+    "files": [
+      "OTPField.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "pagination": {
+    "title": "Pagination",
+    "internal": false,
+    "files": [
+      "Pagination.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
+  "popover": {
+    "title": "Popover",
+    "internal": false,
+    "files": [
+      "Popover.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "preview-card": {
+    "title": "Preview Card",
+    "internal": false,
+    "files": [
+      "PreviewCard.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "progress": {
+    "title": "Progress",
+    "internal": false,
+    "files": [
+      "Progress.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "radio-group": {
+    "title": "Radio Group",
+    "internal": false,
+    "files": [
+      "RadioGroup.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "rating": {
+    "title": "Rating",
+    "internal": false,
+    "files": [
+      "Rating.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "scroll-area": {
+    "title": "Scroll Area",
+    "internal": false,
+    "files": [
+      "ScrollArea.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "select": {
+    "title": "Select",
+    "internal": false,
+    "files": [
+      "Select.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "separator": {
+    "title": "Separator",
+    "internal": false,
+    "files": [
+      "Separator.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "sidebar": {
+    "title": "Sidebar",
+    "internal": false,
+    "files": [
+      "Sidebar.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "badge",
+      "button",
+      "button-variants",
+      "drawer",
+      "scroll-area",
+      "separator",
+      "skeleton",
+      "tooltip",
+      "utils"
+    ]
+  },
+  "skeleton": {
+    "title": "Skeleton",
+    "internal": false,
+    "files": [
+      "Skeleton.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "slider": {
+    "title": "Slider",
+    "internal": false,
+    "files": [
+      "Slider.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "spinner": {
+    "title": "Spinner",
+    "internal": false,
+    "files": [
+      "Spinner.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "stepper": {
+    "title": "Stepper",
+    "internal": false,
+    "files": [
+      "Stepper.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "switch": {
+    "title": "Switch",
+    "internal": false,
+    "files": [
+      "Switch.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "table": {
+    "title": "Table",
+    "internal": false,
+    "files": [
+      "Table.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "tabs": {
+    "title": "Tabs",
+    "internal": false,
+    "files": [
+      "Tabs.tsx",
+      "tabs.css"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "textarea": {
+    "title": "Textarea",
+    "internal": false,
+    "files": [
+      "Textarea.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "theme-toggle": {
+    "title": "Theme Toggle",
+    "internal": false,
+    "files": [
+      "ThemeToggle.tsx"
+    ],
+    "dependencies": [
+      "next-themes"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
+  "timeline": {
+    "title": "Timeline",
+    "internal": false,
+    "files": [
+      "Timeline.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "toast": {
+    "title": "Toast",
+    "internal": false,
+    "files": [
+      "Toast.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button-variants",
+      "utils"
+    ]
+  },
+  "toggle": {
+    "title": "Toggle",
+    "internal": false,
+    "files": [
+      "Toggle.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "toggle-group": {
+    "title": "Toggle Group",
+    "internal": false,
+    "files": [
+      "ToggleGroup.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "toolbar": {
+    "title": "Toolbar",
+    "internal": false,
+    "files": [
+      "Toolbar.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "button-variants",
+      "utils"
+    ]
+  },
+  "tooltip": {
+    "title": "Tooltip",
+    "internal": false,
+    "files": [
+      "Tooltip.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "styles",
+      "utils"
+    ]
+  },
+  "typography": {
+    "title": "Typography",
+    "internal": false,
+    "files": [
+      "Typography.tsx",
+      "typography.css"
+    ],
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "button-variants": {
+    "title": "Button Variants",
+    "internal": true,
+    "files": [
+      "button-variants.ts"
+    ],
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": []
+  },
+  "styles": {
+    "title": "Styles",
+    "internal": true,
+    "files": [
+      "styles.ts"
+    ],
+    "dependencies": [],
+    "registryDependencies": []
+  },
+  "utils": {
+    "title": "Utils",
+    "internal": true,
+    "files": [
+      "utils.ts"
+    ],
+    "dependencies": [
+      "clsx",
+      "tailwind-merge"
+    ],
+    "registryDependencies": []
+  }
+}

@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
 
-const INTERNAL = new Set(["utils", "styles", "button-variants"])
+const INTERNAL = new Set(["utils", "styles", "button-variants", "dropdown-menu"])
 const SKIP_PACKAGES = new Set(["react", "react-dom"])
 
 export function buildRegistry({ uiDir, utilsFile, cssFile }) {

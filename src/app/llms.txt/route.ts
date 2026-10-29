@@ -1,7 +1,7 @@
 import { getLlmsIndex, getRequestOrigin } from "@/lib/llms"
 
-export async function GET(request: Request) {
-  const body = await getLlmsIndex(getRequestOrigin(request))
+export async function GET() {
+  const body = await getLlmsIndex(getRequestOrigin())
 
   return new Response(body, {
     headers: {

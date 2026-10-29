@@ -18,6 +18,18 @@ writeFileSync(
   `${JSON.stringify(registry)}\n`
 )
 
+const graph = {}
+for (const item of Object.values(registry.items)) {
+  graph[item.name] = {
+    title: item.title,
+    internal: item.internal,
+    files: item.files.map((file) => file.name),
+    dependencies: item.dependencies,
+    registryDependencies: item.registryDependencies,
+  }
+}
+writeFileSync(path.join(cliRegistry, "graph.json"), `${JSON.stringify(graph, null, 2)}\n`)
+
 const publicRegistry = path.join(root, "public/r")
 mkdirSync(publicRegistry, { recursive: true })
 

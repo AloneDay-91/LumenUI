@@ -1,0 +1,45 @@
+name: Release Please
+
+# Every push to main updates one release PR (version in package.json,
+# cli/package.json and CHANGELOG.md). Merging that PR tags vX.Y.Z and
+# publishes the GitHub Release, which starts cli.yml to publish the CLI.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+
+permissions:
+  contents: write # tag, release, release PR branch
+  issues: write # "autorelease: pending / tagged" labels
+  pull-requests: write # open and update the release PR
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      # Pinned: this third-party action receives a write token. Bump the SHA with the tag.
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        id: release
+        with:
+          # A release made with GITHUB_TOKEN does not start other workflows,
+          # so cli.yml (on: release) needs this token to publish the CLI.
+          # Without it, run "Publish CLI" by hand on the new tag.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          target-branch: main
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  summary:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Released ${{ needs.release-please.outputs.tag_name }}. Merge main back into develop." >> "$GITHUB_STEP_SUMMARY"

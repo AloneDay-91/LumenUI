@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/Button"
@@ -43,13 +43,18 @@ function DarkIcon() {
   )
 }
 
+// The resolved theme only exists in the browser: render the server markup first.
+function subscribeToNothing() {
+  return () => {}
+}
+
 function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false
+  )
 
   const isDark = mounted && resolvedTheme === "dark"
 

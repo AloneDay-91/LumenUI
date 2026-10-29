@@ -285,17 +285,6 @@
       ]
     },
     {
-      "name": "dropdown-menu",
-      "title": "Dropdown Menu",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ]
-    },
-    {
       "name": "empty",
       "title": "Empty",
       "dependencies": [

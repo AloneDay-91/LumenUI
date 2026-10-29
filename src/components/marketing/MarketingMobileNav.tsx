@@ -20,12 +20,16 @@ import { GITHUB_URL, SITE_NAME } from "@/lib/site"
 
 const mobileLinks = [
   { title: "Home", href: "/" },
-  { title: "Examples", href: "/examples" },
   { title: "Blocks", href: "/blocks" },
   { title: "Customize", href: "/customize" },
   { title: "Documentation", href: "/docs" },
   { title: "Installation", href: "/docs/installation" },
-  { title: "Components", href: "/docs/components/button" },
+  { title: "Choose a component", href: "/docs/choose" },
+  { title: "From shadcn", href: "/docs/shadcn" },
+  { title: "Accessibility", href: "/docs/accessibility" },
+  { title: "Form recipe", href: "/docs/recipes/form" },
+  { title: "Settings recipe", href: "/docs/recipes/settings" },
+  { title: "Components", href: "/docs/components" },
   { title: "Styles", href: "/docs/styles" },
   { title: "GitHub", href: GITHUB_URL, target: "_blank" as const },
 ]
