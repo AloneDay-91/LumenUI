@@ -5,10 +5,10 @@ export const LUMEN_GLOBAL_CSS = `@import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter, Inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-sans);
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-serif: var(--font-fraunces, Fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains, "JetBrains Mono"), ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

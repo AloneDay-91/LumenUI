@@ -8,6 +8,7 @@ import {
   type ChangelogKind,
 } from "@/lib/changelog"
 import { componentInstallCommand, getComponentApi } from "@/lib/component-api"
+import { installPlan, joinList } from "@/lib/install-closure"
 import { getDocsLocation } from "@/lib/docs-nav"
 import { LUMEN_GLOBAL_CSS } from "@/lib/lumen-css"
 import { formatDocsVersion, SITE_NAME } from "@/lib/site"
@@ -58,6 +59,13 @@ export async function getDocsMarkdown(pathname: string, origin: string) {
     lines.push("## Installation", "")
     if (componentSlug) {
       lines.push("```bash", componentInstallCommand(componentSlug), "```", "")
+      const plan = installPlan(componentSlug)
+      if (plan && plan.also.length > 0) {
+        lines.push(`Also writes ${joinList(plan.also.map((piece) => piece.label))}.`, "")
+      }
+      if (plan && plan.packages.length > 0) {
+        lines.push(`Installs ${joinList(plan.packages)}.`, "")
+      }
     }
     if (packages.length > 0) {
       lines.push("npm dependencies:", "", "```bash", `npm install ${packages.join(" ")}`, "```", "")
@@ -153,7 +161,10 @@ function extractTemplateProp(source: string, name: string) {
 
 type DocBlock =
   | { kind: "heading"; text: string }
+  | { kind: "subheading"; text: string }
   | { kind: "paragraph"; text: string }
+  | { kind: "item"; text: string; ordered: boolean }
+  | { kind: "table"; rows: string[][] }
   | { kind: "code"; filename?: string; language?: string; code: string }
 
 function extractDocBlocks(source: string) {
@@ -163,6 +174,39 @@ function extractDocBlocks(source: string) {
     const text = inlineText(match[1] ?? "")
     if (text) {
       blocks.push({ kind: "heading", text, index: match.index ?? 0 })
+    }
+  }
+
+  for (const match of source.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>/g)) {
+    const text = inlineText(match[1] ?? "")
+    if (text) {
+      blocks.push({ kind: "subheading", text, index: match.index ?? 0 })
+    }
+  }
+
+  for (const list of source.matchAll(/<(ul|ol) className="docs-list">([\s\S]*?)<\/\1>/g)) {
+    const offset = (list.index ?? 0) + list[0].indexOf(">") + 1
+    for (const item of (list[2] ?? "").matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)) {
+      const text = inlineText(item[1] ?? "")
+      if (text) {
+        blocks.push({
+          kind: "item",
+          text,
+          ordered: list[1] === "ol",
+          index: offset + (item.index ?? 0),
+        })
+      }
+    }
+  }
+
+  for (const table of source.matchAll(/<table>([\s\S]*?)<\/table>/g)) {
+    const rows = Array.from((table[1] ?? "").matchAll(/<tr>([\s\S]*?)<\/tr>/g), (row) =>
+      Array.from((row[1] ?? "").matchAll(/<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/g), (cell) =>
+        inlineText(cell[1] ?? "")
+      )
+    ).filter((row) => row.length > 0)
+    if (rows.length > 0) {
+      blocks.push({ kind: "table", rows, index: table.index ?? 0 })
     }
   }
 
@@ -199,14 +243,32 @@ function extractDocBlocks(source: string) {
 }
 
 function appendDocBlocks(lines: string[], blocks: DocBlock[]) {
+  let inList = false
   for (const block of blocks) {
+    // A blank line ends a list, or the next paragraph would continue its last item.
+    if (inList && block.kind !== "item") {
+      lines.push("")
+    }
+    inList = block.kind === "item"
     switch (block.kind) {
       case "heading":
         lines.push(`## ${block.text}`, "")
         break
+      case "subheading":
+        lines.push(`### ${block.text}`, "")
+        break
       case "paragraph":
         lines.push(block.text, "")
         break
+      case "item":
+        lines.push(`${block.ordered ? "1." : "-"} ${block.text}`)
+        break
+      case "table": {
+        const [head, ...body] = block.rows
+        const row = (cells: string[]) => `| ${cells.map(escapeTableCell).join(" | ")} |`
+        lines.push("", row(head), `| ${head.map(() => "---").join(" | ")} |`, ...body.map(row), "")
+        break
+      }
       case "code": {
         if (block.filename) {
           lines.push(`### \`${block.filename}\``, "")
@@ -225,12 +287,15 @@ function appendDocBlocks(lines: string[], blocks: DocBlock[]) {
 
 function inlineText(value: string) {
   return value
+    .replace(/\{" "\}/g, " ")
     .replace(/<code>([\s\S]*?)<\/code>/g, "`$1`")
     .replace(/<[^>]+>/g, "")
     .replace(/\{`([^`]+)`\}/g, "$1")
     .replace(/\{[A-Za-z0-9_.]+\}/g, "")
     .replaceAll("&quot;", '"')
     .replaceAll("&#39;", "'")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
     .replaceAll("&amp;", "&")
     .replace(/\s+/g, " ")
     .trim()

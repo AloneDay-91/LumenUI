@@ -8,14 +8,15 @@ Landing lue comme [Layera](https://layera.elouanb.fr/) : header, mega menu plein
 
 ## Color strategy
 
-Neutres teintés chaud (hue 90). Un seul contraste : noir / papier. Destructive reste le seul écart.
+Neutres teintés chaud (hue 90). Le chrome reste encre sur papier. Les teintes servent aux statuts, pas aux actions primaires.
 
 - Light background: `oklch(0.99 0.003 90)`
 - Dark background: `#111`
 - Primary: quasi-noir (light) / quasi-blanc (dark)
 - Cards: `ring-1 ring-foreground/5`, à plat, pas d’ombre
+- Statuts : gray, indigo, cyan, orange, crimson, jade — encre, wash, panel, solid. Badge, Callout et Alert les partagent. Le bouton primaire ne les prend pas.
 
-Interdit : bleu interactif, violet IA, titres 7xl.
+Interdit : violet IA, titres 7xl, un bleu comme couleur d’action.
 
 ## Typography
 
@@ -28,7 +29,7 @@ Interdit : bleu interactif, violet IA, titres 7xl.
 - Marketing : header `px-6 py-6 md:px-12`. NavigationMenu = mega menu pleine largeur (triggers `text-sm text-muted-foreground`, panneau overlay `absolute` sous la barre, `border-b`, le contenu reste en place).
 - Docs : layout Polar / Medusa / Mintlify — header + recherche ⌘K, sidebar groupée, article, TOC « Sur cette page », fil d’Ariane, pager. Tokens et composants Lumen, pas le chrome Polar.
 - Portals : `.root { isolation: isolate }` pour Dialog, Menu, Select, Popover, Tooltip, Toast.
-- Hero landing : peinture pleine largeur (masque transparent → opaque → transparent, effacée avant le fondu de la carte), capture produit à plat `rounded-[min(var(--radius-4xl),24px)]` rognée par un masque bas, `aria-hidden` + `inert`, une seule palette Command flottante (seul élément sans masque, seule ombre : ce qui flotte est vivant, ce qui est à plat est décor)
+- Hero landing : peinture pleine largeur (masque transparent → opaque → transparent, effacée avant le fondu de la carte), aperçu à plat de la vraie page de doc Button (`HeroDocs`, `rounded-[min(var(--radius-4xl),24px)]`) rogné par un masque bas, `aria-hidden` + `inert`, sans ombre ni élément flottant
 - Listes : lignes + `Separator`
 
 ## Components
@@ -38,7 +39,7 @@ Interdit : bleu interactif, violet IA, titres 7xl.
 - Inputs / Select: `h-8 rounded-2xl border-transparent bg-input/50`
 - Cards: `rounded-[min(var(--radius-4xl),24px)]`
 - Badges: `h-5 rounded-2xl`
-- Theme: dropdown (clair / sombre)
+- Theme: `ThemeToggle`, bouton soleil / lune
 
 ## Portals
 

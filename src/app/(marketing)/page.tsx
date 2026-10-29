@@ -10,19 +10,11 @@ import { HeroProduct } from "@/components/marketing/HeroProduct";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { Card } from "@/components/ui/Card";
 import { changelog } from "@/lib/changelog";
-import { docsSections } from "@/lib/docs-nav";
+import { componentItems } from "@/lib/docs-nav";
 import { getHeroRows } from "@/lib/hero-registry";
 import { StackMark } from "@/components/marketing/StackMarks";
 import { HERO_BACKGROUND, LANDING_MAX_WIDTH, STACK } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const componentItems =
-  docsSections.find((section) => section.title === "Components")?.items ?? [];
-
-const paletteItems = componentItems.map((item) => ({
-  name: item.name,
-  slug: item.href.split("/").pop() ?? item.href,
-}));
 
 const container = cn("mx-auto w-full px-6 md:px-12", LANDING_MAX_WIDTH);
 
@@ -102,7 +94,7 @@ export default function Home() {
         </section>
 
         <div className={cn(container, "relative pt-12 pb-12 md:pt-14")}>
-          <HeroProduct items={paletteItems} />
+          <HeroProduct />
         </div>
       </div>
 

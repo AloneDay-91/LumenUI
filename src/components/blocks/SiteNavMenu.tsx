@@ -2,7 +2,7 @@
 
 import { Menu } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
 import { Button } from "@/components/ui/Button"
 import {
@@ -53,13 +53,18 @@ function ThemeChoice({
   )
 }
 
+// The resolved theme only exists in the browser: render the server markup first.
+function subscribeToNothing() {
+  return () => {}
+}
+
 function ThemeChoices() {
   const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false
+  )
 
   const active = mounted ? resolvedTheme : null
 

@@ -96,8 +96,15 @@ export default function StylesPage() {
         <section className="space-y-4">
           <h2 id="copy">Copy</h2>
           <p>
-            Full token sheet for your global CSS — <code>:root</code>,{" "}
-            <code>.dark</code>, and the Tailwind <code>@theme</code> map.
+            Everything below comes from one stylesheet: <code>:root</code> for
+            light, <code>.dark</code> for dark, and the Tailwind{" "}
+            <code>@theme</code> map that turns each token into a class such as{" "}
+            <code>bg-primary</code>. <code>init</code> writes it into{" "}
+            <code>globals.css</code> for you; copy it by hand only for a{" "}
+            <Link href="/docs/installation#manual">manual installation</Link>. To
+            change the look, edit the variables, or build a preset in{" "}
+            <Link href="/customize">Customize</Link> and apply it with{" "}
+            <code>lumenui preset</code>.
           </p>
           <CodeBlock
             filename="app/globals.css"
@@ -207,6 +214,8 @@ export default function StylesPage() {
                 Dark mode is the{" "}
                 <Badge variant="outline">.dark</Badge> class on{" "}
                 <Badge variant="outline">html</Badge>.{" "}
+                <Link href="/docs/installation#layout">Installation</Link> sets it
+                up with <code>next-themes</code>;{" "}
                 <Link href="/docs/components/theme-toggle">Theme Toggle</Link>{" "}
                 follows the system preference, then a manual choice.
               </CardDescription>

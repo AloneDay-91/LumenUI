@@ -24,13 +24,6 @@ const sitePages: Omit<SiteSearchItem, "id">[] = [
     keywords: "landing marketing home start welcome",
   },
   {
-    title: "Examples",
-    description: "Live examples of Lumen UI components and patterns.",
-    href: "/examples",
-    category: "pages",
-    keywords: "demo showcase preview examples",
-  },
-  {
     title: "Customize",
     description: "Theme tokens, appearance, and visual customization.",
     href: "/customize",
@@ -160,7 +153,7 @@ function buildSiteSearchIndex(): SiteSearchItem[] {
         description: `${section.title} documentation`,
         href: item.href,
         category: "docs",
-        keywords: `${section.title} ${item.name} ${slug} docs documentation component composant`,
+        keywords: `${section.title} ${item.name} ${item.keywords ?? ""} ${slug} docs documentation component composant`,
       })
     }
   }
@@ -585,10 +578,10 @@ const SYNONYMS: Record<string, string> = {
   empty: "empty-states",
   vide: "empty-states",
   // misc
-  example: "examples",
-  examples: "examples",
-  exemple: "examples",
-  exemples: "examples",
+  example: "components blocks",
+  examples: "components blocks",
+  exemple: "components blocks",
+  exemples: "components blocks",
   customize: "customize",
   personnaliser: "customize",
   customiser: "customize",
@@ -601,6 +594,17 @@ const SYNONYMS: Record<string, string> = {
   llms: "llms",
   ai: "llms",
   ia: "llms",
+  shadcn: "shadcn",
+  choisir: "choose",
+  lequel: "choose",
+  a11y: "accessibility",
+  accessibilite: "accessibility",
+  accessibility: "accessibility",
+  clavier: "accessibility",
+  keyboard: "accessibility",
+  recette: "form settings",
+  recipe: "form settings",
+  recipes: "form settings",
 }
 
 function normalize(value: string) {

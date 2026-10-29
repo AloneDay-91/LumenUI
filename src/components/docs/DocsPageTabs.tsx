@@ -23,6 +23,19 @@ function tabFromHash(hash: string): TabValue {
   return "usage";
 }
 
+function subscribeToHash(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  return () => window.removeEventListener("hashchange", onChange);
+}
+
+function getHash() {
+  return window.location.hash;
+}
+
+function getServerHash() {
+  return "";
+}
+
 export function DocsPageTabs({
   usage,
   api,
@@ -34,23 +47,21 @@ export function DocsPageTabs({
   usageHeadings: Heading[];
   apiHeadings: Heading[];
 }) {
-  const [value, setValue] = React.useState<TabValue>("usage");
+  const hash = React.useSyncExternalStore(subscribeToHash, getHash, getServerHash);
+  const [picked, setPicked] = React.useState<TabValue | null>(null);
+  const [pickedOn, setPickedOn] = React.useState(hash);
 
-  React.useLayoutEffect(() => {
-    setValue(tabFromHash(window.location.hash));
-  }, []);
+  // A hash change (link, back button) wins over the last tab clicked.
+  if (pickedOn !== hash) {
+    setPickedOn(hash);
+    setPicked(null);
+  }
 
-  React.useEffect(() => {
-    const onHashChange = () => {
-      setValue(tabFromHash(window.location.hash));
-    };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
+  const value = picked ?? tabFromHash(hash);
 
   const onValueChange = (next: string) => {
     const tab = next === "api" ? "api" : "usage";
-    setValue(tab);
+    setPicked(tab);
     const current = window.location.hash.replace(/^#/, "");
     if (tab === "api" && !current.startsWith("api")) {
       history.replaceState(null, "", "#api");

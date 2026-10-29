@@ -815,10 +815,10 @@ export function ThemePreview() {
           <ControlsCard />
           <Card className="relative pt-0">
             <div className="absolute inset-x-0 top-0 z-20 aspect-video bg-primary opacity-50 mix-blend-color" />
-            <img
-              alt=""
-              src={HERO_BACKGROUND}
-              className="relative z-10 aspect-video w-full object-cover brightness-60 grayscale"
+            <div
+              aria-hidden
+              className="relative z-10 aspect-video w-full bg-cover bg-center brightness-60 grayscale"
+              style={{ backgroundImage: `url(${HERO_BACKGROUND})` }}
             />
             <CardHeader>
               <CardTitle>The landing image follows the primary ink.</CardTitle>

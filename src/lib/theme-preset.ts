@@ -190,3 +190,71 @@ ${PRESET_END}
 }
 
 export const PRESET_COMMAND = "npx @aloneday/lumenui@latest preset lumen-preset.css"
+
+const SAFE_COLOR = /^[#a-zA-Z0-9.,%()\s/+-]+$/
+
+function isSafeColor(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0 && value.length <= 80 && SAFE_COLOR.test(value) && !value.includes("--")
+}
+
+function isPalette(value: unknown): value is ThemeColors {
+  if (!value || typeof value !== "object") return false
+  const record = value as Record<string, unknown>
+  return colorTokens.every((token) => isSafeColor(record[token]))
+}
+
+export function encodePreset(preset: ThemePreset) {
+  const bytes = new TextEncoder().encode(JSON.stringify(preset))
+  let binary = ""
+  for (const byte of bytes) binary += String.fromCharCode(byte)
+  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "")
+}
+
+export function decodePreset(value: string): ThemePreset | undefined {
+  try {
+    const padded = value.replaceAll("-", "+").replaceAll("_", "/")
+    const pad = padded.length % 4 === 0 ? "" : "=".repeat(4 - (padded.length % 4))
+    const binary = atob(`${padded}${pad}`)
+    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
+    return sanitizePreset(JSON.parse(new TextDecoder().decode(bytes)))
+  } catch {
+    return undefined
+  }
+}
+
+function sanitizePreset(value: unknown): ThemePreset | undefined {
+  if (!value || typeof value !== "object") return undefined
+  const record = value as Record<string, unknown>
+  if (!isPalette(record.light) || !isPalette(record.dark)) return undefined
+  if (typeof record.radius !== "number" || record.radius < 0 || record.radius > 1.5) return undefined
+  if (typeof record.fontSize !== "number" || record.fontSize < 14 || record.fontSize > 20) return undefined
+  if (record.sans !== "inter" && record.sans !== "system") return undefined
+  if (record.heading !== "sans" && record.heading !== "fraunces") return undefined
+  if (record.mono !== "jetbrains" && record.mono !== "system") return undefined
+  if (
+    record.shadow !== "none" &&
+    record.shadow !== "soft" &&
+    record.shadow !== "medium" &&
+    record.shadow !== "strong"
+  ) {
+    return undefined
+  }
+
+  const light = {} as ThemeColors
+  const dark = {} as ThemeColors
+  for (const token of colorTokens) {
+    light[token] = (record.light as ThemeColors)[token]
+    dark[token] = (record.dark as ThemeColors)[token]
+  }
+
+  return {
+    light,
+    dark,
+    radius: record.radius,
+    fontSize: record.fontSize,
+    sans: record.sans,
+    heading: record.heading,
+    mono: record.mono,
+    shadow: record.shadow,
+  }
+}

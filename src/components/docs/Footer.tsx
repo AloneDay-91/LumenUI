@@ -23,7 +23,6 @@ const columns = [
       { href: "/docs/installation", label: "Installation" },
       { href: "/docs/frameworks", label: "Frameworks" },
       { href: "/customize", label: "Customize" },
-      { href: "/examples", label: "Examples" },
       { href: "/docs/changelog", label: "Changelog" },
     ],
   },

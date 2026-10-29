@@ -28,14 +28,11 @@ import { Separator } from "@/components/ui/Separator"
 import { Toggle } from "@/components/ui/Toggle"
 import { ToggleGroup } from "@/components/ui/ToggleGroup"
 import type { BlockCategorySlug } from "@/lib/block-categories"
-import { docsSections } from "@/lib/docs-nav"
+import { componentItems } from "@/lib/docs-nav"
 import { GITHUB_URL, HERO_BACKGROUND, STACK } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 const CLI = "npx @aloneday/lumenui@latest add"
-
-const componentItems =
-  docsSections.find((section) => section.title === "Components")?.items ?? []
 
 export type LumenBlock = {
   id: string

@@ -93,6 +93,113 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.1.0",
+    date: "2026-10-29",
+    summary:
+      "A rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero.",
+    items: [
+      {
+        kind: "changed",
+        text: "Installation is five steps from a React app to a rendered Button, then a CLI reference, lumen.json, theming, manual installation, and troubleshooting.",
+        href: "/docs/installation",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Frameworks shows the alias, the stylesheet, and the fonts for Next.js, Vite, React Router, Astro, and TanStack Start.",
+        href: "/docs/frameworks",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Alert info, warning, success, and destructive use the shared hues. Only destructive interrupts with role alert.",
+        href: "/docs/components/alert",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "The CLI name for the dropdown is menu. lumenui list hides dropdown-menu. add menu still copies DropdownMenu.tsx, and add dropdown-menu still writes that file.",
+        href: "/docs/components/menu",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Choose a component picks Select, Combobox, Autocomplete, or Command, and which menu, message, or layer to open.",
+        href: "/docs/choose",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "From shadcn maps the names that differ. Dropdown Menu is Menu, Sheet is Drawer, Hover Card is Preview Card, and Sonner is Toast.",
+        href: "/docs/shadcn",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "The component list is grouped into Actions, Forms, Overlays, Navigation, Status, and Data. Each page lists the files its install command writes, and the preview can show light and dark together.",
+        href: "/docs/components",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Accessibility says what Base UI already handles, and what you still name: the label, the dialog title, and when an alert may interrupt.",
+        href: "/docs/accessibility",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "The form recipe copies Field, Form, and Button in that order: label, control, error, then submit.",
+        href: "/docs/recipes/form",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "The settings recipe puts a plan, a status badge, and a notification switch in one card.",
+        href: "/docs/recipes/settings",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Sidebar expandOnHover opens the icon rail while the pointer is over it and pushes the page like the trigger does.",
+        href: "/docs/components/sidebar",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Sidebar collapses smoothly: icons stay still in a 3.5rem rail, labels and badges fade, and every docs preview has a variant picker built on the App sidebar block.",
+        href: "/docs/components/sidebar",
+      },
+      {
+        kind: "fixed",
+        text: "Sidebar keeps the avatar in icon mode, sizes lg rows for an avatar, tells active from hover, and SidebarSeparator no longer overflows.",
+        href: "/docs/components/sidebar",
+      },
+      {
+        kind: "added",
+        text: "lumenui add skips a file you edited and says so. --overwrite replaces it.",
+        href: "/docs/installation#update",
+      },
+      {
+        kind: "changed",
+        text: "The home hero shows the real Button docs page, the mega menu has one card per menu, and the 404 page follows the site design.",
+      },
+      {
+        kind: "fixed",
+        text: "The token sheet falls back to Inter and the system fonts when the font variables are missing.",
+        href: "/docs/installation#layout",
+      },
+      {
+        kind: "fixed",
+        text: "Docs pages no longer scroll past the layout, and the Blocks layout no longer scrolls by one pixel.",
+      },
+      {
+        kind: "fixed",
+        text: "The Markdown of each page and llms-full.txt keep lists, tables, and subheadings.",
+        href: "/docs/llms",
+      },
+    ],
+  },
+  {
     version: "1.0.7",
     date: "2026-10-29",
     summary:
@@ -437,7 +544,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Examples are a card gallery of composed usages.",
-        href: "/examples",
       },
       {
         kind: "fixed",
@@ -490,8 +596,7 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Default language is English. Examples live at /examples.",
-        href: "/examples",
+        text: "Default language is English.",
       },
       {
         kind: "changed",
@@ -516,7 +621,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "added",
         text: "Examples page as a bento of composed usages, outside the docs layout.",
-        href: "/examples",
       },
     ],
   },

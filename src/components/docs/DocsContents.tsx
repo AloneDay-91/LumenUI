@@ -57,20 +57,20 @@ export function DocsContents({ onNavigate }: { onNavigate?: () => void }) {
                       onClick={onNavigate}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "relative block rounded-lg px-2 py-1 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                        "relative flex items-center justify-between gap-2 rounded-lg px-2 py-1 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
                         active && "bg-muted font-medium text-foreground"
                       )}
                     >
+                      <span className="truncate">
+                        {isNew ? <span className="sr-only">New: </span> : null}
+                        {item.name}
+                      </span>
                       {isNew ? (
                         <span
-                          className="absolute top-1/2 left-0 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-new"
+                          className="size-1.5 shrink-0 rounded-full bg-new"
                           aria-hidden
                         />
                       ) : null}
-                      {isNew ? (
-                        <span className="sr-only">New: </span>
-                      ) : null}
-                      {item.name}
                     </Link>
                   </li>
                 )

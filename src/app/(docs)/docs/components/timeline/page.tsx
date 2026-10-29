@@ -44,10 +44,10 @@ export default function TimelinePage() {
               <TimelineSeparator />
               <TimelineMarker />
               <TimelineContent>
-                <TimelineTitle>Examples moved out of docs</TimelineTitle>
+                <TimelineTitle>Previews stay on the page</TimelineTitle>
                 <TimelineTime dateTime="2026-09-18">18 Sep 2026</TimelineTime>
                 <TimelineDescription>
-                  The bento lives at /examples, without the docs chrome.
+                  Each component keeps its live preview in the docs.
                 </TimelineDescription>
               </TimelineContent>
             </TimelineItem>

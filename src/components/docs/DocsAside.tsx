@@ -56,22 +56,16 @@ export default function DocsAside() {
 
   React.useLayoutEffect(() => {
     if (headings.length > 0) {
-      setScraped([])
       return
     }
+    // Pages without HeadingsSetter: the headings only exist in the rendered article.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setScraped(scrapeHeadings())
   }, [pathname, headings.length])
 
   React.useEffect(() => {
     if (items.length === 0) {
       return
-    }
-
-    const hash = window.location.hash.replace(/^#/, "")
-    if (items.some((item) => item.id === hash)) {
-      setActiveId(hash)
-    } else {
-      setActiveId(items[0]?.id ?? "")
     }
 
     const updateActive = () => {

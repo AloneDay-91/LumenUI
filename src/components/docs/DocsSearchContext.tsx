@@ -17,9 +17,13 @@ export function DocsSearchProvider({ children }: { children: React.ReactNode }) 
   const pathname = usePathname()
   const [query, setQuery] = React.useState("")
 
-  React.useEffect(() => {
+  const [queryPathname, setQueryPathname] = React.useState(pathname)
+
+  // A new page starts with an empty search.
+  if (queryPathname !== pathname) {
+    setQueryPathname(pathname)
     setQuery("")
-  }, [pathname])
+  }
 
   return (
     <DocsSearchContext.Provider value={{ query, setQuery }}>
