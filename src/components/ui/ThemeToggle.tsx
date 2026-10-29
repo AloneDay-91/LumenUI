@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/Button"
+import { cn } from "@/lib/utils"
 
 function LightIcon() {
   return (
@@ -42,7 +43,7 @@ function DarkIcon() {
   )
 }
 
-export function ThemeToggle() {
+function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -56,7 +57,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon-sm"
-      className="text-muted-foreground hover:text-foreground"
+      className={cn("text-muted-foreground hover:text-foreground", className)}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
@@ -66,3 +67,5 @@ export function ThemeToggle() {
     </Button>
   )
 }
+
+export { ThemeToggle }

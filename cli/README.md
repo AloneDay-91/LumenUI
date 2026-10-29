@@ -13,12 +13,14 @@ npx @aloneday/lumenui@latest rm button
 npx @aloneday/lumenui@latest list
 ```
 
-`init` writes `lumen.json` and `cn()`. `add` copies the component, the local files it needs, and installs the npm packages. `rm` deletes that component. Shared files stay while something else still imports them.
+`init` writes `lumen.json`, `cn()`, and `globals.css`. `add` copies the component, the local files it needs, installs the npm packages, and writes that stylesheet when the project does not already have the Lumen tokens. `rm` deletes that component. Shared files stay while something else still imports them.
+
+Both commands also install `tailwindcss`, `@tailwindcss/postcss`, and `tw-animate-css`, and add `postcss.config.mjs` when the project has no PostCSS config. If `globals.css` exists without the Lumen tokens, it is replaced and the previous file is kept as `globals.css.bak`.
 
 ## Options
 
 ```bash
-lumenui init [--css]
+lumenui init
 lumenui add <component>...
 lumenui add all
 lumenui rm <component>...
@@ -30,7 +32,6 @@ lumenui list
 | `--cwd <dir>` | Project directory. Default: the current directory. |
 | `--force` | Remove a component even when others still import it. |
 | `--dry-run` | Print the files and packages without writing. |
-| `--css` | With `init`, write `globals.css` when it is missing. |
 
 Node.js 22.23.4 or newer.
 

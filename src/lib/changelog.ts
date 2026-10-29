@@ -1,25 +1,25 @@
-export type ChangelogKind = "added" | "changed" | "fixed"
+export type ChangelogKind = "added" | "changed" | "fixed";
 
 export type ChangelogLink = {
-  name: string
-  href: string
-  new?: boolean
-}
+  name: string;
+  href: string;
+  new?: boolean;
+};
 
 export type ChangelogItem = {
-  kind: ChangelogKind
-  text: string
-  href?: string
-  new?: boolean
-  links?: ChangelogLink[]
-}
+  kind: ChangelogKind;
+  text: string;
+  href?: string;
+  new?: boolean;
+  links?: ChangelogLink[];
+};
 
 export type ChangelogRelease = {
-  version: string
-  date: string
-  summary: string
-  items: ChangelogItem[]
-}
+  version: string;
+  date: string;
+  summary: string;
+  items: ChangelogItem[];
+};
 
 const addedComponents: ChangelogLink[] = [
   { name: "Accordion", href: "/docs/components/accordion", new: true },
@@ -27,7 +27,11 @@ const addedComponents: ChangelogLink[] = [
   { name: "Autocomplete", href: "/docs/components/autocomplete", new: true },
   { name: "Avatar", href: "/docs/components/avatar", new: true },
   { name: "Checkbox", href: "/docs/components/checkbox", new: true },
-  { name: "Checkbox Group", href: "/docs/components/checkbox-group", new: true },
+  {
+    name: "Checkbox Group",
+    href: "/docs/components/checkbox-group",
+    new: true,
+  },
   { name: "Collapsible", href: "/docs/components/collapsible", new: true },
   { name: "Combobox", href: "/docs/components/combobox", new: true },
   { name: "Context Menu", href: "/docs/components/context-menu", new: true },
@@ -39,7 +43,11 @@ const addedComponents: ChangelogLink[] = [
   { name: "Menu", href: "/docs/components/menu", new: true },
   { name: "Menubar", href: "/docs/components/menubar", new: true },
   { name: "Meter", href: "/docs/components/meter", new: true },
-  { name: "Navigation Menu", href: "/docs/components/navigation-menu", new: true },
+  {
+    name: "Navigation Menu",
+    href: "/docs/components/navigation-menu",
+    new: true,
+  },
   { name: "Number Field", href: "/docs/components/number-field", new: true },
   { name: "OTP Field", href: "/docs/components/otp-field", new: true },
   { name: "Popover", href: "/docs/components/popover", new: true },
@@ -56,7 +64,7 @@ const addedComponents: ChangelogLink[] = [
   { name: "Toggle Group", href: "/docs/components/toggle-group", new: true },
   { name: "Toolbar", href: "/docs/components/toolbar", new: true },
   { name: "Tooltip", href: "/docs/components/tooltip", new: true },
-]
+];
 
 const nativeComponents: ChangelogLink[] = [
   { name: "Aspect Ratio", href: "/docs/components/aspect-ratio", new: true },
@@ -72,7 +80,7 @@ const nativeComponents: ChangelogLink[] = [
   { name: "Stepper", href: "/docs/components/stepper", new: true },
   { name: "Table", href: "/docs/components/table", new: true },
   { name: "Timeline", href: "/docs/components/timeline", new: true },
-]
+];
 
 const releaseComponents: ChangelogLink[] = [
   { name: "Calendar", href: "/docs/components/calendar", new: true },
@@ -81,14 +89,107 @@ const releaseComponents: ChangelogLink[] = [
   { name: "Date Picker", href: "/docs/components/date-picker", new: true },
   { name: "Item", href: "/docs/components/item", new: true },
   { name: "Typography", href: "/docs/components/typography", new: true },
-]
+];
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.7",
+    date: "2026-10-29",
+    summary:
+      "Callout, shared hues in the global sheet, field-matched cards, Data List, Theme Toggle, drawer and toast motion, pointer cursors, the CLI stylesheet, and the Customize preview.",
+    items: [
+      {
+        kind: "added",
+        text: "Callout for a short notice: soft, surface, or outline. The wash is a solid tint, the type reads on it, and the icon lines up with the first line.",
+        href: "/docs/components/callout",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Data List lays out a record: one shared label column, and a value that can hold a badge, a link, or an action.",
+        href: "/docs/components/data-list",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Tabs line variant replaces the pill with a sliding underline. Color tints that line.",
+        href: "/docs/components/tabs",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Theme Toggle switches light and dark with the sun and moon marks from the docs chrome.",
+        href: "/docs/components/theme-toggle",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Badge color paints gray, indigo, cyan, orange, crimson, and jade. Soft is a tint with saturated type. highContrast fills the pill.",
+        href: "/docs/components/badge",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Styles puts the shared hues in the global sheet: ink, wash, panel, and solid for each color.",
+        href: "/docs/styles",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Card secondary uses the same fill as inputs and selects.",
+        href: "/docs/components/card",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Select uses the same dark fill as inputs.",
+        href: "/docs/components/select",
+        new: true,
+      },
+      {
+        kind: "fixed",
+        text: "Drawer sticks to the edge it opens from, with a backdrop and a swipe transform. The mobile sidebar uses it.",
+        href: "/docs/components/drawer",
+        new: true,
+      },
+      {
+        kind: "fixed",
+        text: "Toasts stack, peek, and animate in and out.",
+        href: "/docs/components/toast",
+        new: true,
+      },
+      {
+        kind: "fixed",
+        text: "Sidebar keeps the desktop panel during hydration, so a mobile Suspense boundary no longer swaps it for an empty drawer.",
+        href: "/docs/components/sidebar",
+        new: true,
+      },
+      {
+        kind: "fixed",
+        text: "Checkboxes, switches, radios, menu rows, select options, and command items use a pointer cursor.",
+        href: "/docs/components/button",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "init and add write globals.css, install Tailwind, and add the PostCSS config. An existing sheet without the Lumen tokens is replaced, and the previous file is kept as globals.css.bak.",
+        href: "/docs/installation",
+      },
+      {
+        kind: "changed",
+        text: "Each component page shows the CLI install command above Usage. Copy includes the same section.",
+      },
+      {
+        kind: "fixed",
+        text: "Customize Light and Dark switches the preview to the palette being edited. The controls stay in the site theme.",
+        href: "/customize",
+      },
+    ],
+  },
+  {
     version: "1.0.6",
     date: "2026-10-23",
-    summary:
-      "Kbd glyph alignment, CLI path and install hardening, and Next.js 16.4.2.",
+    summary: "Kbd glyph alignment, CLI path and install hardening",
     items: [
       {
         kind: "fixed",
@@ -102,10 +203,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "fixed",
         text: "LLM and markdown routes use the canonical SITE_URL instead of request Host / X-Forwarded-* headers.",
-      },
-      {
-        kind: "fixed",
-        text: "Next.js upgraded to 16.4.2. Analytics script loads with SRI. CLI publish uses a protected npm-publish environment.",
       },
     ],
   },
@@ -409,8 +506,7 @@ export const changelog: ChangelogRelease[] = [
   {
     version: "0.3.0",
     date: "2026-09-18",
-    summary:
-      "Docs changelog, novelty dots, and a composed examples bento.",
+    summary: "Docs changelog, novelty dots, and a composed examples bento.",
     items: [
       {
         kind: "added",
@@ -451,60 +547,60 @@ export const changelog: ChangelogRelease[] = [
       },
     ],
   },
-]
+];
 
 export function getLatestChangelog() {
-  const [latest] = changelog
+  const [latest] = changelog;
   if (!latest) {
-    throw new Error("Changelog is empty.")
+    throw new Error("Changelog is empty.");
   }
-  return latest
+  return latest;
 }
 
 export function getNewDocsHrefs(version = getLatestChangelog().version) {
-  const latest = changelog.find((entry) => entry.version === version)
-  const hrefs = new Set<string>()
+  const latest = changelog.find((entry) => entry.version === version);
+  const hrefs = new Set<string>();
 
   if (!latest) {
-    return hrefs
+    return hrefs;
   }
 
   for (const release of changelog) {
     if (release.date !== latest.date) {
-      continue
+      continue;
     }
     for (const item of release.items) {
       if (item.new && item.href) {
-        hrefs.add(item.href)
+        hrefs.add(item.href);
       }
       for (const link of item.links ?? []) {
         if (link.new) {
-          hrefs.add(link.href)
+          hrefs.add(link.href);
         }
       }
     }
   }
 
-  return hrefs
+  return hrefs;
 }
 
-const latestNewHrefs = getNewDocsHrefs()
+const latestNewHrefs = getNewDocsHrefs();
 
 export function isNewDocsPage(href: string) {
-  return latestNewHrefs.has(href)
+  return latestNewHrefs.has(href);
 }
 
 export function changelogKindLabel(kind: ChangelogKind) {
   switch (kind) {
     case "added":
-      return "Added"
+      return "Added";
     case "changed":
-      return "Changed"
+      return "Changed";
     case "fixed":
-      return "Fixed"
+      return "Fixed";
     default: {
-      const exhaustive: never = kind
-      return exhaustive
+      const exhaustive: never = kind;
+      return exhaustive;
     }
   }
 }
@@ -514,5 +610,5 @@ export function formatChangelogDate(iso: string) {
     day: "numeric",
     month: "long",
     year: "numeric",
-  }).format(new Date(`${iso}T00:00:00`))
+  }).format(new Date(`${iso}T00:00:00`));
 }

@@ -34,10 +34,12 @@ export default function InstallationPage() {
         <section className="space-y-4">
           <h2 id="cli">CLI</h2>
           <p>
-            <code>init</code> writes <code>lumen.json</code> and <code>cn()</code>.{" "}
-            <code>add</code> copies the component, the local files it needs, and
-            installs the npm packages. <code>rm</code> deletes that component.
-            Shared files stay while something else still imports them.
+            <code>init</code> writes <code>lumen.json</code>, <code>cn()</code>, and{" "}
+            <code>globals.css</code>. <code>add</code> copies the component, the
+            local files it needs, installs the npm packages, and writes that
+            stylesheet when the project does not already have the Lumen tokens.{" "}
+            <code>rm</code> deletes that component. Shared files stay while
+            something else still imports them.
           </p>
           <CodeBlock
             language="bash"
@@ -51,6 +53,10 @@ npx @aloneday/lumenui@latest rm button`}
 
         <section className="space-y-4">
           <h2 id="dependencies">Dependencies</h2>
+          <p>
+            The CLI installs these with <code>init</code> and <code>add</code>.
+            Use the commands below when you copy a file by hand.
+          </p>
           <CodeBlock
             language="bash"
             code={`npm install @base-ui/react class-variance-authority clsx tailwind-merge
@@ -61,7 +67,10 @@ npm install -D tailwindcss @tailwindcss/postcss tw-animate-css`}
         <section className="space-y-4">
           <h2 id="tokens">CSS variables</h2>
           <p>
-            Paste this into your global stylesheet. Load Inter, Fraunces, and
+            <code>init</code> and <code>add</code> write this sheet into{" "}
+            <code>globals.css</code>. A file that already has the Lumen tokens
+            is left as it is. Anything else is replaced, and the previous file
+            is kept as <code>globals.css.bak</code>. Load Inter, Fraunces, and
             JetBrains Mono (for example with <code>next/font</code>) and expose
             them as <code>--font-inter</code>, <code>--font-fraunces</code>, and{" "}
             <code>--font-jetbrains</code>.

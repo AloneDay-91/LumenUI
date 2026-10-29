@@ -7,7 +7,7 @@ import {
   formatChangelogDate,
   type ChangelogKind,
 } from "@/lib/changelog"
-import { getComponentApi } from "@/lib/component-api"
+import { componentInstallCommand, getComponentApi } from "@/lib/component-api"
 import { getDocsLocation } from "@/lib/docs-nav"
 import { LUMEN_GLOBAL_CSS } from "@/lib/lumen-css"
 import { formatDocsVersion, SITE_NAME } from "@/lib/site"
@@ -54,15 +54,20 @@ export async function getDocsMarkdown(pathname: string, origin: string) {
     "",
   ]
 
-  if (packages.length > 0 || sources.size > 0) {
+  if (componentSlug || packages.length > 0 || sources.size > 0) {
     lines.push("## Installation", "")
+    if (componentSlug) {
+      lines.push("```bash", componentInstallCommand(componentSlug), "```", "")
+    }
     if (packages.length > 0) {
       lines.push("npm dependencies:", "", "```bash", `npm install ${packages.join(" ")}`, "```", "")
     }
-    lines.push(
-      "Copy `src/lib/utils.ts` (`cn`) and the CSS tokens from the Styles page, then the source files below.",
-      ""
-    )
+    if (sources.size > 0) {
+      lines.push(
+        "Copy `src/lib/utils.ts` (`cn`) and the CSS tokens from the Styles page, then the source files below.",
+        ""
+      )
+    }
   }
 
   if (usage) {

@@ -7,7 +7,7 @@ import type { ReactNode } from "react"
 import { Footer } from "@/components/docs/Footer"
 import { SiteLogo } from "@/components/marketing/SiteLogo"
 import { StackMark } from "@/components/marketing/StackMarks"
-import { ThemeToggle } from "@/components/docs/ThemeToggle"
+import { ThemeToggle } from "@/components/ui/ThemeToggle"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { buttonVariants } from "@/components/ui/button-variants"
@@ -58,6 +58,10 @@ const copyPoints = [
     body: "Base UI, class-variance-authority, and the rest land in package.json.",
   },
   {
+    title: "The stylesheet comes with it",
+    body: "globals.css, Tailwind, and the PostCSS config are written with init and add.",
+  },
+  {
     title: "Remove it the same way",
     body: "rm deletes the component. Shared files stay while something still imports them.",
   },
@@ -65,6 +69,7 @@ const copyPoints = [
 
 const tree = [
   { name: "lumen.json", indent: false, tag: "new" },
+  { name: "src/app/globals.css", indent: false, tag: "tokens" },
   { name: "src/lib/", indent: false, muted: true },
   { name: "utils.ts", indent: true, tag: "cn()" },
   { name: "src/components/ui/", indent: false, muted: true },
@@ -147,12 +152,12 @@ export const lumenBlocks: LumenBlock[] = [
     kit: "headers",
     title: "Site header",
     description: "The bar on the marketing site: wordmark, section links, and Documentation.",
-    command: `${CLI} button`,
+    command: `${CLI} theme-toggle`,
     full: true,
     code: `import Link from "next/link"
 
 import { SiteLogo } from "@/components/marketing/SiteLogo"
-import { ThemeToggle } from "@/components/docs/ThemeToggle"
+import { ThemeToggle } from "@/components/ui/ThemeToggle"
 import { buttonVariants } from "@/components/ui/button-variants"
 
 const links = [

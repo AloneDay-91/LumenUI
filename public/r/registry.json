@@ -119,6 +119,14 @@
       ]
     },
     {
+      "name": "callout",
+      "title": "Callout",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "card",
       "title": "Card",
       "dependencies": [
@@ -227,6 +235,14 @@
       ],
       "registryDependencies": [
         "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "data-list",
+      "title": "Data List",
+      "dependencies": [],
+      "registryDependencies": [
         "utils"
       ]
     },
@@ -616,6 +632,17 @@
       "title": "Textarea",
       "dependencies": [],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "theme-toggle",
+      "title": "Theme Toggle",
+      "dependencies": [
+        "next-themes"
+      ],
+      "registryDependencies": [
+        "button",
         "utils"
       ]
     },

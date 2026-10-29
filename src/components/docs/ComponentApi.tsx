@@ -24,7 +24,7 @@ export function ComponentApi({ api }: { api: ComponentApiData }) {
           {item.description ? <p>{item.description}</p> : null}
           {item.props.length > 0 ? (
             <div className="overflow-x-auto">
-              <table>
+              <table data-docs-api>
                 <thead>
                   <tr>
                     <th>Prop</th>

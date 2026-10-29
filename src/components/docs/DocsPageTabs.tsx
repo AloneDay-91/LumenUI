@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import HeadingsSetter from "@/components/docs/HeadingsSetter"
-import type { Heading } from "@/components/docs/DocsTOCContext"
+import HeadingsSetter from "@/components/docs/HeadingsSetter";
+import type { Heading } from "@/components/docs/DocsTOCContext";
 import {
   Tabs,
   TabsIndicator,
@@ -11,16 +11,16 @@ import {
   TabsPanel,
   TabsPanels,
   TabsTab,
-} from "@/components/ui/Tabs"
+} from "@/components/ui/Tabs";
 
-type TabValue = "usage" | "api"
+type TabValue = "usage" | "api";
 
 function tabFromHash(hash: string): TabValue {
-  const id = hash.replace(/^#/, "")
+  const id = hash.replace(/^#/, "");
   if (id === "api" || id.startsWith("api-")) {
-    return "api"
+    return "api";
   }
-  return "usage"
+  return "usage";
 }
 
 export function DocsPageTabs({
@@ -29,41 +29,43 @@ export function DocsPageTabs({
   usageHeadings,
   apiHeadings,
 }: {
-  usage: React.ReactNode
-  api: React.ReactNode
-  usageHeadings: Heading[]
-  apiHeadings: Heading[]
+  usage: React.ReactNode;
+  api: React.ReactNode;
+  usageHeadings: Heading[];
+  apiHeadings: Heading[];
 }) {
-  const [value, setValue] = React.useState<TabValue>("usage")
+  const [value, setValue] = React.useState<TabValue>("usage");
 
   React.useLayoutEffect(() => {
-    setValue(tabFromHash(window.location.hash))
-  }, [])
+    setValue(tabFromHash(window.location.hash));
+  }, []);
 
   React.useEffect(() => {
     const onHashChange = () => {
-      setValue(tabFromHash(window.location.hash))
-    }
-    window.addEventListener("hashchange", onHashChange)
-    return () => window.removeEventListener("hashchange", onHashChange)
-  }, [])
+      setValue(tabFromHash(window.location.hash));
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   const onValueChange = (next: string) => {
-    const tab = next === "api" ? "api" : "usage"
-    setValue(tab)
-    const current = window.location.hash.replace(/^#/, "")
+    const tab = next === "api" ? "api" : "usage";
+    setValue(tab);
+    const current = window.location.hash.replace(/^#/, "");
     if (tab === "api" && !current.startsWith("api")) {
-      history.replaceState(null, "", "#api")
+      history.replaceState(null, "", "#api");
     }
     if (tab === "usage" && (current === "api" || current.startsWith("api-"))) {
-      history.replaceState(null, "", "#usage")
+      history.replaceState(null, "", "#usage");
     }
-  }
+  };
 
   return (
     <Tabs value={value} onValueChange={onValueChange} className="gap-6">
-      <HeadingsSetter headings={value === "api" ? apiHeadings : usageHeadings} />
-      <TabsList>
+      <HeadingsSetter
+        headings={value === "api" ? apiHeadings : usageHeadings}
+      />
+      <TabsList variant="line">
         <TabsIndicator />
         <TabsTab value="usage">Usage</TabsTab>
         <TabsTab value="api">API</TabsTab>
@@ -77,5 +79,5 @@ export function DocsPageTabs({
         </TabsPanel>
       </TabsPanels>
     </Tabs>
-  )
+  );
 }

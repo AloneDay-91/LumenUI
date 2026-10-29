@@ -325,14 +325,24 @@ const labelId = React.useId()
             <h2 id="cursor">Cursor</h2>
             <p>
               Tailwind v4 ships buttons with <code>cursor: default</code>. Lumen
-              restores the pointer globally in <code>globals.css</code>, so you do
-              not need to add it per button.
+              restores the pointer in <code>globals.css</code> for buttons and
+              for controls that are not native buttons: checkbox, switch, radio,
+              menu item, option, tab, and range.
             </p>
             <CodeBlock
               language="css"
               code={`@layer base {
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role="button"]:not(:disabled),
+  [role="checkbox"]:not([aria-disabled="true"]),
+  [role="radio"]:not([aria-disabled="true"]),
+  [role="switch"]:not([aria-disabled="true"]),
+  [role="menuitem"]:not([aria-disabled="true"]),
+  [role="menuitemcheckbox"]:not([aria-disabled="true"]),
+  [role="menuitemradio"]:not([aria-disabled="true"]),
+  [role="option"]:not([aria-disabled="true"]),
+  [role="tab"]:not([aria-disabled="true"]),
+  input[type="range"]:not(:disabled) {
     cursor: pointer;
   }
 }`}

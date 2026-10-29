@@ -5,7 +5,7 @@ import Link from "next/link"
 import { XIcon } from "lucide-react"
 
 import { AskLumen } from "@/components/docs/AskLumen"
-import { ThemeToggle } from "@/components/docs/ThemeToggle"
+import { ThemeToggle } from "@/components/ui/ThemeToggle"
 import { SiteLogo } from "@/components/marketing/SiteLogo"
 import {
   Drawer,

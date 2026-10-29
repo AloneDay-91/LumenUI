@@ -1,0 +1,21 @@
+---
+description: Show a novelty dot in the docs sidebar after an add or change
+alwaysApply: true
+---
+
+# Novelty dot
+
+When you add or change a documented page, mark it new in the latest changelog release so the sidebar shows the dot.
+
+In `src/lib/changelog.ts`, on the current release, set `new: true` on the item whose `href` is that page. `isNewDocsPage` reads those flags. The dot is the `bg-new` mark in `DocsContents`.
+
+If the page is already in that release, add `new: true` to the existing item. Do not add a second indicator.
+
+```ts
+{
+  kind: "changed",
+  text: "What changed, in one sentence.",
+  href: "/docs/components/badge",
+  new: true,
+}
+```

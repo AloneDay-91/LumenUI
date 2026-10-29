@@ -24,7 +24,7 @@ function Slider({
             <SliderPrimitive.Thumb
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
-              className="size-4 rounded-full bg-background ring-1 ring-foreground/10 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/30" />
+              className="size-4 cursor-pointer rounded-full bg-background ring-1 ring-foreground/10 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/30 [&_input]:cursor-pointer" />
           </SliderPrimitive.Track>
         </SliderPrimitive.Control>
       )}

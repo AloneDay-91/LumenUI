@@ -4,11 +4,13 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
 } from "react"
+import { useTheme } from "next-themes"
 
 import {
   buildPresetCss,
@@ -42,15 +44,24 @@ function loadPreset(): ThemePreset {
 }
 
 export function ThemeDraftProvider({ children }: { children: ReactNode }) {
+  const { resolvedTheme } = useTheme()
   const [preset, setPreset] = useState<ThemePreset>(defaultPreset)
   const [palette, setPalette] = useState<"light" | "dark">("light")
   const [ready, setReady] = useState(false)
+  const syncedTheme = useRef(false)
   const css = buildPresetCss(preset)
 
   useEffect(() => {
     setPreset(loadPreset())
     setReady(true)
   }, [])
+
+  useEffect(() => {
+    if (syncedTheme.current) return
+    if (resolvedTheme !== "light" && resolvedTheme !== "dark") return
+    setPalette(resolvedTheme)
+    syncedTheme.current = true
+  }, [resolvedTheme])
 
   useEffect(() => {
     if (!ready) return

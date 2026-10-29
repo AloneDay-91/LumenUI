@@ -26,7 +26,7 @@ export async function getLlmsIndex(origin = SITE_URL) {
     "Conventions agents should keep:",
     "",
     "- Product copy is English.",
-    "- Visual language is paper, pills, Inter, no interactive blue, cards with `ring-1 ring-foreground/5`, no shadow.",
+    "- Visual language is paper, pills, and Inter. Primary actions stay black. Hue is opt-in: gray, indigo, cyan, orange, crimson, and jade. Cards use `ring-1 ring-foreground/5`, no shadow.",
     "- Compose with existing components. Prefer `render` on Base UI triggers, and `cn()` for classes.",
     "- Tailwind v4: use `data-[orientation=horizontal]:` (Base UI sets `data-orientation`), `bg-linear-to-*`, and `mask-[...]`.",
     "",
