@@ -5,7 +5,6 @@
 
 ### Added
 
-* 1.1.0 — installation path, Sidebar hover, CLI keeps edits, release automation ([b0f95e8](https://github.com/AloneDay-91/LumenUI/commit/b0f95e83ca284a9f18363041ea0c80be2bf3b710))
 * **cli:** keep edited files unless --overwrite ([9d8c5b3](https://github.com/AloneDay-91/LumenUI/commit/9d8c5b3eaf665be69597d2ed52c397f1a02d5604))
 * **docs:** rewrite the installation path and add guides ([017a348](https://github.com/AloneDay-91/LumenUI/commit/017a34844566bd5717cbe59886a0c3d9daf058ed))
 * **sidebar:** open on hover and collapse smoothly ([160c93e](https://github.com/AloneDay-91/LumenUI/commit/160c93e4c4eb198c0fd3405a3a1b8694bf0a69e8))
