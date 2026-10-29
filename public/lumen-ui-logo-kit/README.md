@@ -40,7 +40,7 @@ social/
   og-image-dark.png / og-image-light.png (1200×630) + SVG
 head-snippet.html     balises <head> prêtes à coller
 overview.png          planche récapitulative
-final_build.py, overview.py   scripts de génération (Python + cairosvg + shapely + fontTools)
+scripts/logo-kit/ (hors de public/)   scripts de génération (Python + cairosvg + shapely + fontTools)
 ```
 
 `-on-bg` = version posée sur son fond plein (`#fcfcf9`, `#111111`, `#ffffff` ou `#000000`) ; sinon fond transparent.
