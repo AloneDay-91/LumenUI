@@ -73,6 +73,8 @@ export default function RootLayout({
           <Script
             defer
             src="https://analytics.mmi23f03.fr/script.js"
+            integrity="sha384-ZMxgpYfO/phGz4GiYTIZhcauuGKTb2onmOB5gsiigjmBR38DGAmIna5J1Y/dM/13"
+            crossOrigin="anonymous"
             data-website-id="f4f5dd3f-9dfb-4235-943b-d64b304b5fdc"
             strategy="afterInteractive"
           />

@@ -85,6 +85,72 @@ const releaseComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.0.6",
+    date: "2026-10-23",
+    summary:
+      "Kbd glyph alignment, CLI path and install hardening, and Next.js 16.4.2.",
+    items: [
+      {
+        kind: "fixed",
+        text: "Kbd swaps ⌘ and arrow glyphs for Lucide icons at 1em so mono fallbacks no longer dwarf the letter.",
+        href: "/docs/components/kbd",
+      },
+      {
+        kind: "fixed",
+        text: "CLI rejects path traversal in lumen.json and only installs packages declared in the registry, with --ignore-scripts.",
+      },
+      {
+        kind: "fixed",
+        text: "LLM and markdown routes use the canonical SITE_URL instead of request Host / X-Forwarded-* headers.",
+      },
+      {
+        kind: "fixed",
+        text: "Next.js upgraded to 16.4.2. Analytics script loads with SRI. CLI publish uses a protected npm-publish environment.",
+      },
+    ],
+  },
+  {
+    version: "1.0.5",
+    date: "2026-10-23",
+    summary:
+      "Node.js pinned to the October 2026 security releases (22.23.4 / 24.22.1).",
+    items: [
+      {
+        kind: "fixed",
+        text: "Site, Nixpacks, and .nvmrc require Node 22.23.4. The CLI publish workflow uses Node 24.22.1.",
+      },
+    ],
+  },
+  {
+    version: "1.0.4",
+    date: "2026-10-15",
+    summary: "CLI releases publish to npm through Trusted Publisher (OIDC).",
+    items: [
+      {
+        kind: "changed",
+        text: "The Publish CLI workflow uses GitHub OIDC instead of a long-lived npm token.",
+      },
+    ],
+  },
+  {
+    version: "1.0.3",
+    date: "2026-10-15",
+    summary:
+      "Buttons follow the theme radius token, and outline matches in light and dark.",
+    items: [
+      {
+        kind: "changed",
+        text: "Button and ButtonGroup use rounded-4xl so corners track --radius (pill at the default token).",
+        href: "/docs/components/button",
+      },
+      {
+        kind: "fixed",
+        text: "Outline buttons keep bg-background in dark mode instead of going transparent.",
+        href: "/docs/components/button",
+      },
+    ],
+  },
+  {
     version: "1.0.2",
     date: "2026-10-13",
     summary:

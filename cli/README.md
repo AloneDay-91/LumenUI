@@ -32,6 +32,6 @@ lumenui list
 | `--dry-run` | Print the files and packages without writing. |
 | `--css` | With `init`, write `globals.css` when it is missing. |
 
-Node.js 22 or newer.
+Node.js 22.23.4 or newer.
 
-A GitHub release of Lumen UI publishes this package at the same version.
+A GitHub release of Lumen UI publishes this package at the same version via npm Trusted Publisher (OIDC).

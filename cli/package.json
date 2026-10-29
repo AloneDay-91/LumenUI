@@ -1,6 +1,6 @@
 {
   "name": "@aloneday/lumenui",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "Copy Lumen UI components into your project.",
   "type": "module",
   "bin": {
@@ -12,7 +12,7 @@
     "registry"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.23.4"
   },
   "homepage": "https://ui.elouanb.fr/",
   "repository": {
