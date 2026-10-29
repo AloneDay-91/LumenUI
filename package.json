@@ -20,7 +20,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test cli/test/ src/lib/theme-preset.test.ts",
+    "test": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"cli/test/*.test.js\" src/lib/theme-preset.test.ts",
     "registry": "node scripts/build-registry.mjs",
     "prepare": "husky || true",
     "version": "node scripts/sync-cli-version.mjs && git add cli/package.json"
