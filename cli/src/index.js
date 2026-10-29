@@ -20,6 +20,7 @@ Usage
 Options
   --cwd <dir>     Project directory (default: the current directory)
   --force         Remove a component even when others still import it
+  --overwrite     Replace component files that differ from the registry
   --dry-run       Print the files and packages without writing
 
 init writes lumen.json, cn(), globals.css, and the Tailwind PostCSS config.
@@ -136,7 +137,6 @@ function remove(cwd, registry, names, flags) {
   const blockers = []
 
   for (const name of requested) {
-    const item = registry.items[name]
     for (const other of Object.values(registry.items)) {
       if (removing.has(other.name) || other.internal) {
         continue
@@ -183,15 +183,25 @@ function remove(cwd, registry, names, flags) {
 function writeItem(project, config, item, flags) {
   for (const file of item.files) {
     const destination = fileDestination(project, config, file.name)
+    const relative = path.relative(project, destination)
     const next = rewriteImports(file.content, config)
+    const exists = existsSync(destination)
+    // The copied file is the user's to edit: never replace it without --overwrite.
+    if (exists && readFileSync(destination, "utf8") === next) {
+      console.log(`unchanged ${relative}`)
+      continue
+    }
+    if (exists && !flags.overwrite) {
+      console.log(`skip ${relative} (it differs; pass --overwrite to replace it)`)
+      continue
+    }
     if (flags["dry-run"]) {
-      console.log(`write ${path.relative(project, destination)}`)
+      console.log(`${exists ? "overwrite" : "write"} ${relative}`)
       continue
     }
     mkdirSync(path.dirname(destination), { recursive: true })
-    const verb = existsSync(destination) ? "overwrite" : "add"
     writeFileSync(destination, next)
-    console.log(`${verb} ${path.relative(project, destination)}`)
+    console.log(`${exists ? "overwrite" : "add"} ${relative}`)
   }
 }
 
@@ -657,6 +667,10 @@ function parseArgs(argv) {
     }
     if (token === "--force") {
       flags.force = true
+      continue
+    }
+    if (token === "--overwrite") {
+      flags.overwrite = true
       continue
     }
     if (token === "--dry-run") {
