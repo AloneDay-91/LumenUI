@@ -91,10 +91,43 @@ function Carousel({
     },
     emblaPlugins
   )
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-  const [canScrollNext, setCanScrollNext] = React.useState(false)
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
-  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
+  const subscribe = React.useCallback(
+    (onChange: () => void) => {
+      if (!api) return () => {}
+      api.on("reInit", onChange)
+      api.on("select", onChange)
+      return () => {
+        api.off("select", onChange)
+        api.off("reInit", onChange)
+      }
+    },
+    [api]
+  )
+  const canScrollPrev = React.useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollPrev() ?? false,
+    () => false
+  )
+  const canScrollNext = React.useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollNext() ?? false,
+    () => false
+  )
+  const selectedIndex = React.useSyncExternalStore(
+    subscribe,
+    () => api?.selectedScrollSnap() ?? 0,
+    () => 0
+  )
+  const snapCount = React.useSyncExternalStore(
+    subscribe,
+    () => api?.scrollSnapList().length ?? 0,
+    () => 0
+  )
+  // scrollSnapList() returns a new array each call: rebuild it only when the count changes.
+  const scrollSnaps = React.useMemo(
+    () => (snapCount > 0 && api ? api.scrollSnapList() : []),
+    [api, snapCount]
+  )
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev()
@@ -111,24 +144,9 @@ function Carousel({
     [api]
   )
 
-  const onSelect = React.useCallback((emblaApi: CarouselApi) => {
-    setCanScrollPrev(emblaApi.canScrollPrev())
-    setCanScrollNext(emblaApi.canScrollNext())
-    setSelectedIndex(emblaApi.selectedScrollSnap())
-    setScrollSnaps(emblaApi.scrollSnapList())
-  }, [])
-
   React.useEffect(() => {
-    if (!api) return
-    onSelect(api)
-    setApi?.(api)
-    api.on("reInit", onSelect)
-    api.on("select", onSelect)
-    return () => {
-      api.off("select", onSelect)
-      api.off("reInit", onSelect)
-    }
-  }, [api, onSelect, setApi])
+    if (api) setApi?.(api)
+  }, [api, setApi])
 
   return (
     <CarouselContext.Provider

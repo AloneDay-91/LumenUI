@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  useEffect,
   useState,
   type CSSProperties,
   type PointerEvent,
@@ -124,16 +123,15 @@ function ColorPicker({
   const swatch = rgb ? rgbToHex(rgb) : "#262626"
   const hueFromColor = hsv && hsv.s > 0.001 ? hsv.h : null
   const [hue, setHue] = useState(() => hsv?.h ?? 0)
+  const [syncedHue, setSyncedHue] = useState(hueFromColor)
   const [draft, setDraft] = useState(swatch)
   const [editing, setEditing] = useState(false)
 
-  useEffect(() => {
+  // A new color from outside moves the hue; grays keep the last one.
+  if (hueFromColor !== syncedHue) {
+    setSyncedHue(hueFromColor)
     if (hueFromColor != null) setHue(hueFromColor)
-  }, [hueFromColor])
-
-  useEffect(() => {
-    if (!editing) setDraft(swatch)
-  }, [editing, swatch])
+  }
 
   const saturation = hsv?.s ?? 0
   const brightness = hsv?.v ?? 1
