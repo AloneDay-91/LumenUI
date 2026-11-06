@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/AloneDay-91/LumenUI/compare/v1.1.0...v1.1.1) (2026-11-06)
+
+
+### Fixed
+
+* **deps:** update minimatch ([#27](https://github.com/AloneDay-91/LumenUI/issues/27)) ([828cecd](https://github.com/AloneDay-91/LumenUI/commit/828cecd0528ca4b6062247a17fa9363fcaab3a7b))
+
 ## [1.1.0](https://github.com/AloneDay-91/LumenUI/compare/v1.0.7...v1.1.0) (2026-10-29)
 
 
