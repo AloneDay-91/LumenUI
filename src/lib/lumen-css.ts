@@ -103,7 +103,7 @@ export const LUMEN_GLOBAL_CSS = `@import "tailwindcss";
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0.003 90);
+  --secondary: oklch(0.94 0.004 90);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0.003 90);
   --muted-foreground: oklch(0.52 0 0);
@@ -280,5 +280,569 @@ export const LUMEN_GLOBAL_CSS = `@import "tailwindcss";
   input[type="range"]:not(:disabled) {
     cursor: pointer;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities: scroll-fade and shimmer. Plain CSS, no JavaScript.
+   --------------------------------------------------------------------------- */
+
+/* scroll-fade: a mask that dissolves the content at the edges of a scroller.
+   Each edge fades in as you scroll away from it, so the first edge is crisp at
+   rest and the last one sharpens at the end. No overflow, no fade. */
+@property --lumen-fade-start {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --lumen-fade-end {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes lumen-fade-start {
+  from {
+    --lumen-fade-start: 0;
+  }
+  to {
+    --lumen-fade-start: 1;
+  }
+}
+
+@keyframes lumen-fade-end {
+  from {
+    --lumen-fade-end: 1;
+  }
+  to {
+    --lumen-fade-end: 0;
+  }
+}
+
+/* Both edges, vertical. */
+@utility scroll-fade {
+  --lumen-fade-dir: to bottom;
+  --lumen-fade-timeline: scroll(self block);
+  --lumen-fade-start-size: var(--scroll-fade-t-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-b-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: lumen-fade-start;
+  --lumen-fade-end-name: lumen-fade-end;
+  --lumen-fade-use-start: 1;
+  --lumen-fade-use-end: 1;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+}
+
+@utility scroll-fade-y {
+  --lumen-fade-dir: to bottom;
+  --lumen-fade-timeline: scroll(self block);
+  --lumen-fade-start-size: var(--scroll-fade-t-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-b-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: lumen-fade-start;
+  --lumen-fade-end-name: lumen-fade-end;
+  --lumen-fade-use-start: 1;
+  --lumen-fade-use-end: 1;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+}
+
+/* Both edges, horizontal. Follows the reading direction. */
+@utility scroll-fade-x {
+  --lumen-fade-dir: to right;
+  --lumen-fade-timeline: scroll(self inline);
+  --lumen-fade-start-size: var(--scroll-fade-s-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-e-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: lumen-fade-start;
+  --lumen-fade-end-name: lumen-fade-end;
+  --lumen-fade-use-start: 1;
+  --lumen-fade-use-end: 1;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+
+  &:dir(rtl) {
+    --lumen-fade-dir: to left;
+  }
+}
+
+/* One edge only. t / b are block edges; s / e are inline edges that mirror in
+   RTL; l / r are the physical left and right of a horizontal scroller. */
+@utility scroll-fade-t {
+  --lumen-fade-dir: to bottom;
+  --lumen-fade-timeline: scroll(self block);
+  --lumen-fade-start-size: var(--scroll-fade-t-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-b-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: lumen-fade-start;
+  --lumen-fade-end-name: none;
+  --lumen-fade-use-start: 1;
+  --lumen-fade-use-end: 0;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+}
+
+@utility scroll-fade-b {
+  --lumen-fade-dir: to bottom;
+  --lumen-fade-timeline: scroll(self block);
+  --lumen-fade-start-size: var(--scroll-fade-t-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-b-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: none;
+  --lumen-fade-end-name: lumen-fade-end;
+  --lumen-fade-use-start: 0;
+  --lumen-fade-use-end: 1;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+}
+
+@utility scroll-fade-s {
+  --lumen-fade-dir: to right;
+  --lumen-fade-timeline: scroll(self inline);
+  --lumen-fade-start-size: var(--scroll-fade-s-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-e-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: lumen-fade-start;
+  --lumen-fade-end-name: none;
+  --lumen-fade-use-start: 1;
+  --lumen-fade-use-end: 0;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+
+  &:dir(rtl) {
+    --lumen-fade-dir: to left;
+  }
+}
+
+@utility scroll-fade-e {
+  --lumen-fade-dir: to right;
+  --lumen-fade-timeline: scroll(self inline);
+  --lumen-fade-start-size: var(--scroll-fade-s-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-e-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: none;
+  --lumen-fade-end-name: lumen-fade-end;
+  --lumen-fade-use-start: 0;
+  --lumen-fade-use-end: 1;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+
+  &:dir(rtl) {
+    --lumen-fade-dir: to left;
+  }
+}
+
+@utility scroll-fade-l {
+  --lumen-fade-dir: to right;
+  --lumen-fade-timeline: scroll(self inline);
+  --lumen-fade-start-size: var(--scroll-fade-s-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-e-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: lumen-fade-start;
+  --lumen-fade-end-name: none;
+  --lumen-fade-use-start: 1;
+  --lumen-fade-use-end: 0;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+
+  &:dir(rtl) {
+    --lumen-fade-dir: to left;
+    --lumen-fade-start-name: none;
+    --lumen-fade-end-name: lumen-fade-end;
+    --lumen-fade-use-start: 0;
+    --lumen-fade-use-end: 1;
+  }
+}
+
+@utility scroll-fade-r {
+  --lumen-fade-dir: to right;
+  --lumen-fade-timeline: scroll(self inline);
+  --lumen-fade-start-size: var(--scroll-fade-s-size, var(--lumen-fade-size));
+  --lumen-fade-end-size: var(--scroll-fade-e-size, var(--lumen-fade-size));
+  --lumen-fade-start-name: none;
+  --lumen-fade-end-name: lumen-fade-end;
+  --lumen-fade-use-start: 0;
+  --lumen-fade-use-end: 1;
+  --lumen-fade-size: var(--scroll-fade-size, min(12%, 40px));
+  --lumen-fade-reveal: var(--scroll-fade-reveal, 96px);
+  -webkit-mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  mask-image: var(--scroll-fade-mask, linear-gradient(
+      var(--lumen-fade-dir),
+      transparent 0,
+      #000 calc(var(--lumen-fade-start-size) * var(--lumen-fade-start)),
+      #000 calc(100% - var(--lumen-fade-end-size) * var(--lumen-fade-end)),
+      transparent 100%
+    ));
+  /* Without scroll-driven animations: a static fade on the chosen edges. */
+  --lumen-fade-start: var(--lumen-fade-use-start);
+  --lumen-fade-end: var(--lumen-fade-use-end);
+
+  @supports (animation-timeline: scroll()) {
+    --lumen-fade-start: 0;
+    --lumen-fade-end: 0;
+    animation-name: var(--lumen-fade-start-name), var(--lumen-fade-end-name);
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto;
+    animation-timeline: var(--lumen-fade-timeline), var(--lumen-fade-timeline);
+    animation-range:
+      0 var(--lumen-fade-reveal),
+      calc(100% - var(--lumen-fade-reveal)) 100%;
+  }
+
+  &:dir(rtl) {
+    --lumen-fade-dir: to left;
+    --lumen-fade-start-name: lumen-fade-start;
+    --lumen-fade-end-name: none;
+    --lumen-fade-use-start: 1;
+    --lumen-fade-use-end: 0;
+  }
+}
+
+/* Depth: scroll-fade-8, scroll-fade-[15%], and per edge scroll-fade-b-12. */
+@utility scroll-fade-* {
+  --scroll-fade-size: --spacing(--value(number));
+  --scroll-fade-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-t-* {
+  --scroll-fade-t-size: --spacing(--value(number));
+  --scroll-fade-t-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-b-* {
+  --scroll-fade-b-size: --spacing(--value(number));
+  --scroll-fade-b-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-s-* {
+  --scroll-fade-s-size: --spacing(--value(number));
+  --scroll-fade-s-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-e-* {
+  --scroll-fade-e-size: --spacing(--value(number));
+  --scroll-fade-e-size: --value([length], [percentage]);
+}
+
+/* Off, in any class order: md:scroll-fade-none. */
+@utility scroll-fade-none {
+  --scroll-fade-mask: none;
+}
+
+/* shimmer: a light band that sweeps across text while something works. The
+   band is the text colour lifted in lightness, so it works on any colour and
+   brightens in dark mode. Under reduced motion the text renders normally. */
+@keyframes lumen-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+@utility shimmer {
+  --lumen-shimmer-band: var(--shimmer-color, oklch(from currentColor calc(l + 0.28) c h));
+  --lumen-shimmer-spread: var(--shimmer-spread, calc(3ch + 40px));
+  background-image: var(
+    --shimmer-image,
+    linear-gradient(
+      calc(90deg + var(--shimmer-angle, 20deg)),
+      currentColor calc(50% - var(--lumen-shimmer-spread) / 2),
+      var(--lumen-shimmer-band) 50%,
+      currentColor calc(50% + var(--lumen-shimmer-spread) / 2)
+    )
+  );
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: var(--shimmer-text-fill, transparent);
+  animation: lumen-shimmer var(--shimmer-duration, 2s) linear infinite;
+
+  &:dir(rtl) {
+    animation-direction: reverse;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+@utility shimmer-once {
+  animation-iteration-count: 1;
+}
+
+@utility shimmer-reverse {
+  animation-direction: reverse;
+}
+
+@utility shimmer-none {
+  --shimmer-image: none;
+  --shimmer-text-fill: currentColor;
+}
+
+@utility shimmer-color-* {
+  --shimmer-color: --value(--color-*, [color]);
+  --shimmer-color: color-mix(
+    in oklch,
+    --value(--color-*, [color]) calc(--modifier(integer) * 1%),
+    transparent
+  );
+}
+
+@utility shimmer-duration-* {
+  --shimmer-duration: calc(--value(integer) * 1ms);
+}
+
+@utility shimmer-spread-* {
+  --shimmer-spread: --spacing(--value(number));
+  --shimmer-spread: --value([length], [percentage]);
+}
+
+@utility shimmer-angle-* {
+  --shimmer-angle: calc(--value(integer) * 1deg);
 }
 `

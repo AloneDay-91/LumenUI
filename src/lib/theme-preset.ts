@@ -42,7 +42,7 @@ export const defaultPreset: ThemePreset = {
     "card-foreground": "#1c1c1c",
     primary: "#262626",
     "primary-foreground": "#fafafa",
-    secondary: "#f6f5f3",
+    secondary: "#ecebe8",
     "secondary-foreground": "#262626",
     muted: "#f6f5f3",
     "muted-foreground": "#696969",
