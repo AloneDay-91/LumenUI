@@ -1,0 +1,81 @@
+{
+  "projectId": "4aba88f7-b16b-4dec-8f87-6fbe91209949",
+  "shape": "package",
+  "pkg": "lumen-ui",
+  "globalName": "LumenUI",
+  "buildCmd": "node .design-sync/build.mjs",
+  "entry": ".design-sync/.cache/pkg/index.mjs",
+  "srcDir": "../../../src/components/ui",
+  "tsconfig": "../../../tsconfig.json",
+  "cssEntry": "lumen.css",
+  "docsDir": "docs",
+  "guidelinesGlob": [
+    "../../../DESIGN.md"
+  ],
+  "overrides": {
+    "AlertDialog": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "Dialog": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "Drawer": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "Popover": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "Tooltip": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "PreviewCard": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "Menu": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "ContextMenu": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "ToastProvider": {
+      "cardMode": "single",
+      "viewport": "720x520"
+    },
+    "Sidebar": {
+      "cardMode": "single",
+      "primaryStory": "Inset",
+      "viewport": "900x700"
+    },
+    "Table": {
+      "cardMode": "column"
+    },
+    "Chart": {
+      "cardMode": "column"
+    },
+    "Carousel": {
+      "cardMode": "column"
+    },
+    "Menubar": {
+      "cardMode": "single",
+      "primaryStory": "OpenMenu",
+      "viewport": "720x520"
+    },
+    "Meter": {
+      "cardMode": "single",
+      "primaryStory": "Values"
+    },
+    "Progress": {
+      "cardMode": "single",
+      "primaryStory": "Values"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

@@ -1,0 +1,7 @@
+/* Imported first by the design-sync barrel so it heads _ds_bundle.css:
+   - the webfonts next/font loads on the site (Inter, Fraunces, JetBrains Mono)
+   - Tailwind's layer order, declared before the component CSS (callout.css,
+     tabs.css, typography.css use @layer components) so preflight/base can't
+     outrank components - same order the site gets from globals.css loading first. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@layer properties, theme, base, components, utilities;

@@ -1,0 +1,24 @@
+/* design-sync stylesheet source. Compiled by .design-sync/build.mjs (Tailwind v4)
+   into .design-sync/.cache/pkg/lumen.css (cfg.cssEntry). Reuses the site's real
+   globals.css so tokens, theme and base styles never drift from the repo.
+   Tailwind's automatic source detection scans the repo (minus .gitignore), so
+   every utility used by src/ and .design-sync/previews/ is emitted.
+   Component CSS (callout/tabs/typography.css) and the webfonts reach the bundle
+   through the component imports and head.css - not repeated here. */
+@import "../src/app/globals.css";
+
+/* Safelist for the design agent: it writes its own layout glue, and Tailwind
+   only emits classes it finds in the repo. Every Lumen color token x the common
+   color utilities, plus a core layout/type scale, so the vocabulary documented
+   in .design-sync/conventions.md always resolves. */
+@source inline("{hover:,}{bg,text,border,ring}-{background,foreground,card,card-foreground,popover,popover-foreground,primary,primary-foreground,secondary,secondary-foreground,muted,muted-foreground,accent,accent-foreground,destructive,new,border,input,ring,sidebar,sidebar-foreground,sidebar-primary,sidebar-primary-foreground,sidebar-accent,sidebar-accent-foreground,sidebar-border,gray-panel}");
+@source inline("{bg,text,border,ring}-{background,foreground,primary,muted,muted-foreground,destructive,border,input}/{5,10,20,30,50,80}");
+@source inline("{hover:,}{bg,text,border,ring}-{indigo,cyan,orange,crimson,jade}-{ink,ink-strong,ink-deep,wash,wash-hover,panel,solid,on-solid,line}");
+@source inline("{p,px,py,pt,pb,ps,pe,m,mx,my,mt,mb,gap,gap-x,gap-y,space-y,space-x}-{0,0.5,1,1.5,2,2.5,3,4,5,6,8,10,12,16,20,24}");
+@source inline("{w,h,size,min-h,max-h}-{4,5,6,8,10,12,16,20,24,32,40,48,64,80,96,full,auto,fit,screen,dvh}");
+@source inline("{max-w}-{xs,sm,md,lg,xl,2xl,3xl,4xl,5xl,6xl,7xl,full,prose}");
+@source inline("{grid-cols,col-span}-{1,2,3,4,5,6,12}");
+@source inline("{md:,lg:,}{grid-cols,col-span}-{1,2,3,4,6,12}");
+@source inline("{md:,lg:,}{flex,grid,hidden,block,flex-row,flex-col}");
+@source inline("text-{xs,sm,base,lg,xl,2xl,3xl} font-{normal,medium,semibold} leading-{tight,snug,normal,relaxed,6} tracking-{tight,normal}");
+@source inline("rounded-{md,lg,xl,2xl,3xl,4xl,full} rounded-[min(var(--radius-4xl),24px)] ring-1 ring-foreground/5 ring-foreground/10 divide-y divide-border");

@@ -11,6 +11,10 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "public/**",
+    // design-sync : bundles générés et previews de conversion
+    "ds-bundle/**",
+    ".ds-sync/**",
+    ".design-sync/**",
   ]),
   {
     files: ["cli/**/*.js", "scripts/**/*.mjs"],
