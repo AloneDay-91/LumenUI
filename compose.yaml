@@ -1,0 +1,65 @@
+# The docs at every version: the latest from this checkout, older minors from
+# their release tags. Each one is its own container on its own domain.
+#
+#   docker compose up -d --build
+#
+# Add a version: copy an archive service, set REF to the minor's last tag,
+# and add "minor=url" to DOCS_ARCHIVES so the version menu links to it.
+#
+# Domains (set them on the host, or in a .env file next to this one):
+#   DOCS_DOMAIN       ui.elouanb.fr        the latest docs
+#   Archive services  v1-1.<DOCS_DOMAIN>    one subdomain per minor
+
+name: lumen-docs
+
+x-archive: &archive
+  build:
+    context: .
+    args: &archive-args
+      SOURCE: tag
+  restart: unless-stopped
+  environment:
+    NODE_ENV: production
+
+services:
+  latest:
+    build:
+      context: .
+      args:
+        SOURCE: local
+        # The version menu of the latest docs links to the archives below.
+        NEXT_PUBLIC_DOCS_ARCHIVES: >-
+          1.1=https://v1-1.${DOCS_DOMAIN:-ui.elouanb.fr},1.0=https://v1-0.${DOCS_DOMAIN:-ui.elouanb.fr},0.7=https://v0-7.${DOCS_DOMAIN:-ui.elouanb.fr}
+    restart: unless-stopped
+    ports:
+      - "${LATEST_PORT:-3000}:3000"
+
+  v1-1:
+    <<: *archive
+    build:
+      context: .
+      args:
+        <<: *archive-args
+        REF: v1.1.1
+    ports:
+      - "${V1_1_PORT:-3011}:3000"
+
+  v1-0:
+    <<: *archive
+    build:
+      context: .
+      args:
+        <<: *archive-args
+        REF: v1.0.7
+    ports:
+      - "${V1_0_PORT:-3010}:3000"
+
+  v0-7:
+    <<: *archive
+    build:
+      context: .
+      args:
+        <<: *archive-args
+        REF: v0.7.3
+    ports:
+      - "${V0_7_PORT:-3007}:3000"
