@@ -3,10 +3,8 @@ import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
 
-export const PANEL_RADIUS = "rounded-[min(var(--radius-4xl),24px)]";
-
 export const FEATURE_TITLE =
-  "text-2xl leading-tight font-medium tracking-tight text-balance md:text-3xl";
+  "font-heading text-2xl leading-tight font-normal tracking-[-0.02em] text-balance md:text-[1.875rem] md:leading-[1.25]";
 
 export function FeatureIntro({
   label,
@@ -14,17 +12,17 @@ export function FeatureIntro({
   children,
   className,
 }: {
-  label: string;
+  label?: string;
   title: string;
   children?: ReactNode;
   className?: string;
 }) {
   return (
     <div className={className}>
-      <Badge variant="outline">{label}</Badge>
-      <h2 className={cn("mt-4 max-w-md", FEATURE_TITLE)}>{title}</h2>
+      {label ? <Badge variant="outline">{label}</Badge> : null}
+      <h2 className={cn(label && "mt-4", "max-w-xl", FEATURE_TITLE)}>{title}</h2>
       {children ? (
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground">
           {children}
         </p>
       ) : null}

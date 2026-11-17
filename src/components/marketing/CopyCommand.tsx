@@ -24,6 +24,7 @@ export function CopyCommand() {
     <>
       <Button
         type="button"
+        size="lg"
         className="w-full max-w-full justify-center gap-2 font-mono sm:w-auto"
         aria-label={`Copy install command: ${COMMAND}`}
         onClick={onClick}

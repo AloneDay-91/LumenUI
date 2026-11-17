@@ -13,8 +13,8 @@ export type NavMenuSection = {
   items: NavMenuLink[]
 }
 
-/** Hues from the global sheet (--jade-*, --indigo-*, …). */
-export type NavMenuHue = "jade" | "indigo" | "cyan" | "orange"
+/** Which stroke canvas sits at the top of the mega menu card. */
+export type NavMenuFigure = "palette" | "scan" | "compare"
 
 /** The card in the last column of a mega menu panel. */
 export type NavMenuCard = {
@@ -22,9 +22,9 @@ export type NavMenuCard = {
   eyebrow: string
   title: string
   description: string
-  /** Label of the outline button at the bottom of the card. */
+  /** Label of the button at the bottom of the card. */
   tag: string
-  hue: NavMenuHue
+  figure: NavMenuFigure
 }
 
 export type NavMenu = {
@@ -96,7 +96,7 @@ export const navMenus: NavMenu[] = [
       title: "Customize",
       description: "Pick the ink, the radius, and the type. Copy the CSS.",
       tag: "Open Customize",
-      hue: "cyan",
+      figure: "palette",
     },
   },
   {
@@ -153,7 +153,7 @@ export const navMenus: NavMenu[] = [
       title: "Command",
       description: "A palette with groups, shortcuts, and a footer.",
       tag: "See Command",
-      hue: "indigo",
+      figure: "scan",
     },
   },
   {
@@ -185,7 +185,7 @@ export const navMenus: NavMenu[] = [
       title: "Dashboard",
       description: "Sidebar, stats, charts, and tables on one layout.",
       tag: "Browse the kit",
-      hue: "jade",
+      figure: "compare",
     },
   },
 ]

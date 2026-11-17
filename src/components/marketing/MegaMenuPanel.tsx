@@ -8,12 +8,11 @@ import {
   NavigationMenuLink,
   NavigationMenuPanel,
 } from "@/components/ui/NavigationMenu";
-import { MenuCardArt } from "@/components/marketing/MenuCardArt";
+import { MenuFigure } from "@/components/marketing/menu-figures";
 import { buttonVariants } from "@/components/ui/button-variants";
 import {
   type NavMenu,
   type NavMenuCard,
-  type NavMenuHue,
   type NavMenuLink,
 } from "@/lib/nav-menus";
 import { LANDING_MAX_WIDTH } from "@/lib/site";
@@ -71,57 +70,42 @@ export function MegaMenuPanel({
   );
 }
 
-/** Static class strings per hue, so Tailwind sees every utility. */
-const hueText: Record<NavMenuHue, string> = {
-  jade: "text-jade-ink",
-  indigo: "text-indigo-ink",
-  cyan: "text-cyan-ink",
-  orange: "text-orange-ink",
-};
-
-/** Always the dark palette, like a printed ink card: `.dark` rescopes the tokens. */
+/** The last column: copy over a line drawing, the same card as scandar.dev. */
 function PanelCard({ card }: { card: NavMenuCard }) {
   return (
-    <NavigationMenuLink
-      render={<Link href={card.href} />}
-      className="dark group/card relative isolate hidden min-h-64 w-full flex-col items-start justify-end gap-0 self-stretch overflow-hidden rounded-[min(var(--radius-4xl),24px)] bg-background p-6 text-foreground ring-1 ring-foreground/10 ring-inset hover:text-foreground focus-visible:text-foreground lg:flex"
-    >
-      {/* A soft wash of the hue under the pixels, gone before the copy. */}
-      <span
+    <div className="relative hidden flex-col gap-3 self-stretch overflow-hidden rounded-md border border-border p-6 lg:flex">
+      <div
         aria-hidden
-        className={cn(
-          "absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,currentColor,transparent_65%)] opacity-25 transition-opacity duration-500 group-hover/card:opacity-35",
-          hueText[card.hue],
-        )}
-      />
-      <MenuCardArt
-        seed={card.href}
-        className={cn(
-          "absolute inset-0 -z-10 size-full opacity-90 transition-opacity duration-500 group-hover/card:opacity-100",
-          hueText[card.hue],
-        )}
-      />
-      <span className="text-xs text-muted-foreground">{card.eyebrow}</span>
-      <span className="mt-1 font-heading text-xl leading-tight font-medium tracking-tight">
-        {card.title}
-      </span>
-      <span className="mt-2 max-w-56 text-sm leading-relaxed text-pretty text-muted-foreground">
+        className="pointer-events-none -mx-2 h-24 overflow-hidden [mask-image:linear-gradient(to_bottom,black_55%,transparent)]"
+      >
+        <div
+          className={cn(
+            "flex h-full items-start",
+            card.figure === "compare" ? "justify-start" : "justify-center",
+          )}
+        >
+          <MenuFigure
+            name={card.figure}
+            className={card.figure === "compare" ? "h-20 w-full max-w-xs" : "h-20 w-20"}
+          />
+        </div>
+      </div>
+      <p className="relative text-xs text-muted-foreground">{card.eyebrow}</p>
+      <p className="relative font-heading text-lg leading-tight">{card.title}</p>
+      <p className="relative text-sm leading-relaxed text-pretty text-muted-foreground">
         {card.description}
-      </span>
-      <span
+      </p>
+      <NavigationMenuLink
+        render={<Link href={card.href} />}
         className={cn(
-          buttonVariants({ variant: "ghost", size: "sm" }),
-          "mt-5 ",
+          buttonVariants({ size: "lg" }),
+          "relative self-start hover:text-primary-foreground focus-visible:text-primary-foreground",
         )}
       >
         {card.tag}
-        <ArrowRight
-          data-icon="inline-end"
-          className="transition-transform group-hover/card:translate-x-0.5"
-          aria-hidden
-        />
-      </span>
-    </NavigationMenuLink>
+        <ArrowRight aria-hidden />
+      </NavigationMenuLink>
+    </div>
   );
 }
 
