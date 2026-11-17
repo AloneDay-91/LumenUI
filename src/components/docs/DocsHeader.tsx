@@ -84,8 +84,7 @@ export function DocsHeader() {
   return (
     <header
       className={cn(
-        "z-40 border-b border-border bg-background",
-        blocks ? "shrink-0" : "sticky top-[var(--update-banner-height)]",
+        "sticky top-[var(--update-banner-height)] z-40 border-b border-border bg-background",
       )}
     >
       <HeaderFrame blocks={blocks}>

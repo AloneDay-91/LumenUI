@@ -35,11 +35,12 @@ export default async function BlockCategoryPage({
 
   return (
     <>
-      <header className="mb-10 max-w-lg">
+      <header className="mb-10 max-w-[65ch]">
+        <p className="mb-2 text-xs text-muted-foreground">{category.group}</p>
         <h1 className="text-xl leading-tight font-medium tracking-tight md:text-2xl">
           {category.title}
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
           {category.description}
         </p>
       </header>

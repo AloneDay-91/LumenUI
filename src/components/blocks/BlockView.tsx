@@ -85,7 +85,7 @@ export function BlockView({
       <header className="flex flex-col gap-3 border-b border-border px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
           <p className="text-xs text-muted-foreground">{kit}</p>
-          <h2 className="text-sm font-medium">{title}</h2>
+          <h2 id={id} className="scroll-mt-40 text-sm font-medium">{title}</h2>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {view === "preview" ? (
