@@ -17,7 +17,7 @@ function Toaster() {
     <ToastPrimitive.Portal>
       <ToastPrimitive.Viewport
         data-slot="toast-viewport"
-        className="fixed top-auto right-4 bottom-4 z-50 mx-auto flex w-[calc(100vw-2rem)] outline-none sm:right-8 sm:bottom-8 sm:w-80"
+        className="fixed top-auto right-4 bottom-4 z-50 mx-auto flex w-[calc(100vw-2rem)] outline-none sm:right-8 sm:bottom-8 sm:w-96"
       >
         {toasts.map((toast) => (
           <ToastPrimitive.Root
@@ -44,26 +44,25 @@ function Toaster() {
           >
             <ToastPrimitive.Content
               data-slot="toast-content"
-              className="flex items-start gap-3 overflow-hidden p-3 transition-opacity duration-[250ms] data-behind:pointer-events-none data-behind:opacity-0 data-expanded:pointer-events-auto data-expanded:opacity-100"
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-6 gap-y-1 overflow-hidden p-3.5 transition-opacity duration-[250ms] data-behind:pointer-events-none data-behind:opacity-0 data-expanded:pointer-events-auto data-expanded:opacity-100"
             >
-              <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <ToastPrimitive.Title className="m-0 text-sm font-medium" />
-                <ToastPrimitive.Description className="m-0 text-xs text-muted-foreground" />
-              </div>
-              <ToastPrimitive.Action
-                className={cn(
-                  buttonVariants({ size: "sm", variant: "outline" }),
-                )}
-              />
+              <ToastPrimitive.Title className="col-start-1 row-start-1 m-0 text-sm leading-5 font-medium text-balance" />
               <ToastPrimitive.Close
                 className={cn(
                   buttonVariants({ size: "icon-xs", variant: "ghost" }),
-                  "shrink-0 text-muted-foreground hover:text-foreground",
+                  "col-start-2 row-start-1 -mt-0.5 text-muted-foreground hover:text-foreground",
                 )}
                 aria-label="Close"
               >
                 <XIcon className="size-3.5" />
               </ToastPrimitive.Close>
+              <ToastPrimitive.Description className="col-span-2 m-0 text-[13px] leading-5 text-pretty text-muted-foreground" />
+              <ToastPrimitive.Action
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "col-span-2 mt-1.5 justify-self-end",
+                )}
+              />
             </ToastPrimitive.Content>
           </ToastPrimitive.Root>
         ))}
