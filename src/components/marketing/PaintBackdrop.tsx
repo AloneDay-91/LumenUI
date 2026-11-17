@@ -1,7 +1,7 @@
 import { HERO_BACKGROUND } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
-/** The landing painting, filling a demo frame. Same photo as the footer. */
+/** The landing painting, filling a demo frame. */
 export function PaintBackdrop({ className }: { className?: string }) {
   return (
     <div
