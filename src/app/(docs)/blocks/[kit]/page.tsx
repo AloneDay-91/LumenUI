@@ -2,9 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { BlocksGallery } from "@/components/blocks/BlocksGallery"
-import { CurrentHeroBlock } from "@/components/blocks/CurrentHero"
 import { blockCategories, getBlockCategory } from "@/lib/block-categories"
-import { dashboardSources } from "@/lib/dashboard-sources"
+import { blockSources } from "@/lib/dashboard-sources"
 
 export function generateStaticParams() {
   return blockCategories.map((category) => ({ kit: category.slug }))
@@ -45,14 +44,9 @@ export default async function BlockCategoryPage({
         </p>
       </header>
       <div className="flex flex-col gap-10">
-        {category.slug === "heroes" ? <CurrentHeroBlock /> : null}
         <BlocksGallery
           kit={category.slug}
-          sources={
-            category.kit === "dashboard"
-              ? dashboardSources(category.slug)
-              : undefined
-          }
+          sources={blockSources(category.slug)}
         />
       </div>
     </>

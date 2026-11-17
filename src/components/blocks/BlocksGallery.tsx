@@ -18,8 +18,7 @@ import {
 } from "@/lib/block-categories"
 
 export function blockCount(slug: BlockCategorySlug) {
-  const listed = allBlocks.filter((block) => block.kit === slug).length
-  return slug === "heroes" ? listed + 1 : listed
+  return allBlocks.filter((block) => block.kit === slug).length
 }
 
 /** Categories with no block yet stay out of the navigation. Their URL still answers. */
