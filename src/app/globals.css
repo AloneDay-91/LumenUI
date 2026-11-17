@@ -331,7 +331,8 @@
   @apply mt-6 mb-2 scroll-mt-36 text-sm font-medium tracking-tight;
 }
 
-.docs-article :where(p):not([data-slot="typography"] *):not([data-slot="callout-text"]) {
+/* Prose paragraphs only: a component's own <p> carries a data-slot and keeps its size. */
+.docs-article :where(p):not([data-slot="typography"] *):not([data-slot]) {
   @apply max-w-[65ch] text-sm leading-6 text-muted-foreground;
 }
 
