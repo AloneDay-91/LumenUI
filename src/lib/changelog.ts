@@ -150,11 +150,11 @@ const aiComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
-    version: "1.1.0",
+    version: "1.2.0",
     title: "Components for AI apps",
     date: "2026-11-17",
     summary:
-      "Form, data, and layout components, a loading Button, status toasts, a rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero.",
+      "Form, data, and layout components, AI patterns built on one Trace, a loading Button, and status toasts.",
     items: [
       {
         kind: "added",
@@ -172,6 +172,56 @@ export const changelog: ChangelogRelease[] = [
         href: "/docs/components/button#loading",
         new: true,
       },
+      {
+        kind: "fixed",
+        text: "Destructive takes the crimson hue, so the destructive Button, Alert, and invalid fields match the crimson Badge and Callout.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "fixed",
+        text: "Secondary, muted, accent, the sidebar, and the gray panel use the warm neutral of the background, and the focus ring is darker so it reads on paper.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "fixed",
+        text: "Drawer shares the overlay of Dialog and Alert Dialog, and Button, Badge, and Progress animate only the properties that change.",
+      },
+      {
+        kind: "fixed",
+        text: "The outline Button has its own light fill instead of the page background, so it no longer reads as a hole.",
+        href: "/docs/components/button#variants",
+      },
+      {
+        kind: "fixed",
+        text: "In dark mode, an Input inside an Input Group no longer paints its own fill over the group's, so the text area and the icon share one colour.",
+        href: "/docs/components/input-group",
+      },
+      {
+        kind: "fixed",
+        text: "A long toast description wraps under the title, and the action is a large button at the bottom right.",
+        href: "/docs/components/toast",
+      },
+    ],
+  },
+  {
+    version: "1.1.1",
+    title: "Patched minimatch",
+    date: "2026-11-06",
+    summary: "minimatch is pinned to the patched release.",
+    items: [
+      {
+        kind: "fixed",
+        text: "The install tree pins minimatch to 11.0.1.",
+      },
+    ],
+  },
+  {
+    version: "1.1.0",
+    title: "Installation and guides",
+    date: "2026-10-29",
+    summary:
+      "A rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero.",
+    items: [
       {
         kind: "changed",
         text: "Installation is five steps from a React app to a rendered Button, then a CLI reference, lumen.json, theming, manual installation, and troubleshooting.",
@@ -271,30 +321,6 @@ export const changelog: ChangelogRelease[] = [
         text: "The Markdown of each page and llms-full.txt keep lists, tables, and subheadings.",
         href: "/docs/llms",
       },
-      {
-        kind: "fixed",
-        text: "Destructive takes the crimson hue, so the destructive Button, Alert, and invalid fields match the crimson Badge and Callout.",
-        href: "/docs/styles",
-      },
-      {
-        kind: "fixed",
-        text: "Secondary, muted, accent, the sidebar, and the gray panel use the warm neutral of the background, and the focus ring is darker so it reads on paper.",
-        href: "/docs/styles",
-      },
-      {
-        kind: "fixed",
-        text: "Drawer shares the overlay of Dialog and Alert Dialog, and Button, Badge, and Progress animate only the properties that change.",
-      },
-      {
-        kind: "fixed",
-        text: "The outline Button has its own light fill instead of the page background, so it no longer reads as a hole.",
-        href: "/docs/components/button#variants",
-      },
-      {
-        kind: "fixed",
-        text: "In dark mode, an Input inside an Input Group no longer paints its own fill over the group's, so the text area and the icon share one colour.",
-        href: "/docs/components/input-group",
-      },
     ],
   },
   {
@@ -360,7 +386,7 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "fixed",
-        text: "Toasts stack, peek, and animate in and out. A long description wraps under the title, and the action is a large button at the bottom right.",
+        text: "Toasts stack, peek, and animate in and out.",
         href: "/docs/components/toast",
         new: true,
       },

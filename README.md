@@ -70,9 +70,9 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/): `ty
 
 | Commit | Example | Next version |
 | --- | --- | --- |
-| `fix:` / `perf:` | `fix(sidebar): smooth the collapse` | 1.0.7 → 1.0.8 |
-| `feat:` | `feat(cli): add --overwrite` | 1.0.7 → 1.1.0 |
-| `feat!:` or a `BREAKING CHANGE:` footer | `feat(cli)!: rename lumen.json` | 1.0.7 → 2.0.0 |
+| `fix:` / `perf:` | `fix(sidebar): smooth the collapse` | 1.1.1 → 1.1.2 |
+| `feat:` | `feat(cli): add --overwrite` | 1.1.1 → 1.2.0 |
+| `feat!:` or a `BREAKING CHANGE:` footer | `feat(cli)!: rename lumen.json` | 1.1.1 → 2.0.0 |
 | `docs`, `chore`, `refactor`, `style`, `test`, `build`, `ci` | `docs: rewrite installation` | no release |
 
 Releases are handled by [release-please](https://github.com/googleapis/release-please-action) (`.github/workflows/release-please.yml`):
@@ -100,7 +100,7 @@ One-time GitHub setup: Settings → Actions → General → "Read and write perm
 
 ## Changelog
 
-Latest: **v1.1.0** — a rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero. Versions and `CHANGELOG.md` are managed by release-please.
+Latest published: **v1.1.1**. The next release, **v1.2.0**, covers form, data, and layout components, AI patterns built on one Trace, a loading Button, and status toasts. Versions and `CHANGELOG.md` are managed by release-please.
 
 See [`src/lib/changelog.ts`](src/lib/changelog.ts).
 
