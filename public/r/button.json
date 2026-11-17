@@ -8,12 +8,13 @@
   ],
   "registryDependencies": [
     "button-variants",
+    "spinner",
     "utils"
   ],
   "files": [
     {
       "name": "Button.tsx",
-      "content": "\"use client\"\n\nimport { Button as ButtonPrimitive } from \"@base-ui/react/button\"\n\nimport { cn } from \"@/lib/utils\"\nimport {\n  buttonVariants,\n  type ButtonVariantProps,\n} from \"@/components/ui/button-variants\"\n\nfunction Button({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  nativeButton,\n  render,\n  ...props\n}: ButtonPrimitive.Props & ButtonVariantProps) {\n  return (\n    <ButtonPrimitive\n      data-slot=\"button\"\n      render={render}\n      nativeButton={nativeButton ?? !render}\n      className={cn(buttonVariants({ variant, size }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Button }\n"
+      "content": "\"use client\"\n\nimport { Button as ButtonPrimitive } from \"@base-ui/react/button\"\n\nimport { cn } from \"@/lib/utils\"\nimport {\n  buttonVariants,\n  type ButtonVariantProps,\n} from \"@/components/ui/button-variants\"\nimport { Spinner } from \"@/components/ui/Spinner\"\n\nfunction Button({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  nativeButton,\n  render,\n  loading = false,\n  disabled,\n  focusableWhenDisabled,\n  children,\n  ...props\n}: ButtonPrimitive.Props &\n  ButtonVariantProps & {\n    /** Shows a Spinner, sets aria-busy, and blocks clicks while keeping focus. */\n    loading?: boolean\n  }) {\n  const iconOnly = typeof size === \"string\" && size.startsWith(\"icon\")\n  // The Spinner is decoration here: aria-busy on the button carries the state.\n  const spinner = (\n    <Spinner\n      role={undefined}\n      aria-label={undefined}\n      aria-hidden\n      data-icon={iconOnly ? undefined : \"inline-start\"}\n    />\n  )\n\n  return (\n    <ButtonPrimitive\n      data-slot=\"button\"\n      data-loading={loading ? \"\" : undefined}\n      aria-busy={loading || undefined}\n      render={render}\n      nativeButton={nativeButton ?? !render}\n      disabled={disabled || loading}\n      focusableWhenDisabled={focusableWhenDisabled ?? loading}\n      className={cn(\n        buttonVariants({ variant, size }),\n        // The Spinner takes the place of a leading icon instead of sitting beside it.\n        \"data-loading:cursor-progress data-loading:[&>[data-icon=inline-start]:not([data-slot=spinner])]:hidden\",\n        className\n      )}\n      {...props}\n    >\n      {loading && iconOnly ? (\n        spinner\n      ) : (\n        <>\n          {loading ? spinner : null}\n          {children}\n        </>\n      )}\n    </ButtonPrimitive>\n  )\n}\n\nexport { Button }\n"
     }
   ]
 }

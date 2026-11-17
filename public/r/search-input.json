@@ -1,0 +1,21 @@
+{
+  "name": "search-input",
+  "title": "Search Input",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button-variants",
+    "input",
+    "input-group",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "SearchInput.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { SearchIcon, XIcon } from \"lucide-react\"\n\nimport { buttonVariants } from \"@/components/ui/button-variants\"\nimport { Input } from \"@/components/ui/Input\"\nimport { InputGroup, InputGroupAddon } from \"@/components/ui/InputGroup\"\nimport { cn } from \"@/lib/utils\"\n\nfunction SearchInput({\n  className,\n  value,\n  defaultValue = \"\",\n  onValueChange,\n  onChange,\n  onKeyDown,\n  onClear,\n  clearLabel = \"Clear search\",\n  disabled,\n  ...props\n}: Omit<React.ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\"> & {\n  value?: string\n  defaultValue?: string\n  onValueChange?: (value: string) => void\n  onClear?: () => void\n  clearLabel?: string\n}) {\n  const inputRef = React.useRef<HTMLInputElement>(null)\n  const [uncontrolled, setUncontrolled] = React.useState(defaultValue)\n  const current = value ?? uncontrolled\n\n  function setValue(next: string) {\n    if (value === undefined) {\n      setUncontrolled(next)\n    }\n    onValueChange?.(next)\n  }\n\n  function clear() {\n    setValue(\"\")\n    onClear?.()\n    inputRef.current?.focus()\n  }\n\n  return (\n    <InputGroup data-slot=\"search-input\" className={className}>\n      <InputGroupAddon>\n        <SearchIcon aria-hidden />\n      </InputGroupAddon>\n      <Input\n        ref={inputRef}\n        type=\"search\"\n        value={current}\n        disabled={disabled}\n        onChange={(event) => {\n          onChange?.(event)\n          setValue(event.target.value)\n        }}\n        onKeyDown={(event) => {\n          onKeyDown?.(event)\n          if (event.key === \"Escape\" && current !== \"\" && !event.defaultPrevented) {\n            event.preventDefault()\n            clear()\n          }\n        }}\n        className=\"[&::-webkit-search-cancel-button]:appearance-none\"\n        {...props}\n      />\n      {current !== \"\" ? (\n        <InputGroupAddon align=\"end\" className=\"pe-1\">\n          <button\n            type=\"button\"\n            data-slot=\"search-input-clear\"\n            aria-label={clearLabel}\n            disabled={disabled}\n            onClick={clear}\n            className={cn(\n              buttonVariants({ variant: \"ghost\", size: \"icon-xs\" }),\n              \"text-muted-foreground hover:text-foreground\"\n            )}\n          >\n            <XIcon />\n          </button>\n        </InputGroupAddon>\n      ) : null}\n    </InputGroup>\n  )\n}\n\nexport { SearchInput }\n"
+    }
+  ]
+}

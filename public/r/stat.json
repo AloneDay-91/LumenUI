@@ -1,0 +1,18 @@
+{
+  "name": "stat",
+  "title": "Stat",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Stat.tsx",
+      "content": "import * as React from \"react\"\nimport { ArrowDownRightIcon, ArrowUpRightIcon, MinusIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Stat({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat\"\n      className={cn(\"flex min-w-0 flex-col gap-1\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction StatLabel({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-label\"\n      className={cn(\"text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction StatValue({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-value\"\n      className={cn(\n        \"font-heading text-2xl leading-none font-medium tracking-tight tabular-nums\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\ntype StatTrend = \"up\" | \"down\" | \"neutral\"\n\nconst trendIcon = {\n  up: ArrowUpRightIcon,\n  down: ArrowDownRightIcon,\n  neutral: MinusIcon,\n} satisfies Record<StatTrend, React.ComponentType<{ className?: string }>>\n\nconst trendLabel: Record<StatTrend, string> = {\n  up: \"Up\",\n  down: \"Down\",\n  neutral: \"No change\",\n}\n\nfunction StatDelta({\n  className,\n  trend = \"neutral\",\n  intent,\n  srLabel = trendLabel[trend],\n  children,\n  ...props\n}: React.ComponentProps<\"span\"> & {\n  trend?: StatTrend\n  /** Which colour reads as good. Defaults to the trend: up is jade, down is crimson. */\n  intent?: \"positive\" | \"negative\" | \"neutral\"\n  srLabel?: string\n}) {\n  const Icon = trendIcon[trend]\n  const tone =\n    intent ?? (trend === \"up\" ? \"positive\" : trend === \"down\" ? \"negative\" : \"neutral\")\n\n  return (\n    <span\n      data-slot=\"stat-delta\"\n      data-trend={trend}\n      className={cn(\n        \"inline-flex w-fit items-center gap-0.5 rounded-2xl px-1.5 py-0.5 text-xs font-medium tabular-nums\",\n        tone === \"positive\" && \"bg-jade-wash text-jade-ink\",\n        tone === \"negative\" && \"bg-crimson-wash text-crimson-ink\",\n        tone === \"neutral\" && \"bg-secondary text-secondary-foreground\",\n        className\n      )}\n      {...props}\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      <span className=\"sr-only\">{srLabel} </span>\n      {children}\n    </span>\n  )\n}\n\nfunction StatDescription({ className, ...props }: React.ComponentProps<\"p\">) {\n  return (\n    <p\n      data-slot=\"stat-description\"\n      className={cn(\"m-0 text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Stat, StatLabel, StatValue, StatDelta, StatDescription }\n"
+    }
+  ]
+}

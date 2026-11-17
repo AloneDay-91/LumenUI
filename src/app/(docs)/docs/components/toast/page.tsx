@@ -1,5 +1,6 @@
 "use client"
 
+import { CodeBlock } from "@/components/docs/CodeBlock"
 import { ComponentDocs } from "@/components/docs/ComponentDocs"
 import { Button } from "@/components/ui/Button"
 import { useToastManager } from "@/components/ui/Toast"
@@ -83,6 +84,44 @@ function ToastExamples() {
   )
 }
 
+function ToastStatusExamples() {
+  const toast = useToastManager()
+
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {(["success", "error", "warning", "info"] as const).map((type) => (
+        <Button
+          key={type}
+          variant="outline"
+          onClick={() =>
+            toast.add({
+              type,
+              title: type[0].toUpperCase() + type.slice(1),
+              description: "The icon follows toast.type.",
+            })
+          }
+        >
+          {type[0].toUpperCase() + type.slice(1)}
+        </Button>
+      ))}
+      <Button
+        onClick={() =>
+          toast.promise(
+            new Promise<string>((resolve) => setTimeout(() => resolve("v1.1.0"), 2000)),
+            {
+              loading: { title: "Publishing…" },
+              success: (version) => ({ title: `Published ${version}` }),
+              error: { title: "Could not publish" },
+            }
+          )
+        }
+      >
+        Promise
+      </Button>
+    </div>
+  )
+}
+
 export default function ToastPage() {
   return (
     <ComponentDocs
@@ -102,8 +141,12 @@ toast.add({
   description: "Tokens are up to date.",
   actionProps: { children: "Undo" },
 })`}
-      extraHeadings={[{ id: "examples", text: "Examples", level: 2 }]}
+      extraHeadings={[
+        { id: "examples", text: "Examples", level: 2 },
+        { id: "status", text: "Status and promise", level: 2 },
+      ]}
       extra={
+        <>
         <section className="space-y-4">
           <h2 id="examples">Examples</h2>
           <p>
@@ -113,6 +156,27 @@ toast.add({
           </p>
           <ToastExamples />
         </section>
+        <section className="space-y-4">
+          <h2 id="status">Status and promise</h2>
+          <p>
+            Set <code>type</code> to <code>success</code>, <code>error</code>,{" "}
+            <code>warning</code>, or <code>info</code> and the toast shows the
+            matching icon in its hue. <code>toast.promise()</code> opens a{" "}
+            <code>loading</code> toast with a Spinner, then turns it into{" "}
+            <code>success</code> or <code>error</code> when the promise settles.
+          </p>
+          <ToastStatusExamples />
+          <CodeBlock
+            code={`toast.add({ type: "success", title: "Saved" })
+
+toast.promise(publish(), {
+  loading: { title: "Publishing…" },
+  success: (version) => ({ title: \`Published \${version}\` }),
+  error: { title: "Could not publish" },
+})`}
+          />
+        </section>
+        </>
       }
     />
   )

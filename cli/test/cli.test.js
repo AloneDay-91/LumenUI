@@ -75,13 +75,13 @@ describe("add", () => {
   test("copies the component and the local files it imports", async () => {
     await lumen("add", "dialog")
 
-    for (const name of ["Dialog.tsx", "Button.tsx", "button-variants.ts", "styles.ts"]) {
+    for (const name of ["Dialog.tsx", "Button.tsx", "Spinner.tsx", "button-variants.ts", "styles.ts"]) {
       assert.ok(existsSync(file(`src/components/ui/${name}`)), name)
     }
     assert.ok(existsSync(file("src/lib/utils.ts")))
     assert.deepEqual(
       JSON.parse(read("lumen.json")).installed,
-      ["button", "button-variants", "dialog", "styles", "utils"]
+      ["button", "button-variants", "dialog", "spinner", "styles", "utils"]
     )
   })
 

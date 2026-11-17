@@ -91,13 +91,40 @@ const releaseComponents: ChangelogLink[] = [
   { name: "Typography", href: "/docs/components/typography", new: true },
 ];
 
+const designSystemComponents: ChangelogLink[] = [
+  { name: "Avatar Group", href: "/docs/components/avatar-group", new: true },
+  { name: "Banner", href: "/docs/components/banner", new: true },
+  { name: "Container", href: "/docs/components/container", new: true },
+  { name: "Data Table", href: "/docs/components/data-table", new: true },
+  { name: "File Upload", href: "/docs/components/file-upload", new: true },
+  { name: "Password Input", href: "/docs/components/password-input", new: true },
+  { name: "Resizable", href: "/docs/components/resizable", new: true },
+  { name: "Search Input", href: "/docs/components/search-input", new: true },
+  { name: "Stack", href: "/docs/components/stack", new: true },
+  { name: "Stat", href: "/docs/components/stat", new: true },
+  { name: "Tag Input", href: "/docs/components/tag-input", new: true },
+  { name: "Tree View", href: "/docs/components/tree-view", new: true },
+  { name: "Visually Hidden", href: "/docs/components/visually-hidden", new: true },
+];
+
 export const changelog: ChangelogRelease[] = [
   {
     version: "1.1.0",
     date: "2026-10-29",
     summary:
-      "A rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero.",
+      "Thirteen new components, a loading Button, status toasts, a rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero.",
     items: [
+      {
+        kind: "added",
+        text: "Thirteen components: form fields for passwords, search, tags, and files; Data Table, Tree View, and Stat for data; Banner and Avatar Group; Stack, Container, Resizable, and Visually Hidden for layout.",
+        links: designSystemComponents,
+      },
+      {
+        kind: "added",
+        text: "Button takes loading: a Spinner in place of the leading icon, aria-busy, and focus kept. Toasts show a hued icon for their type, and toast.promise() moves from loading to success or error.",
+        href: "/docs/components/button#loading",
+        new: true,
+      },
       {
         kind: "changed",
         text: "Installation is five steps from a React app to a rendered Button, then a CLI reference, lumen.json, theming, manual installation, and troubleshooting.",
@@ -210,6 +237,16 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "fixed",
         text: "Drawer shares the overlay of Dialog and Alert Dialog, and Button, Badge, and Progress animate only the properties that change.",
+      },
+      {
+        kind: "fixed",
+        text: "The outline Button has its own light fill instead of the page background, so it no longer reads as a hole.",
+        href: "/docs/components/button#variants",
+      },
+      {
+        kind: "fixed",
+        text: "In dark mode, an Input inside an Input Group no longer paints its own fill over the group's, so the text area and the icon share one colour.",
+        href: "/docs/components/input-group",
       },
     ],
   },

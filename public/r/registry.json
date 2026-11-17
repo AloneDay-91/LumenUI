@@ -63,6 +63,14 @@
       ]
     },
     {
+      "name": "avatar-group",
+      "title": "Avatar Group",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "badge",
       "title": "Badge",
       "dependencies": [
@@ -70,6 +78,19 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "banner",
+      "title": "Banner",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-variants",
         "utils"
       ]
     },
@@ -92,6 +113,7 @@
       ],
       "registryDependencies": [
         "button-variants",
+        "spinner",
         "utils"
       ]
     },
@@ -227,6 +249,17 @@
       ]
     },
     {
+      "name": "container",
+      "title": "Container",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "context-menu",
       "title": "Context Menu",
       "dependencies": [
@@ -243,6 +276,19 @@
       "title": "Data List",
       "dependencies": [],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "data-table",
+      "title": "Data Table",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "search-input",
+        "table",
         "utils"
       ]
     },
@@ -313,6 +359,17 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "file-upload",
+      "title": "File Upload",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-variants",
         "utils"
       ]
     },
@@ -449,6 +506,19 @@
       ]
     },
     {
+      "name": "password-input",
+      "title": "Password Input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-variants",
+        "input",
+        "input-group",
+        "utils"
+      ]
+    },
+    {
       "name": "popover",
       "title": "Popover",
       "dependencies": [
@@ -501,12 +571,35 @@
       ]
     },
     {
+      "name": "resizable",
+      "title": "Resizable",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "scroll-area",
       "title": "Scroll Area",
       "dependencies": [
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "search-input",
+      "title": "Search Input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button-variants",
+        "input",
+        "input-group",
         "utils"
       ]
     },
@@ -580,6 +673,27 @@
       ]
     },
     {
+      "name": "stack",
+      "title": "Stack",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "stat",
+      "title": "Stat",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "stepper",
       "title": "Stepper",
       "dependencies": [
@@ -612,6 +726,16 @@
       "title": "Tabs",
       "dependencies": [
         "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tag-input",
+      "title": "Tag Input",
+      "dependencies": [
+        "lucide-react"
       ],
       "registryDependencies": [
         "utils"
@@ -653,6 +777,7 @@
       ],
       "registryDependencies": [
         "button-variants",
+        "spinner",
         "utils"
       ]
     },
@@ -699,10 +824,30 @@
       ]
     },
     {
+      "name": "tree-view",
+      "title": "Tree View",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "typography",
       "title": "Typography",
       "dependencies": [
         "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "visually-hidden",
+      "title": "Visually Hidden",
+      "dependencies": [
+        "@base-ui/react"
       ],
       "registryDependencies": [
         "utils"

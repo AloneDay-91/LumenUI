@@ -17,18 +17,22 @@ function LoadingButtonDemo() {
   const labelId = React.useId()
 
   return (
-    <Button
-      disabled={loading}
-      focusableWhenDisabled
-      aria-labelledby={labelId}
-      onClick={() => {
-        setLoading(true)
-        setTimeout(() => setLoading(false), 3000)
-      }}
-    >
-      {loading ? <Spinner data-icon="inline-start" /> : null}
-      <span id={labelId}>{loading ? "Submitting" : "Submit"}</span>
-    </Button>
+    <div className="flex flex-wrap items-center gap-3">
+      <Button
+        loading={loading}
+        aria-labelledby={labelId}
+        onClick={() => {
+          setLoading(true)
+          setTimeout(() => setLoading(false), 3000)
+        }}
+      >
+        <span id={labelId}>{loading ? "Submitting" : "Submit"}</span>
+      </Button>
+      <Button variant="outline" loading>
+        Saving
+      </Button>
+      <Button variant="outline" size="icon" loading aria-label="Refresh" />
+    </div>
   )
 }
 
@@ -178,9 +182,10 @@ export default function ButtonPage() {
           <section className="space-y-4">
             <h2 id="loading">Loading state</h2>
             <p>
-              A button that disables itself on click loses focus, which drops the
-              reader out of the flow. Pass <code>focusableWhenDisabled</code> to
-              keep focus on it. Because some screen readers do not announce text
+              <code>loading</code> swaps the leading icon for a{" "}
+              <code>Spinner</code>, sets <code>aria-busy</code>, and blocks
+              clicks while the button keeps focus, so the reader stays in the
+              flow. On an icon button the Spinner replaces the icon. Because some screen readers do not announce text
               changing inside a focused button, point{" "}
               <code>aria-labelledby</code> at the element whose text changes so it
               becomes the button&apos;s explicit accessible name.
@@ -193,14 +198,14 @@ export default function ButtonPage() {
 const labelId = React.useId()
 
 <Button
-  disabled={loading}
-  focusableWhenDisabled
+  loading={loading}
   aria-labelledby={labelId}
   onClick={() => setLoading(true)}
 >
-  {loading ? <Spinner data-icon="inline-start" /> : null}
   <span id={labelId}>{loading ? "Submitting" : "Submit"}</span>
-</Button>`}
+</Button>
+
+<Button size="icon" loading aria-label="Refresh" />`}
             />
           </section>
 

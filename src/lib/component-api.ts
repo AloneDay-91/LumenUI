@@ -317,11 +317,18 @@ export const componentApis: Record<string, ComponentApi> = {
           description: "Disable pointer and fade the chrome.",
         },
         {
+          name: "loading",
+          type: "boolean",
+          default: "false",
+          description:
+            "Shows a Spinner in place of the leading icon, sets aria-busy, and blocks clicks while keeping focus.",
+        },
+        {
           name: "focusableWhenDisabled",
           type: "boolean",
           default: "false",
           description:
-            "Keep focus on the button while disabled. Use it for loading states.",
+            "Keep focus on the button while disabled. On by default while loading.",
         },
         {
           name: "type",
@@ -1741,6 +1748,16 @@ export const componentApis: Record<string, ComponentApi> = {
           type: "{ children: React.ReactNode, onClick?: () => void }",
           description: "Optional action button.",
         },
+        {
+          name: "type",
+          type: '"success" | "error" | "warning" | "info" | "loading"',
+          description: "Shows the matching icon in its hue. loading shows a Spinner.",
+        },
+        {
+          name: "promise",
+          type: "(promise, { loading, success, error }) => Promise",
+          description: "toast.promise() opens a loading toast and turns it into success or error.",
+        },
       ]),
     ],
   },
@@ -2137,6 +2154,224 @@ export const componentApis: Record<string, ComponentApi> = {
         children,
       ]),
       part("TimelineDescription", "What happened.", [className, children]),
+    ],
+  },  "avatar-group": {
+    slug: "avatar-group",
+    source: "src/components/ui/AvatarGroup.tsx",
+    parts: [
+      part("AvatarGroup", "Overlapping row of Avatar, each ringed in the page background.", [className, children]),
+      part("AvatarGroupCount", "Last chip for the avatars left out.", [
+        className,
+        { name: "count", type: "number", description: "How many avatars are hidden. Shown as +count." },
+        { name: "label", type: "string", default: '"{count} more"', description: "Accessible name of the chip." },
+      ]),
+    ],
+  },
+  banner: {
+    slug: "banner",
+    source: "src/components/ui/Banner.tsx",
+    parts: [
+      part("Banner", "Announcement bar or floating pill. A region landmark.", [
+        className,
+        { name: "variant", type: '"default" | "new" | "info" | "success" | "warning" | "destructive"', default: '"default"', description: "Hue of the indicator dot. The surface stays neutral." },
+        { name: "appearance", type: '"bar" | "floating"', default: '"bar"', description: "Full-width bar with a bottom rule, or a centered pill." },
+        open,
+        { name: "defaultOpen", type: "boolean", default: "true", description: "Uncontrolled initial open state." },
+        { name: "onOpenChange", type: "(open: boolean) => void", description: "Called when BannerClose dismisses it." },
+        { name: "aria-label", type: "string", default: '"Announcement"', description: "Name of the region." },
+        children,
+      ]),
+      part("BannerIndicator", "Dot in the variant hue. Children replace it with an icon.", [className, children]),
+      part("BannerContent", "One line that truncates.", [className, children]),
+      part("BannerTitle", "Medium-weight lead.", [className, children]),
+      part("BannerDescription", "Muted copy after a dash. Hidden below sm.", [className, children]),
+      part("BannerAction", "Text link; a small pill when floating.", [className, render, children]),
+      part("BannerClose", "Dismiss button.", [
+        className,
+        { name: "aria-label", type: "string", default: '"Dismiss"', description: "Accessible name of the button." },
+      ]),
+    ],
+  },
+  container: {
+    slug: "container",
+    source: "src/components/ui/Container.tsx",
+    parts: [
+      part("Container", "Centered column with a max width and side gutters.", [
+        className,
+        { name: "size", type: '"sm" | "md" | "lg" | "xl" | "full"', default: '"lg"', description: "Max width: 2xl, 4xl, 6xl, 7xl, or none." },
+        { name: "padding", type: '"none" | "default" | "wide"', default: '"default"', description: "Side gutters. wide matches the marketing header." },
+        render,
+        children,
+      ]),
+    ],
+  },
+  "data-table": {
+    slug: "data-table",
+    source: "src/components/ui/DataTable.tsx",
+    parts: [
+      part("DataTable", "Table with sorting, a filter field, and pages. Client-side.", [
+        className,
+        { name: "columns", type: "DataTableColumn<Row>[]", description: "id, header, accessor, cell, sortable, align, className." },
+        { name: "data", type: "Row[]", description: "Rows to show." },
+        { name: "getRowId", type: "(row: Row, index: number) => string", description: "Stable key per row. Defaults to the index." },
+        { name: "filterable", type: "boolean", default: "false", description: "Adds a SearchInput that matches every accessor value." },
+        { name: "pageSize", type: "number", description: "Rows per page. Unset shows every row." },
+        { name: "defaultSort", type: '{ id: string; direction: "asc" | "desc" }', description: "Initial sort." },
+        { name: "emptyMessage", type: "React.ReactNode", default: '"No results."', description: "Shown when no row matches." },
+        { name: "toolbar", type: "React.ReactNode", description: "Extra controls next to the filter." },
+        { name: "labels", type: "{ previous?, next?, page? }", description: "Text for the pager, for translation." },
+      ]),
+    ],
+  },
+  "file-upload": {
+    slug: "file-upload",
+    source: "src/components/ui/FileUpload.tsx",
+    parts: [
+      part("FileUpload", "Dropzone label around a hidden file input. Click, keyboard, or drop.", [
+        className,
+        { name: "accept", type: "string", description: "Same syntax as the input: .pdf, image/*, text/csv." },
+        { name: "multiple", type: "boolean", default: "false", description: "Accept more than one file." },
+        { name: "maxSize", type: "number", description: "Largest file, in bytes." },
+        { name: "onFilesChange", type: "(files: File[]) => void", description: "Accepted files from a pick or a drop." },
+        { name: "onReject", type: "(rejections: { file: File; reason: \"type\" | \"size\" }[]) => void", description: "Files refused by accept or maxSize." },
+        { name: "disabled", type: "boolean", description: "Disable the dropzone." },
+        children,
+      ]),
+      part("FileUploadList", "List of picked files.", [className, children]),
+      part("FileUploadItem", "One file: icon, name, size, remove.", [
+        className,
+        { name: "file", type: "File", description: "The file to describe." },
+        { name: "onRemove", type: "() => void", description: "Shows a remove button." },
+      ]),
+    ],
+  },
+  "password-input": {
+    slug: "password-input",
+    source: "src/components/ui/PasswordInput.tsx",
+    parts: [
+      part("PasswordInput", "Password field with a show / hide toggle. Accepts native input props.", [
+        className,
+        { name: "visible", type: "boolean", description: "Controlled visibility." },
+        { name: "defaultVisible", type: "boolean", default: "false", description: "Uncontrolled initial visibility." },
+        { name: "onVisibleChange", type: "(visible: boolean) => void", description: "Called when the toggle is pressed." },
+        { name: "showLabel", type: "string", default: '"Show password"', description: "Toggle name while hidden." },
+        { name: "hideLabel", type: "string", default: '"Hide password"', description: "Toggle name while shown." },
+      ]),
+    ],
+  },
+  resizable: {
+    slug: "resizable",
+    source: "src/components/ui/Resizable.tsx",
+    parts: [
+      part("ResizablePanelGroup", "Flex row or column of panels.", [
+        className,
+        { name: "direction", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "Axis of the panels." },
+        { name: "onLayout", type: "(sizes: Record<string, number>) => void", description: "Sizes in percent after a resize." },
+        children,
+      ]),
+      part("ResizablePanel", "One panel.", [
+        className,
+        { name: "defaultSize", type: "number", description: "Initial size in percent. Unset panels share what is left." },
+        { name: "minSize", type: "number", default: "10", description: "Smallest size in percent." },
+        { name: "maxSize", type: "number", default: "100", description: "Largest size in percent." },
+        children,
+      ]),
+      part("ResizableHandle", "Separator between two panels. Drag, or arrows with Shift for big steps.", [
+        className,
+        { name: "withHandle", type: "boolean", default: "false", description: "Draws a grip on the line." },
+        { name: "aria-label", type: "string", default: '"Resize panels"', description: "Accessible name." },
+      ]),
+    ],
+  },
+  "search-input": {
+    slug: "search-input",
+    source: "src/components/ui/SearchInput.tsx",
+    parts: [
+      part("SearchInput", "Search field with a leading icon and a clear button. Escape clears.", [
+        className,
+        { name: "value", type: "string", description: "Controlled value." },
+        { name: "defaultValue", type: "string", default: '""', description: "Uncontrolled initial value." },
+        { name: "onValueChange", type: "(value: string) => void", description: "Called on every change, clear included." },
+        { name: "onClear", type: "() => void", description: "Called when the clear button or Escape empties the field." },
+        { name: "clearLabel", type: "string", default: '"Clear search"', description: "Name of the clear button." },
+      ]),
+    ],
+  },
+  stack: {
+    slug: "stack",
+    source: "src/components/ui/Stack.tsx",
+    parts: [
+      part("Stack", "Flex layout on the Lumen spacing steps.", [
+        className,
+        { name: "direction", type: '"column" | "row" | "column-reverse" | "row-reverse"', default: '"column"', description: "Flex direction." },
+        { name: "gap", type: '"none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl"', default: '"md"', description: "gap-0, 1, 2, 4, 6, 8, or 12." },
+        { name: "align", type: '"start" | "center" | "end" | "stretch" | "baseline"', description: "align-items." },
+        { name: "justify", type: '"start" | "center" | "end" | "between"', description: "justify-content." },
+        { name: "wrap", type: "boolean", description: "flex-wrap." },
+        render,
+        children,
+      ]),
+    ],
+  },
+  stat: {
+    slug: "stat",
+    source: "src/components/ui/Stat.tsx",
+    parts: [
+      part("Stat", "One figure with its label.", [className, children]),
+      part("StatLabel", "What the figure measures.", [className, children]),
+      part("StatValue", "The figure. Tabular numbers.", [className, children]),
+      part("StatDelta", "Change since the last period.", [
+        className,
+        { name: "trend", type: '"up" | "down" | "neutral"', default: '"neutral"', description: "Arrow direction." },
+        { name: "intent", type: '"positive" | "negative" | "neutral"', description: "Which hue reads as good. Defaults from trend: up is jade, down is crimson." },
+        { name: "srLabel", type: "string", description: "Word read before the value. Defaults to Up, Down, or No change." },
+        children,
+      ]),
+      part("StatDescription", "Period or context.", [className, children]),
+    ],
+  },
+  "tag-input": {
+    slug: "tag-input",
+    source: "src/components/ui/TagInput.tsx",
+    parts: [
+      part("TagInput", "Field that turns text into removable tags. Enter or comma adds, Backspace removes the last.", [
+        className,
+        { name: "value", type: "string[]", description: "Controlled tags." },
+        { name: "defaultValue", type: "string[]", default: "[]", description: "Uncontrolled initial tags." },
+        { name: "onValueChange", type: "(value: string[]) => void", description: "Called when a tag is added or removed." },
+        { name: "max", type: "number", description: "Most tags allowed." },
+        { name: "allowDuplicates", type: "boolean", default: "false", description: "Keep a tag that is already there." },
+        { name: "name", type: "string", description: "Posts one hidden input per tag in a form." },
+        { name: "removeLabel", type: "(tag: string) => string", description: "Name of each remove button." },
+      ]),
+    ],
+  },
+  "tree-view": {
+    slug: "tree-view",
+    source: "src/components/ui/TreeView.tsx",
+    parts: [
+      part("TreeView", "ARIA tree from nested items. Arrows, Home, End, and typeahead.", [
+        className,
+        { name: "items", type: "TreeItem[]", description: "id, label, textValue, icon, disabled, children." },
+        { name: "value", type: "string | null", description: "Controlled selected id." },
+        { name: "defaultValue", type: "string | null", description: "Uncontrolled initial selection." },
+        { name: "onValueChange", type: "(id: string, item: TreeItem) => void", description: "Called on select." },
+        { name: "expanded", type: "string[]", description: "Controlled open ids." },
+        { name: "defaultExpanded", type: "string[]", default: "[]", description: "Uncontrolled open ids." },
+        { name: "onExpandedChange", type: "(expanded: string[]) => void", description: "Called when a branch opens or closes." },
+      ]),
+    ],
+  },
+  "visually-hidden": {
+    slug: "visually-hidden",
+    source: "src/components/ui/VisuallyHidden.tsx",
+    parts: [
+      part("VisuallyHidden", "Hidden on screen, read by screen readers.", [
+        className,
+        { name: "focusable", type: "boolean", default: "false", description: "Shows while focused, for skip links." },
+        render,
+        children,
+      ]),
     ],
   },
 }
