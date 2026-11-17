@@ -1,0 +1,19 @@
+{
+  "name": "reasoning",
+  "title": "Reasoning",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Reasoning.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { BrainIcon } from \"lucide-react\"\n\nimport { Trace, TraceContent, TraceTrigger } from \"@/components/ui/Trace\"\nimport { cn } from \"@/lib/utils\"\n\ntype ReasoningContextValue = { streaming: boolean; duration?: number }\n\nconst ReasoningContext = React.createContext<ReasoningContextValue>({ streaming: false })\n\n/**\n * The agent's thinking, on Trace. Open and shimmering while `streaming`, then\n * it folds itself once and says how long it took. The reader can reopen it.\n */\nfunction Reasoning({\n  streaming = false,\n  duration,\n  open: openProp,\n  defaultOpen,\n  onOpenChange,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"status\" | \"variant\"> & {\n  streaming?: boolean\n  /** Seconds spent thinking, shown once streaming ends. */\n  duration?: number\n}) {\n  const [open, setOpen] = React.useState(defaultOpen ?? streaming)\n  const [wasStreaming, setWasStreaming] = React.useState(streaming)\n\n  // Follow the stream: open when it starts, fold once when it ends.\n  if (wasStreaming !== streaming) {\n    setWasStreaming(streaming)\n    if (openProp === undefined) setOpen(streaming)\n  }\n\n  return (\n    <ReasoningContext.Provider value={{ streaming, duration }}>\n      <Trace\n        data-slot=\"reasoning\"\n        status={streaming ? \"running\" : \"done\"}\n        open={openProp ?? open}\n        onOpenChange={(next, details) => {\n          setOpen(next)\n          onOpenChange?.(next, details)\n        }}\n        {...props}\n      />\n    </ReasoningContext.Provider>\n  )\n}\n\nfunction ReasoningTrigger({\n  thinkingLabel = \"Thinking…\",\n  doneLabel = (duration?: number) =>\n    duration === undefined ? \"Thought\" : `Thought for ${Math.max(1, Math.round(duration))}s`,\n  ...props\n}: Omit<React.ComponentProps<typeof TraceTrigger>, \"label\"> & {\n  thinkingLabel?: string\n  doneLabel?: (duration?: number) => string\n}) {\n  const { streaming, duration } = React.useContext(ReasoningContext)\n\n  return (\n    <TraceTrigger\n      icon={<BrainIcon />}\n      label={streaming ? thinkingLabel : doneLabel(duration)}\n      {...props}\n    />\n  )\n}\n\nfunction ReasoningContent({\n  className,\n  ...props\n}: React.ComponentProps<typeof TraceContent>) {\n  return (\n    <TraceContent\n      className={cn(\"[&>div]:leading-5 [&>div]:whitespace-pre-wrap\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Reasoning, ReasoningTrigger, ReasoningContent }\n"
+    }
+  ]
+}

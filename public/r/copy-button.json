@@ -1,0 +1,20 @@
+{
+  "name": "copy-button",
+  "title": "Copy Button",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "button-variants",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "CopyButton.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CheckIcon, CopyIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/Button\"\nimport type { ButtonVariantProps } from \"@/components/ui/button-variants\"\nimport { cn } from \"@/lib/utils\"\n\ntype ButtonProps = React.ComponentProps<typeof Button>\n\n/**\n * Copies `value` to the clipboard and swaps to a check for `timeout` ms.\n * Without children it is an icon button; with children the label swaps too.\n */\nfunction CopyButton({\n  value,\n  timeout = 2000,\n  onCopy,\n  label = \"Copy\",\n  copiedLabel = \"Copied\",\n  variant = \"ghost\",\n  size,\n  className,\n  children,\n  onClick,\n  ...props\n}: Omit<ButtonProps, \"value\" | \"onCopy\"> &\n  ButtonVariantProps & {\n    /** Text to copy, or a function that returns it at click time. */\n    value: string | (() => string)\n    timeout?: number\n    onCopy?: (value: string) => void\n    /** Accessible name before the copy, and the visible label when children are set. */\n    label?: string\n    copiedLabel?: string\n  }) {\n  const [copied, setCopied] = React.useState(false)\n  const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined)\n\n  React.useEffect(() => () => clearTimeout(timer.current), [])\n\n  async function copy(event: Parameters<NonNullable<ButtonProps[\"onClick\"]>>[0]) {\n    onClick?.(event)\n    if (event.defaultPrevented) return\n    const text = typeof value === \"function\" ? value() : value\n    try {\n      await navigator.clipboard.writeText(text)\n    } catch {\n      return\n    }\n    setCopied(true)\n    onCopy?.(text)\n    clearTimeout(timer.current)\n    timer.current = setTimeout(() => setCopied(false), timeout)\n  }\n\n  const iconOnly = children === undefined\n  const Icon = copied ? CheckIcon : CopyIcon\n\n  return (\n    <>\n      <Button\n        data-slot=\"copy-button\"\n        data-copied={copied ? \"\" : undefined}\n        variant={variant}\n        size={size ?? (iconOnly ? \"icon-sm\" : \"default\")}\n        aria-label={iconOnly ? (copied ? copiedLabel : label) : undefined}\n        onClick={copy}\n        className={cn(iconOnly && \"text-muted-foreground hover:text-foreground\", className)}\n        {...props}\n      >\n        <Icon\n          aria-hidden\n          data-icon={iconOnly ? undefined : \"inline-start\"}\n          className={cn(copied && \"text-jade-ink\")}\n        />\n        {iconOnly ? null : copied ? copiedLabel : children}\n      </Button>\n      {/* Outside the button, so it announces without joining the button's name. */}\n      <span role=\"status\" className=\"sr-only\">\n        {copied ? copiedLabel : \"\"}\n      </span>\n    </>\n  )\n}\n\nexport { CopyButton }\n"
+    }
+  ]
+}

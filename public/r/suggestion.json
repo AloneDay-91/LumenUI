@@ -1,0 +1,17 @@
+{
+  "name": "suggestion",
+  "title": "Suggestion",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Suggestion.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { Button } from \"@/components/ui/Button\"\nimport { cn } from \"@/lib/utils\"\n\n/** A row of prompts that scrolls sideways on narrow screens. */\nfunction Suggestions({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"suggestions\"\n      role=\"group\"\n      className={cn(\n        \"flex w-full gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n/** A short prompt you can send to the agent in one click. */\nfunction Suggestion({\n  suggestion,\n  onSelect,\n  children,\n  className,\n  ...props\n}: Omit<React.ComponentProps<typeof Button>, \"onSelect\"> & {\n  suggestion: string\n  onSelect?: (suggestion: string) => void\n}) {\n  return (\n    <Button\n      data-slot=\"suggestion\"\n      variant=\"outline\"\n      size=\"sm\"\n      onClick={() => onSelect?.(suggestion)}\n      className={cn(\"shrink-0 font-normal\", className)}\n      {...props}\n    >\n      {children ?? suggestion}\n    </Button>\n  )\n}\n\nexport { Suggestions, Suggestion }\n"
+    }
+  ]
+}

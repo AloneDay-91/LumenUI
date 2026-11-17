@@ -354,7 +354,7 @@ const changelogKinds: ChangelogKind[] = ["added", "changed", "fixed"]
 function appendChangelog(lines: string[], origin: string) {
   for (const release of changelog) {
     lines.push(
-      `## ${formatDocsVersion(release.version)}`,
+      `## ${formatDocsVersion(release.version)} · ${release.title}`,
       "",
       release.summary,
       "",

@@ -1,0 +1,19 @@
+{
+  "name": "queue",
+  "title": "Queue",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Queue.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ListTodoIcon } from \"lucide-react\"\n\nimport {\n  Trace,\n  TraceContent,\n  TraceStatusIcon,\n  TraceTrigger,\n  type TraceStatus,\n} from \"@/components/ui/Trace\"\nimport { cn } from \"@/lib/utils\"\n\ntype QueueItem = { id: string; title: React.ReactNode; status: TraceStatus }\n\n/**\n * The agent's todo list: what is left on top, what is done folded below it,\n * struck through. A card Trace whose meta counts what remains.\n */\nfunction Queue({\n  title = \"To do\",\n  items,\n  doneLabel = (count: number) => `Done (${count})`,\n  className,\n  defaultOpen = true,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\" | \"status\" | \"children\" | \"title\"> & {\n  title?: React.ReactNode\n  items: QueueItem[]\n  doneLabel?: (count: number) => string\n}) {\n  const left = items.filter((item) => item.status !== \"done\")\n  const done = items.filter((item) => item.status === \"done\")\n  const status: TraceStatus = left.some((item) => item.status === \"running\")\n    ? \"running\"\n    : left.length === 0\n      ? \"done\"\n      : \"pending\"\n\n  return (\n    <Trace data-slot=\"queue\" variant=\"card\" status={status} defaultOpen={defaultOpen} className={className} {...props}>\n      <TraceTrigger\n        icon={<ListTodoIcon />}\n        label={title}\n        showStatus={false}\n        meta={<span className=\"font-mono text-[11px]\">{left.length} left</span>}\n      />\n      <TraceContent>\n        <ul className=\"m-0 flex list-none flex-col gap-1.5 p-3\">\n          {left.map((item) => (\n            <QueueRow key={item.id} item={item} />\n          ))}\n        </ul>\n        {done.length > 0 ? (\n          <details className=\"group/queue-done border-t border-border\">\n            <summary className=\"flex cursor-pointer list-none items-center gap-1.5 px-3 py-2 text-muted-foreground outline-none select-none hover:text-foreground focus-visible:bg-muted/50 [&::-webkit-details-marker]:hidden\">\n              {doneLabel(done.length)}\n            </summary>\n            <ul className=\"m-0 flex list-none flex-col gap-1.5 px-3 pb-3\">\n              {done.map((item) => (\n                <QueueRow key={item.id} item={item} />\n              ))}\n            </ul>\n          </details>\n        ) : null}\n      </TraceContent>\n    </Trace>\n  )\n}\n\nfunction QueueRow({ item }: { item: QueueItem }) {\n  return (\n    <li data-slot=\"queue-item\" data-status={item.status} className=\"flex items-start gap-2\">\n      <span className=\"mt-0.5\">\n        <TraceStatusIcon status={item.status} />\n      </span>\n      <span\n        className={cn(\n          \"min-w-0\",\n          item.status === \"done\" && \"text-muted-foreground line-through decoration-foreground/30\",\n          item.status === \"pending\" && \"text-foreground\",\n          item.status === \"running\" && \"shimmer\"\n        )}\n      >\n        {item.title}\n      </span>\n    </li>\n  )\n}\n\nexport { Queue }\nexport type { QueueItem }\n"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "task",
+  "title": "Task",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Task.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { FileIcon, SearchIcon } from \"lucide-react\"\n\nimport {\n  Trace,\n  TraceContent,\n  TraceStep,\n  TraceSteps,\n  TraceTrigger,\n  type TraceStatus,\n} from \"@/components/ui/Trace\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * What the agent is doing, as it does it: a plain Trace whose title is the\n * task and whose body lists each action as it happens.\n */\nfunction Task({\n  title,\n  status = \"running\",\n  icon = <SearchIcon />,\n  children,\n  defaultOpen = true,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\" | \"children\" | \"title\"> & {\n  title: React.ReactNode\n  status?: TraceStatus\n  icon?: React.ReactNode\n  children: React.ReactNode\n}) {\n  return (\n    <Trace data-slot=\"task\" status={status} defaultOpen={defaultOpen} {...props}>\n      <TraceTrigger icon={icon} label={title} />\n      <TraceContent>\n        <TraceSteps className=\"py-1\">{children}</TraceSteps>\n      </TraceContent>\n    </Trace>\n  )\n}\n\nconst TaskItem = TraceStep\n\n/** A file the task read or wrote, as a small chip inside an item. */\nfunction TaskFile({ className, children, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"task-file\"\n      className={cn(\n        \"inline-flex h-5 w-fit items-center gap-1 rounded-md bg-muted px-1.5 font-mono text-[11px] text-foreground\",\n        className\n      )}\n      {...props}\n    >\n      <FileIcon aria-hidden className=\"size-3 text-muted-foreground\" />\n      {children}\n    </span>\n  )\n}\n\nexport { Task, TaskItem, TaskFile }\nexport type { TraceStatus as TaskStatus }\n"
+    }
+  ]
+}

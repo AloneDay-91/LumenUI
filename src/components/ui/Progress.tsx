@@ -20,7 +20,7 @@ function Progress({
     >
       {children ?? (
         <ProgressPrimitive.Track className="h-1.5 overflow-hidden rounded-full bg-muted">
-          <ProgressPrimitive.Indicator className="h-full bg-primary transition-all" />
+          <ProgressPrimitive.Indicator className="h-full bg-primary transition-[width]" />
         </ProgressPrimitive.Track>
       )}
     </ProgressPrimitive.Root>

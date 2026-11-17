@@ -1,0 +1,19 @@
+{
+  "name": "plan",
+  "title": "Plan",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Plan.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { MapIcon } from \"lucide-react\"\n\nimport { Trace, TraceContent, TraceStep, TraceSteps, TraceTrigger } from \"@/components/ui/Trace\"\nimport type { TraceStatus } from \"@/components/ui/Trace\"\nimport { cn } from \"@/lib/utils\"\n\ntype PlanItem = { id: string; title: React.ReactNode; description?: React.ReactNode; status: TraceStatus }\n\n/**\n * The steps the agent intends to take and how far it has got: a card Trace\n * with a progress bar in the header and the steps on a rail.\n */\nfunction Plan({\n  title = \"Plan\",\n  steps,\n  className,\n  defaultOpen = true,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\" | \"status\" | \"children\" | \"title\"> & {\n  title?: React.ReactNode\n  steps: PlanItem[]\n}) {\n  const done = steps.filter((step) => step.status === \"done\").length\n  const failed = steps.some((step) => step.status === \"error\")\n  const running = steps.some((step) => step.status === \"running\")\n  const status: TraceStatus = failed ? \"error\" : done === steps.length ? \"done\" : running ? \"running\" : \"pending\"\n  const percent = steps.length === 0 ? 0 : Math.round((done / steps.length) * 100)\n\n  return (\n    <Trace\n      data-slot=\"plan\"\n      variant=\"card\"\n      status={status}\n      defaultOpen={defaultOpen}\n      className={className}\n      {...props}\n    >\n      <TraceTrigger\n        icon={<MapIcon />}\n        label={title}\n        showStatus={false}\n        meta={\n          <span className=\"flex items-center gap-2\">\n            <span\n              role=\"progressbar\"\n              aria-label=\"Plan progress\"\n              aria-valuemin={0}\n              aria-valuemax={steps.length}\n              aria-valuenow={done}\n              className=\"h-1 w-16 overflow-hidden rounded-full bg-muted\"\n            >\n              <span\n                className={cn(\"block h-full rounded-full bg-primary transition-[width] duration-300\", failed && \"bg-crimson-solid\")}\n                style={{ width: `${percent}%` }}\n              />\n            </span>\n            <span className=\"font-mono text-[11px]\">\n              {done}/{steps.length}\n            </span>\n          </span>\n        }\n      />\n      <TraceContent>\n        <TraceSteps className=\"px-3 py-3\">\n          {steps.map((step) => (\n            <TraceStep key={step.id} status={step.status} title={step.title} description={step.description} />\n          ))}\n        </TraceSteps>\n      </TraceContent>\n    </Trace>\n  )\n}\n\nexport { Plan }\nexport type { PlanItem }\n"
+    }
+  ]
+}

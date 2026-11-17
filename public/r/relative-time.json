@@ -1,0 +1,16 @@
+{
+  "name": "relative-time",
+  "title": "Relative Time",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "RelativeTime.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst units: [Intl.RelativeTimeFormatUnit, number][] = [\n  [\"year\", 365 * 24 * 3600],\n  [\"month\", 30 * 24 * 3600],\n  [\"week\", 7 * 24 * 3600],\n  [\"day\", 24 * 3600],\n  [\"hour\", 3600],\n  [\"minute\", 60],\n  [\"second\", 1],\n]\n\nfunction relative(date: Date, now: number, locale: string | undefined) {\n  const seconds = Math.round((date.getTime() - now) / 1000)\n  const format = new Intl.RelativeTimeFormat(locale, { numeric: \"auto\" })\n  for (const [unit, size] of units) {\n    if (Math.abs(seconds) >= size || unit === \"second\") {\n      if (unit === \"second\" && Math.abs(seconds) < 45) return format.format(0, \"second\")\n      return format.format(Math.round(seconds / size), unit)\n    }\n  }\n  return \"\"\n}\n\n/** How often to re-render: every 15s in the first minute, then by the unit shown. */\nfunction nextTick(date: Date, now: number) {\n  const age = Math.abs(now - date.getTime()) / 1000\n  if (age < 60) return 15_000\n  if (age < 3600) return 60_000\n  if (age < 86_400) return 3_600_000\n  return null\n}\n\n/**\n * \"3 minutes ago\" that keeps itself current. A native <time> with the exact\n * date in its title and dateTime, so the precise moment is one hover away.\n */\nfunction RelativeTime({\n  className,\n  date: dateProp,\n  locale,\n  titleFormat = { dateStyle: \"medium\", timeStyle: \"short\" },\n  ...props\n}: Omit<React.ComponentProps<\"time\">, \"dateTime\" | \"children\"> & {\n  date: Date | string | number\n  locale?: string\n  titleFormat?: Intl.DateTimeFormatOptions\n}) {\n  const date = React.useMemo(() => new Date(dateProp), [dateProp])\n  // Default to the page's language, not the browser's, so the text matches the UI around it.\n  const resolvedLocale =\n    locale ?? (typeof document === \"undefined\" ? undefined : document.documentElement.lang || undefined)\n  const [now, setNow] = React.useState(() => Date.now())\n\n  React.useEffect(() => {\n    const delay = nextTick(date, now)\n    if (delay === null) return\n    const id = setTimeout(() => setNow(Date.now()), delay)\n    return () => clearTimeout(id)\n  }, [date, now])\n\n  return (\n    <time\n      data-slot=\"relative-time\"\n      dateTime={date.toISOString()}\n      title={new Intl.DateTimeFormat(resolvedLocale, titleFormat).format(date)}\n      // Server and client clocks differ by the time it takes to hydrate.\n      suppressHydrationWarning\n      className={cn(\"tabular-nums\", className)}\n      {...props}\n    >\n      {relative(date, now, resolvedLocale)}\n    </time>\n  )\n}\n\nexport { RelativeTime }\n"
+    }
+  ]
+}

@@ -6,6 +6,12 @@ import { PageIntro } from "@/components/docs/Preview"
 
 const rows = [
   {
+    from: "ai-elements",
+    to: "AI patterns",
+    href: "/docs/ai",
+    note: "Chat, Message, Reasoning, Tool and the agent steps, all on Trace. The page maps each AI Elements file.",
+  },
+  {
     from: "dropdown-menu",
     to: "Menu",
     href: "/docs/components/menu",

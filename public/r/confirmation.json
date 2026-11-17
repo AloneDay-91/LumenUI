@@ -1,0 +1,20 @@
+{
+  "name": "confirmation",
+  "title": "Confirmation",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "code-block",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Confirmation.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CheckIcon, ShieldAlertIcon, XIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/Button\"\nimport { CodeBlock } from \"@/components/ui/CodeBlock\"\nimport { cn } from \"@/lib/utils\"\n\ntype ConfirmationState = \"pending\" | \"approved\" | \"denied\"\n\n/**\n * Asks before a tool runs: what it will do, the arguments, and Approve or\n * Deny. Once answered, the card shrinks to one line that says what was decided.\n */\nfunction Confirmation({\n  title,\n  description,\n  input,\n  state = \"pending\",\n  onApprove,\n  onDeny,\n  labels = {},\n  className,\n}: {\n  title: React.ReactNode\n  description?: React.ReactNode\n  /** The tool arguments, printed as JSON. */\n  input?: unknown\n  state?: ConfirmationState\n  onApprove?: () => void\n  onDeny?: () => void\n  labels?: { approve?: string; deny?: string; approved?: string; denied?: string }\n  className?: string\n}) {\n  const titleId = React.useId()\n\n  if (state !== \"pending\") {\n    const approved = state === \"approved\"\n    return (\n      <div\n        data-slot=\"confirmation\"\n        data-state={state}\n        className={cn(\"flex items-center gap-2 text-xs text-muted-foreground\", className)}\n      >\n        {approved ? (\n          <CheckIcon aria-hidden className=\"size-3.5 text-jade-ink\" />\n        ) : (\n          <XIcon aria-hidden className=\"size-3.5 text-crimson-ink\" />\n        )}\n        <span>\n          {approved ? (labels.approved ?? \"Approved\") : (labels.denied ?? \"Denied\")}:{\" \"}\n          <span className=\"text-foreground\">{title}</span>\n        </span>\n      </div>\n    )\n  }\n\n  return (\n    <section\n      data-slot=\"confirmation\"\n      data-state={state}\n      aria-labelledby={titleId}\n      className={cn(\n        \"flex flex-col gap-3 rounded-2xl border border-orange-line bg-card p-3 text-xs\",\n        className\n      )}\n    >\n      <div className=\"flex items-start gap-2.5\">\n        <span className=\"flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-wash text-orange-ink\">\n          <ShieldAlertIcon aria-hidden className=\"size-3.5\" />\n        </span>\n        <div className=\"flex min-w-0 flex-col gap-0.5 pt-0.5\">\n          <h3 id={titleId} className=\"m-0 text-sm font-medium\">\n            {title}\n          </h3>\n          {description ? <p className=\"m-0 text-muted-foreground\">{description}</p> : null}\n        </div>\n      </div>\n      {input !== undefined ? (\n        <CodeBlock\n          code={typeof input === \"string\" ? input : JSON.stringify(input, null, 2)}\n          copyable={false}\n          wrap\n          className=\"[&>pre]:p-2.5\"\n        />\n      ) : null}\n      <div className=\"flex justify-end gap-2\">\n        <Button variant=\"ghost\" size=\"sm\" onClick={onDeny}>\n          {labels.deny ?? \"Deny\"}\n        </Button>\n        <Button size=\"sm\" onClick={onApprove}>\n          {labels.approve ?? \"Approve\"}\n        </Button>\n      </div>\n    </section>\n  )\n}\n\nexport { Confirmation }\nexport type { ConfirmationState }\n"
+    }
+  ]
+}

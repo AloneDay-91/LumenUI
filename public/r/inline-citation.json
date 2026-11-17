@@ -1,0 +1,18 @@
+{
+  "name": "inline-citation",
+  "title": "Inline Citation",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "preview-card",
+    "sources",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "InlineCitation.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { PreviewCard, PreviewCardContent, PreviewCardTrigger } from \"@/components/ui/PreviewCard\"\nimport { SiteMark, hostOf } from \"@/components/ui/Sources\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * A source in the sentence: a small pill with the site name that opens a\n * preview on hover or focus, with the title, the excerpt, and the link.\n */\nfunction InlineCitation({\n  href,\n  title,\n  excerpt,\n  index,\n  className,\n}: {\n  href: string\n  title: React.ReactNode\n  excerpt?: React.ReactNode\n  /** Shows \"[1]\" style numbering instead of the site name. */\n  index?: number\n  className?: string\n}) {\n  const host = hostOf(href)\n\n  return (\n    <PreviewCard>\n      <PreviewCardTrigger\n        href={href}\n        target=\"_blank\"\n        rel=\"noreferrer\"\n        data-slot=\"inline-citation\"\n        className={cn(\n          \"mx-0.5 inline-flex h-[1.125rem] translate-y-[-1px] items-center rounded-full bg-secondary px-1.5 align-middle font-mono text-[10px] font-medium text-secondary-foreground no-underline outline-none hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_6%)] focus-visible:ring-3 focus-visible:ring-ring/30\",\n          className\n        )}\n      >\n        {index !== undefined ? index : host}\n      </PreviewCardTrigger>\n      <PreviewCardContent className=\"flex w-80 flex-col gap-2\">\n        <span className=\"flex items-center gap-2 text-muted-foreground\">\n          <SiteMark href={href} />\n          {host}\n        </span>\n        <span className=\"text-sm leading-5 font-medium text-foreground\">{title}</span>\n        {excerpt ? <span className=\"line-clamp-3 leading-5 text-muted-foreground\">{excerpt}</span> : null}\n      </PreviewCardContent>\n    </PreviewCard>\n  )\n}\n\nexport { InlineCitation }\n"
+    }
+  ]
+}

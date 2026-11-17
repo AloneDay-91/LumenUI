@@ -1,0 +1,20 @@
+{
+  "name": "terminal",
+  "title": "Terminal",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "copy-button",
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Terminal.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { SquareTerminalIcon } from \"lucide-react\"\n\nimport { CopyButton } from \"@/components/ui/CopyButton\"\nimport { Trace, TraceContent, TraceTrigger, type TraceStatus } from \"@/components/ui/Trace\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * A command the agent runs and its output as it streams. Ink on a dark pane\n * in both themes, like a real terminal; the exit code sets the status.\n */\nfunction Terminal({\n  command,\n  output = \"\",\n  status,\n  exitCode,\n  cwd,\n  maxHeight = \"16rem\",\n  defaultOpen = true,\n  className,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\" | \"status\" | \"children\"> & {\n  command: string\n  output?: string\n  /** Running until an exit code arrives, unless set. */\n  status?: TraceStatus\n  exitCode?: number\n  cwd?: string\n  maxHeight?: string\n}) {\n  const resolved: TraceStatus =\n    status ?? (exitCode === undefined ? \"running\" : exitCode === 0 ? \"done\" : \"error\")\n  const bodyRef = React.useRef<HTMLPreElement>(null)\n\n  // Follow the output while it streams.\n  React.useEffect(() => {\n    const body = bodyRef.current\n    if (body && resolved === \"running\") body.scrollTop = body.scrollHeight\n  }, [output, resolved])\n\n  return (\n    <Trace\n      data-slot=\"terminal\"\n      variant=\"card\"\n      status={resolved}\n      defaultOpen={defaultOpen}\n      className={className}\n      {...props}\n    >\n      <TraceTrigger\n        icon={<SquareTerminalIcon />}\n        meta={exitCode !== undefined ? <span className=\"font-mono text-[11px]\">exit {exitCode}</span> : undefined}\n      >\n        <span className=\"font-mono\">{command}</span>\n      </TraceTrigger>\n      <TraceContent>\n        <div className=\"relative bg-neutral-950 text-neutral-100\">\n          <CopyButton\n            value={`$ ${command}\\n${output}`}\n            size=\"icon-xs\"\n            label=\"Copy output\"\n            className=\"absolute end-1.5 top-1.5 text-neutral-400 hover:bg-white/10 hover:text-neutral-100\"\n          />\n          <pre\n            ref={bodyRef}\n            tabIndex={0}\n            aria-live={resolved === \"running\" ? \"polite\" : undefined}\n            className=\"m-0 overflow-auto p-3 pe-10 font-mono text-[12px] leading-5 whitespace-pre-wrap outline-none focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:ring-inset\"\n            style={{ maxHeight }}\n          >\n            <span className=\"text-neutral-500 select-none\">{cwd ? `${cwd} ` : \"\"}$ </span>\n            <span className=\"text-neutral-50\">{command}</span>\n            {\"\\n\"}\n            <span className={cn(resolved === \"error\" ? \"text-red-300\" : \"text-neutral-300\")}>{output}</span>\n            {resolved === \"running\" ? (\n              <span aria-hidden className=\"ms-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 animate-pulse bg-neutral-300\" />\n            ) : null}\n          </pre>\n        </div>\n      </TraceContent>\n    </Trace>\n  )\n}\n\nexport { Terminal }\n"
+    }
+  ]
+}

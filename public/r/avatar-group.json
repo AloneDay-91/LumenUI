@@ -1,0 +1,16 @@
+{
+  "name": "avatar-group",
+  "title": "Avatar Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "AvatarGroup.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction AvatarGroup({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"avatar-group\"\n      role=\"group\"\n      className={cn(\n        \"flex items-center -space-x-2 rtl:space-x-reverse\",\n        \"*:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarGroupCount({\n  className,\n  count,\n  label = `${count} more`,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & {\n  count: number\n  label?: string\n}) {\n  return (\n    <span\n      data-slot=\"avatar-group-count\"\n      aria-label={label}\n      className={cn(\n        \"relative flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary font-mono text-[11px] font-medium text-secondary-foreground ring-2 ring-background tabular-nums\",\n        className\n      )}\n      {...props}\n    >\n      <span aria-hidden>+{count}</span>\n    </span>\n  )\n}\n\nexport { AvatarGroup, AvatarGroupCount }\n"
+    }
+  ]
+}

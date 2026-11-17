@@ -1,14 +1,34 @@
 "use client";
 
+import type * as React from "react";
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
-import { XIcon } from "lucide-react";
+import {
+  CircleAlertIcon,
+  CircleCheckIcon,
+  InfoIcon,
+  TriangleAlertIcon,
+  XIcon,
+} from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { Spinner } from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 
 function ToastProvider(props: ToastPrimitive.Provider.Props) {
   return <ToastPrimitive.Provider data-slot="toast-provider" {...props} />;
 }
+
+/**
+ * Status icon for `toast.type`. `toastManager.promise()` sets `loading`, then
+ * `success` or `error`, so a promise toast animates through all three.
+ */
+const toastIcons: Record<string, React.ReactNode> = {
+  loading: <Spinner role={undefined} aria-label={undefined} className="size-4 text-muted-foreground" />,
+  success: <CircleCheckIcon className="size-4 text-jade-ink" />,
+  error: <CircleAlertIcon className="size-4 text-crimson-ink" />,
+  warning: <TriangleAlertIcon className="size-4 text-orange-ink" />,
+  info: <InfoIcon className="size-4 text-indigo-ink" />,
+};
 
 function Toaster() {
   const { toasts } = ToastPrimitive.useToastManager();
@@ -17,7 +37,7 @@ function Toaster() {
     <ToastPrimitive.Portal>
       <ToastPrimitive.Viewport
         data-slot="toast-viewport"
-        className="fixed top-auto right-4 bottom-4 z-50 mx-auto flex w-[calc(100vw-2rem)] outline-none sm:right-8 sm:bottom-8 sm:w-80"
+        className="fixed top-auto right-4 bottom-4 z-50 mx-auto flex w-[calc(100vw-2rem)] outline-none sm:right-8 sm:bottom-8 sm:w-96"
       >
         {toasts.map((toast) => (
           <ToastPrimitive.Root
@@ -44,26 +64,34 @@ function Toaster() {
           >
             <ToastPrimitive.Content
               data-slot="toast-content"
-              className="flex items-start gap-3 overflow-hidden p-3 transition-opacity duration-[250ms] data-behind:pointer-events-none data-behind:opacity-0 data-expanded:pointer-events-auto data-expanded:opacity-100"
+              className="relative grid grid-cols-[minmax(0,1fr)_auto] items-start has-data-[slot=toast-icon]:ps-9 gap-x-6 gap-y-1 overflow-hidden p-3.5 transition-opacity duration-[250ms] data-behind:pointer-events-none data-behind:opacity-0 data-expanded:pointer-events-auto data-expanded:opacity-100"
             >
-              <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <ToastPrimitive.Title className="m-0 text-sm font-medium" />
-                <ToastPrimitive.Description className="m-0 text-xs text-muted-foreground" />
-              </div>
-              <ToastPrimitive.Action
-                className={cn(
-                  buttonVariants({ size: "sm", variant: "outline" }),
-                )}
-              />
+              {toast.type && toastIcons[toast.type] ? (
+                <span
+                  data-slot="toast-icon"
+                  aria-hidden
+                  className="absolute start-3.5 top-[1.0625rem] flex"
+                >
+                  {toastIcons[toast.type]}
+                </span>
+              ) : null}
+              <ToastPrimitive.Title className="col-start-1 row-start-1 m-0 text-sm leading-5 font-medium text-balance" />
               <ToastPrimitive.Close
                 className={cn(
                   buttonVariants({ size: "icon-xs", variant: "ghost" }),
-                  "shrink-0 text-muted-foreground hover:text-foreground",
+                  "col-start-2 row-start-1 -mt-0.5 text-muted-foreground hover:text-foreground",
                 )}
                 aria-label="Close"
               >
                 <XIcon className="size-3.5" />
               </ToastPrimitive.Close>
+              <ToastPrimitive.Description className="col-span-2 m-0 text-[13px] leading-5 text-pretty text-muted-foreground" />
+              <ToastPrimitive.Action
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "col-span-2 mt-1.5 justify-self-end",
+                )}
+              />
             </ToastPrimitive.Content>
           </ToastPrimitive.Root>
         ))}

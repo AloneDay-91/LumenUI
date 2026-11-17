@@ -1,0 +1,19 @@
+{
+  "name": "file-tree",
+  "title": "File Tree",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "tree-view",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "FileTree.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { FileIcon, FolderIcon } from \"lucide-react\"\n\nimport { TreeView, type TreeItem } from \"@/components/ui/TreeView\"\nimport { cn } from \"@/lib/utils\"\n\ntype FileChange = \"added\" | \"modified\" | \"deleted\"\n\ntype FileNode = {\n  /** Path segment: a folder or file name. */\n  name: string\n  change?: FileChange\n  children?: FileNode[]\n}\n\nconst changeMark: Record<FileChange, { letter: string; className: string; label: string }> = {\n  added: { letter: \"A\", className: \"text-jade-ink\", label: \"added\" },\n  modified: { letter: \"M\", className: \"text-orange-ink\", label: \"modified\" },\n  deleted: { letter: \"D\", className: \"text-crimson-ink\", label: \"deleted\" },\n}\n\nfunction toItems(nodes: FileNode[], parent = \"\"): TreeItem[] {\n  return nodes.map((node) => {\n    const path = parent ? `${parent}/${node.name}` : node.name\n    const isFolder = Boolean(node.children)\n    const mark = node.change ? changeMark[node.change] : null\n    return {\n      id: path,\n      textValue: node.name,\n      icon: isFolder ? <FolderIcon /> : <FileIcon />,\n      label: (\n        <span className=\"flex min-w-0 items-center gap-2\">\n          <span className={cn(\"truncate font-mono\", node.change === \"deleted\" && \"line-through opacity-60\")}>\n            {node.name}\n          </span>\n          {mark ? (\n            <span className={cn(\"ms-auto font-mono text-[10px] font-medium\", mark.className)}>\n              <span aria-hidden>{mark.letter}</span>\n              <span className=\"sr-only\">, {mark.label}</span>\n            </span>\n          ) : null}\n        </span>\n      ),\n      children: node.children ? toItems(node.children, path) : undefined,\n    }\n  })\n}\n\nfunction allFolders(nodes: FileNode[], parent = \"\"): string[] {\n  return nodes.flatMap((node) => {\n    const path = parent ? `${parent}/${node.name}` : node.name\n    return node.children ? [path, ...allFolders(node.children, path)] : []\n  })\n}\n\n/**\n * The files an agent changed, as a folder tree on Tree View, with A / M / D\n * marks in the hues. Every folder starts open; the full path is the item id.\n */\nfunction FileTree({\n  files,\n  onSelect,\n  className,\n  \"aria-label\": ariaLabel = \"Changed files\",\n}: {\n  files: FileNode[]\n  /** Called with the path of the picked file. */\n  onSelect?: (path: string) => void\n  className?: string\n  \"aria-label\"?: string\n}) {\n  const items = React.useMemo(() => toItems(files), [files])\n  const folders = React.useMemo(() => allFolders(files), [files])\n\n  return (\n    <TreeView\n      data-slot=\"file-tree\"\n      aria-label={ariaLabel}\n      items={items}\n      defaultExpanded={folders}\n      onValueChange={(id, item) => {\n        if (!item.children) onSelect?.(id)\n      }}\n      className={cn(\"[&_[data-slot=tree-view-row]>span:last-child]:flex-1\", className)}\n    />\n  )\n}\n\nexport { FileTree }\nexport type { FileNode, FileChange }\n"
+    }
+  ]
+}

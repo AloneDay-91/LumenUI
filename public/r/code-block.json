@@ -1,0 +1,17 @@
+{
+  "name": "code-block",
+  "title": "Code Block",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "copy-button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "CodeBlock.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { CopyButton } from \"@/components/ui/CopyButton\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Code on a muted panel with a header for the file name and a copy button.\n * No highlighter is bundled: pass highlighted nodes as children, or a plain\n * string as `code`. `code` is also what the copy button copies.\n */\nfunction CodeBlock({\n  className,\n  code,\n  title,\n  language,\n  lineNumbers = false,\n  wrap = false,\n  maxHeight,\n  copyable = true,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  code: string\n  /** File name or label in the header. */\n  title?: React.ReactNode\n  /** Shown in the header when there is no title. */\n  language?: string\n  lineNumbers?: boolean\n  /** Wrap long lines instead of scrolling sideways. */\n  wrap?: boolean\n  /** Any CSS length. The body scrolls past it. */\n  maxHeight?: string\n  copyable?: boolean\n}) {\n  const label = title ?? language\n  const lines = code.replace(/\\n$/, \"\").split(\"\\n\")\n\n  return (\n    <div\n      data-slot=\"code-block\"\n      className={cn(\n        \"overflow-hidden rounded-2xl border border-border bg-muted/40 text-xs\",\n        className\n      )}\n      {...props}\n    >\n      {label || copyable ? (\n        <div className=\"flex h-9 items-center justify-between gap-2 border-b border-border ps-3 pe-1.5\">\n          <span className=\"min-w-0 truncate font-mono text-[11px] text-muted-foreground\">{label}</span>\n          {copyable ? <CopyButton value={code} size=\"icon-xs\" label=\"Copy code\" /> : null}\n        </div>\n      ) : null}\n      <pre\n        data-slot=\"code-block-body\"\n        tabIndex={0}\n        className={cn(\n          \"m-0 overflow-auto p-3 font-mono text-[12px] leading-5 outline-none focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:ring-inset\",\n          wrap ? \"whitespace-pre-wrap break-words\" : \"whitespace-pre\"\n        )}\n        style={maxHeight ? { maxHeight } : undefined}\n      >\n        {children ? (\n          children\n        ) : lineNumbers ? (\n          <code className=\"grid grid-cols-[auto_1fr] gap-x-4\">\n            {lines.map((line, index) => (\n              <React.Fragment key={index}>\n                <span aria-hidden className=\"text-end text-muted-foreground/60 select-none tabular-nums\">\n                  {index + 1}\n                </span>\n                <span>{line || \" \"}</span>\n              </React.Fragment>\n            ))}\n          </code>\n        ) : (\n          <code>{code}</code>\n        )}\n      </pre>\n    </div>\n  )\n}\n\nexport { CodeBlock }\n"
+    }
+  ]
+}

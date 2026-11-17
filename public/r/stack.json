@@ -1,0 +1,19 @@
+{
+  "name": "stack",
+  "title": "Stack",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Stack.tsx",
+      "content": "\"use client\"\n\nimport { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst stackVariants = cva(\"flex\", {\n  variants: {\n    direction: {\n      column: \"flex-col\",\n      row: \"flex-row\",\n      \"column-reverse\": \"flex-col-reverse\",\n      \"row-reverse\": \"flex-row-reverse\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n      baseline: \"items-baseline\",\n    },\n    justify: {\n      start: \"justify-start\",\n      center: \"justify-center\",\n      end: \"justify-end\",\n      between: \"justify-between\",\n    },\n    wrap: {\n      true: \"flex-wrap\",\n      false: \"flex-nowrap\",\n    },\n  },\n  defaultVariants: {\n    direction: \"column\",\n    gap: \"md\",\n  },\n})\n\n/** Flex layout on the Lumen spacing steps. Renders a div unless `render` says otherwise. */\nfunction Stack({\n  className,\n  direction,\n  gap,\n  align,\n  justify,\n  wrap,\n  render,\n  ...props\n}: useRender.ComponentProps<\"div\"> & VariantProps<typeof stackVariants>) {\n  return useRender({\n    defaultTagName: \"div\",\n    render,\n    props: mergeProps<\"div\">(\n      {\n        className: cn(stackVariants({ direction, gap, align, justify, wrap }), className),\n      },\n      props\n    ),\n    state: { slot: \"stack\", direction: direction ?? \"column\" },\n  })\n}\n\nexport { Stack, stackVariants }\n"
+    }
+  ]
+}

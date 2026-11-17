@@ -1,0 +1,19 @@
+{
+  "name": "container",
+  "title": "Container",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Container.tsx",
+      "content": "\"use client\"\n\nimport { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst containerVariants = cva(\"mx-auto w-full\", {\n  variants: {\n    size: {\n      sm: \"max-w-2xl\",\n      md: \"max-w-4xl\",\n      lg: \"max-w-6xl\",\n      xl: \"max-w-7xl\",\n      full: \"max-w-none\",\n    },\n    padding: {\n      none: \"px-0\",\n      default: \"px-4 md:px-6\",\n      wide: \"px-6 md:px-12\",\n    },\n  },\n  defaultVariants: {\n    size: \"lg\",\n    padding: \"default\",\n  },\n})\n\n/** Centered column with a max width and side gutters. */\nfunction Container({\n  className,\n  size,\n  padding,\n  render,\n  ...props\n}: useRender.ComponentProps<\"div\"> & VariantProps<typeof containerVariants>) {\n  return useRender({\n    defaultTagName: \"div\",\n    render,\n    props: mergeProps<\"div\">(\n      { className: cn(containerVariants({ size, padding }), className) },\n      props\n    ),\n    state: { slot: \"container\", size: size ?? \"lg\" },\n  })\n}\n\nexport { Container, containerVariants }\n"
+    }
+  ]
+}

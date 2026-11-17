@@ -1,0 +1,18 @@
+{
+  "name": "visually-hidden",
+  "title": "Visually Hidden",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "VisuallyHidden.tsx",
+      "content": "\"use client\"\n\nimport { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Hidden on screen, read by screen readers. With `focusable`, it shows again\n * while it holds focus — the pattern behind a skip link.\n */\nfunction VisuallyHidden({\n  className,\n  focusable = false,\n  render,\n  ...props\n}: useRender.ComponentProps<\"span\"> & { focusable?: boolean }) {\n  return useRender({\n    defaultTagName: \"span\",\n    render,\n    props: mergeProps<\"span\">(\n      {\n        className: cn(\n          \"sr-only\",\n          focusable && \"focus:not-sr-only focus-within:not-sr-only\",\n          className\n        ),\n      },\n      props\n    ),\n    state: { slot: \"visually-hidden\" },\n  })\n}\n\nexport { VisuallyHidden }\n"
+    }
+  ]
+}

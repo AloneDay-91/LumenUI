@@ -16,6 +16,8 @@ export type ChangelogItem = {
 
 export type ChangelogRelease = {
   version: string;
+  /** A short name for the release, two to five words. Shown next to the version. */
+  title: string;
   date: string;
   summary: string;
   items: ChangelogItem[];
@@ -91,9 +93,119 @@ const releaseComponents: ChangelogLink[] = [
   { name: "Typography", href: "/docs/components/typography", new: true },
 ];
 
+const designSystemComponents: ChangelogLink[] = [
+  { name: "Avatar Group", href: "/docs/components/avatar-group", new: true },
+  { name: "Banner", href: "/docs/components/banner", new: true },
+  { name: "Container", href: "/docs/components/container", new: true },
+  { name: "Data Table", href: "/docs/components/data-table", new: true },
+  { name: "File Upload", href: "/docs/components/file-upload", new: true },
+  { name: "Password Input", href: "/docs/components/password-input", new: true },
+  { name: "Resizable", href: "/docs/components/resizable", new: true },
+  { name: "Search Input", href: "/docs/components/search-input", new: true },
+  { name: "Stack", href: "/docs/components/stack", new: true },
+  { name: "Stat", href: "/docs/components/stat", new: true },
+  { name: "Tag Input", href: "/docs/components/tag-input", new: true },
+  { name: "Tree View", href: "/docs/components/tree-view", new: true },
+  { name: "Visually Hidden", href: "/docs/components/visually-hidden", new: true },
+  { name: "Copy Button", href: "/docs/components/copy-button", new: true },
+  { name: "Filter Bar", href: "/docs/components/filter-bar", new: true },
+  { name: "Sortable List", href: "/docs/components/sortable-list", new: true },
+  { name: "Split Button", href: "/docs/components/split-button", new: true },
+  { name: "Time Picker", href: "/docs/components/time-picker", new: true },
+  { name: "Image Gallery", href: "/docs/components/image-gallery", new: true },
+  { name: "Marquee", href: "/docs/components/marquee", new: true },
+  { name: "Notification Center", href: "/docs/components/notification-center", new: true },
+  { name: "Relative Time", href: "/docs/components/relative-time", new: true },
+  { name: "Tour", href: "/docs/components/tour", new: true },
+];
+
+const aiComponents: ChangelogLink[] = [
+  { name: "AI patterns", href: "/docs/ai", new: true },
+  { name: "Chat", href: "/docs/components/chat", new: true },
+  { name: "Message", href: "/docs/components/message", new: true },
+  { name: "Prompt Input", href: "/docs/components/prompt-input", new: true },
+  { name: "Trace", href: "/docs/components/trace", new: true },
+  { name: "Reasoning", href: "/docs/components/reasoning", new: true },
+  { name: "Tool", href: "/docs/components/tool", new: true },
+  { name: "Chain of Thought", href: "/docs/components/chain-of-thought", new: true },
+  { name: "Plan", href: "/docs/components/plan", new: true },
+  { name: "Task", href: "/docs/components/task", new: true },
+  { name: "Queue", href: "/docs/components/queue", new: true },
+  { name: "Subagent", href: "/docs/components/subagent", new: true },
+  { name: "Confirmation", href: "/docs/components/confirmation", new: true },
+  { name: "Terminal", href: "/docs/components/terminal", new: true },
+  { name: "Stack Trace", href: "/docs/components/stack-trace", new: true },
+  { name: "Test Results", href: "/docs/components/test-results", new: true },
+  { name: "File Tree", href: "/docs/components/file-tree", new: true },
+  { name: "Sources", href: "/docs/components/sources", new: true },
+  { name: "Inline Citation", href: "/docs/components/inline-citation", new: true },
+  { name: "Suggestion", href: "/docs/components/suggestion", new: true },
+  { name: "Checkpoint", href: "/docs/components/checkpoint", new: true },
+  { name: "Context", href: "/docs/components/context", new: true },
+  { name: "Model Selector", href: "/docs/components/model-selector", new: true },
+  { name: "Message Scroller", href: "/docs/components/message-scroller", new: true },
+  { name: "Code Block", href: "/docs/components/code-block", new: true },
+  { name: "Attachment", href: "/docs/components/attachment", new: true },
+];
+
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.2.0",
+    title: "Components for AI apps",
+    date: "2026-11-17",
+    summary:
+      "Form, data, and layout components, AI patterns built on one Trace, a loading Button, and status toasts.",
+    items: [
+      {
+        kind: "added",
+        text: "Twenty-three components: form fields for passwords, search, tags, files, and time; Data Table, Filter Bar, Tree View, Sortable List, Stat, Image Gallery, and Relative Time for data; Copy Button and Split Button; Banner, Avatar Group, Notification Center, and Tour; Stack, Container, Resizable, Marquee, and Visually Hidden for layout.",
+        links: designSystemComponents,
+      },
+      {
+        kind: "added",
+        text: "AI patterns: Chat, Message, and Prompt Input for the thread; Reasoning, Tool, Plan, Task, Queue, Chain of Thought, and Subagent for the steps an agent takes, all built on one Trace; Terminal, Test Results, Stack Trace, and File Tree for what it produces; Sources and Inline Citation for where the answer comes from. Message Scroller, Code Block, and Attachment come with them.",
+        links: aiComponents,
+      },
+      {
+        kind: "added",
+        text: "Button takes loading: a Spinner in place of the leading icon, aria-busy, and focus kept. Toasts show a hued icon for their type, and toast.promise() moves from loading to success or error.",
+        href: "/docs/components/button#loading",
+        new: true,
+      },
+      {
+        kind: "fixed",
+        text: "Destructive takes the crimson hue, so the destructive Button, Alert, and invalid fields match the crimson Badge and Callout.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "fixed",
+        text: "Secondary, muted, accent, the sidebar, and the gray panel use the warm neutral of the background, and the focus ring is darker so it reads on paper.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "fixed",
+        text: "Drawer shares the overlay of Dialog and Alert Dialog, and Button, Badge, and Progress animate only the properties that change.",
+      },
+      {
+        kind: "fixed",
+        text: "The outline Button has its own light fill instead of the page background, so it no longer reads as a hole.",
+        href: "/docs/components/button#variants",
+      },
+      {
+        kind: "fixed",
+        text: "In dark mode, an Input inside an Input Group no longer paints its own fill over the group's, so the text area and the icon share one colour.",
+        href: "/docs/components/input-group",
+      },
+      {
+        kind: "fixed",
+        text: "A long toast description wraps under the title, and the action is a large button at the bottom right.",
+        href: "/docs/components/toast",
+      },
+    ],
+  },
+  {
     version: "1.1.0",
+    title: "Installation and guides",
     date: "2026-10-29",
     summary:
       "A rewritten installation path, Choose and From shadcn, an accessibility page, recipes, a Sidebar that opens on hover, a CLI that keeps your edits, and a docs preview in the hero.",
@@ -201,6 +313,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.7",
+    title: "Shared hues and Callout",
     date: "2026-10-29",
     summary:
       "Callout, shared hues in the global sheet, field-matched cards, Data List, Theme Toggle, drawer and toast motion, pointer cursors, the CLI stylesheet, and the Customize preview.",
@@ -295,6 +408,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.6",
+    title: "Sharper Kbd, safer CLI",
     date: "2026-10-23",
     summary: "Kbd glyph alignment, CLI path and install hardening",
     items: [
@@ -315,6 +429,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.5",
+    title: "Node.js security pin",
     date: "2026-10-23",
     summary:
       "Node.js pinned to the October 2026 security releases (22.23.4 / 24.22.1).",
@@ -327,6 +442,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.4",
+    title: "Trusted publishing",
     date: "2026-10-15",
     summary: "CLI releases publish to npm through Trusted Publisher (OIDC).",
     items: [
@@ -338,6 +454,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.3",
+    title: "Buttons follow the radius",
     date: "2026-10-15",
     summary:
       "Buttons follow the theme radius token, and outline matches in light and dark.",
@@ -356,6 +473,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.2",
+    title: "Dashboard kit",
     date: "2026-10-13",
     summary:
       "Dashboard kit, a fixed Blocks layout, Command footer, and search in the header.",
@@ -392,6 +510,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.1",
+    title: "A new logo",
     date: "2026-10-09",
     summary:
       "New logo, a lighter home page, a rounder Blocks layout and an accessibility pass.",
@@ -430,6 +549,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "1.0.0",
+    title: "Customize and Blocks",
     date: "2026-10-08",
     summary: "Customize, blocks, Color Picker and a new home page.",
     items: [
@@ -461,6 +581,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.7.3",
+    title: "Copy the init command",
     date: "2026-10-04",
     summary: "The landing page copies the init command.",
     items: [
@@ -472,6 +593,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.7.2",
+    title: "The CLI points home",
     date: "2026-10-04",
     summary: "The CLI homepage is the documentation site.",
     items: [
@@ -484,6 +606,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.7.1",
+    title: "The CLI on npm",
     date: "2026-10-04",
     summary: "The CLI is on npm, at the same version as the site.",
     items: [
@@ -497,6 +620,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.7.0",
+    title: "Charts and a copy CLI",
     date: "2026-10-04",
     summary:
       "Charts, a carousel, a calendar, a date picker, item rows, typography, and a copy CLI.",
@@ -527,6 +651,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.6.0",
+    title: "Collapsible sidebar",
     date: "2026-09-30",
     summary:
       "A collapsible sidebar, an examples gallery, and an llms.txt corpus for agents.",
@@ -554,6 +679,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.5.0",
+    title: "Native components",
     date: "2026-09-20",
     summary:
       "Thirteen new native components, a logo favicon, and full-width docs previews.",
@@ -580,6 +706,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.4.0",
+    title: "English docs",
     date: "2026-09-19",
     summary:
       "English docs, copy-paste CSS tokens, API reference tabs, and expandable code blocks.",
@@ -610,6 +737,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.3.0",
+    title: "A docs changelog",
     date: "2026-09-18",
     summary: "Docs changelog, novelty dots, and a composed examples bento.",
     items: [
@@ -626,6 +754,7 @@ export const changelog: ChangelogRelease[] = [
   },
   {
     version: "0.2.0",
+    title: "First release",
     date: "2026-09-18",
     summary:
       "First design-system release: tokens, Base UI catalog, Polar / Medusa docs, landing.",

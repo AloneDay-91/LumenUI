@@ -1,0 +1,17 @@
+{
+  "name": "chat",
+  "title": "Chat",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "message-scroller",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Chat.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { MessageScroller } from \"@/components/ui/MessageScroller\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * The thread: a column with the messages in a Message Scroller and the\n * composer pinned under them. Give it a height; the messages scroll inside.\n */\nfunction Chat({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"chat\"\n      className={cn(\"flex min-h-0 flex-col gap-3\", className)}\n      {...props}\n    />\n  )\n}\n\n/** The messages. A polite log region inside a Message Scroller. */\nfunction ChatMessages({\n  className,\n  contentClassName,\n  children,\n  ...props\n}: React.ComponentProps<typeof MessageScroller> & { contentClassName?: string }) {\n  return (\n    <MessageScroller className={cn(\"flex-1\", className)} {...props}>\n      <div\n        role=\"log\"\n        aria-live=\"polite\"\n        data-slot=\"chat-messages\"\n        className={cn(\"flex flex-col gap-6 p-1 pb-4\", contentClassName)}\n      >\n        {children}\n      </div>\n    </MessageScroller>\n  )\n}\n\n/** Under the messages: suggestions, then the Prompt Input. */\nfunction ChatFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"chat-footer\" className={cn(\"flex flex-col gap-2\", className)} {...props} />\n  )\n}\n\n/** Shown before the first message. */\nfunction ChatEmpty({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"chat-empty\"\n      className={cn(\n        \"flex flex-1 flex-col items-center justify-center gap-1 text-center text-sm text-muted-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Chat, ChatMessages, ChatFooter, ChatEmpty }\n"
+    }
+  ]
+}
