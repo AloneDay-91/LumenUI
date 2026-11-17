@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import Script from "next/script"
 import type { ReactNode } from "react"
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google"
 
 import { LogoSprite } from "@/components/LogoSprite"
+import { Analytics } from "@/components/Analytics"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import { UpdateBanner } from "@/components/UpdateBanner"
 import { SITE_URL } from "@/lib/site"
@@ -69,16 +69,7 @@ export default function RootLayout({
             {children}
           </div>
         </ThemeProvider>
-        {process.env.NODE_ENV === "production" ? (
-          <Script
-            defer
-            src="https://analytics.mmi23f03.fr/script.js"
-            integrity="sha384-ZMxgpYfO/phGz4GiYTIZhcauuGKTb2onmOB5gsiigjmBR38DGAmIna5J1Y/dM/13"
-            crossOrigin="anonymous"
-            data-website-id="f4f5dd3f-9dfb-4235-943b-d64b304b5fdc"
-            strategy="afterInteractive"
-          />
-        ) : null}
+        <Analytics />
       </body>
     </html>
   )
