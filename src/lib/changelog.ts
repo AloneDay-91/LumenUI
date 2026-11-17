@@ -204,18 +204,6 @@ export const changelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.1",
-    title: "Patched minimatch",
-    date: "2026-11-06",
-    summary: "minimatch is pinned to the patched release.",
-    items: [
-      {
-        kind: "fixed",
-        text: "The install tree pins minimatch to 11.0.1.",
-      },
-    ],
-  },
-  {
     version: "1.1.0",
     title: "Installation and guides",
     date: "2026-10-29",
