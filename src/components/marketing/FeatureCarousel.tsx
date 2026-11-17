@@ -89,7 +89,7 @@ function ChartSlide() {
   return (
     <Slide
       name="Chart"
-      caption="draws in shades of foreground, so it follows light and dark with no extra tokens."
+      caption="A bar chart in the foreground color, so it follows light and dark."
     >
       <div className="w-full rounded-[20px] bg-background px-4 py-3.5 ring-1 ring-border">
         <div className="flex justify-between text-sm">
@@ -133,7 +133,7 @@ function TimelineSlide({ releases }: { releases: CarouselRelease[] }) {
   return (
     <Slide
       name="Timeline"
-      caption="lays out history on a rail, with markers and a highlighted row."
+      caption="A release history on a rail, with the latest row marked."
     >
       <Timeline className="w-full max-w-64">
         {releases.map((release) => (
@@ -164,7 +164,7 @@ function CommandSlide() {
   return (
     <Slide
       name="Command"
-      caption="gives you search, grouped results, and shortcuts with full keyboard navigation."
+      caption="Search with groups and keyboard shortcuts, the same palette as the docs."
     >
       <Command
         {...commandProps}
@@ -194,7 +194,7 @@ function TableSlide({ rows }: { rows: HeroRow[] }) {
   return (
     <Slide
       name="Table"
-      caption="stays light: a quiet header fill, hairline rows, and a soft hover state."
+      caption="A quiet table for the files the CLI writes, with a soft hover on each row."
     >
       <Table className="w-full">
         <TableHeader>
@@ -230,7 +230,7 @@ function StepperSlide() {
   return (
     <Slide
       name="Stepper"
-      caption="tracks a flow, horizontal or vertical, with a ring on the current step."
+      caption="A flow with a ring on the current step, horizontal or vertical."
     >
       <div className="flex w-full flex-col gap-5 rounded-[20px] bg-background px-4 py-4 ring-1 ring-border">
         <p className="text-sm font-medium">New project</p>
@@ -265,7 +265,7 @@ function ToastSlide() {
   return (
     <Slide
       name="Toast"
-      caption="stacks messages with a calm slide-in and swipe to dismiss."
+      caption="A confirmation that stacks, slides in, and leaves on a swipe."
     >
       <div className="flex w-full flex-col items-center gap-4">
         <div className="relative w-full">
@@ -313,7 +313,7 @@ export function FeatureCarousel({
   releases: CarouselRelease[];
 }) {
   return (
-    <section className="reveal mt-24 md:mt-32">
+    <div className="reveal">
       <Carousel
         autoplay={5200}
         opts={{ align: "start" }}
@@ -321,9 +321,16 @@ export function FeatureCarousel({
         className="gap-0"
       >
         <div className="mb-10 flex items-end justify-between gap-6">
-          <h2 className={`max-w-md ${FEATURE_TITLE}`}>
-            Built for real product screens
-          </h2>
+          <div className="max-w-md">
+            <h2 className={FEATURE_TITLE}>
+              The pieces a product screen is made of.
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+              Charts, tables, search, and toasts. Copy the one the screen
+              needs. Each one follows the same tokens as the rest of the
+              catalog.
+            </p>
+          </div>
           <div className="flex gap-2">
             <CarouselPrevious />
             <CarouselNext />
@@ -339,6 +346,6 @@ export function FeatureCarousel({
         </CarouselContent>
         <CarouselDots className="mt-5" />
       </Carousel>
-    </section>
+    </div>
   );
 }

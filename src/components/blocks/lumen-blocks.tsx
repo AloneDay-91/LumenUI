@@ -757,38 +757,29 @@ export function InstallationCta() {
     kit: "footers",
     title: "Site footer",
     description:
-      "An inverted panel: the wordmark, the install command, the site links, then the year, the version and GitHub.",
+      "Logo and two actions, three link columns, then a dotted Lumen UI wordmark with the year and the theme toggle over it.",
     command: `${CLI} button`,
     full: true,
     code: `import Link from "next/link"
 
 export function SiteFooter() {
   return (
-    <footer className="px-2 pb-2">
-      <div className="dark overflow-hidden rounded-[28px] bg-background text-foreground">
-        <div className="mx-auto w-full max-w-6xl px-6 pt-10 pb-6 md:px-12 md:pt-14">
-          <div className="flex flex-col gap-12 md:flex-row md:justify-between">
-            <div className="max-w-xs">
-              <a href="/" className="text-sm font-medium">Lumen UI</a>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Copy-paste components. The files live in your repo.
-              </p>
-            </div>
-            <nav className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
-              <div>
-                <p className="font-medium">Start</p>
-                <ul className="mt-4 flex flex-col gap-2.5 text-muted-foreground">
-                  <li><Link href="/docs">Introduction</Link></li>
-                  <li><Link href="/docs/installation">Installation</Link></li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-          <div className="mt-12 flex items-center justify-between border-t border-border pt-5 text-xs text-muted-foreground">
-            <p>© 2026 Lumen UI</p>
-            <p className="font-mono">v1.0.1</p>
-          </div>
+    <footer className="relative mt-16">
+      <div className="mx-auto flex w-full max-w-6xl flex-col justify-between gap-12 px-6 py-14 lg:flex-row">
+        <div className="flex max-w-sm flex-col items-start gap-4">
+          <a href="/" className="text-sm font-medium">Lumen UI</a>
+          <p className="text-sm text-muted-foreground">
+            Copy-paste components. The files live in your repo.
+          </p>
+          <Link href="/docs">Documentation</Link>
         </div>
+        <nav className="grid grid-cols-3 gap-6 text-sm">
+          <div className="flex flex-col gap-3.5">
+            <p className="text-[13px] text-muted-foreground">Start</p>
+            <Link href="/docs">Introduction</Link>
+            <Link href="/docs/installation">Installation</Link>
+          </div>
+        </nav>
       </div>
     </footer>
   )

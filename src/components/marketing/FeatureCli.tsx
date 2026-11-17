@@ -1,24 +1,25 @@
-import { FeatureIntro, PANEL_RADIUS } from "@/components/marketing/FeatureIntro";
+import { FeatureIntro } from "@/components/marketing/FeatureIntro";
+import { PaintBackdrop } from "@/components/marketing/PaintBackdrop";
 import { Badge } from "@/components/ui/Badge";
 import { Separator } from "@/components/ui/Separator";
 import { cn } from "@/lib/utils";
 
 const points = [
   {
-    title: "Local files come with it",
-    body: "Button brings its variants. Dialog brings the shared popup styles.",
+    title: "Init sets the project up",
+    body: "It writes lumen.json, the token sheet, and cn(). One command, then the app can take a component.",
   },
   {
-    title: "Packages install themselves",
-    body: "Base UI, class-variance-authority, and the rest land in package.json.",
+    title: "Add copies one component",
+    body: "add button writes Button.tsx and its variants. Dialog also brings the shared popup styles.",
   },
   {
-    title: "The stylesheet comes with it",
-    body: "globals.css, Tailwind, and the PostCSS config are written with init and add.",
+    title: "Packages land with the file",
+    body: "Base UI and the other dependencies are added to package.json. You do not install a Lumen package.",
   },
   {
     title: "Remove it the same way",
-    body: "rm deletes the component. Shared files stay while something still imports them.",
+    body: "rm deletes the component. Shared files stay while something in the repo still imports them.",
   },
 ];
 
@@ -36,19 +37,16 @@ const tree = [
 
 export function FeatureCli() {
   return (
-    <section
-      id="copy"
-      className="reveal mt-24 grid grid-cols-1 items-center gap-10 md:mt-32 lg:grid-cols-2 lg:gap-16"
-    >
-      <div>
-        <FeatureIntro label="Copy-paste" title="Add a component. Own the file.">
-          The CLI writes the source into your repo. It does not install a
-          component package, so there is nothing to version and nothing to
-          fork.
+    <div className="reveal grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className="flex flex-col gap-5 lg:col-span-5">
+        <FeatureIntro title="The CLI writes the file you edit.">
+          Init prepares the tokens. Add copies a component when you need it.
+          The source is yours, so a change is a commit in your repo, not a
+          version bump of a package.
         </FeatureIntro>
-        <ul className="mt-7 max-w-md divide-y divide-border border-y border-border">
+        <ul className="mt-2 flex max-w-md flex-col border-t border-border">
           {points.map((point) => (
-            <li key={point.title} className="flex flex-col gap-0.5 py-3.5">
+            <li key={point.title} className="flex flex-col gap-0.5 border-b border-border py-4 last:border-b-0">
               <span className="text-sm font-medium">{point.title}</span>
               <span className="text-sm leading-relaxed text-muted-foreground">
                 {point.body}
@@ -58,8 +56,9 @@ export function FeatureCli() {
         </ul>
       </div>
 
-      <div className={cn("min-w-0 bg-muted p-4 md:p-8", PANEL_RADIUS)}>
-        <div className="flex flex-col gap-4 rounded-2xl bg-background p-5 font-mono text-xs leading-[1.7] ring-1 ring-border">
+      <div className="relative min-w-0 overflow-hidden rounded-3xl border border-border bg-card p-5 sm:p-8 lg:col-span-7">
+        <PaintBackdrop />
+        <div className="relative flex flex-col gap-4 rounded-[20px] border border-border bg-background p-5 font-mono text-xs leading-[1.7] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.6)]">
           <div className="flex flex-col gap-1 overflow-x-auto whitespace-nowrap">
             <p>
               <span className="text-muted-foreground">$</span> npx
@@ -96,6 +95,6 @@ export function FeatureCli() {
           </ul>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

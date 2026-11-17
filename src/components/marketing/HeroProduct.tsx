@@ -1,15 +1,19 @@
 import { HeroDocs } from "@/components/marketing/HeroDocs";
 import { getHeroDoc } from "@/lib/hero-registry";
+import { cn } from "@/lib/utils";
 
-export function HeroProduct() {
+export function HeroProduct({ fade = true }: { fade?: boolean }) {
   const doc = getHeroDoc();
 
   return (
-    <figure className="relative mx-auto max-w-5xl">
+    <figure className={cn("relative", fade && "mx-auto max-w-5xl")}>
       <div
         aria-hidden
         inert
-        className="max-h-96 overflow-hidden mask-[linear-gradient(to_bottom,black_66%,transparent)] motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 md:max-h-120"
+        className={cn(
+          fade &&
+            "max-h-96 overflow-hidden mask-[linear-gradient(to_bottom,black_66%,transparent)] motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 md:max-h-120",
+        )}
       >
         <HeroDocs doc={doc} />
       </div>
