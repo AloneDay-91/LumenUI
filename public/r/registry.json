@@ -281,6 +281,7 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "styles",
         "utils"
       ]
     },

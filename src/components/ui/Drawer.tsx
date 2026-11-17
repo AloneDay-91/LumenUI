@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
 
+import { backdropClassName } from "@/components/ui/styles"
 import { cn } from "@/lib/utils"
 
 function DrawerProvider(props: DrawerPrimitive.Provider.Props) {
@@ -33,8 +34,8 @@ function DrawerBackdrop({
     <DrawerPrimitive.Backdrop
       data-slot="drawer-backdrop"
       className={cn(
-        "fixed inset-0 z-50 bg-black/40 opacity-[calc(1-var(--drawer-swipe-progress,0))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)]",
-        "data-starting-style:opacity-0 data-ending-style:opacity-0 data-swiping:duration-0",
+        backdropClassName,
+        "opacity-[calc(1-var(--drawer-swipe-progress,0))] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0",
         className
       )}
       {...props}

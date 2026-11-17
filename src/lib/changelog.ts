@@ -197,6 +197,20 @@ export const changelog: ChangelogRelease[] = [
         text: "The Markdown of each page and llms-full.txt keep lists, tables, and subheadings.",
         href: "/docs/llms",
       },
+      {
+        kind: "fixed",
+        text: "Destructive takes the crimson hue, so the destructive Button, Alert, and invalid fields match the crimson Badge and Callout.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "fixed",
+        text: "Secondary, muted, accent, the sidebar, and the gray panel use the warm neutral of the background, and the focus ring is darker so it reads on paper.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "fixed",
+        text: "Drawer shares the overlay of Dialog and Alert Dialog, and Button, Badge, and Progress animate only the properties that change.",
+      },
     ],
   },
   {
@@ -261,7 +275,7 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "fixed",
-        text: "Toasts stack, peek, and animate in and out.",
+        text: "Toasts stack, peek, and animate in and out. A long description wraps under the title, and the action is a large button at the bottom right.",
         href: "/docs/components/toast",
         new: true,
       },

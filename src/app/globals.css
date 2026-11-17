@@ -104,29 +104,29 @@
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.97 0.003 90);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.97 0.003 90);
   --muted-foreground: oklch(0.52 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.97 0.003 90);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(51.4% 0.222 16.935); /* = --crimson-solid */
   --new: oklch(0.7 0.13 75);
   --border: oklch(0.88 0.004 90);
   --input: oklch(0.88 0.004 90);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.556 0 0);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
+  --sidebar: oklch(0.985 0.003 90);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: oklch(0.97 0.003 90);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-border: oklch(0.922 0.004 90);
+  --sidebar-ring: oklch(0.556 0 0);
 
   /* Hues for Badge, Callout, Tabs, and Data List. ink is the type, wash the soft badge, panel the callout, solid the filled badge. */
-  --gray-panel: oklch(92.8% 0.006 264.531);
+  --gray-panel: oklch(92.8% 0.005 90);
   --indigo-ink: oklch(45.7% 0.24 277.023);
   --indigo-ink-strong: oklch(39.8% 0.195 277.366);
   --indigo-ink-deep: oklch(25.7% 0.09 281.288);
@@ -199,7 +199,7 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(71.2% 0.194 13.428); /* = --crimson-solid */
   --new: oklch(0.8 0.11 75);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
