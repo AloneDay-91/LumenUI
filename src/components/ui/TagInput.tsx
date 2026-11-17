@@ -91,10 +91,10 @@ function TagInput({
         if (event.target === event.currentTarget) inputRef.current?.focus()
       }}
       className={cn(
-        "flex min-h-8 w-full min-w-0 flex-wrap items-center gap-1 rounded-2xl border border-transparent bg-input/50 px-1.5 py-1 text-xs transition-colors",
+        "flex min-h-8 w-full min-w-0 flex-wrap items-center gap-1 rounded-2xl border border-border bg-transparent px-1.5 py-1 text-xs transition-colors",
         "focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/30",
         "aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20",
-        "data-disabled:pointer-events-none data-disabled:opacity-50 dark:bg-input/30",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
         className
       )}
       {...props}

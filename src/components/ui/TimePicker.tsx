@@ -70,7 +70,7 @@ function TimeColumn({
       role="listbox"
       aria-label={label}
       data-slot="time-picker-column"
-      className="flex max-h-56 w-14 flex-col gap-0.5 overflow-y-auto overscroll-contain p-1 [scrollbar-width:none]"
+      className="flex max-h-56 w-14 flex-col gap-0.5 scroll-fade overflow-y-auto overscroll-contain p-1 [scrollbar-width:none]"
     >
       {options.map((option, index) => {
         const isSelected = option.value === selected

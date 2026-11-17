@@ -16,6 +16,7 @@ function ContextMenuTrigger(props: ContextMenuPrimitive.Trigger.Props) {
 
 function ContextMenuContent({
   className,
+  children,
   ...props
 }: ContextMenuPrimitive.Popup.Props) {
   return (
@@ -23,9 +24,17 @@ function ContextMenuContent({
       <ContextMenuPrimitive.Positioner className="isolate z-50 outline-none">
         <ContextMenuPrimitive.Popup
           data-slot="context-menu-content"
-          className={cn(popupClassName, "z-50 min-w-36 p-1", className)}
+          className={cn(
+            popupClassName,
+            "z-50 flex max-h-(--available-height) min-w-36 flex-col overflow-hidden",
+            className
+          )}
           {...props}
-        />
+        >
+          <div data-slot="context-menu-viewport" className="min-h-0 flex-1 scroll-fade overflow-y-auto p-1">
+            {children}
+          </div>
+        </ContextMenuPrimitive.Popup>
       </ContextMenuPrimitive.Positioner>
     </ContextMenuPrimitive.Portal>
   )

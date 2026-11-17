@@ -35,7 +35,7 @@ function AutocompleteContent({
           data-slot="autocomplete-content"
           className={cn(
             popupClassName,
-            "z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-y-auto p-1",
+            "z-50 flex max-h-(--available-height) w-(--anchor-width) min-w-36 flex-col overflow-hidden p-1",
             className
           )}
           {...props}
@@ -47,8 +47,14 @@ function AutocompleteContent({
   )
 }
 
-function AutocompleteList(props: AutocompletePrimitive.List.Props) {
-  return <AutocompletePrimitive.List data-slot="autocomplete-list" {...props} />
+function AutocompleteList({ className, ...props }: AutocompletePrimitive.List.Props) {
+  return (
+    <AutocompletePrimitive.List
+      data-slot="autocomplete-list"
+      className={cn("min-h-0 flex-1 scroll-fade overflow-y-auto", className)}
+      {...props}
+    />
+  )
 }
 
 function AutocompleteItem({

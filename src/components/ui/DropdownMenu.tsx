@@ -20,6 +20,7 @@ function DropdownMenuContent({
   side = "bottom",
   sideOffset = 4,
   className,
+  children,
   ...props
 }: MenuPrimitive.Popup.Props &
   Pick<
@@ -38,11 +39,16 @@ function DropdownMenuContent({
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
           className={cn(
-            "z-[100] max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-2xl bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/5 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:ring-foreground/10 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 data-closed:zoom-out-95",
+            "z-[100] max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) flex flex-col overflow-hidden rounded-2xl bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/5 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:ring-foreground/10 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 data-closed:zoom-out-95",
             className
           )}
           {...props}
-        />
+        >
+          {/* The inner list scrolls, so the fade masks the items and not the popup's surface. */}
+          <div data-slot="dropdown-menu-viewport" className="min-h-0 flex-1 scroll-fade overflow-y-auto p-1">
+            {children}
+          </div>
+        </MenuPrimitive.Popup>
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
   )

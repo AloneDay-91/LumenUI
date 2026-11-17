@@ -82,7 +82,7 @@ function NotificationCenter({
             {empty ?? "You're all caught up."}
           </div>
         ) : (
-          <ul data-slot="notification-list" className="m-0 max-h-96 list-none overflow-y-auto p-1">
+          <ul data-slot="notification-list" className="m-0 max-h-96 list-none scroll-fade overflow-y-auto p-1">
             {notifications.map((item) => (
               <li key={item.id}>
                 <button
