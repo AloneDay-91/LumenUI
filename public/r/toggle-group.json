@@ -12,7 +12,7 @@
   "files": [
     {
       "name": "ToggleGroup.tsx",
-      "content": "\"use client\"\n\nimport { ToggleGroup as ToggleGroupPrimitive } from \"@base-ui/react/toggle-group\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction ToggleGroup({ className, ...props }: ToggleGroupPrimitive.Props) {\n  return (\n    <ToggleGroupPrimitive\n      data-slot=\"toggle-group\"\n      className={cn(\n        \"flex w-fit items-center justify-center gap-0.5 rounded-full bg-muted p-0.5\",\n        \"data-[orientation=vertical]:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ToggleGroup }\n"
+      "content": "\"use client\"\n\nimport { ToggleGroup as ToggleGroupPrimitive } from \"@base-ui/react/toggle-group\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction ToggleGroup({ className, ...props }: ToggleGroupPrimitive.Props) {\n  return (\n    <ToggleGroupPrimitive\n      data-slot=\"toggle-group\"\n      className={cn(\n        \"flex w-fit items-center justify-center gap-0.5 rounded-4xl bg-muted p-0.5\",\n        \"data-[orientation=vertical]:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ToggleGroup }\n"
     }
   ]
 }

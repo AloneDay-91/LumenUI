@@ -9,7 +9,7 @@ function ToggleGroup({ className, ...props }: ToggleGroupPrimitive.Props) {
     <ToggleGroupPrimitive
       data-slot="toggle-group"
       className={cn(
-        "flex w-fit items-center justify-center gap-0.5 rounded-full bg-muted p-0.5",
+        "flex w-fit items-center justify-center gap-0.5 rounded-4xl bg-muted p-0.5",
         "data-[orientation=vertical]:flex-col",
         className
       )}

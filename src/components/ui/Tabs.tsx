@@ -42,7 +42,7 @@ function TabsList({
       data-high-contrast={highContrast ? "true" : undefined}
       className={cn(
         "group/tabs-list relative z-1 flex w-fit",
-        variant === "pill" && "gap-0.5 rounded-full bg-muted p-0.5",
+        variant === "pill" && "gap-0.5 rounded-4xl bg-muted p-0.5",
         variant === "line" && "gap-1 border-b border-border",
         "data-[orientation=vertical]:flex-col",
         variant === "line" &&
@@ -59,7 +59,7 @@ function TabsTab({ className, ...props }: TabsPrimitive.Tab.Props) {
     <TabsPrimitive.Tab
       data-slot="tabs-tab"
       className={cn(
-        "relative z-10 inline-flex h-7 items-center justify-center rounded-full px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none select-none",
+        "relative z-10 inline-flex h-7 items-center justify-center rounded-4xl px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none select-none",
         "hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30",
         "data-active:text-foreground",
         "group-data-[variant=line]/tabs-list:h-8 group-data-[variant=line]/tabs-list:rounded-none group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:px-2.5",
@@ -82,7 +82,7 @@ function TabsIndicator({
       data-slot="tabs-indicator"
       renderBeforeHydration={renderBeforeHydration}
       className={cn(
-        "rounded-full bg-background ring-1 ring-foreground/5 dark:ring-foreground/10",
+        "rounded-4xl bg-background ring-1 ring-foreground/5 dark:ring-foreground/10",
         "group-data-[variant=line]/tabs-list:h-0.5 group-data-[variant=line]/tabs-list:rounded-none group-data-[variant=line]/tabs-list:bg-(--tabs-line) group-data-[variant=line]/tabs-list:ring-0 group-data-[variant=line]/tabs-list:shadow-none",
         "group-data-[variant=line]/tabs-list:[translate:var(--active-tab-left)_calc(var(--active-tab-top)_+_var(--active-tab-height)_-_2px)]",
         "group-data-[variant=line]/tabs-list:group-data-[orientation=vertical]/tabs-list:h-(--active-tab-height) group-data-[variant=line]/tabs-list:group-data-[orientation=vertical]/tabs-list:w-0.5",
