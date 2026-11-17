@@ -7,8 +7,10 @@
 # and add "minor=url" to DOCS_ARCHIVES so the version menu links to it.
 #
 # Domains (set them on the host, or in a .env file next to this one):
-#   DOCS_DOMAIN       ui.elouanb.fr        the latest docs
-#   Archive services  v1-2.<DOCS_DOMAIN>    one subdomain per minor
+#   ROOT_DOMAIN       elouanb.fr                 the latest docs at ui.<ROOT_DOMAIN>
+#   Archive services  ui-v1-2.<ROOT_DOMAIN>      one subdomain per minor
+# Archives sit one level under the root (ui-v1-2, not v1-2.ui) so the free
+# Cloudflare certificate, which covers *.<ROOT_DOMAIN> only, serves them too.
 
 name: lumen-docs
 
@@ -29,7 +31,7 @@ services:
         SOURCE: local
         # The version menu of the latest docs links to the archives below.
         NEXT_PUBLIC_DOCS_ARCHIVES: >-
-          1.2=https://v1-2.${DOCS_DOMAIN:-ui.elouanb.fr},1.1=https://v1-1.${DOCS_DOMAIN:-ui.elouanb.fr},1.0=https://v1-0.${DOCS_DOMAIN:-ui.elouanb.fr},0.7=https://v0-7.${DOCS_DOMAIN:-ui.elouanb.fr}
+          1.2=https://ui-v1-2.${ROOT_DOMAIN:-elouanb.fr},1.1=https://ui-v1-1.${ROOT_DOMAIN:-elouanb.fr},1.0=https://ui-v1-0.${ROOT_DOMAIN:-elouanb.fr},0.7=https://ui-v0-7.${ROOT_DOMAIN:-elouanb.fr}
     restart: unless-stopped
     ports:
       - "${LATEST_PORT:-3000}:3000"
