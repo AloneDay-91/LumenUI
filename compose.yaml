@@ -8,7 +8,7 @@
 #
 # Domains (set them on the host, or in a .env file next to this one):
 #   DOCS_DOMAIN       ui.elouanb.fr        the latest docs
-#   Archive services  v1-1.<DOCS_DOMAIN>    one subdomain per minor
+#   Archive services  v1-2.<DOCS_DOMAIN>    one subdomain per minor
 
 name: lumen-docs
 
@@ -29,10 +29,20 @@ services:
         SOURCE: local
         # The version menu of the latest docs links to the archives below.
         NEXT_PUBLIC_DOCS_ARCHIVES: >-
-          1.1=https://v1-1.${DOCS_DOMAIN:-ui.elouanb.fr},1.0=https://v1-0.${DOCS_DOMAIN:-ui.elouanb.fr},0.7=https://v0-7.${DOCS_DOMAIN:-ui.elouanb.fr}
+          1.2=https://v1-2.${DOCS_DOMAIN:-ui.elouanb.fr},1.1=https://v1-1.${DOCS_DOMAIN:-ui.elouanb.fr},1.0=https://v1-0.${DOCS_DOMAIN:-ui.elouanb.fr},0.7=https://v0-7.${DOCS_DOMAIN:-ui.elouanb.fr}
     restart: unless-stopped
     ports:
       - "${LATEST_PORT:-3000}:3000"
+
+  v1-2:
+    <<: *archive
+    build:
+      context: .
+      args:
+        <<: *archive-args
+        REF: v1.2.0
+    ports:
+      - "${V1_2_PORT:-3012}:3000"
 
   v1-1:
     <<: *archive
