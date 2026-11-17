@@ -1,63 +1,76 @@
 "use client"
 
-import { ArrowUpRightIcon, CheckIcon, ChevronDownIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Fragment } from "react"
 
+import { ScrollArea } from "@/components/ui/ScrollArea"
 import {
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuLinkItem,
-  MenuSeparator,
-  MenuTrigger,
-} from "@/components/ui/Menu"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select"
+import { Separator } from "@/components/ui/Separator"
 import { docsVersions } from "@/lib/doc-versions"
-import { formatDocsVersion } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
+const latest = docsVersions[0]
+const CHANGELOG = "changelog"
+
 /**
- * The version in the header, as a menu: this site is the latest docs, older
- * minors open their own deployment, or their tag on GitHub until they have one.
+ * The docs version, as a Select: this site is the latest docs, older minors
+ * open their own deployment, or their tag on GitHub until they have one.
+ * The value stays on the latest; picking another version navigates away.
  */
 export function VersionMenu({ className }: { className?: string }) {
+  const router = useRouter()
+
+  const onValueChange = (value: string | null) => {
+    if (!value || value === latest.minor) return
+    if (value === CHANGELOG) {
+      router.push("/docs/changelog")
+      return
+    }
+    const entry = docsVersions.find((version) => version.minor === value)
+    if (entry) window.open(entry.url, "_blank", "noopener,noreferrer")
+  }
+
   return (
-    <Menu>
-      <MenuTrigger
-        aria-label={`Docs version ${formatDocsVersion()}. Change version`}
-        className={cn(
-          "inline-flex h-7 items-center gap-1 rounded-full px-2 font-mono text-[11px] text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 data-popup-open:bg-muted data-popup-open:text-foreground",
-          className,
-        )}
+    <Select value={latest.minor} onValueChange={onValueChange}>
+      <SelectTrigger
+        size="sm"
+        aria-label="Docs version"
+        className={cn("gap-1 text-[11px]", className)}
       >
-        {formatDocsVersion()}
-        <ChevronDownIcon aria-hidden className="size-3" />
-      </MenuTrigger>
-      <MenuContent align="end" className="w-56">
-        {docsVersions.map((entry) =>
-          entry.latest ? (
-            <MenuItem key={entry.minor} className="font-mono">
-              <span className="flex-1">v{entry.minor}</span>
-              <span className="font-sans text-[11px] text-muted-foreground">Latest</span>
-              <CheckIcon aria-hidden className="size-3.5" />
-            </MenuItem>
-          ) : (
-            <MenuLinkItem
-              key={entry.minor}
-              href={entry.url}
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono"
-            >
-              <span className="flex-1">v{entry.minor}</span>
-              <span className="font-sans text-[11px] text-muted-foreground">
-                {entry.archived ? "Docs" : "Source"}
-              </span>
-              <ArrowUpRightIcon aria-hidden className="size-3.5 text-muted-foreground" />
-            </MenuLinkItem>
-          ),
-        )}
-        <MenuSeparator />
-        <MenuLinkItem href="/docs/changelog">What changed in each version</MenuLinkItem>
-      </MenuContent>
-    </Menu>
+        <SelectValue>
+          {(value: string) => (
+            <span>
+              <span className="text-muted-foreground">Version: </span>
+              <span className="font-mono">{value}</span>
+            </span>
+          )}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent align="end" alignItemWithTrigger={false} className="w-40 min-w-40 p-1">
+        <ScrollArea className="h-56">
+          <div className="pr-3">
+            {docsVersions.map((entry, index) => (
+              <Fragment key={entry.minor}>
+                {index > 0 && <Separator className="my-1" />}
+                <SelectItem value={entry.minor} className="font-mono">
+                  <span className="flex-1">{entry.minor}</span>
+                  <span className="font-sans text-[11px] text-muted-foreground">
+                    {entry.latest ? "Latest" : entry.archived ? "Docs" : "Source"}
+                  </span>
+                </SelectItem>
+              </Fragment>
+            ))}
+          </div>
+        </ScrollArea>
+        <Separator className="my-1" />
+        <SelectItem value={CHANGELOG}>Changelog</SelectItem>
+      </SelectContent>
+    </Select>
   )
 }

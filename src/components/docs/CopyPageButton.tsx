@@ -2,7 +2,6 @@
 
 import {
   CheckIcon,
-  ChevronDownIcon,
   CopyIcon,
   FileTextIcon,
   LinkIcon,
@@ -10,16 +9,16 @@ import {
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-import { Button } from "@/components/ui/Button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLinkItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
-import { Separator } from "@/components/ui/Separator";
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonMenu,
+} from "@/components/ui/SplitButton";
 import {
   docsAiProviders,
   getDocsMarkdownPath,
@@ -65,70 +64,45 @@ export function CopyPageButton() {
   };
 
   return (
-    <div className="inline-flex h-8 shrink-0 items-stretch overflow-hidden rounded-full border border-border bg-background">
-      <Button
-        type="button"
-        variant="ghost"
-        size="sm"
-        onClick={copyPage}
-        className="h-auto rounded-none border-0 px-2.5 hover:bg-muted"
-      >
+    <SplitButton variant="outline" size="sm" className="shrink-0">
+      <SplitButtonAction type="button" onClick={copyPage}>
         {copied === "page" ? <CheckIcon /> : <CopyIcon />}
         {copied === "page" ? "Copied" : "Copy"}
-      </Button>
-      <Separator
-        orientation="vertical"
-        className="self-stretch data-vertical:h-auto w-[1px]"
-      />
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          render={
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              className="h-auto w-7 rounded-none border-0 hover:bg-muted"
-              aria-label="Open in an AI, view markdown, or copy the link"
-            >
-              <ChevronDownIcon className="size-3.5" />
-            </Button>
-          }
-        />
-        <DropdownMenuContent align="end" className="w-56 min-w-56">
+      </SplitButtonAction>
+      <SplitButtonMenu
+        label="Open in an AI, view markdown, or copy the link"
+        contentClassName="w-56 min-w-56"
+      >
+        <DropdownMenuLinkItem href={markdownPath} target="_blank" rel="noreferrer">
+          <FileTextIcon />
+          View as Markdown
+        </DropdownMenuLinkItem>
+        <DropdownMenuSeparator />
+        {docsAiProviders.map((provider) => (
           <DropdownMenuLinkItem
-            href={markdownPath}
+            key={provider.id}
+            href={
+              origin
+                ? getPromptUrl(provider.chatUrl, markdownUrl)
+                : markdownPath
+            }
             target="_blank"
             rel="noreferrer"
           >
-            <FileTextIcon />
-            View as Markdown
+            <ProviderIcon id={provider.id} />
+            {provider.label}
           </DropdownMenuLinkItem>
-          <DropdownMenuSeparator />
-          {docsAiProviders.map((provider) => (
-            <DropdownMenuLinkItem
-              key={provider.id}
-              href={
-                origin
-                  ? getPromptUrl(provider.chatUrl, markdownUrl)
-                  : markdownPath
-              }
-              target="_blank"
-              rel="noreferrer"
-            >
-              <ProviderIcon id={provider.id} />
-              {provider.label}
-            </DropdownMenuLinkItem>
-          ))}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            closeOnClick={false}
-            onClick={() => copy(pageUrl, "link")}
-          >
-            {copied === "link" ? <CheckIcon /> : <LinkIcon />}
-            {copied === "link" ? "Link copied" : "Copy link"}
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+        ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          closeOnClick={false}
+          onClick={() => copy(pageUrl, "link")}
+        >
+          {copied === "link" ? <CheckIcon /> : <LinkIcon />}
+          {copied === "link" ? "Link copied" : "Copy link"}
+        </DropdownMenuItem>
+      </SplitButtonMenu>
+    </SplitButton>
   );
 }
 

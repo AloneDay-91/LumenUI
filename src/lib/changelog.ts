@@ -150,6 +150,56 @@ const aiComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.3.0",
+    title: "Blocks, versions, sharper defaults",
+    date: "2026-11-17",
+    summary:
+      "The Lumen kit as standalone blocks, versioned docs, a new theme, and components that follow the radius token.",
+    items: [
+      {
+        kind: "added",
+        text: "The Lumen kit is rebuilt as frozen, standalone blocks: the current landing, the earlier ones, and the site chrome. Blocks sit on the docs layout.",
+        href: "/blocks",
+      },
+      {
+        kind: "added",
+        text: "Docs pages show the version that added them and the last one that changed them, and the header has a version select that opens older docs.",
+        href: "/docs/changelog",
+      },
+      {
+        kind: "changed",
+        text: "A new theme: white background, blue primary, neutral greys, and a tighter radius.",
+        href: "/docs/styles",
+      },
+      {
+        kind: "changed",
+        text: "Input, Textarea, Select, Input Group, Tag Input, OTP Field, and Number Field are outlined by default.",
+        href: "/docs/components/input",
+      },
+      {
+        kind: "changed",
+        text: "Scroll Area, Select, Combobox, Autocomplete, Command, Menu, Context Menu, Notification Center, and Time Picker fade their content at the scroll edges.",
+        href: "/docs/utils/scroll-fade",
+      },
+      {
+        kind: "fixed",
+        text: "Toggle, Toggle Group, Toolbar, Menubar, Tabs, and Drawer follow the radius token instead of a fixed pill or 24px corner.",
+        links: [
+          { name: "Toggle Group", href: "/docs/components/toggle-group" },
+          { name: "Toolbar", href: "/docs/components/toolbar" },
+          { name: "Menubar", href: "/docs/components/menubar" },
+          { name: "Tabs", href: "/docs/components/tabs" },
+          { name: "Drawer", href: "/docs/components/drawer" },
+        ],
+      },
+      {
+        kind: "fixed",
+        text: "In dark mode, the Slider thumb uses the foreground colour instead of black.",
+        href: "/docs/components/slider",
+      },
+    ],
+  },
+  {
     version: "1.2.0",
     title: "Components for AI apps",
     date: "2026-11-17",

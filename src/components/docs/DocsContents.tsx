@@ -67,7 +67,7 @@ export function DocsContents({ onNavigate }: { onNavigate?: () => void }) {
                       </span>
                       {isNew ? (
                         <span
-                          className="size-1.5 shrink-0 rounded-full bg-new"
+                          className="size-1.5 shrink-0 rounded-full bg-primary"
                           aria-hidden
                         />
                       ) : null}
