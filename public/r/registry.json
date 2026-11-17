@@ -42,6 +42,17 @@
       ]
     },
     {
+      "name": "attachment",
+      "title": "Attachment",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "file-upload",
+        "utils"
+      ]
+    },
+    {
       "name": "autocomplete",
       "title": "Autocomplete",
       "dependencies": [
@@ -173,12 +184,31 @@
       ]
     },
     {
+      "name": "chain-of-thought",
+      "title": "Chain Of Thought",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace"
+      ]
+    },
+    {
       "name": "chart",
       "title": "Chart",
       "dependencies": [
         "recharts"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "chat",
+      "title": "Chat",
+      "dependencies": [],
+      "registryDependencies": [
+        "message-scroller",
         "utils"
       ]
     },
@@ -200,6 +230,26 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkpoint",
+      "title": "Checkpoint",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "code-block",
+      "title": "Code Block",
+      "dependencies": [],
+      "registryDependencies": [
+        "copy-button",
         "utils"
       ]
     },
@@ -249,6 +299,18 @@
       ]
     },
     {
+      "name": "confirmation",
+      "title": "Confirmation",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "code-block",
+        "utils"
+      ]
+    },
+    {
       "name": "container",
       "title": "Container",
       "dependencies": [
@@ -256,6 +318,15 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "context",
+      "title": "Context",
+      "dependencies": [],
+      "registryDependencies": [
+        "popover",
         "utils"
       ]
     },
@@ -268,6 +339,18 @@
       ],
       "registryDependencies": [
         "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "copy-button",
+      "title": "Copy Button",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-variants",
         "utils"
       ]
     },
@@ -363,6 +446,17 @@
       ]
     },
     {
+      "name": "file-tree",
+      "title": "File Tree",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "tree-view",
+        "utils"
+      ]
+    },
+    {
       "name": "file-upload",
       "title": "File Upload",
       "dependencies": [
@@ -374,12 +468,47 @@
       ]
     },
     {
+      "name": "filter-bar",
+      "title": "Filter Bar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "menu",
+        "utils"
+      ]
+    },
+    {
       "name": "form",
       "title": "Form",
       "dependencies": [
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "image-gallery",
+      "title": "Image Gallery",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "inline-citation",
+      "title": "Inline Citation",
+      "dependencies": [],
+      "registryDependencies": [
+        "preview-card",
+        "sources",
         "utils"
       ]
     },
@@ -434,6 +563,16 @@
       ]
     },
     {
+      "name": "marquee",
+      "title": "Marquee",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "menu",
       "title": "Menu",
       "dependencies": [],
@@ -452,12 +591,42 @@
       ]
     },
     {
+      "name": "message",
+      "title": "Message",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "message-scroller",
+      "title": "Message Scroller",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
       "name": "meter",
       "title": "Meter",
       "dependencies": [
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "model-selector",
+      "title": "Model Selector",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "select",
         "utils"
       ]
     },
@@ -469,6 +638,19 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "notification-center",
+      "title": "Notification Center",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover",
+        "relative-time",
         "utils"
       ]
     },
@@ -519,6 +701,17 @@
       ]
     },
     {
+      "name": "plan",
+      "title": "Plan",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
       "name": "popover",
       "title": "Popover",
       "dependencies": [
@@ -551,6 +744,28 @@
       ]
     },
     {
+      "name": "prompt-input",
+      "title": "Prompt Input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "queue",
+      "title": "Queue",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
       "name": "radio-group",
       "title": "Radio Group",
       "dependencies": [
@@ -566,6 +781,25 @@
       "dependencies": [
         "lucide-react"
       ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "reasoning",
+      "title": "Reasoning",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
+      "name": "relative-time",
+      "title": "Relative Time",
+      "dependencies": [],
       "registryDependencies": [
         "utils"
       ]
@@ -663,12 +897,46 @@
       ]
     },
     {
+      "name": "sortable-list",
+      "title": "Sortable List",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "sources",
+      "title": "Sources",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace"
+      ]
+    },
+    {
       "name": "spinner",
       "title": "Spinner",
       "dependencies": [
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "split-button",
+      "title": "Split Button",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-group",
+        "button-variants",
+        "menu",
         "utils"
       ]
     },
@@ -680,6 +948,18 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "stack-trace",
+      "title": "Stack Trace",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "copy-button",
+        "trace",
         "utils"
       ]
     },
@@ -700,6 +980,25 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "subagent",
+      "title": "Subagent",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace"
+      ]
+    },
+    {
+      "name": "suggestion",
+      "title": "Suggestion",
+      "dependencies": [],
+      "registryDependencies": [
+        "button",
         "utils"
       ]
     },
@@ -742,6 +1041,40 @@
       ]
     },
     {
+      "name": "task",
+      "title": "Task",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
+      "name": "terminal",
+      "title": "Terminal",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "copy-button",
+        "trace",
+        "utils"
+      ]
+    },
+    {
+      "name": "test-results",
+      "title": "Test Results",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
       "name": "textarea",
       "title": "Textarea",
       "dependencies": [],
@@ -757,6 +1090,18 @@
       ],
       "registryDependencies": [
         "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "time-picker",
+      "title": "Time Picker",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover",
         "utils"
       ]
     },
@@ -802,6 +1147,17 @@
       ]
     },
     {
+      "name": "tool",
+      "title": "Tool",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "code-block",
+        "trace"
+      ]
+    },
+    {
       "name": "toolbar",
       "title": "Toolbar",
       "dependencies": [
@@ -820,6 +1176,29 @@
       ],
       "registryDependencies": [
         "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "tour",
+      "title": "Tour",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "trace",
+      "title": "Trace",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "spinner",
         "utils"
       ]
     },

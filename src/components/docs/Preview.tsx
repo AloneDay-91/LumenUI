@@ -39,7 +39,7 @@ export function Preview({
   )
 
   return (
-    <Card className="flex w-full max-w-none flex-col gap-4 px-6 py-6">
+    <Card data-docs-preview className="flex w-full max-w-none flex-col gap-4 px-6 py-6">
       <div className="flex justify-end">
         <button
           type="button"

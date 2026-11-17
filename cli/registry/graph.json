@@ -51,6 +51,20 @@
       "utils"
     ]
   },
+  "attachment": {
+    "title": "Attachment",
+    "internal": false,
+    "files": [
+      "Attachment.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "file-upload",
+      "utils"
+    ]
+  },
   "autocomplete": {
     "title": "Autocomplete",
     "internal": false,
@@ -219,6 +233,19 @@
       "utils"
     ]
   },
+  "chain-of-thought": {
+    "title": "Chain Of Thought",
+    "internal": false,
+    "files": [
+      "ChainOfThought.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace"
+    ]
+  },
   "chart": {
     "title": "Chart",
     "internal": false,
@@ -229,6 +256,18 @@
       "recharts"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "chat": {
+    "title": "Chat",
+    "internal": false,
+    "files": [
+      "Chat.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "message-scroller",
       "utils"
     ]
   },
@@ -256,6 +295,32 @@
       "@base-ui/react"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "checkpoint": {
+    "title": "Checkpoint",
+    "internal": false,
+    "files": [
+      "Checkpoint.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
+  "code-block": {
+    "title": "Code Block",
+    "internal": false,
+    "files": [
+      "CodeBlock.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "copy-button",
       "utils"
     ]
   },
@@ -316,6 +381,21 @@
       "utils"
     ]
   },
+  "confirmation": {
+    "title": "Confirmation",
+    "internal": false,
+    "files": [
+      "Confirmation.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "code-block",
+      "utils"
+    ]
+  },
   "container": {
     "title": "Container",
     "internal": false,
@@ -327,6 +407,18 @@
       "class-variance-authority"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "context": {
+    "title": "Context",
+    "internal": false,
+    "files": [
+      "Context.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "popover",
       "utils"
     ]
   },
@@ -342,6 +434,21 @@
     ],
     "registryDependencies": [
       "styles",
+      "utils"
+    ]
+  },
+  "copy-button": {
+    "title": "Copy Button",
+    "internal": false,
+    "files": [
+      "CopyButton.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "button-variants",
       "utils"
     ]
   },
@@ -474,6 +581,20 @@
       "utils"
     ]
   },
+  "file-tree": {
+    "title": "File Tree",
+    "internal": false,
+    "files": [
+      "FileTree.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "tree-view",
+      "utils"
+    ]
+  },
   "file-upload": {
     "title": "File Upload",
     "internal": false,
@@ -488,6 +609,21 @@
       "utils"
     ]
   },
+  "filter-bar": {
+    "title": "Filter Bar",
+    "internal": false,
+    "files": [
+      "FilterBar.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "menu",
+      "utils"
+    ]
+  },
   "form": {
     "title": "Form",
     "internal": false,
@@ -498,6 +634,35 @@
       "@base-ui/react"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "image-gallery": {
+    "title": "Image Gallery",
+    "internal": false,
+    "files": [
+      "ImageGallery.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "styles",
+      "utils"
+    ]
+  },
+  "inline-citation": {
+    "title": "Inline Citation",
+    "internal": false,
+    "files": [
+      "InlineCitation.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "preview-card",
+      "sources",
       "utils"
     ]
   },
@@ -566,6 +731,20 @@
       "utils"
     ]
   },
+  "marquee": {
+    "title": "Marquee",
+    "internal": false,
+    "files": [
+      "Marquee.tsx",
+      "marquee.css"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
   "menu": {
     "title": "Menu",
     "internal": false,
@@ -590,6 +769,31 @@
       "utils"
     ]
   },
+  "message": {
+    "title": "Message",
+    "internal": false,
+    "files": [
+      "Message.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "message-scroller": {
+    "title": "Message Scroller",
+    "internal": false,
+    "files": [
+      "MessageScroller.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
   "meter": {
     "title": "Meter",
     "internal": false,
@@ -600,6 +804,20 @@
       "@base-ui/react"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "model-selector": {
+    "title": "Model Selector",
+    "internal": false,
+    "files": [
+      "ModelSelector.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "select",
       "utils"
     ]
   },
@@ -614,6 +832,22 @@
       "class-variance-authority"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "notification-center": {
+    "title": "Notification Center",
+    "internal": false,
+    "files": [
+      "NotificationCenter.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "popover",
+      "relative-time",
       "utils"
     ]
   },
@@ -675,6 +909,20 @@
       "utils"
     ]
   },
+  "plan": {
+    "title": "Plan",
+    "internal": false,
+    "files": [
+      "Plan.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace",
+      "utils"
+    ]
+  },
   "popover": {
     "title": "Popover",
     "internal": false,
@@ -716,6 +964,34 @@
       "utils"
     ]
   },
+  "prompt-input": {
+    "title": "Prompt Input",
+    "internal": false,
+    "files": [
+      "PromptInput.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
+  "queue": {
+    "title": "Queue",
+    "internal": false,
+    "files": [
+      "Queue.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace",
+      "utils"
+    ]
+  },
   "radio-group": {
     "title": "Radio Group",
     "internal": false,
@@ -738,6 +1014,31 @@
     "dependencies": [
       "lucide-react"
     ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "reasoning": {
+    "title": "Reasoning",
+    "internal": false,
+    "files": [
+      "Reasoning.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace",
+      "utils"
+    ]
+  },
+  "relative-time": {
+    "title": "Relative Time",
+    "internal": false,
+    "files": [
+      "RelativeTime.tsx"
+    ],
+    "dependencies": [],
     "registryDependencies": [
       "utils"
     ]
@@ -858,6 +1159,32 @@
       "utils"
     ]
   },
+  "sortable-list": {
+    "title": "Sortable List",
+    "internal": false,
+    "files": [
+      "SortableList.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "sources": {
+    "title": "Sources",
+    "internal": false,
+    "files": [
+      "Sources.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace"
+    ]
+  },
   "spinner": {
     "title": "Spinner",
     "internal": false,
@@ -868,6 +1195,23 @@
       "lucide-react"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "split-button": {
+    "title": "Split Button",
+    "internal": false,
+    "files": [
+      "SplitButton.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "button-group",
+      "button-variants",
+      "menu",
       "utils"
     ]
   },
@@ -882,6 +1226,21 @@
       "class-variance-authority"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "stack-trace": {
+    "title": "Stack Trace",
+    "internal": false,
+    "files": [
+      "StackTrace.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "copy-button",
+      "trace",
       "utils"
     ]
   },
@@ -908,6 +1267,31 @@
       "lucide-react"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "subagent": {
+    "title": "Subagent",
+    "internal": false,
+    "files": [
+      "Subagent.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace"
+    ]
+  },
+  "suggestion": {
+    "title": "Suggestion",
+    "internal": false,
+    "files": [
+      "Suggestion.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "button",
       "utils"
     ]
   },
@@ -962,6 +1346,49 @@
       "utils"
     ]
   },
+  "task": {
+    "title": "Task",
+    "internal": false,
+    "files": [
+      "Task.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace",
+      "utils"
+    ]
+  },
+  "terminal": {
+    "title": "Terminal",
+    "internal": false,
+    "files": [
+      "Terminal.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "copy-button",
+      "trace",
+      "utils"
+    ]
+  },
+  "test-results": {
+    "title": "Test Results",
+    "internal": false,
+    "files": [
+      "TestResults.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "trace",
+      "utils"
+    ]
+  },
   "textarea": {
     "title": "Textarea",
     "internal": false,
@@ -984,6 +1411,21 @@
     ],
     "registryDependencies": [
       "button",
+      "utils"
+    ]
+  },
+  "time-picker": {
+    "title": "Time Picker",
+    "internal": false,
+    "files": [
+      "TimePicker.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "popover",
       "utils"
     ]
   },
@@ -1040,6 +1482,20 @@
       "utils"
     ]
   },
+  "tool": {
+    "title": "Tool",
+    "internal": false,
+    "files": [
+      "Tool.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "code-block",
+      "trace"
+    ]
+  },
   "toolbar": {
     "title": "Toolbar",
     "internal": false,
@@ -1065,6 +1521,35 @@
     ],
     "registryDependencies": [
       "styles",
+      "utils"
+    ]
+  },
+  "tour": {
+    "title": "Tour",
+    "internal": false,
+    "files": [
+      "Tour.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
+  "trace": {
+    "title": "Trace",
+    "internal": false,
+    "files": [
+      "Trace.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "spinner",
       "utils"
     ]
   },

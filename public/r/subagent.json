@@ -1,0 +1,18 @@
+{
+  "name": "subagent",
+  "title": "Subagent",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "trace"
+  ],
+  "files": [
+    {
+      "name": "Subagent.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { BotIcon } from \"lucide-react\"\n\nimport { Trace, TraceContent, TraceSection, TraceTrigger, type TraceStatus } from \"@/components/ui/Trace\"\n\n/**\n * A run handed to another agent: its name, the task it got, the tools it\n * called (as nested Tool traces), and what it returned.\n */\nfunction Subagent({\n  name,\n  status = \"done\",\n  meta,\n  children,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\" | \"children\"> & {\n  name: React.ReactNode\n  status?: TraceStatus\n  /** Duration, tool count, or model. */\n  meta?: React.ReactNode\n  children: React.ReactNode\n}) {\n  return (\n    <Trace data-slot=\"subagent\" variant=\"card\" status={status} {...props}>\n      <TraceTrigger icon={<BotIcon />} label={name} meta={meta} />\n      <TraceContent>{children}</TraceContent>\n    </Trace>\n  )\n}\n\n/** The brief the subagent received. */\nfunction SubagentTask({ children }: { children: React.ReactNode }) {\n  return (\n    <TraceSection label=\"Task\">\n      <p className=\"m-0 text-muted-foreground\">{children}</p>\n    </TraceSection>\n  )\n}\n\n/** The subagent's own steps, usually Tool traces. */\nfunction SubagentSteps({ children, label = \"Steps\" }: { children: React.ReactNode; label?: string }) {\n  return (\n    <TraceSection label={label}>\n      <div className=\"flex flex-col gap-1.5\">{children}</div>\n    </TraceSection>\n  )\n}\n\n/** What it handed back. */\nfunction SubagentResult({ children, label = \"Result\" }: { children: React.ReactNode; label?: string }) {\n  return (\n    <TraceSection label={label}>\n      <div className=\"text-foreground\">{children}</div>\n    </TraceSection>\n  )\n}\n\nexport { Subagent, SubagentTask, SubagentSteps, SubagentResult }\n"
+    }
+  ]
+}

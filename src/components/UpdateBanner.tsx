@@ -31,7 +31,7 @@ export function UpdateBanner() {
         <span className="size-1.5 shrink-0 rounded-full bg-new" aria-hidden />
         <p className="min-w-0 truncate text-center">
           <span className="font-medium text-foreground">
-            {formatDocsVersion(release.version)} is out
+            {formatDocsVersion(release.version)} · {release.title}
           </span>
           <span className="hidden text-muted-foreground sm:inline">
             {" — "}

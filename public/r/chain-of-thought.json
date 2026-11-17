@@ -1,0 +1,18 @@
+{
+  "name": "chain-of-thought",
+  "title": "Chain Of Thought",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "trace"
+  ],
+  "files": [
+    {
+      "name": "ChainOfThought.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ListTreeIcon } from \"lucide-react\"\n\nimport {\n  Trace,\n  TraceContent,\n  TraceStep,\n  TraceSteps,\n  TraceTrigger,\n  type TraceStatus,\n} from \"@/components/ui/Trace\"\n\n/**\n * A one-line summary that unfolds into the steps the agent took. While a step\n * runs, the summary shimmers; when all are done it reads as a past tense line.\n */\nfunction ChainOfThought({\n  summary,\n  status = \"done\",\n  children,\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\" | \"children\"> & {\n  summary: React.ReactNode\n  status?: TraceStatus\n  children: React.ReactNode\n}) {\n  return (\n    <Trace data-slot=\"chain-of-thought\" status={status} {...props}>\n      <TraceTrigger icon={<ListTreeIcon />} label={summary} />\n      <TraceContent>\n        <TraceSteps className=\"py-1\">{children}</TraceSteps>\n      </TraceContent>\n    </Trace>\n  )\n}\n\n/** One step of the chain. Children hold what it found: links, images, a quote. */\nconst ChainOfThoughtStep = TraceStep\n\nexport { ChainOfThought, ChainOfThoughtStep }\n"
+    }
+  ]
+}

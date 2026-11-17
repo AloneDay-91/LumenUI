@@ -1,7 +1,9 @@
 import Link from "next/link"
+import { PlusIcon, RefreshCwIcon, WrenchIcon } from "lucide-react"
 
 import HeadingsSetter from "@/components/docs/HeadingsSetter"
 import { PageIntro } from "@/components/docs/Preview"
+import { Badge, type BadgeColor } from "@/components/ui/Badge"
 import { Separator } from "@/components/ui/Separator"
 import {
   changelog,
@@ -13,6 +15,13 @@ import {
 import { formatDocsVersion } from "@/lib/site"
 
 const kindOrder: ChangelogKind[] = ["added", "changed", "fixed"]
+
+/** Each kind is a hued badge with an icon, so the groups read at a glance. */
+const kindStyle: Record<ChangelogKind, { color: BadgeColor; icon: typeof PlusIcon }> = {
+  added: { color: "jade", icon: PlusIcon },
+  changed: { color: "indigo", icon: RefreshCwIcon },
+  fixed: { color: "orange", icon: WrenchIcon },
+}
 
 function groupItems(items: ChangelogItem[]) {
   return kindOrder
@@ -31,7 +40,7 @@ export default function ChangelogPage() {
           { id: "changelog", text: "Changelog", level: 1 },
           ...changelog.map((release) => ({
             id: release.version,
-            text: formatDocsVersion(release.version),
+            text: `${formatDocsVersion(release.version)} · ${release.title}`,
             level: 2 as const,
           })),
         ]}
@@ -46,22 +55,31 @@ export default function ChangelogPage() {
         {changelog.map((release, index) => (
           <section key={release.version} className="space-y-4">
             {index > 0 ? <Separator /> : null}
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 id={release.version} className="font-mono">
-                {formatDocsVersion(release.version)}
+            <div className="space-y-1">
+              <div className="flex flex-wrap items-baseline justify-between gap-2 text-xs text-muted-foreground">
+                <span className="font-mono">{formatDocsVersion(release.version)}</span>
+                <time dateTime={release.date}>
+                  {formatChangelogDate(release.date)}
+                </time>
+              </div>
+              <h2 id={release.version} className="mt-0! text-base!">
+                {release.title}
               </h2>
-              <time
-                dateTime={release.date}
-                className="text-xs text-muted-foreground"
-              >
-                {formatChangelogDate(release.date)}
-              </time>
             </div>
             <p>{release.summary}</p>
-            {groupItems(release.items).map((group) => (
-              <div key={group.kind} className="space-y-2">
-                <h3 id={`${release.version}-${group.kind}`}>
-                  {changelogKindLabel(group.kind)}
+            {groupItems(release.items).map((group) => {
+              const style = kindStyle[group.kind]
+              const Icon = style.icon
+              return (
+              <div key={group.kind} className="space-y-2 pt-2">
+                <h3
+                  id={`${release.version}-${group.kind}`}
+                  className="mt-0! flex items-center gap-2"
+                >
+                  <Badge color={style.color} className="h-6 gap-1.5 px-2.5 text-xs">
+                    <Icon aria-hidden className="size-3!" />
+                    {changelogKindLabel(group.kind)}
+                  </Badge>
                 </h3>
                 <ul className="flex flex-col gap-2">
                   {group.items.map((item) => (
@@ -86,7 +104,8 @@ export default function ChangelogPage() {
                   ))}
                 </ul>
               </div>
-            ))}
+              )
+            })}
           </section>
         ))}
       </div>

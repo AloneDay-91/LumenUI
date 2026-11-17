@@ -1,0 +1,19 @@
+{
+  "name": "model-selector",
+  "title": "Model Selector",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "select",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "ModelSelector.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { BrainIcon } from \"lucide-react\"\n\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from \"@/components/ui/Select\"\nimport { cn } from \"@/lib/utils\"\n\ntype ModelOption = { value: string; label: string; description?: string }\ntype EffortOption = { value: string; label: string }\n\nconst defaultEfforts: EffortOption[] = [\n  { value: \"low\", label: \"Low\" },\n  { value: \"medium\", label: \"Medium\" },\n  { value: \"high\", label: \"High\" },\n]\n\n/**\n * Two small menus for the composer toolbar: which model runs, and how hard\n * it thinks. The effort menu hides for models that do not reason.\n */\nfunction ModelSelector({\n  models,\n  model,\n  onModelChange,\n  efforts = defaultEfforts,\n  effort,\n  onEffortChange,\n  showEffort = true,\n  labels = {},\n  className,\n}: {\n  models: ModelOption[]\n  model: string\n  onModelChange: (model: string) => void\n  efforts?: EffortOption[]\n  effort?: string\n  onEffortChange?: (effort: string) => void\n  showEffort?: boolean\n  labels?: { model?: string; effort?: string }\n  className?: string\n}) {\n  const itemsFor = (options: { value: string; label: string }[]) =>\n    Object.fromEntries(options.map((option) => [option.value, option.label]))\n\n  return (\n    <div data-slot=\"model-selector\" className={cn(\"flex items-center gap-1\", className)}>\n      <Select items={itemsFor(models)} value={model} onValueChange={(value) => value && onModelChange(value as string)}>\n        <SelectTrigger\n          size=\"sm\"\n          aria-label={labels.model ?? \"Model\"}\n          className=\"border-transparent bg-transparent hover:bg-muted dark:bg-transparent\"\n        >\n          <SelectValue />\n        </SelectTrigger>\n        <SelectContent alignItemWithTrigger={false} align=\"start\" className=\"w-auto min-w-56\">\n          {models.map((option) => (\n            <SelectItem key={option.value} value={option.value}>\n              <span className=\"flex flex-col gap-0.5\">\n                <span>{option.label}</span>\n                {option.description ? (\n                  <span className=\"text-[11px] whitespace-normal text-muted-foreground\">{option.description}</span>\n                ) : null}\n              </span>\n            </SelectItem>\n          ))}\n        </SelectContent>\n      </Select>\n      {showEffort && effort !== undefined && onEffortChange ? (\n        <Select items={itemsFor(efforts)} value={effort} onValueChange={(value) => value && onEffortChange(value as string)}>\n          <SelectTrigger\n            size=\"sm\"\n            aria-label={labels.effort ?? \"Reasoning effort\"}\n            className=\"border-transparent bg-transparent text-muted-foreground hover:bg-muted dark:bg-transparent\"\n          >\n            <BrainIcon aria-hidden className=\"size-3.5\" />\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent alignItemWithTrigger={false} align=\"start\">\n            {efforts.map((option) => (\n              <SelectItem key={option.value} value={option.value}>\n                {option.label}\n              </SelectItem>\n            ))}\n          </SelectContent>\n        </Select>\n      ) : null}\n    </div>\n  )\n}\n\nexport { ModelSelector }\nexport type { ModelOption, EffortOption }\n"
+    }
+  ]
+}

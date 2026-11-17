@@ -1,0 +1,22 @@
+{
+  "name": "split-button",
+  "title": "Split Button",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "button-group",
+    "button-variants",
+    "menu",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "SplitButton.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ChevronDownIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/Button\"\nimport { ButtonGroup } from \"@/components/ui/ButtonGroup\"\nimport type { ButtonVariantProps } from \"@/components/ui/button-variants\"\nimport { Menu, MenuContent, MenuTrigger } from \"@/components/ui/Menu\"\nimport { cn } from \"@/lib/utils\"\n\ntype SplitButtonContextValue = Pick<ButtonVariantProps, \"variant\" | \"size\"> & {\n  disabled?: boolean\n}\n\nconst SplitButtonContext = React.createContext<SplitButtonContextValue>({})\n\n/**\n * A main action joined to a menu of related actions. Variant, size and\n * disabled are set once here and shared by both halves.\n */\nfunction SplitButton({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  disabled,\n  ...props\n}: React.ComponentProps<typeof ButtonGroup> &\n  SplitButtonContextValue) {\n  const context = React.useMemo(() => ({ variant, size, disabled }), [variant, size, disabled])\n\n  return (\n    <SplitButtonContext.Provider value={context}>\n      <ButtonGroup\n        data-slot=\"split-button\"\n        data-variant={variant}\n        className={cn(\"w-fit\", className)}\n        {...props}\n      />\n    </SplitButtonContext.Provider>\n  )\n}\n\nfunction SplitButtonAction({\n  className,\n  ...props\n}: Omit<React.ComponentProps<typeof Button>, \"variant\" | \"size\">) {\n  const { variant, size, disabled } = React.useContext(SplitButtonContext)\n\n  return (\n    <Button\n      data-slot=\"split-button-action\"\n      variant={variant}\n      size={size}\n      disabled={disabled}\n      className={cn(\"rounded-s-4xl! rounded-e-none!\", className)}\n      {...props}\n    />\n  )\n}\n\n/** The chevron half. Its children are Menu items. */\nfunction SplitButtonMenu({\n  label = \"More options\",\n  align = \"end\",\n  className,\n  contentClassName,\n  children,\n}: {\n  /** Accessible name of the chevron button. */\n  label?: string\n  align?: \"start\" | \"center\" | \"end\"\n  className?: string\n  contentClassName?: string\n  children: React.ReactNode\n}) {\n  const { variant, size, disabled } = React.useContext(SplitButtonContext)\n  const iconSize =\n    size === \"xs\" ? \"icon-xs\" : size === \"sm\" ? \"icon-sm\" : size === \"lg\" ? \"icon-lg\" : \"icon\"\n\n  return (\n    <Menu>\n      <MenuTrigger\n        disabled={disabled}\n        render={\n          <Button\n            data-slot=\"split-button-trigger\"\n            variant={variant}\n            size={iconSize}\n            aria-label={label}\n            className={cn(\n              // Set here, not by ButtonGroup: Menu inserts focus guards in the group,\n              // so this button is not its :last-child.\n              \"rounded-s-none! rounded-e-4xl!\",\n              // A hairline between two filled halves; outline already has its borders.\n              (variant === \"default\" || variant === \"secondary\" || variant === \"destructive\") &&\n                \"border-s-current/15\",\n              className\n            )}\n          />\n        }\n      >\n        <ChevronDownIcon aria-hidden />\n      </MenuTrigger>\n      <MenuContent align={align} className={cn(\"w-auto min-w-44\", contentClassName)}>\n        {children}\n      </MenuContent>\n    </Menu>\n  )\n}\n\nexport { SplitButton, SplitButtonAction, SplitButtonMenu }\n"
+    }
+  ]
+}

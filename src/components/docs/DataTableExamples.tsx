@@ -11,7 +11,7 @@ type Release = {
 }
 
 const releases: Release[] = [
-  { version: "1.1.0", status: "Published", downloads: 12480, date: "2026-10-29" },
+  { version: "1.1.0", status: "Published", downloads: 12480, date: "2026-11-17" },
   { version: "1.0.7", status: "Published", downloads: 9320, date: "2026-10-12" },
   { version: "1.0.6", status: "Published", downloads: 8104, date: "2026-09-30" },
   { version: "1.0.5", status: "Failed", downloads: 0, date: "2026-09-21" },

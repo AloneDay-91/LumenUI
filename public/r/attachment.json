@@ -1,0 +1,19 @@
+{
+  "name": "attachment",
+  "title": "Attachment",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "file-upload",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "Attachment.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { FileIcon, FileTextIcon, ImageIcon, XIcon } from \"lucide-react\"\n\nimport { formatBytes } from \"@/components/ui/FileUpload\"\nimport { cn } from \"@/lib/utils\"\n\nfunction AttachmentList({ className, ...props }: React.ComponentProps<\"ul\">) {\n  return (\n    <ul\n      data-slot=\"attachment-list\"\n      className={cn(\"m-0 flex list-none flex-wrap gap-1.5 p-0\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction TypeIcon({ type }: { type?: string }) {\n  if (type?.startsWith(\"image/\")) return <ImageIcon aria-hidden className=\"size-4\" />\n  if (type?.startsWith(\"text/\") || type === \"application/pdf\")\n    return <FileTextIcon aria-hidden className=\"size-4\" />\n  return <FileIcon aria-hidden className=\"size-4\" />\n}\n\n/**\n * A file on its way into a message: a thumbnail for images, an icon for the\n * rest, the name, the size, and a remove button.\n */\nfunction Attachment({\n  className,\n  name,\n  type,\n  size,\n  previewUrl,\n  onRemove,\n  removeLabel = `Remove ${name}`,\n  ...props\n}: Omit<React.ComponentProps<\"li\">, \"children\"> & {\n  name: string\n  /** MIME type. Picks the icon. */\n  type?: string\n  /** Bytes. */\n  size?: number\n  /** An object URL or remote URL; images show it as a thumbnail. */\n  previewUrl?: string\n  onRemove?: () => void\n  removeLabel?: string\n}) {\n  return (\n    <li\n      data-slot=\"attachment\"\n      className={cn(\n        \"group/attachment relative flex h-10 max-w-56 items-center gap-2 rounded-xl border border-border bg-card ps-1 pe-2 text-xs\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-muted-foreground\">\n        {previewUrl && type?.startsWith(\"image/\") ? (\n          // eslint-disable-next-line @next/next/no-img-element -- object URLs, not optimisable\n          <img src={previewUrl} alt=\"\" className=\"size-full object-cover\" />\n        ) : (\n          <TypeIcon type={type} />\n        )}\n      </span>\n      <span className=\"flex min-w-0 flex-col leading-tight\">\n        <span className=\"truncate font-medium\">{name}</span>\n        {size !== undefined ? (\n          <span className=\"font-mono text-[10px] text-muted-foreground tabular-nums\">\n            {formatBytes(size)}\n          </span>\n        ) : null}\n      </span>\n      {onRemove ? (\n        <button\n          type=\"button\"\n          aria-label={removeLabel}\n          onClick={onRemove}\n          className=\"absolute -end-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full bg-foreground text-background opacity-0 ring-2 ring-background transition-opacity outline-none group-hover/attachment:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100\"\n        >\n          <XIcon className=\"size-3\" />\n        </button>\n      ) : null}\n    </li>\n  )\n}\n\nexport { Attachment, AttachmentList }\n"
+    }
+  ]
+}

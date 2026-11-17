@@ -1,0 +1,19 @@
+{
+  "name": "tool",
+  "title": "Tool",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "code-block",
+    "trace"
+  ],
+  "files": [
+    {
+      "name": "Tool.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { WrenchIcon } from \"lucide-react\"\n\nimport { CodeBlock } from \"@/components/ui/CodeBlock\"\nimport {\n  Trace,\n  TraceContent,\n  TraceSection,\n  TraceTrigger,\n  type TraceStatus,\n} from \"@/components/ui/Trace\"\n\nconst ToolContext = React.createContext<{ name: string }>({ name: \"\" })\n\n/** A tool call, from input to output: a card Trace with the name in mono. */\nfunction Tool({\n  name,\n  status = \"done\",\n  ...props\n}: Omit<React.ComponentProps<typeof Trace>, \"variant\"> & {\n  name: string\n  status?: TraceStatus\n}) {\n  return (\n    <ToolContext.Provider value={{ name }}>\n      <Trace data-slot=\"tool\" variant=\"card\" status={status} {...props} />\n    </ToolContext.Provider>\n  )\n}\n\nfunction ToolTrigger(props: Omit<React.ComponentProps<typeof TraceTrigger>, \"title\">) {\n  const { name } = React.useContext(ToolContext)\n  return (\n    <TraceTrigger icon={<WrenchIcon />} {...props}>\n      <span className=\"font-mono\">{name}</span>\n    </TraceTrigger>\n  )\n}\n\nconst ToolContent = TraceContent\n\nfunction format(value: unknown) {\n  return typeof value === \"string\" ? value : JSON.stringify(value, null, 2)\n}\n\n/** The arguments, printed as indented JSON in a Code Block. */\nfunction ToolInput({ value, label = \"Input\" }: { value: unknown; label?: string }) {\n  return (\n    <TraceSection label={label}>\n      <CodeBlock code={format(value)} copyable={false} wrap className=\"bg-muted/60 [&>pre]:p-2.5\" />\n    </TraceSection>\n  )\n}\n\n/** The result, or the error with `error`. Children render it your way instead. */\nfunction ToolOutput({\n  value,\n  error,\n  label,\n  children,\n}: {\n  value?: unknown\n  error?: React.ReactNode\n  label?: string\n  children?: React.ReactNode\n}) {\n  if (error) {\n    return (\n      <TraceSection label={label ?? \"Error\"}>\n        <p className=\"m-0 rounded-xl bg-crimson-wash px-2.5 py-2 text-crimson-ink\">{error}</p>\n      </TraceSection>\n    )\n  }\n  return (\n    <TraceSection label={label ?? \"Output\"}>\n      {children ??\n        (value === undefined ? null : (\n          <CodeBlock code={format(value)} copyable={false} wrap className=\"bg-muted/60 [&>pre]:p-2.5\" />\n        ))}\n    </TraceSection>\n  )\n}\n\nexport { Tool, ToolTrigger, ToolContent, ToolInput, ToolOutput }\n"
+    }
+  ]
+}

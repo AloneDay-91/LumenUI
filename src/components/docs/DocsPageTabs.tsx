@@ -82,7 +82,7 @@ export function DocsPageTabs({
         <TabsTab value="api">API</TabsTab>
       </TabsList>
       <TabsPanels>
-        <TabsPanel value="usage" className="space-y-12 [&_h2:first-child]:mt-0">
+        <TabsPanel value="usage" data-docs-panel className="[&_h2:first-child]:mt-0">
           {usage}
         </TabsPanel>
         <TabsPanel value="api" className="[&_h2:first-child]:mt-0">
