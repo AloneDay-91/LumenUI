@@ -9,6 +9,9 @@ const docsSources = [
 ]
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   outputFileTracingIncludes: {
     "/llms.txt": docsSources,
     "/llms-full.txt": docsSources,
