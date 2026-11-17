@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/AloneDay-91/LumenUI/compare/v1.2.0...v1.3.0) (2026-11-17)
+
+
+### Added
+
+* **analytics:** load tracker and replay from public env ([e305903](https://github.com/AloneDay-91/LumenUI/commit/e30590336ec2f0d0efa07e64dff81fd42da760f3))
+* **blocks:** put Blocks on the docs layout ([544f6be](https://github.com/AloneDay-91/LumenUI/commit/544f6beb2eeaa685cdcd8a2fac26eaa18150f2ef))
+* **blocks:** rebuild the Lumen kit as frozen, standalone blocks ([cd90be7](https://github.com/AloneDay-91/LumenUI/commit/cd90be74fa3d860e81979656047d72ff1c368ba7))
+* **docs:** new theme, version select and split copy button ([3e3e70e](https://github.com/AloneDay-91/LumenUI/commit/3e3e70e25ae1561f39a6e5657f9af049bcbfde53))
+* **docs:** version badges and a version menu ([3a2bb78](https://github.com/AloneDay-91/LumenUI/commit/3a2bb789e58588697cc723bafcfbc0570e9ffc2c))
+* **marketing:** restyle the landing and footer ([8fab364](https://github.com/AloneDay-91/LumenUI/commit/8fab3643d42f149f2a8d4a5cc39c02f2759dd9d1))
+* **marketing:** restyle the landing and footer ([14110a3](https://github.com/AloneDay-91/LumenUI/commit/14110a3b1ed90e997b43027249ce4d5decc5411f))
+* **ui:** outline fields and a scroll fade by default ([374f76e](https://github.com/AloneDay-91/LumenUI/commit/374f76e4e00a3e65bb84fb5a5bbca8216c756b04))
+
 ## [1.2.0](https://github.com/AloneDay-91/LumenUI/compare/v1.1.1...v1.2.0) (2026-11-17)
 
 
