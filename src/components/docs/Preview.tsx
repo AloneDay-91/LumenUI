@@ -1,18 +1,23 @@
 "use client"
 
+import Link from "next/link"
 import { useState, type ReactNode } from "react"
 
 import { CopyPageButton } from "@/components/docs/CopyPageButton"
 import { Card } from "@/components/ui/Card"
+import { minorOf } from "@/lib/doc-versions"
 import { cn } from "@/lib/utils"
 
 export function PageIntro({
   title,
   description,
+  versions,
 }: {
   eyebrow?: string
   title: string
   description: string
+  /** Release that added the page, and the last minor that changed it. */
+  versions?: { added?: string; updated?: string }
 }) {
   return (
     <header className="mb-8">
@@ -21,6 +26,26 @@ export function PageIntro({
         <CopyPageButton />
       </div>
       <p className="mt-3">{description}</p>
+      {versions?.added || versions?.updated ? (
+        <p data-slot="page-versions" className="mt-3 flex flex-wrap items-center gap-1.5">
+          {versions.added ? (
+            <Link
+              href={`/docs/changelog#${versions.added}`}
+              className="inline-flex h-5 items-center rounded-full border border-border px-2 font-mono text-[11px] text-muted-foreground no-underline transition-colors hover:text-foreground"
+            >
+              Since v{minorOf(versions.added)}
+            </Link>
+          ) : null}
+          {versions.updated ? (
+            <Link
+              href={`/docs/changelog#${versions.updated}`}
+              className="inline-flex h-5 items-center rounded-full bg-secondary px-2 font-mono text-[11px] text-secondary-foreground no-underline transition-colors hover:text-foreground"
+            >
+              Updated in v{minorOf(versions.updated)}
+            </Link>
+          ) : null}
+        </p>
+      ) : null}
     </header>
   )
 }

@@ -15,10 +15,10 @@ import { ThemeControls } from "@/components/theme/ThemeControls";
 import { AskLumen } from "@/components/docs/AskLumen";
 import { DocsCommandMenu } from "@/components/docs/DocsCommandMenu";
 import { DocsContents } from "@/components/docs/DocsContents";
+import { VersionMenu } from "@/components/docs/VersionMenu";
 import { DocsSearch } from "@/components/docs/DocsSearch";
 import { SiteLogo } from "@/components/marketing/SiteLogo";
 import { Button } from "@/components/ui/Button";
-import { formatDocsVersion } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 // The blocks registry is heavy: it loads with the blocks menu, not with every docs page.
@@ -116,9 +116,7 @@ export function DocsHeader() {
             )}
           </div>
           <div className="ml-auto flex items-center gap-1">
-            <span className="mr-1 hidden font-mono text-[11px] text-muted-foreground sm:inline">
-              {formatDocsVersion()}
-            </span>
+            <VersionMenu className="mr-1 hidden sm:inline-flex" />
             <AskLumen />
             <DocsCommandMenu />
             <SiteNavMenu />

@@ -6,6 +6,7 @@ import { ComponentApi } from "@/components/docs/ComponentApi"
 import { DocsPageTabs } from "@/components/docs/DocsPageTabs"
 import type { Heading } from "@/components/docs/DocsTOCContext"
 import { PageIntro, Preview } from "@/components/docs/Preview"
+import { getPageVersions } from "@/lib/doc-versions"
 import {
   componentInstallCommand,
   componentSlug,
@@ -48,7 +49,12 @@ export function ComponentDocs({
 
   return (
     <div className="space-y-12">
-      <PageIntro eyebrow="Components" title={name} description={description} />
+      <PageIntro
+        eyebrow="Components"
+        title={name}
+        description={description}
+        versions={getPageVersions(`/docs/components/${api?.slug ?? componentSlug(name)}`)}
+      />
       <Preview className={previewClassName}>{preview}</Preview>
       <DocsPageTabs
         usageHeadings={usageHeadings}
