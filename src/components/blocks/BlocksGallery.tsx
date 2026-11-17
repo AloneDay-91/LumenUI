@@ -18,8 +18,7 @@ import {
 } from "@/lib/block-categories"
 
 export function blockCount(slug: BlockCategorySlug) {
-  const listed = allBlocks.filter((block) => block.kit === slug).length
-  return slug === "heroes" ? listed + 1 : listed
+  return allBlocks.filter((block) => block.kit === slug).length
 }
 
 /** Categories with no block yet stay out of the navigation. Their URL still answers. */
@@ -126,7 +125,7 @@ export function CategoryIndex({ header }: { header: ReactNode }) {
           </ToggleGroup>
         ) : null}
       </div>
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {visible.map((category) => (
           <li key={category.slug}>
             <Link

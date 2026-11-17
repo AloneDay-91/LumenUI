@@ -1,0 +1,143 @@
+import Link from "next/link"
+
+/** The catalog as it stood when the block was made. */
+const components = [
+  { name: "Button", slug: "button" },
+  { name: "Button Group", slug: "button-group" },
+  { name: "Copy Button", slug: "copy-button" },
+  { name: "Split Button", slug: "split-button" },
+  { name: "Toggle", slug: "toggle" },
+  { name: "Toggle Group", slug: "toggle-group" },
+  { name: "Toolbar", slug: "toolbar" },
+  { name: "Attachment", slug: "attachment" },
+  { name: "Autocomplete", slug: "autocomplete" },
+  { name: "Calendar", slug: "calendar" },
+  { name: "Checkbox", slug: "checkbox" },
+  { name: "Checkbox Group", slug: "checkbox-group" },
+  { name: "Color Picker", slug: "color-picker" },
+  { name: "Combobox", slug: "combobox" },
+  { name: "Date Picker", slug: "date-picker" },
+  { name: "Field", slug: "field" },
+  { name: "Fieldset", slug: "fieldset" },
+  { name: "File Upload", slug: "file-upload" },
+  { name: "Form", slug: "form" },
+  { name: "Input", slug: "input" },
+  { name: "Input Group", slug: "input-group" },
+  { name: "Label", slug: "label" },
+  { name: "Number Field", slug: "number-field" },
+  { name: "OTP Field", slug: "otp-field" },
+  { name: "Password Input", slug: "password-input" },
+  { name: "Radio Group", slug: "radio-group" },
+  { name: "Search Input", slug: "search-input" },
+  { name: "Select", slug: "select" },
+  { name: "Slider", slug: "slider" },
+  { name: "Switch", slug: "switch" },
+  { name: "Tag Input", slug: "tag-input" },
+  { name: "Textarea", slug: "textarea" },
+  { name: "Time Picker", slug: "time-picker" },
+  { name: "Alert Dialog", slug: "alert-dialog" },
+  { name: "Command", slug: "command" },
+  { name: "Context Menu", slug: "context-menu" },
+  { name: "Dialog", slug: "dialog" },
+  { name: "Drawer", slug: "drawer" },
+  { name: "Menu", slug: "menu" },
+  { name: "Menubar", slug: "menubar" },
+  { name: "Notification Center", slug: "notification-center" },
+  { name: "Popover", slug: "popover" },
+  { name: "Preview Card", slug: "preview-card" },
+  { name: "Toast", slug: "toast" },
+  { name: "Tooltip", slug: "tooltip" },
+  { name: "Tour", slug: "tour" },
+  { name: "Accordion", slug: "accordion" },
+  { name: "Breadcrumb", slug: "breadcrumb" },
+  { name: "Collapsible", slug: "collapsible" },
+  { name: "Navigation Menu", slug: "navigation-menu" },
+  { name: "Pagination", slug: "pagination" },
+  { name: "Sidebar", slug: "sidebar" },
+  { name: "Stepper", slug: "stepper" },
+  { name: "Tabs", slug: "tabs" },
+  { name: "Alert", slug: "alert" },
+  { name: "Badge", slug: "badge" },
+  { name: "Banner", slug: "banner" },
+  { name: "Callout", slug: "callout" },
+  { name: "Empty", slug: "empty" },
+  { name: "Meter", slug: "meter" },
+  { name: "Progress", slug: "progress" },
+  { name: "Rating", slug: "rating" },
+  { name: "Skeleton", slug: "skeleton" },
+  { name: "Spinner", slug: "spinner" },
+  { name: "Aspect Ratio", slug: "aspect-ratio" },
+  { name: "Avatar", slug: "avatar" },
+  { name: "Avatar Group", slug: "avatar-group" },
+  { name: "Card", slug: "card" },
+  { name: "Carousel", slug: "carousel" },
+  { name: "Chart", slug: "chart" },
+  { name: "Code Block", slug: "code-block" },
+  { name: "Data List", slug: "data-list" },
+  { name: "Data Table", slug: "data-table" },
+  { name: "Filter Bar", slug: "filter-bar" },
+  { name: "Image Gallery", slug: "image-gallery" },
+  { name: "Item", slug: "item" },
+  { name: "Kbd", slug: "kbd" },
+  { name: "Relative Time", slug: "relative-time" },
+  { name: "Scroll Area", slug: "scroll-area" },
+  { name: "Separator", slug: "separator" },
+  { name: "Sortable List", slug: "sortable-list" },
+  { name: "Stat", slug: "stat" },
+  { name: "Table", slug: "table" },
+  { name: "Theme Toggle", slug: "theme-toggle" },
+  { name: "Timeline", slug: "timeline" },
+  { name: "Tree View", slug: "tree-view" },
+  { name: "Typography", slug: "typography" },
+  { name: "Chat", slug: "chat" },
+  { name: "Message", slug: "message" },
+  { name: "Prompt Input", slug: "prompt-input" },
+  { name: "Trace", slug: "trace" },
+  { name: "Reasoning", slug: "reasoning" },
+  { name: "Tool", slug: "tool" },
+  { name: "Chain of Thought", slug: "chain-of-thought" },
+  { name: "Plan", slug: "plan" },
+  { name: "Task", slug: "task" },
+  { name: "Queue", slug: "queue" },
+  { name: "Subagent", slug: "subagent" },
+  { name: "Confirmation", slug: "confirmation" },
+  { name: "Terminal", slug: "terminal" },
+  { name: "Stack Trace", slug: "stack-trace" },
+  { name: "Test Results", slug: "test-results" },
+  { name: "File Tree", slug: "file-tree" },
+  { name: "Sources", slug: "sources" },
+  { name: "Inline Citation", slug: "inline-citation" },
+  { name: "Suggestion", slug: "suggestion" },
+  { name: "Checkpoint", slug: "checkpoint" },
+  { name: "Context", slug: "context" },
+  { name: "Model Selector", slug: "model-selector" },
+  { name: "Container", slug: "container" },
+  { name: "Marquee", slug: "marquee" },
+  { name: "Message Scroller", slug: "message-scroller" },
+  { name: "Resizable", slug: "resizable" },
+  { name: "Stack", slug: "stack" },
+  { name: "Visually Hidden", slug: "visually-hidden" },
+]
+
+export function ComponentIndex() {
+  return (
+    <section className="w-full px-6 py-12">
+      <div className="mb-8 flex items-baseline justify-between gap-4">
+        <h2 className="text-sm font-medium tracking-tight text-muted-foreground">Components</h2>
+        <p className="font-mono text-xs text-muted-foreground">{String(components.length).padStart(2, "0")}</p>
+      </div>
+      <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3 md:grid-cols-4">
+        {components.map((item) => (
+          <li key={item.slug}>
+            <Link
+              href={`/docs/components/${item.slug}`}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {item.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

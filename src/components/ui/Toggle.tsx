@@ -9,7 +9,7 @@ function Toggle({ className, ...props }: TogglePrimitive.Props) {
     <TogglePrimitive
       data-slot="toggle"
       className={cn(
-        "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none select-none",
+        "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-4xl px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none select-none",
         "hover:bg-muted hover:text-foreground",
         "focus-visible:relative focus-visible:z-1 focus-visible:ring-3 focus-visible:ring-ring/30",
         "disabled:pointer-events-none disabled:opacity-50",

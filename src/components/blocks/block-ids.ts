@@ -1,21 +1,7 @@
 import { dashboardBlockMeta } from "@/lib/dashboard-blocks"
-
-const lumenPreviewIds = [
-  "site-hero",
-  "site-header",
-  "landing-hero",
-  "painting",
-  "split",
-  "band",
-  "copy-paste",
-  "form-states",
-  "tokens",
-  "component-index",
-  "installation",
-  "site-footer",
-]
+import { lumenBlockMeta } from "@/lib/lumen-blocks"
 
 export const blockPreviewIds: string[] = [
-  ...lumenPreviewIds,
+  ...lumenBlockMeta.map((block) => block.id),
   ...dashboardBlockMeta.map((block) => block.id),
 ]

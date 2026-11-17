@@ -48,7 +48,7 @@ function ComboboxContent({
           data-slot="combobox-content"
           className={cn(
             popupClassName,
-            "z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-y-auto p-1",
+            "z-50 flex max-h-(--available-height) w-(--anchor-width) min-w-36 flex-col overflow-hidden p-1",
             className
           )}
           {...props}
@@ -60,8 +60,14 @@ function ComboboxContent({
   )
 }
 
-function ComboboxList(props: ComboboxPrimitive.List.Props) {
-  return <ComboboxPrimitive.List data-slot="combobox-list" {...props} />
+function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
+  return (
+    <ComboboxPrimitive.List
+      data-slot="combobox-list"
+      className={cn("min-h-0 flex-1 scroll-fade overflow-y-auto", className)}
+      {...props}
+    />
+  )
 }
 
 function ComboboxItem({

@@ -74,10 +74,10 @@ function DrawerPopup({
             "data-[swipe-direction=up]:mb-auto data-[swipe-direction=up]:max-h-[85dvh] data-[swipe-direction=up]:w-full data-[swipe-direction=up]:translate-y-(--drawer-swipe-movement-y) data-[swipe-direction=up]:data-starting-style:-translate-y-full data-[swipe-direction=up]:data-ending-style:-translate-y-full",
             "data-[swipe-direction=left]:mr-auto data-[swipe-direction=left]:h-full data-[swipe-direction=left]:translate-x-(--drawer-swipe-movement-x) data-[swipe-direction=left]:data-starting-style:-translate-x-full data-[swipe-direction=left]:data-ending-style:-translate-x-full",
             "data-[swipe-direction=right]:ml-auto data-[swipe-direction=right]:h-full data-[swipe-direction=right]:translate-x-(--drawer-swipe-movement-x) data-[swipe-direction=right]:data-starting-style:translate-x-full data-[swipe-direction=right]:data-ending-style:translate-x-full",
-            "data-[swipe-direction=down]:rounded-t-[24px]",
-            "data-[swipe-direction=up]:rounded-b-[24px]",
-            "data-[swipe-direction=right]:rounded-l-[24px]",
-            "data-[swipe-direction=left]:rounded-r-[24px]",
+            "data-[swipe-direction=down]:rounded-t-[min(var(--radius-4xl),24px)]",
+            "data-[swipe-direction=up]:rounded-b-[min(var(--radius-4xl),24px)]",
+            "data-[swipe-direction=right]:rounded-l-[min(var(--radius-4xl),24px)]",
+            "data-[swipe-direction=left]:rounded-r-[min(var(--radius-4xl),24px)]",
             className
           )}
           {...props}

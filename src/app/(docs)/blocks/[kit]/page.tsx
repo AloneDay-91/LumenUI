@@ -2,9 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { BlocksGallery } from "@/components/blocks/BlocksGallery"
-import { CurrentHeroBlock } from "@/components/blocks/CurrentHero"
 import { blockCategories, getBlockCategory } from "@/lib/block-categories"
-import { dashboardSources } from "@/lib/dashboard-sources"
+import { blockSources } from "@/lib/dashboard-sources"
 
 export function generateStaticParams() {
   return blockCategories.map((category) => ({ kit: category.slug }))
@@ -35,23 +34,19 @@ export default async function BlockCategoryPage({
 
   return (
     <>
-      <header className="mb-10 max-w-lg">
+      <header className="mb-10 max-w-[65ch]">
+        <p className="mb-2 text-xs text-muted-foreground">{category.group}</p>
         <h1 className="text-xl leading-tight font-medium tracking-tight md:text-2xl">
           {category.title}
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
           {category.description}
         </p>
       </header>
       <div className="flex flex-col gap-10">
-        {category.slug === "heroes" ? <CurrentHeroBlock /> : null}
         <BlocksGallery
           kit={category.slug}
-          sources={
-            category.kit === "dashboard"
-              ? dashboardSources(category.slug)
-              : undefined
-          }
+          sources={blockSources(category.slug)}
         />
       </div>
     </>

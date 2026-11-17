@@ -55,6 +55,88 @@ function Bars({ heights }: { heights: number[] }) {
 
 /** Each block type as a few tokens: bars for text, pills for actions. */
 const thumbs: Record<BlockCategorySlug, ReactNode> = {
+  banners: (
+    <div className="flex w-full flex-col gap-2">
+      <div className="flex h-6 w-full items-center justify-center gap-1.5 rounded-lg bg-muted ring-1 ring-border">
+        <span className="block size-1.5 rounded-full bg-new" />
+        <span className="block h-1.25 w-16 rounded-full bg-foreground/70" />
+        <span className={`${line} h-1.25 w-10`} />
+      </div>
+      <div className={`flex h-8 w-full items-center gap-2.5 px-3 ${surface}`}>
+        <Logo className="size-3" />
+        <span className={`${line} h-1.25 w-6`} />
+        <span className={`${line} h-1.25 w-6`} />
+        <span className="ml-auto block h-3 w-8 rounded-full bg-primary" />
+      </div>
+    </div>
+  ),
+  logos: (
+    <div className="flex w-full items-center justify-center gap-3 mask-[linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+      {[10, 14, 9, 12, 11].map((width, item) => (
+        <span key={item} className="flex items-center gap-1">
+          <span className="block size-3 rounded-full bg-foreground/60" />
+          <span className="block h-1.5 rounded-full bg-foreground/30" style={{ width: `${width * 2}px` }} />
+        </span>
+      ))}
+    </div>
+  ),
+  showcases: (
+    <div className="grid w-full grid-cols-4 grid-rows-2 gap-1.5">
+      <div className={`col-span-2 row-span-2 flex flex-col gap-1.5 p-2 ${surface}`}>
+        <span className={`${line} h-1.25 w-3/5`} />
+        <span className={field} />
+        <span className="mt-auto block h-3 rounded-full bg-primary" />
+      </div>
+      <div className={`flex items-center justify-center p-1.5 ${surface}`}>
+        <span className="block h-2.5 w-5 rounded-full bg-foreground" />
+      </div>
+      <div className={`flex items-center justify-center p-1.5 ${surface}`}>
+        <span className="block size-2.5 rounded-full border border-foreground" />
+      </div>
+      <div className={`col-span-2 flex items-center gap-1 p-1.5 ${surface}`}>
+        <span className="block h-1.25 flex-1 rounded-full bg-foreground/60" />
+        <span className="block h-1.25 flex-1 rounded-full bg-border" />
+      </div>
+    </div>
+  ),
+  "docs-layout": (
+    <div className={`flex h-full w-full overflow-hidden ${surface}`}>
+      <div className="flex w-12 shrink-0 flex-col gap-1.5 border-r border-border p-2">
+        {[true, false, false, false, false].map((active, item) => (
+          <span key={item} className={`block h-1.5 rounded-full ${active ? "bg-foreground/40" : "bg-border"}`} />
+        ))}
+      </div>
+      <div className="flex flex-1 flex-col gap-1.5 p-2.5">
+        <span className="block h-2 w-1/2 rounded-full bg-foreground" />
+        <span className={`${line} h-1.25 w-4/5`} />
+        <span className="mt-1 block h-6 rounded-lg bg-muted" />
+      </div>
+    </div>
+  ),
+  search: (
+    <div className={`flex w-40 flex-col gap-1.5 p-2 shadow-sm ${surface}`}>
+      <span className="flex items-center gap-1.5 border-b border-border pb-1.5">
+        <span className="block size-2 rounded-full border border-muted-foreground" />
+        <span className={`${line} h-1.25 w-12`} />
+      </span>
+      {[true, false, false].map((active, item) => (
+        <span key={item} className={`flex h-3.5 items-center rounded-md px-1.5 ${active ? "bg-muted" : ""}`}>
+          <span className={`block h-1.25 rounded-full ${active ? "w-14 bg-foreground/60" : "w-10 bg-border"}`} />
+        </span>
+      ))}
+    </div>
+  ),
+  errors: (
+    <div className="flex flex-col items-start gap-1.5">
+      <span className="font-mono text-[10px] text-muted-foreground">404</span>
+      <span className="block h-2.25 w-28 rounded-full bg-foreground" />
+      <span className={`${line} h-1.25 w-20`} />
+      <span className="mt-1 flex gap-1.5">
+        <span className="block h-3.5 w-11 rounded-full bg-primary" />
+        <span className="block h-3.5 w-14 rounded-full border border-border bg-background" />
+      </span>
+    </div>
+  ),
   headers: (
     <div className={`flex h-9 w-full items-center gap-2.5 px-3 ${surface}`}>
       <Logo className="size-3" />

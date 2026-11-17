@@ -17,6 +17,13 @@ export type BlockKitId = (typeof blockKits)[number]["id"]
 
 export const blockCategories = [
   {
+    slug: "banners",
+    title: "Banners",
+    group: "Marketing",
+    kit: "lumen",
+    description: "A line above the page for a release or a notice.",
+  },
+  {
     slug: "headers",
     title: "Headers",
     group: "Marketing",
@@ -31,11 +38,25 @@ export const blockCategories = [
     description: "The first screen, with a title and the actions under it.",
   },
   {
+    slug: "logos",
+    title: "Logo clouds",
+    group: "Marketing",
+    kit: "lumen",
+    description: "The stack or the customers, in a row that loops.",
+  },
+  {
     slug: "features",
     title: "Features",
     group: "Marketing",
     kit: "lumen",
     description: "A short list of what the product does.",
+  },
+  {
+    slug: "showcases",
+    title: "Showcases",
+    group: "Marketing",
+    kit: "lumen",
+    description: "A wall of live components, the way the early landings showed them.",
   },
   {
     slug: "pricing",
@@ -57,6 +78,27 @@ export const blockCategories = [
     group: "Marketing",
     kit: "lumen",
     description: "Links and a copyright line.",
+  },
+  {
+    slug: "docs-layout",
+    title: "Docs layout",
+    group: "Site",
+    kit: "lumen",
+    description: "The header and the sidebar around a documentation page.",
+  },
+  {
+    slug: "search",
+    title: "Search and ask",
+    group: "Site",
+    kit: "lumen",
+    description: "The command menu and the panel that answers from the docs.",
+  },
+  {
+    slug: "errors",
+    title: "Error pages",
+    group: "Site",
+    kit: "lumen",
+    description: "A page for a link that leads nowhere.",
   },
   {
     slug: "login",

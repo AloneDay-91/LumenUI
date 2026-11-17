@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+.claude
+.cursor
+.ds-sync
+.design-sync
+ds-bundle
+.playwright-mcp
+*.tsbuildinfo
+.DS_Store
+npm-debug.log*

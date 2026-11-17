@@ -13,7 +13,7 @@ function Menubar({
     <MenubarPrimitive
       data-slot="menubar"
       className={cn(
-        "flex h-9 items-center gap-0.5 rounded-full border border-border bg-background p-1",
+        "flex h-9 items-center gap-0.5 rounded-4xl border border-border bg-background p-1",
         className
       )}
       {...props}

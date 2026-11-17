@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 
 import { blockPreviewIds } from "@/components/blocks/block-ids"
 import { BlockPreviewBody } from "@/components/blocks/BlockPreviewBody"
-import { SiteHero } from "@/components/blocks/CurrentHero"
 
 export function generateStaticParams() {
   return blockPreviewIds.map((id) => ({ id }))
@@ -21,6 +20,5 @@ export default async function BlockPreviewPage({
 }) {
   const { id } = await params
   if (!blockPreviewIds.includes(id as (typeof blockPreviewIds)[number])) notFound()
-  if (id === "site-hero") return <SiteHero />
   return <BlockPreviewBody id={id} />
 }
