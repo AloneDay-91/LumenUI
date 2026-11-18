@@ -9,13 +9,19 @@ import { FeatureCarousel } from "@/components/marketing/FeatureCarousel";
 import { FeatureCli } from "@/components/marketing/FeatureCli";
 import { FrameworkMark } from "@/components/marketing/FrameworkMarks";
 import { PaintBackdrop } from "@/components/marketing/PaintBackdrop";
+import { ShowcasePlayer } from "@/components/marketing/ShowcasePlayer";
 import { HeroProduct } from "@/components/marketing/HeroProduct";
 import { StackMark } from "@/components/marketing/StackMarks";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { changelog } from "@/lib/changelog";
 import { componentItems } from "@/lib/docs-nav";
 import { getHeroRows } from "@/lib/hero-registry";
-import { FRAMEWORKS, HERO_BACKGROUND, LANDING_MAX_WIDTH, STACK } from "@/lib/site";
+import {
+  FRAMEWORKS,
+  HERO_BACKGROUND,
+  LANDING_MAX_WIDTH,
+  STACK,
+} from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const container = cn("mx-auto w-full px-6 md:px-12", LANDING_MAX_WIDTH);
@@ -97,7 +103,8 @@ export default function Home() {
           <div
             className="mx-auto mt-12 w-full max-w-5xl max-h-[34rem] overflow-hidden md:mt-16 md:max-h-[40rem]"
             style={{
-              WebkitMaskImage: "linear-gradient(180deg, #000 40%, transparent 92%)",
+              WebkitMaskImage:
+                "linear-gradient(180deg, #000 40%, transparent 92%)",
               maskImage: "linear-gradient(180deg, #000 40%, transparent 92%)",
             }}
           >
@@ -140,13 +147,16 @@ export default function Home() {
 
       <section className={cn(container, "py-16 md:py-24")}>
         <p className="reveal max-w-3xl font-heading text-xl leading-snug font-normal tracking-[-0.015em] text-balance md:text-[1.75rem] md:leading-[1.38]">
-          Init sets up the project. Add copies one component when a screen
-          needs it, and the file stays in your repo.
+          Init sets up the project. Add copies one component when a screen needs
+          it, and the file stays in your repo.
         </p>
       </section>
       <Hairline />
 
-      <section id="copy" className={cn(container, "scroll-mt-28 py-16 md:py-24")}>
+      <section
+        id="copy"
+        className={cn(container, "scroll-mt-28 py-16 md:py-24")}
+      >
         <FeatureCli />
       </section>
       <Hairline />
@@ -192,7 +202,17 @@ export default function Home() {
       </section>
       <Hairline />
 
-      <section className={cn(container, "flex flex-col items-center gap-7 py-24 text-center md:py-36")}>
+      <section className={cn(container, "py-16 md:py-24")}>
+        {/* The showcase film, silent and looping, in the site's own theme. */}
+        <ShowcasePlayer ambient className="mt-6 w-full max-w-5xl md:mt-10" />
+      </section>
+
+      <section
+        className={cn(
+          container,
+          "flex flex-col items-center gap-7 py-24 text-center md:py-36",
+        )}
+      >
         <h2 className="max-w-2xl font-heading text-3xl leading-[1.15] font-normal tracking-[-0.025em] text-balance md:text-[2.5rem]">
           Start with Button.
         </h2>
@@ -201,7 +221,10 @@ export default function Home() {
           the catalog is there when the screen needs it.
         </p>
         <div className="flex flex-wrap justify-center gap-2">
-          <Link href="/docs/installation" className={cn(buttonVariants({ size: "lg", variant: "secondary" }))}>
+          <Link
+            href="/docs/installation"
+            className={cn(buttonVariants({ size: "lg", variant: "secondary" }))}
+          >
             Installation
             <ArrowRightIcon data-icon="inline-end" />
           </Link>
