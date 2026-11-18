@@ -1,10 +1,10 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import HeadingsSetter from "@/components/docs/HeadingsSetter"
-import { CodeBlock } from "@/components/docs/CodeBlock"
-import { PageIntro } from "@/components/docs/Preview"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert"
-import { LUMEN_GLOBAL_CSS } from "@/lib/lumen-css"
+import HeadingsSetter from "@/components/docs/HeadingsSetter";
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { PageIntro } from "@/components/docs/Preview";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
+import { LUMEN_GLOBAL_CSS } from "@/lib/lumen-css";
 
 export default function InstallationPage() {
   return (
@@ -38,9 +38,9 @@ export default function InstallationPage() {
           <AlertTitle>Not a package</AlertTitle>
           <AlertDescription>
             You never import from <code>@aloneday/lumenui</code>. The CLI writes
-            plain <code>.tsx</code> files into <code>components/ui</code>. Base UI
-            stays an npm dependency for focus, keyboard and portals; the styles
-            live in your repo.
+            plain <code>.tsx</code> files into <code>components/ui</code>. Base
+            UI stays an npm dependency for focus, keyboard and portals; the
+            styles live in your repo.
           </AlertDescription>
         </Alert>
 
@@ -48,23 +48,26 @@ export default function InstallationPage() {
           <h2 id="requirements">Before you start</h2>
           <ul className="docs-list">
             <li>
-              <strong>Node.js 22.23.4 or newer</strong> to run the CLI. Check with{" "}
-              <code>node -v</code>.
+              <strong>Node.js 22.23.4 or newer</strong> to run the CLI. Check
+              with <code>node -v</code>.
             </li>
             <li>
-              <strong>A React 19 app</strong>: Next.js, Vite, React Router, Astro or
-              TanStack Start. <Link href="/docs/frameworks">Frameworks</Link> has
-              the setup for each one.
+              <strong>A React 19 app</strong>: Next.js, Vite, React Router,
+              Astro or TanStack Start.{" "}
+              <Link href="/docs/frameworks">Frameworks</Link> has the setup for
+              each one.
             </li>
             <li>
-              <strong>The <code>@/</code> import alias</strong> pointing to your
-              source folder. Next.js sets it up. If your template uses another
-              alias, such as <code>~/</code>, change it in{" "}
+              <strong>
+                The <code>@/</code> import alias
+              </strong>{" "}
+              pointing to your source folder. Next.js sets it up. If your
+              template uses another alias, such as <code>~/</code>, change it in{" "}
               <a href="#config">lumen.json</a>.
             </li>
             <li>
-              <strong>Tailwind CSS 4</strong>. No need to install it first: the CLI
-              adds it.
+              <strong>Tailwind CSS 4</strong>. No need to install it first: the
+              CLI adds it.
             </li>
           </ul>
         </section>
@@ -72,9 +75,9 @@ export default function InstallationPage() {
         <section className="space-y-4">
           <h2 id="create-project">1. Create a project</h2>
           <p>
-            Skip this step in an existing app. Otherwise, create a Next.js app and
-            keep the defaults: TypeScript, Tailwind CSS, the App Router, and the{" "}
-            <code>@/*</code> import alias.
+            Skip this step in an existing app. Otherwise, create a Next.js app
+            and keep the defaults: TypeScript, Tailwind CSS, the App Router, and
+            the <code>@/*</code> import alias.
           </p>
           <CodeBlock
             language="bash"
@@ -90,27 +93,31 @@ cd my-app`}
         <section className="space-y-4">
           <h2 id="init">2. Run init</h2>
           <p>
-            <code>init</code> prepares the project once. It is safe to run again.
+            <code>init</code> prepares the project once. It is safe to run
+            again.
           </p>
-          <CodeBlock language="bash" code={`npx @aloneday/lumenui@latest init`} />
+          <CodeBlock
+            language="bash"
+            code={`npx @aloneday/lumenui@latest init`}
+          />
           <p>It writes these files and installs the packages they need:</p>
           <ul className="docs-list">
             <li>
-              <code>lumen.json</code>: where components go and how they import each
-              other.
+              <code>lumen.json</code>: where components go and how they import
+              each other.
             </li>
             <li>
               <code>lib/utils.ts</code>: the <code>cn()</code> helper every
               component uses to merge classes.
             </li>
             <li>
-              <code>app/globals.css</code>: Tailwind, the Lumen tokens, light and
-              dark. An existing file without the tokens is replaced and kept as{" "}
-              <code>globals.css.bak</code>.
+              <code>app/globals.css</code>: Tailwind, the Lumen tokens, light
+              and dark. An existing file without the tokens is replaced and kept
+              as <code>globals.css.bak</code>.
             </li>
             <li>
-              <code>postcss.config.mjs</code>, only when the project has no PostCSS
-              config yet.
+              <code>postcss.config.mjs</code>, only when the project has no
+              PostCSS config yet.
             </li>
             <li>
               <code>clsx</code> and <code>tailwind-merge</code>, then{" "}
@@ -119,10 +126,11 @@ cd my-app`}
             </li>
           </ul>
           <p>
-            With a <code>src/</code> folder, the paths start with <code>src/</code>.
-            The CLI uses your package manager: pnpm, Yarn or Bun when their lockfile
-            is there, npm otherwise. Add <code>--dry-run</code> to print the files
-            and packages without writing anything.
+            With a <code>src/</code> folder, the paths start with{" "}
+            <code>src/</code>. The CLI uses your package manager: pnpm, Yarn or
+            Bun when their lockfile is there, npm otherwise. Add{" "}
+            <code>--dry-run</code> to print the files and packages without
+            writing anything.
           </p>
         </section>
 
@@ -139,14 +147,16 @@ cd my-app`}
               Without them, it falls back to the system fonts.
             </li>
             <li>
-              <strong>The <code>root</code> class</strong> on the element that wraps
-              the app. It isolates the page, so Dialog, Menu, Select, Popover,
-              Tooltip and Toast open above it.
+              <strong>
+                The <code>root</code> class
+              </strong>{" "}
+              on the element that wraps the app. It isolates the page, so
+              Dialog, Menu, Select, Popover, Tooltip and Toast open above it.
             </li>
             <li>
               <strong>Dark mode.</strong> It is the <code>.dark</code> class on{" "}
-              <code>html</code>. <code>next-themes</code> sets it and follows the
-              system preference.
+              <code>html</code>. <code>next-themes</code> sets it and follows
+              the system preference.
             </li>
           </ul>
           <CodeBlock language="bash" code={`npm install next-themes`} />
@@ -178,23 +188,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }`}
           />
           <p>
-            Not on Next.js? <Link href="/docs/frameworks">Frameworks</Link> shows
-            where the stylesheet and the fonts go in Vite, React Router, Astro and
-            TanStack Start.
+            Not on Next.js? <Link href="/docs/frameworks">Frameworks</Link>{" "}
+            shows where the stylesheet and the fonts go in Vite, React Router,
+            Astro and TanStack Start.
           </p>
         </section>
 
         <section className="space-y-4">
           <h2 id="add">4. Add a component</h2>
           <p>
-            Start with Button. <code>add</code> copies the component and the local
-            files it imports, then installs its npm packages: here{" "}
+            Start with Button. <code>add</code> copies the component and the
+            local files it imports, then installs its npm packages: here{" "}
             <code>button-variants.ts</code> and <code>@base-ui/react</code>.
           </p>
-          <CodeBlock language="bash" code={`npx @aloneday/lumenui@latest add button`} />
+          <CodeBlock
+            language="bash"
+            code={`npx @aloneday/lumenui@latest add button`}
+          />
           <p>
-            The file lands in <code>components/ui/Button.tsx</code>. Import it like
-            any of your components:
+            The file lands in <code>components/ui/Button.tsx</code>. Import it
+            like any of your components:
           </p>
           <CodeBlock
             filename="app/page.tsx"
@@ -225,8 +238,9 @@ export default function Page() {
 npx @aloneday/lumenui@latest add all`}
           />
           <p>
-            Not sure which one to pick? <Link href="/docs/choose">Choose a component</Link>{" "}
-            compares the close ones. Coming from shadcn/ui?{" "}
+            Not sure which one to pick?{" "}
+            <Link href="/docs/choose">Choose a component</Link> compares the
+            close ones. Coming from shadcn/ui?{" "}
             <Link href="/docs/shadcn">From shadcn</Link> lists the names that
             differ.
           </p>
@@ -236,8 +250,9 @@ npx @aloneday/lumenui@latest add all`}
           <h2 id="cli">CLI reference</h2>
           <p>
             Run any command with <code>npx @aloneday/lumenui@latest</code>, or
-            install the CLI once with <code>npm install -D @aloneday/lumenui</code>{" "}
-            and call <code>npx lumenui</code>.
+            install the CLI once with{" "}
+            <code>npm install -D @aloneday/lumenui</code> and call{" "}
+            <code>npx lumenui</code>.
           </p>
           <table>
             <thead>
@@ -248,28 +263,51 @@ npx @aloneday/lumenui@latest add all`}
             </thead>
             <tbody>
               <tr>
-                <td><code>init</code></td>
-                <td>Writes lumen.json, cn(), globals.css and the PostCSS config, and installs Tailwind.</td>
+                <td>
+                  <code>init</code>
+                </td>
+                <td>
+                  Writes lumen.json, cn(), globals.css and the PostCSS config,
+                  and installs Tailwind.
+                </td>
               </tr>
               <tr>
-                <td><code>add &lt;name&gt;…</code></td>
-                <td>Copies components and the files they import, and installs their packages.</td>
+                <td>
+                  <code>add &lt;name&gt;…</code>
+                </td>
+                <td>
+                  Copies components and the files they import, and installs
+                  their packages.
+                </td>
               </tr>
               <tr>
-                <td><code>add all</code></td>
+                <td>
+                  <code>add all</code>
+                </td>
                 <td>Copies every component.</td>
               </tr>
               <tr>
-                <td><code>rm &lt;name&gt;…</code></td>
-                <td>Deletes components. Files another component still imports stay.</td>
+                <td>
+                  <code>rm &lt;name&gt;…</code>
+                </td>
+                <td>
+                  Deletes components. Files another component still imports
+                  stay.
+                </td>
               </tr>
               <tr>
-                <td><code>list</code></td>
+                <td>
+                  <code>list</code>
+                </td>
                 <td>Lists every component, installed or available.</td>
               </tr>
               <tr>
-                <td><code>preset &lt;file.css&gt;</code></td>
-                <td>Writes a theme exported from Customize into globals.css.</td>
+                <td>
+                  <code>preset &lt;file.css&gt;</code>
+                </td>
+                <td>
+                  Writes a theme exported from Customize into globals.css.
+                </td>
               </tr>
             </tbody>
           </table>
@@ -282,20 +320,30 @@ npx @aloneday/lumenui@latest add all`}
             </thead>
             <tbody>
               <tr>
-                <td><code>--dry-run</code></td>
+                <td>
+                  <code>--dry-run</code>
+                </td>
                 <td>Prints the files and packages without writing.</td>
               </tr>
               <tr>
-                <td><code>--overwrite</code></td>
+                <td>
+                  <code>--overwrite</code>
+                </td>
                 <td>Replaces component files you changed.</td>
               </tr>
               <tr>
-                <td><code>--force</code></td>
+                <td>
+                  <code>--force</code>
+                </td>
                 <td>Removes a component even when another one imports it.</td>
               </tr>
               <tr>
-                <td><code>--cwd &lt;dir&gt;</code></td>
-                <td>Runs in another folder, for example a package of a monorepo.</td>
+                <td>
+                  <code>--cwd &lt;dir&gt;</code>
+                </td>
+                <td>
+                  Runs in another folder, for example a package of a monorepo.
+                </td>
               </tr>
             </tbody>
           </table>
@@ -304,11 +352,11 @@ npx @aloneday/lumenui@latest add all`}
         <section className="space-y-4">
           <h2 id="update">Update and remove</h2>
           <p>
-            The copied files are yours, so the CLI never replaces your edits on its
-            own. Running <code>add</code> again leaves identical files alone and
-            skips the ones you changed, with a message. To take the latest version
-            of a file, pass <code>--overwrite</code>, then bring your changes back
-            from <code>git diff</code>.
+            The copied files are yours, so the CLI never replaces your edits on
+            its own. Running <code>add</code> again leaves identical files alone
+            and skips the ones you changed, with a message. To take the latest
+            version of a file, pass <code>--overwrite</code>, then bring your
+            changes back from <code>git diff</code>.
           </p>
           <CodeBlock
             language="bash"
@@ -325,10 +373,10 @@ npx @aloneday/lumenui@latest rm button`}
         <section className="space-y-4">
           <h2 id="config">lumen.json</h2>
           <p>
-            <code>init</code> writes this file at the root. <code>paths</code> says
-            where files are written; <code>aliases</code> says how the components
-            import each other. <code>installed</code> is kept up to date by{" "}
-            <code>add</code> and <code>rm</code>.
+            <code>init</code> writes this file at the root. <code>paths</code>{" "}
+            says where files are written; <code>aliases</code> says how the
+            components import each other. <code>installed</code> is kept up to
+            date by <code>add</code> and <code>rm</code>.
           </p>
           <CodeBlock
             filename="lumen.json"
@@ -346,8 +394,9 @@ npx @aloneday/lumenui@latest rm button`}
 }`}
           />
           <p>
-            A template that maps <code>~/</code> to <code>app/</code>, like React
-            Router, needs both fields changed before the first <code>add</code>:
+            A template that maps <code>~/</code> to <code>app/</code>, like
+            React Router, needs both fields changed before the first{" "}
+            <code>add</code>:
           </p>
           <CodeBlock
             filename="lumen.json"
@@ -364,8 +413,8 @@ npx @aloneday/lumenui@latest rm button`}
           <p>
             <Link href="/customize">Customize</Link> previews the colors, fonts,
             radius and shadow on real components. Download the result as{" "}
-            <code>lumen-preset.css</code> and write it into your stylesheet. Run it
-            again with a new file to replace the previous preset.
+            <code>lumen-preset.css</code> and write it into your stylesheet. Run
+            it again with a new file to replace the previous preset.
           </p>
           <CodeBlock
             language="bash"
@@ -380,8 +429,8 @@ npx @aloneday/lumenui@latest rm button`}
         <section className="space-y-4">
           <h2 id="manual">Manual installation</h2>
           <p>
-            Prefer to copy by hand? The CLI does nothing you cannot do yourself in
-            four steps.
+            Prefer to copy by hand? The CLI does nothing you cannot do yourself
+            in four steps.
           </p>
           <h3>Install the dependencies</h3>
           <CodeBlock
@@ -401,10 +450,14 @@ export default config`}
           />
           <h3>Replace globals.css</h3>
           <p>
-            The full sheet: Tailwind, the tokens for light and dark, and a few base
-            rules.
+            The full sheet: Tailwind, the tokens for light and dark, and a few
+            base rules.
           </p>
-          <CodeBlock filename="app/globals.css" language="css" code={LUMEN_GLOBAL_CSS} />
+          <CodeBlock
+            filename="app/globals.css"
+            language="css"
+            code={LUMEN_GLOBAL_CSS}
+          />
           <h3>Add cn() and copy a component</h3>
           <CodeBlock
             filename="lib/utils.ts"
@@ -418,9 +471,9 @@ export function cn(...inputs: ClassValue[]) {
           />
           <p>
             Then copy a file from the Code tab of a component page into{" "}
-            <code>components/ui</code>, along with the local files it imports. The
-            Markdown version of each page (add <code>.md</code> to its URL) lists
-            them all. Finish with step 3 above.
+            <code>components/ui</code>, along with the local files it imports.
+            The Markdown version of each page (add <code>.md</code> to its URL)
+            lists them all. Finish with step 3 above.
           </p>
         </section>
 
@@ -428,17 +481,17 @@ export function cn(...inputs: ClassValue[]) {
           <h2 id="troubleshooting">Troubleshooting</h2>
           <h3>Cannot find module "@/components/ui/…"</h3>
           <p>
-            The project has no <code>@/</code> alias, or it points somewhere else.
-            Add <code>{`"paths": { "@/*": ["./src/*"] }`}</code> to{" "}
-            <code>tsconfig.json</code> (without <code>src/</code> if you have none),
-            or set your own alias in <a href="#config">lumen.json</a> and run{" "}
-            <code>add --overwrite</code>.
+            The project has no <code>@/</code> alias, or it points somewhere
+            else. Add <code>{`"paths": { "@/*": ["./src/*"] }`}</code> to{" "}
+            <code>tsconfig.json</code> (without <code>src/</code> if you have
+            none), or set your own alias in <a href="#config">lumen.json</a> and
+            run <code>add --overwrite</code>.
           </p>
           <h3>The components have no style</h3>
           <p>
-            <code>globals.css</code> is not imported, or the PostCSS config does not
-            load <code>@tailwindcss/postcss</code>. When a config already exists,{" "}
-            <code>init</code> leaves it alone and prints{" "}
+            <code>globals.css</code> is not imported, or the PostCSS config does
+            not load <code>@tailwindcss/postcss</code>. When a config already
+            exists, <code>init</code> leaves it alone and prints{" "}
             <code>skip postcss.config.mjs (add @tailwindcss/postcss)</code>.
           </p>
           <h3>A Dialog or a Menu opens behind the page</h3>
@@ -453,15 +506,16 @@ export function cn(...inputs: ClassValue[]) {
           </p>
           <h3>skip … (it differs; pass --overwrite to replace it)</h3>
           <p>
-            Not an error: you edited that file, and the CLI kept your version. See{" "}
-            <a href="#update">Update and remove</a>.
+            Not an error: you edited that file, and the CLI kept your version.
+            See <a href="#update">Update and remove</a>.
           </p>
           <h3>The CLI stops with an engine or syntax error</h3>
           <p>
-            Node.js is older than 22.23.4. Update it, then run the command again.
+            Node.js is older than 22.23.4. Update it, then run the command
+            again.
           </p>
         </section>
       </div>
     </>
-  )
+  );
 }
