@@ -21,6 +21,10 @@ function subscribeToMotion(onChange: () => void) {
   return () => query.removeEventListener("change", onChange)
 }
 
+function subscribeToNothing() {
+  return () => {}
+}
+
 /** The frame a still shows instead of the loop: the finished logo lockup. */
 const STILL_FRAME = SHOWCASE_DURATION - 10
 
@@ -39,6 +43,20 @@ export function ShowcasePlayer({ ambient = false, className }: { ambient?: boole
     () => window.matchMedia(REDUCED_MOTION).matches,
     () => false
   )
+  // The theme is only known in the browser, so the film is drawn there only: a
+  // server render in light would not match a dark client. Until then, a frame of
+  // the same size holds the place so nothing below it moves.
+  const mounted = useSyncExternalStore(subscribeToNothing, () => true, () => false)
+  const frame = cn("overflow-hidden rounded-3xl border border-border", ambient && "pointer-events-none")
+  const size = { width: "100%", aspectRatio: `${SHOWCASE_WIDTH} / ${SHOWCASE_HEIGHT}` }
+
+  if (!mounted) {
+    return (
+      <div className={className}>
+        <div className={cn(frame, "bg-background")} style={size} />
+      </div>
+    )
+  }
 
   if (ambient) {
     return (

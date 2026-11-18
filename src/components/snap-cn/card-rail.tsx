@@ -11,9 +11,9 @@ import { ActivityFeed } from "@/components/blocks/dashboard/ActivityFeed"
 import { BillingSettings } from "@/components/blocks/dashboard/BillingSettings"
 import { EmptyState } from "@/components/blocks/dashboard/EmptyState"
 import { NotificationSettings } from "@/components/blocks/dashboard/NotificationSettings"
+import { ProfileSettings } from "@/components/blocks/dashboard/ProfileSettings"
 import { StatStrip } from "@/components/blocks/dashboard/StatStrip"
 import { AskPanel } from "@/components/blocks/lumen/AskPanel"
-import { CommandMenu } from "@/components/blocks/lumen/CommandMenu"
 import { FormStates } from "@/components/blocks/lumen/FormStates"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
 
@@ -69,7 +69,9 @@ export interface RailCard {
 export const LUMEN_BLOCKS: readonly RailCard[] = [
   { title: "Ask panel", description: "A question, an answer and the composer.", block: <AskPanel /> },
   { title: "Activity feed", description: "Who did what, and when.", block: <ActivityFeed /> },
-  { title: "Command menu", description: "Search everything from the keyboard.", block: <CommandMenu /> },
+  // Not the Command menu: cmdk scrolls its selected item into view on mount, which
+  // drags whatever page hosts the film down to it.
+  { title: "Profile", description: "Name, email, avatar and bio.", block: <ProfileSettings /> },
   { title: "Notifications", description: "Grouped preferences with switches.", block: <NotificationSettings /> },
   { title: "Empty state", description: "A first step instead of a blank page.", block: <EmptyState /> },
   { title: "Stat strip", description: "Key numbers with their deltas.", block: <StatStrip /> },
