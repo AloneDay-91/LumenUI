@@ -1,14 +1,15 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import HeadingsSetter from "@/components/docs/HeadingsSetter"
-import { CodeBlock } from "@/components/docs/CodeBlock"
-import { PageIntro } from "@/components/docs/Preview"
+import HeadingsSetter from "@/components/docs/HeadingsSetter";
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { PageIntro } from "@/components/docs/Preview";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/Card"
+} from "@/components/ui/Card";
+import { ShowcasePlayer } from "@/components/marketing/ShowcasePlayer";
 
 const principles = [
   {
@@ -31,7 +32,7 @@ const principles = [
     description:
       "Each look is a CVA variant, and cn() merges your classes on top. No style props to learn.",
   },
-]
+];
 
 const path = [
   {
@@ -44,27 +45,31 @@ const path = [
     step: "2",
     href: "/docs/frameworks",
     title: "Frameworks",
-    description: "Vite, React Router, Astro or TanStack Start: the few lines that differ.",
+    description:
+      "Vite, React Router, Astro or TanStack Start: the few lines that differ.",
   },
   {
     step: "3",
     href: "/docs/components",
     title: "Components",
-    description: "Every component, grouped by the job it does, each with its add command.",
+    description:
+      "Every component, grouped by the job it does, each with its add command.",
   },
   {
     step: "4",
     href: "/docs/styles",
     title: "Styles",
-    description: "The tokens, the type, dark mode, then Customize to make it yours.",
+    description:
+      "The tokens, the type, dark mode, then Customize to make it yours.",
   },
-]
+];
 
 const more = [
   {
     href: "/docs/choose",
     title: "Choose a component",
-    description: "Select, Combobox or Menu? Dialog or Drawer? Pick from the gesture.",
+    description:
+      "Select, Combobox or Menu? Dialog or Drawer? Pick from the gesture.",
   },
   {
     href: "/docs/shadcn",
@@ -79,7 +84,8 @@ const more = [
   {
     href: "/docs/recipes/form",
     title: "Recipes",
-    description: "A form and a settings card, assembled from several components.",
+    description:
+      "A form and a settings card, assembled from several components.",
   },
   {
     href: "/blocks",
@@ -91,7 +97,7 @@ const more = [
     title: "Changelog",
     description: "What changed in each release.",
   },
-]
+];
 
 function LinkCard({
   href,
@@ -99,10 +105,10 @@ function LinkCard({
   description,
   step,
 }: {
-  href: string
-  title: string
-  description: string
-  step?: string
+  href: string;
+  title: string;
+  description: string;
+  step?: string;
 }) {
   return (
     <Link href={href} className="block">
@@ -114,7 +120,9 @@ function LinkCard({
         <CardHeader>
           <CardTitle className="flex items-baseline gap-2">
             {step ? (
-              <span className="font-mono text-xs text-muted-foreground">{step}</span>
+              <span className="font-mono text-xs text-muted-foreground">
+                {step}
+              </span>
             ) : null}
             {title}
           </CardTitle>
@@ -122,7 +130,7 @@ function LinkCard({
         </CardHeader>
       </Card>
     </Link>
-  )
+  );
 }
 
 export default function DocsPage() {
@@ -147,12 +155,15 @@ export default function DocsPage() {
           description="Lumen UI is a set of React components you copy into your project. Base UI handles the behavior, Tailwind CSS and a sheet of tokens handle the look, and every file is yours."
         />
 
+        {/* The showcase film, silent and looping, in the site's own theme. */}
+        <ShowcasePlayer ambient className="mt-6 w-full max-w-5xl md:mt-10" />
+
         <section className="space-y-4">
           <h2 id="how-it-works">How it works</h2>
           <p>
-            There is no component package to import. A small CLI copies the source
-            of each component into your app, with the files and npm packages it
-            needs.
+            There is no component package to import. A small CLI copies the
+            source of each component into your app, with the files and npm
+            packages it needs.
           </p>
           <ol className="docs-list">
             <li>
@@ -197,19 +208,20 @@ npx @aloneday/lumenui@latest add button`}
         <section className="space-y-4">
           <h2 id="fit">Is it for you?</h2>
           <p>
-            Lumen fits a React 19 app styled with Tailwind CSS 4 when you want to
-            own and adjust the components: Next.js, Vite, React Router, Astro or
-            TanStack Start. If you would rather receive fixes through{" "}
-            <code>npm update</code> and never touch the source, a packaged library
-            suits you better: here, an update is a command you choose to run, file
-            by file.
+            Lumen fits a React 19 app styled with Tailwind CSS 4 when you want
+            to own and adjust the components: Next.js, Vite, React Router, Astro
+            or TanStack Start. If you would rather receive fixes through{" "}
+            <code>npm update</code> and never touch the source, a packaged
+            library suits you better: here, an update is a command you choose to
+            run, file by file.
           </p>
         </section>
 
         <section className="space-y-4">
           <h2 id="start">Start here</h2>
           <p>
-            Read these in order the first time. The sidebar follows the same path.
+            Read these in order the first time. The sidebar follows the same
+            path.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             {path.map((item) => (
@@ -231,13 +243,13 @@ npx @aloneday/lumenui@latest add button`}
         <section className="space-y-4">
           <h2 id="agents">For AI agents</h2>
           <p>
-            Every page has a Markdown version: add <code>.md</code> to its URL. The
-            whole documentation is also at <code>/llms.txt</code> (an index) and{" "}
-            <code>/llms-full.txt</code> (every page and its source). See{" "}
+            Every page has a Markdown version: add <code>.md</code> to its URL.
+            The whole documentation is also at <code>/llms.txt</code> (an index)
+            and <code>/llms-full.txt</code> (every page and its source). See{" "}
             <Link href="/docs/llms">LLMs</Link> for a prompt to paste.
           </p>
         </section>
       </div>
     </>
-  )
+  );
 }
