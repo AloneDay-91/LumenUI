@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/AloneDay-91/LumenUI/compare/v1.3.0...v1.3.1) (2026-11-18)
+
+
+### Fixed
+
+* **video:** keep the showcase film from shifting the page ([7f5329e](https://github.com/AloneDay-91/LumenUI/commit/7f5329e87be173b9c4db7102ece7fdb8d9221050))
+* **video:** keep the showcase film from shifting the page ([7bfc9e2](https://github.com/AloneDay-91/LumenUI/commit/7bfc9e2a7e6dd4d9518256bcc3bfacb234b28afb))
+
 ## [1.3.0](https://github.com/AloneDay-91/LumenUI/compare/v1.2.0...v1.3.0) (2026-11-17)
 
 
