@@ -112,6 +112,34 @@ export function ThemeDraftProvider({ children }: { children: ReactNode }) {
   )
 }
 
+/**
+ * A fixed preset for a picture of the Customize page (the showcase video): no
+ * storage, no injected style, and every setter does nothing.
+ */
+export function StaticThemeDraft({
+  preset,
+  palette,
+  children,
+}: {
+  preset: ThemePreset
+  palette: "light" | "dark"
+  children: ReactNode
+}) {
+  const value = useMemo<ThemeDraftValue>(
+    () => ({
+      preset,
+      setPreset: () => {},
+      palette,
+      setPalette: () => {},
+      updateColor: () => {},
+      reset: () => {},
+      css: buildPresetCss(preset),
+    }),
+    [preset, palette]
+  )
+  return <ThemeDraftContext.Provider value={value}>{children}</ThemeDraftContext.Provider>
+}
+
 export function useThemeDraft() {
   const value = useContext(ThemeDraftContext)
   if (!value) throw new Error("useThemeDraft must be used inside ThemeDraftProvider")

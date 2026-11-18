@@ -1,0 +1,11 @@
+/* Lumen components carry CSS transitions and keyframes (Spinner, shimmer,
+   hover fades). A video frame must be a pure function of the frame number, so
+   inside a stage every transition is off and every animation is paused and
+   scrubbed to the composition clock through `--stage-t` (seconds). */
+.lumen-stage *,
+.lumen-stage *::before,
+.lumen-stage *::after {
+  transition: none !important;
+  animation-play-state: paused !important;
+  animation-delay: calc(var(--stage-t, 0) * -1s) !important;
+}
