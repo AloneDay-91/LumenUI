@@ -188,16 +188,16 @@ export function AppSidebar({
         </div>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" tooltip="Elouan Bruzek">
+            <SidebarMenuButton size="lg" tooltip="Alex Martin">
               <Avatar>
                 <AvatarFallback className="bg-primary text-primary-foreground">
                   EB
                 </AvatarFallback>
               </Avatar>
               <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
-                <span className="text-sm font-medium text-foreground">Elouan Bruzek</span>
+                <span className="text-sm font-medium text-foreground">Alex Martin</span>
                 <span className="text-xs font-normal text-muted-foreground">
-                  elouan@lumen.dev
+                  alex@lumen.dev
                 </span>
               </span>
               <ChevronsUpDown className="text-muted-foreground" />

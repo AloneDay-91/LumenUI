@@ -303,16 +303,16 @@ function AccountButton({ menu = false }: { menu?: boolean }) {
   const content = (
     <>
       <Avatar>
-        <AvatarFallback className="bg-primary text-primary-foreground">EB</AvatarFallback>
+        <AvatarFallback className="bg-primary text-primary-foreground">AM</AvatarFallback>
       </Avatar>
-      <TwoLines title="Elouan Bruzek" detail="elouan@lumen.dev" />
+      <TwoLines title="Alex Martin" detail="alex@lumen.dev" />
       <ChevronsUpDownIcon />
     </>
   )
 
   if (!menu) {
     return (
-      <SidebarMenuButton size="lg" tooltip="Elouan Bruzek">
+      <SidebarMenuButton size="lg" tooltip="Alex Martin">
         {content}
       </SidebarMenuButton>
     )
@@ -321,7 +321,7 @@ function AccountButton({ menu = false }: { menu?: boolean }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<SidebarMenuButton size="lg" tooltip="Elouan Bruzek" />}
+        render={<SidebarMenuButton size="lg" tooltip="Alex Martin" />}
       >
         {content}
       </DropdownMenuTrigger>
@@ -631,7 +631,7 @@ export function SidebarExamples() {
     <SidebarMenuItem>
       <SidebarMenuButton size="lg">
         <Avatar />
-        <span>Elouan Bruzek</span>
+        <span>Alex Martin</span>
       </SidebarMenuButton>
     </SidebarMenuItem>
   </SidebarMenu>

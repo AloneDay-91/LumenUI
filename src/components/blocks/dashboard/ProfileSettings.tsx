@@ -57,11 +57,11 @@ export function ProfileSettings() {
           <div className="grid gap-4 sm:grid-cols-2">
             <Field>
               <FieldLabel>First name</FieldLabel>
-              <FieldControl defaultValue="Elouan" />
+              <FieldControl defaultValue="Alex" />
             </Field>
             <Field>
               <FieldLabel>Last name</FieldLabel>
-              <FieldControl defaultValue="Bruzek" />
+              <FieldControl defaultValue="Martin" />
             </Field>
           </div>
           <Field>
@@ -70,7 +70,7 @@ export function ProfileSettings() {
               <InputGroupAddon>
                 <Mail />
               </InputGroupAddon>
-              <InputGroupInput defaultValue="elouan@lumen.dev" aria-label="Email" />
+              <InputGroupInput defaultValue="alex@lumen.dev" aria-label="Email" />
               <InputGroupAddon align="end">
                 <Badge variant="success">
                   <Check />
@@ -85,7 +85,7 @@ export function ProfileSettings() {
               <InputGroupAddon>
                 <InputGroupText>lumen.app/</InputGroupText>
               </InputGroupAddon>
-              <InputGroupInput defaultValue="elouan" aria-label="Username" />
+              <InputGroupInput defaultValue="alex" aria-label="Username" />
             </InputGroup>
             <FieldDescription>Lowercase letters, numbers and dashes.</FieldDescription>
           </Field>

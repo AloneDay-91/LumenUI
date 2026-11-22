@@ -168,8 +168,13 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "A new theme: white background, blue primary, neutral greys, and a tighter radius.",
-        href: "/docs/styles",
+        text: "A new default theme: white background, blue primary, neutral greys, and a tighter radius. The CLI installs it and Customize opens on it; the warm, black theme stays as the Paper preset in Customize.",
+        href: "/customize",
+      },
+      {
+        kind: "changed",
+        text: "Chart series step down from the primary instead of the foreground, so charts take the theme hue: blue on Lumen, grey on Paper.",
+        href: "/docs/components/chart",
       },
       {
         kind: "changed",

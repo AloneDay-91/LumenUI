@@ -38,7 +38,7 @@ export function FormsFeature() {
                 <Input
                   id="landing-email"
                   type="email"
-                  defaultValue="elouan@lumenui.fr"
+                  defaultValue="alex@lumenui.fr"
                   aria-invalid
                 />
                 <p className="text-xs text-destructive">

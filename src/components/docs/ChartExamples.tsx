@@ -70,7 +70,7 @@ export function ChartExamples() {
     <div className="flex flex-col gap-12">
       <section className="space-y-4">
         <h2 id="area">Area</h2>
-        <p>A single ink stroke. The fill fades into the paper.</p>
+        <p>A single stroke in the primary. The fill fades into the background.</p>
         <Preview className="px-5 py-6">
           <Chart config={{ files: { label: "Files" } }}>
             <AreaChart data={exportsByDay} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
@@ -110,7 +110,7 @@ export function ChartExamples() {
 
       <section className="space-y-4">
         <h2 id="line">Line</h2>
-        <p>Further series step down the ink scale. Pass a color on the config to override a tone.</p>
+        <p>Further series step down from the primary toward the background. Pass a color on the config to override a tone.</p>
         <Preview className="px-5 py-6">
           <Chart
             config={{

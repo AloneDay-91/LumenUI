@@ -24,7 +24,7 @@ const sessions = [
   { day: "Sun", fresh: 18, returning: 12 },
 ]
 
-const light = "color-mix(in oklch, var(--foreground) 22%, var(--background))"
+const light = "color-mix(in oklch, var(--primary) 22%, var(--background))"
 
 const config = {
   fresh: { label: "New" },
@@ -73,7 +73,7 @@ export function SessionsChart() {
       <CardFooter className="flex-wrap justify-between gap-2 text-xs text-muted-foreground">
         <span className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-foreground" />
+            <span className="size-1.5 rounded-full bg-primary" />
             New
           </span>
           <span className="inline-flex items-center gap-1.5">

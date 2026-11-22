@@ -5,6 +5,8 @@ export const SITE_VERSION = packageJson.version
 export const SITE_URL = "https://ui.elouanb.fr"
 export const GITHUB_REPO = "AloneDay-91/LumenUI"
 export const GITHUB_URL = "https://github.com/AloneDay-91/LumenUI"
+/** The branch the published docs are built from. */
+export const GITHUB_BRANCH = "main"
 export const LANDING_MAX_WIDTH = "max-w-6xl"
 
 export function formatDocsVersion(version = SITE_VERSION) {

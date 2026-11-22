@@ -27,10 +27,10 @@ const swatches = [
 ]
 
 const tokens = [
-  ["--background", "Paper surface / #111"],
+  ["--background", "White surface / #111"],
   ["--foreground", "Primary text"],
   ["--card", "Card and Alert surfaces"],
-  ["--primary", "Actions, inversion"],
+  ["--primary", "Actions and focus: blue"],
   ["--muted", "Secondary surfaces"],
   ["--muted-foreground", "Metadata, dates"],
   ["--border", "Dividers, outlines"],
@@ -39,7 +39,7 @@ const tokens = [
   ["--destructive", "Error, delete"],
   ["--input", "Field borders"],
   ["--new", "Novelty indicator"],
-  ["--radius", "0.625rem — pills scale from this"],
+  ["--radius", "0.15rem — every radius scales from this"],
   ["--sidebar", "Docs sidebar surface"],
 ]
 
@@ -90,7 +90,7 @@ export default function StylesPage() {
         <PageIntro
           eyebrow="Foundations"
           title="Styles"
-          description="Warm paper, black, and grey. Hue is optional: gray, indigo, cyan, orange, crimson, and jade."
+          description="White paper, near-black text, and a blue primary. The Paper preset in Customize brings back the warm, black theme. Hue is optional: gray, indigo, cyan, orange, crimson, and jade."
         />
 
         <section className="space-y-4">

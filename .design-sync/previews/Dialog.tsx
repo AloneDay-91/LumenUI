@@ -23,11 +23,11 @@ export const Open = () => (
       <div className="grid gap-3">
         <div className="grid gap-2">
           <Label htmlFor="dialog-name">Name</Label>
-          <Input id="dialog-name" defaultValue="Elouan Bruzek" />
+          <Input id="dialog-name" defaultValue="Alex Martin" />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="dialog-handle">Username</Label>
-          <Input id="dialog-handle" defaultValue="@elouan" />
+          <Input id="dialog-handle" defaultValue="@alex" />
         </div>
       </div>
       <DialogFooter>

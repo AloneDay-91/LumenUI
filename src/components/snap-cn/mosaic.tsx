@@ -33,7 +33,7 @@ export function LumenMosaic({ className, progress = 64 }: { className?: string; 
           <BellIcon />
         </Button>
         <Avatar className="size-8">
-          <AvatarFallback>EB</AvatarFallback>
+          <AvatarFallback>AM</AvatarFallback>
         </Avatar>
       </div>
       <div className="grid flex-1 grid-cols-3 gap-3">

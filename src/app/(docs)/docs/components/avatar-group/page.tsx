@@ -11,7 +11,7 @@ export default function AvatarGroupPage() {
       preview={
         <AvatarGroup aria-label="Reviewers">
           <Avatar>
-            <AvatarFallback>EB</AvatarFallback>
+            <AvatarFallback>AM</AvatarFallback>
           </Avatar>
           <Avatar>
             <AvatarFallback>LU</AvatarFallback>
@@ -27,7 +27,7 @@ import { AvatarGroup, AvatarGroupCount } from "@/components/ui/AvatarGroup"
 
 <AvatarGroup aria-label="Reviewers">
   <Avatar>
-    <AvatarFallback>EB</AvatarFallback>
+    <AvatarFallback>AM</AvatarFallback>
   </Avatar>
   <Avatar>
     <AvatarFallback>LU</AvatarFallback>
@@ -44,7 +44,7 @@ import { AvatarGroup, AvatarGroupCount } from "@/components/ui/AvatarGroup"
           </p>
           <AvatarGroup className="-space-x-3">
             <Avatar className="size-10">
-              <AvatarFallback>EB</AvatarFallback>
+              <AvatarFallback>AM</AvatarFallback>
             </Avatar>
             <Avatar className="size-10">
               <AvatarFallback>LU</AvatarFallback>

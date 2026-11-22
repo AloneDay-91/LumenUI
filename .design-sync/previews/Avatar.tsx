@@ -6,7 +6,7 @@ export const Initials = () => (
       <AvatarFallback>LU</AvatarFallback>
     </Avatar>
     <Avatar>
-      <AvatarFallback>EB</AvatarFallback>
+      <AvatarFallback>AM</AvatarFallback>
     </Avatar>
   </div>
 )

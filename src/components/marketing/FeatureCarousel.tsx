@@ -59,8 +59,8 @@ const exportsByDay = Array.from({ length: 28 }, (_, index) => ({
 }));
 
 const strongTone =
-  "color-mix(in oklch, var(--foreground) 62%, var(--background))";
-const softTone = "color-mix(in oklch, var(--foreground) 14%, var(--background))";
+  "color-mix(in oklch, var(--primary) 62%, var(--background))";
+const softTone = "color-mix(in oklch, var(--primary) 14%, var(--background))";
 
 function Slide({
   name,
@@ -89,7 +89,7 @@ function ChartSlide() {
   return (
     <Slide
       name="Chart"
-      caption="A bar chart in the foreground color, so it follows light and dark."
+      caption="A bar chart in the primary color, so it follows the theme, light or dark."
     >
       <div className="w-full rounded-[20px] bg-background px-4 py-3.5 ring-1 ring-border">
         <div className="flex justify-between text-sm">
