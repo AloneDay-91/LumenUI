@@ -34,7 +34,48 @@ export type ThemePreset = {
   shadow: ShadowPreset
 }
 
+/** The Lumen theme: white paper, a blue primary, and a tight radius. */
 export const defaultPreset: ThemePreset = {
+  light: {
+    background: "#ffffff",
+    foreground: "#1c1c1c",
+    card: "#fafafa",
+    "card-foreground": "#1c1c1c",
+    primary: "#5877f7",
+    "primary-foreground": "#fafafa",
+    secondary: "#f5f5f5",
+    "secondary-foreground": "#262626",
+    muted: "#f5f5f5",
+    "muted-foreground": "#696969",
+    destructive: "#dc3d43",
+    border: "#e5e5e5",
+    ring: "#a3a3a3",
+  },
+  dark: {
+    background: "#111111",
+    foreground: "#fafafa",
+    card: "#171717",
+    "card-foreground": "#fafafa",
+    primary: "#8aacfc",
+    "primary-foreground": "#262626",
+    secondary: "#333333",
+    "secondary-foreground": "#fafafa",
+    muted: "#333333",
+    "muted-foreground": "#a3a3a3",
+    destructive: "#e5484d",
+    border: "#2e2e2e",
+    ring: "#737373",
+  },
+  radius: 0.15,
+  fontSize: 16,
+  sans: "inter",
+  heading: "sans",
+  mono: "jetbrains",
+  shadow: "soft",
+}
+
+/** The first Lumen theme: warm paper, a black primary, and a softer radius. */
+export const paperPreset: ThemePreset = {
   light: {
     background: "#fcfbf8",
     foreground: "#1c1c1c",
@@ -71,6 +112,27 @@ export const defaultPreset: ThemePreset = {
   heading: "sans",
   mono: "jetbrains",
   shadow: "soft",
+}
+
+/** The presets Customize offers as starting points. */
+export const themePresets = [
+  { id: "lumen", name: "Lumen", preset: defaultPreset },
+  { id: "paper", name: "Paper", preset: paperPreset },
+] as const
+
+export type ThemePresetId = (typeof themePresets)[number]["id"]
+
+/** True when two presets would write the same stylesheet. */
+export function isSamePreset(a: ThemePreset, b: ThemePreset) {
+  return (
+    colorTokens.every((token) => a.light[token] === b.light[token] && a.dark[token] === b.dark[token]) &&
+    a.radius === b.radius &&
+    a.fontSize === b.fontSize &&
+    a.sans === b.sans &&
+    a.heading === b.heading &&
+    a.mono === b.mono &&
+    a.shadow === b.shadow
+  )
 }
 
 const PRESET_START = "/* lumen-preset:start */"

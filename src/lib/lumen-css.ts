@@ -9,6 +9,9 @@ export const LUMEN_GLOBAL_CSS = `@import "tailwindcss";
   --font-heading: var(--font-sans);
   --font-serif: var(--font-fraunces, Fraunces), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains, "JetBrains Mono"), ui-monospace, monospace;
+  --shadow-sm: 0 1px 4px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 2px 8px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 3px 12px rgb(0 0 0 / 0.07);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -95,37 +98,37 @@ export const LUMEN_GLOBAL_CSS = `@import "tailwindcss";
 }
 
 :root {
-  --background: oklch(0.99 0.003 90);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(0.99 0.003 90);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(0.99 0.003 90);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.94 0.004 90);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0.003 90);
-  --muted-foreground: oklch(0.52 0 0);
-  --accent: oklch(0.97 0.003 90);
+  --background: #ffffff;
+  --foreground: #1c1c1c;
+  --card: #fafafa;
+  --card-foreground: #1c1c1c;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1c;
+  --primary: #5877f7;
+  --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #262626;
+  --muted: #f5f5f5;
+  --muted-foreground: #696969;
+  --accent: #f5f5f5;
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(51.4% 0.222 16.935); /* = --crimson-solid */
+  --destructive: #dc3d43;
   --new: oklch(0.7 0.13 75);
-  --border: oklch(0.88 0.004 90);
-  --input: oklch(0.88 0.004 90);
-  --ring: oklch(0.556 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0.003 90);
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a3a3a3;
+  --radius: 0.15rem;
+  --sidebar: #fafafa;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0.003 90);
+  --sidebar-accent: #f5f5f5;
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0.004 90);
+  --sidebar-border: #ebebeb;
   --sidebar-ring: oklch(0.556 0 0);
 
   /* Hues for Badge, Callout, Tabs, and Data List. ink is the type, wash the soft badge, panel the callout, solid the filled badge. */
-  --gray-panel: oklch(92.8% 0.005 90);
+  --gray-panel: #ebebeb;
   --indigo-ink: oklch(45.7% 0.24 277.023);
   --indigo-ink-strong: oklch(39.8% 0.195 277.366);
   --indigo-ink-deep: oklch(25.7% 0.09 281.288);
@@ -174,25 +177,25 @@ export const LUMEN_GLOBAL_CSS = `@import "tailwindcss";
 }
 
 .dark {
-  --background: #111;
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
+  --background: #111111;
+  --foreground: #fafafa;
+  --card: #171717;
+  --card-foreground: #fafafa;
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --primary: #8aacfc;
+  --primary-foreground: #262626;
+  --secondary: #333333;
+  --secondary-foreground: #fafafa;
+  --muted: #333333;
+  --muted-foreground: #a3a3a3;
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(71.2% 0.194 13.428); /* = --crimson-solid */
+  --destructive: #e5484d;
   --new: oklch(0.8 0.11 75);
-  --border: oklch(1 0 0 / 10%);
+  --border: #2e2e2e;
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: #737373;
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.922 0 0);
