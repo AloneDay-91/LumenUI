@@ -14,10 +14,10 @@ import {
 import { Chart } from "@/components/ui/Chart"
 
 const tone = (amount: number) =>
-  `color-mix(in oklch, var(--foreground) ${amount}%, var(--background))`
+  `color-mix(in oklch, var(--primary) ${amount}%, var(--background))`
 
 const plans = [
-  { name: "enterprise", label: "Enterprise", value: 46, color: "var(--foreground)" },
+  { name: "enterprise", label: "Enterprise", value: 46, color: "var(--primary)" },
   { name: "pro", label: "Pro", value: 28, color: tone(62) },
   { name: "team", label: "Team", value: 16, color: tone(38) },
   { name: "starter", label: "Starter", value: 10, color: tone(22) },
@@ -27,7 +27,7 @@ const config = Object.fromEntries(
   plans.map((plan) => [plan.name, { label: plan.label, color: plan.color }]),
 )
 
-/** Donut with the total in the middle and a two-column legend. Ink scale only. */
+/** Donut with the total in the middle and a two-column legend. Primary scale only. */
 export function PlanDonut() {
   return (
     <Card className="min-w-0">

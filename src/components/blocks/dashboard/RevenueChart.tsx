@@ -32,7 +32,7 @@ const data = current.map((value, index) => {
   }
 })
 
-const faded = "color-mix(in oklch, var(--foreground) 38%, var(--background))"
+const faded = "color-mix(in oklch, var(--primary) 38%, var(--background))"
 
 const config = {
   revenue: { label: "Revenue" },
@@ -98,7 +98,7 @@ export function RevenueChart() {
         <div className="ms-auto">
           <Legend
             items={[
-              ["Revenue", "var(--foreground)"],
+              ["Revenue", "var(--primary)"],
               ["Previous period", faded],
             ]}
           />
@@ -137,7 +137,7 @@ export function RevenueChart() {
               activeDot={{
                 r: 4,
                 fill: "var(--background)",
-                stroke: "var(--foreground)",
+                stroke: "var(--primary)",
                 strokeWidth: 1.5,
               }}
               isAnimationActive={false}

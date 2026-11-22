@@ -24,7 +24,7 @@ const data = months.map((month, index) => ({
   y2025: lastYear[index],
 }))
 
-const faded = "color-mix(in oklch, var(--foreground) 38%, var(--background))"
+const faded = "color-mix(in oklch, var(--primary) 38%, var(--background))"
 
 const config = {
   y2026: { label: "2026" },
@@ -76,7 +76,7 @@ export function ChurnChart() {
       <CardFooter className="flex-wrap justify-between gap-2 text-xs text-muted-foreground">
         <span className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-foreground" />
+            <span className="size-1.5 rounded-full bg-primary" />
             2026
           </span>
           <span className="inline-flex items-center gap-1.5">

@@ -536,7 +536,7 @@ export const componentApis: Record<string, ComponentApi> = {
         {
           name: "config",
           type: "Record<string, { label?: string; color?: string }>",
-          description: "Series labels. Color defaults to the ink scale; set color to override a tone.",
+          description: "Series labels. Color defaults to the primary scale; set color to override a tone.",
         },
         children,
       ]),

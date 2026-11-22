@@ -7,12 +7,13 @@ import type { LegendPayload } from "recharts/types/component/DefaultLegendConten
 
 import { cn } from "@/lib/utils"
 
+// Series step down from the primary toward the background, so charts follow the theme.
 const chartTones = [
-  "var(--foreground)",
-  "color-mix(in oklch, var(--foreground) 62%, var(--background))",
-  "color-mix(in oklch, var(--foreground) 38%, var(--background))",
-  "color-mix(in oklch, var(--foreground) 22%, var(--background))",
-  "color-mix(in oklch, var(--foreground) 12%, var(--background))",
+  "var(--primary)",
+  "color-mix(in oklch, var(--primary) 62%, var(--background))",
+  "color-mix(in oklch, var(--primary) 38%, var(--background))",
+  "color-mix(in oklch, var(--primary) 22%, var(--background))",
+  "color-mix(in oklch, var(--primary) 12%, var(--background))",
 ]
 
 export type ChartConfig = Record<

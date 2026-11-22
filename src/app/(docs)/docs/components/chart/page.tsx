@@ -5,7 +5,7 @@ export default function ChartPage() {
   return (
     <ComponentDocs
       name="Chart"
-      description="Monochrome charts on Recharts. Ink on paper, a quiet tooltip, no rainbow series."
+      description="Charts on Recharts in the theme primary. One hue stepped toward the background, a quiet tooltip, no rainbow series."
       preview={<ChartBarPreview />}
       previewClassName="px-5 py-6"
       usage={`import { Bar, BarChart } from "recharts"
