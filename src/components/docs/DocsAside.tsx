@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import * as React from "react"
 
+import { DocsPageLinks } from "@/components/docs/DocsPageLinks"
 import { useDocsTOC } from "@/components/docs/DocsTOCContext"
 import { cn } from "@/lib/utils"
 
@@ -132,40 +133,43 @@ export default function DocsAside() {
     }, 600)
   }
 
-  if (items.length === 0) {
+  if (items.length === 0 && !pathname.startsWith("/docs")) {
     return null
   }
 
   return (
     <aside className="sticky top-[calc(var(--update-banner-height)+3.5rem)] hidden h-[calc(100dvh-var(--update-banner-height)-3.5rem)] w-52 shrink-0 self-start overflow-y-auto border-l border-border bg-background lg:block">
-      <nav aria-label="On this page" className="px-3 py-5">
-        <p className="mb-2 px-1 text-xs font-medium text-muted-foreground">
-          On this page
-        </p>
-        <ul className="border-l border-border">
-          {items.map((heading) => {
-            const active = heading.id === activeId
-            return (
-              <li key={heading.id}>
-                <a
-                  href={`#${heading.id}`}
-                  aria-current={active ? "location" : undefined}
-                  onClick={() => selectHeading(heading.id)}
-                  className={cn(
-                    "-ml-px block border-l-2 py-1 text-xs transition-colors",
-                    heading.level === 3 ? "pl-4" : "pl-3",
-                    active
-                      ? "border-foreground font-medium text-foreground"
-                      : "border-transparent text-muted-foreground hover:border-foreground/25 hover:text-foreground"
-                  )}
-                >
-                  {heading.text}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-      </nav>
+      {items.length > 0 ? (
+        <nav aria-label="On this page" className="px-3 pt-5">
+          <p className="mb-2 px-1 text-xs font-medium text-muted-foreground">
+            On this page
+          </p>
+          <ul className="border-l border-border">
+            {items.map((heading) => {
+              const active = heading.id === activeId
+              return (
+                <li key={heading.id}>
+                  <a
+                    href={`#${heading.id}`}
+                    aria-current={active ? "location" : undefined}
+                    onClick={() => selectHeading(heading.id)}
+                    className={cn(
+                      "-ml-px block border-l-2 py-1 text-xs transition-colors",
+                      heading.level === 3 ? "pl-4" : "pl-3",
+                      active
+                        ? "border-foreground font-medium text-foreground"
+                        : "border-transparent text-muted-foreground hover:border-foreground/25 hover:text-foreground"
+                    )}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+      ) : null}
+      <DocsPageLinks pathname={pathname} />
     </aside>
   )
 }
