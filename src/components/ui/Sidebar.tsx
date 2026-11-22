@@ -469,7 +469,7 @@ function SidebarGroupLabel({
       {
         className: cn(
           // Keeps its height and fades, so the rows below do not move.
-          "flex h-8 shrink-0 items-center gap-2 rounded-full px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none transition-opacity duration-200 focus-visible:ring-3 focus-visible:ring-ring/30 group-data-[collapsible=icon]/sidebar:pointer-events-none group-data-[collapsible=icon]/sidebar:opacity-0 [&_svg]:size-4",
+          "flex h-8 shrink-0 items-center gap-2 rounded-4xl px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none transition-opacity duration-200 focus-visible:ring-3 focus-visible:ring-ring/30 group-data-[collapsible=icon]/sidebar:pointer-events-none group-data-[collapsible=icon]/sidebar:opacity-0 [&_svg]:size-4",
           className
         ),
       },
@@ -488,7 +488,7 @@ function SidebarGroupAction({
       type="button"
       data-slot="sidebar-group-action"
       className={cn(
-        "absolute top-2 right-3 flex size-6 items-center justify-center rounded-full text-muted-foreground outline-none transition-opacity duration-200 hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 group-data-[collapsible=icon]/sidebar:pointer-events-none group-data-[collapsible=icon]/sidebar:opacity-0 [&_svg]:size-4",
+        "absolute top-2 right-3 flex size-6 items-center justify-center rounded-4xl text-muted-foreground outline-none transition-opacity duration-200 hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 group-data-[collapsible=icon]/sidebar:pointer-events-none group-data-[collapsible=icon]/sidebar:opacity-0 [&_svg]:size-4",
         className
       )}
       {...props}
@@ -532,7 +532,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 const sidebarMenuButtonVariants = cva(
   // Collapsed to icons, the row keeps its box: only the first child (icon or
   // avatar) stays visible, the rest fades while the rail narrows.
-  "peer/menu-button flex w-full items-center justify-start gap-2 overflow-hidden rounded-full text-left font-normal text-muted-foreground outline-none hover:text-foreground data-active:bg-muted data-active:font-medium data-active:text-foreground [&>:not(:first-child)]:transition-opacity [&>:not(:first-child)]:duration-200 group-data-[collapsible=icon]/sidebar:[&>:not(:first-child)]:opacity-0 group-has-[[data-slot=sidebar-menu-badge]]/menu-item:pr-9 [&>span:last-child]:truncate",
+  "peer/menu-button flex w-full items-center justify-start gap-2 overflow-hidden rounded-4xl text-left font-normal text-muted-foreground outline-none hover:text-foreground data-active:bg-muted data-active:font-medium data-active:text-foreground [&>:not(:first-child)]:transition-opacity [&>:not(:first-child)]:duration-200 group-data-[collapsible=icon]/sidebar:[&>:not(:first-child)]:opacity-0 group-has-[[data-slot=sidebar-menu-badge]]/menu-item:pr-9 [&>span:last-child]:truncate",
   {
     variants: {
       size: {
@@ -640,7 +640,7 @@ function SidebarMenuAction({
       type="button"
       data-slot="sidebar-menu-action"
       className={cn(
-        "absolute top-1/2 right-1 flex size-6 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground opacity-0 outline-none hover:bg-muted focus-visible:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/30 group-hover/menu-item:opacity-100 group-focus-within/menu-item:opacity-100 group-data-[collapsible=icon]/sidebar:hidden [&_svg]:size-3.5",
+        "absolute top-1/2 right-1 flex size-6 -translate-y-1/2 items-center justify-center rounded-4xl text-muted-foreground opacity-0 outline-none hover:bg-muted focus-visible:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/30 group-hover/menu-item:opacity-100 group-focus-within/menu-item:opacity-100 group-data-[collapsible=icon]/sidebar:hidden [&_svg]:size-3.5",
         className
       )}
       {...props}
@@ -720,7 +720,7 @@ function SidebarMenuSubButton({
     props: mergeProps<"a">(
       {
         className: cn(
-          "flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-full px-2.5 text-xs text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 data-active:bg-muted data-active:font-medium data-active:text-foreground [&>span:last-child]:truncate",
+          "flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-4xl px-2.5 text-xs text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 data-active:bg-muted data-active:font-medium data-active:text-foreground [&>span:last-child]:truncate",
           className
         ),
       },
