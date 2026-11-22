@@ -180,11 +180,11 @@ function DemoFooter({ card = false }: { card?: boolean }) {
       {card ? <SeatsCard /> : null}
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton size="lg" tooltip="Elouan Bruzek">
+          <SidebarMenuButton size="lg" tooltip="Alex Martin">
             <Avatar>
-              <AvatarFallback className="bg-primary text-primary-foreground">EB</AvatarFallback>
+              <AvatarFallback className="bg-primary text-primary-foreground">AM</AvatarFallback>
             </Avatar>
-            <TwoLines title="Elouan Bruzek" detail="elouan@lumen.dev" />
+            <TwoLines title="Alex Martin" detail="alex@lumen.dev" />
             <ChevronsUpDownIcon />
           </SidebarMenuButton>
         </SidebarMenuItem>

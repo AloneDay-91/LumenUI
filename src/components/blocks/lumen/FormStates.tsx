@@ -26,7 +26,7 @@ export function FormStates() {
         <form className="flex w-full max-w-70 flex-col gap-3">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="block-email">Work email</Label>
-            <Input id="block-email" type="email" defaultValue="elouan@lumenui.fr" aria-invalid />
+            <Input id="block-email" type="email" defaultValue="alex@lumenui.fr" aria-invalid />
             <p className="text-xs text-destructive">Enter a full address, like name@studio.fr.</p>
           </div>
           <div className="flex gap-2">

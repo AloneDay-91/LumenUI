@@ -93,7 +93,7 @@ export function BillingSettings() {
             </ItemMedia>
             <ItemContent>
               <ItemTitle className="text-xs">Visa ending in 4242</ItemTitle>
-              <ItemDescription>Expires 08/28 · elouan@lumen.dev</ItemDescription>
+              <ItemDescription>Expires 08/28 · alex@lumen.dev</ItemDescription>
             </ItemContent>
             <ItemActions>
               <Button variant="outline" size="sm">

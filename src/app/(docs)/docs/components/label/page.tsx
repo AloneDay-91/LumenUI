@@ -10,7 +10,7 @@ export default function LabelPage() {
       preview={
         <div className="grid w-full max-w-sm gap-2">
           <Label htmlFor="name">Name</Label>
-          <Input id="name" placeholder="Elouan Bruzek" />
+          <Input id="name" placeholder="Alex Martin" />
         </div>
       }
       usage={`import { Label } from "@/components/ui/Label"

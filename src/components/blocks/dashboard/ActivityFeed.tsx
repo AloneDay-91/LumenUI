@@ -26,7 +26,7 @@ const activity = [
   { who: "Camille Moreau", what: "upgraded to Pro · annual", detail: "Billing · €1,240 charged to Visa ••12", time: "2m" },
   { who: "System", what: "sent a payout of €12,480", detail: "To Qonto ••42 · arrives Monday", time: "18m" },
   { who: "Noah Fischer", what: "opened ticket #812", detail: "“SSO setup with Okta”", time: "1h" },
-  { who: "Elouan Bruzek", what: "deployed v1.0.1 to production", detail: "12 files changed · build 48s", time: "3h", highlight: true },
+  { who: "Alex Martin", what: "deployed v1.0.1 to production", detail: "12 files changed · build 48s", time: "3h", highlight: true },
   { who: "Inès Benali", what: "invited 4 members to Studio B", detail: "Team · 2 seats left", time: "5h" },
   { who: "Hugo Laurent", what: "payment failed", detail: "Card expired · retry scheduled", time: "1d" },
 ]

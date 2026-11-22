@@ -96,7 +96,7 @@ export function AppHeader({
               EB
             </AvatarFallback>
           </Avatar>
-          <span className="hidden text-xs font-medium sm:inline">Elouan</span>
+          <span className="hidden text-xs font-medium sm:inline">Alex</span>
           <ChevronDown className="text-muted-foreground" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-44">

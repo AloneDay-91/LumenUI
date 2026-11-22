@@ -18,7 +18,7 @@ export function OverviewPage() {
   return (
     <DashboardShell active="Overview" crumbs={["Dashboard", "Overview"]}>
       <PageHeading
-        title="Good evening, Elouan"
+        title="Good evening, Alex"
         description="Here’s what happened across Acme Inc in the last 28 days."
       >
         <Button variant="outline">
