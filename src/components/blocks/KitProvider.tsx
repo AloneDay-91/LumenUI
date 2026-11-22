@@ -155,11 +155,11 @@ export function KitSwitcher({ className }: { className?: string }) {
       <SelectTrigger
         aria-label="Kit"
         className={cn(
-          "w-full gap-2.5 rounded-full py-0 ps-2 pe-3 data-[size=default]:h-12",
+          "w-full gap-2.5 py-0 ps-2 pe-3 data-[size=default]:h-12",
           className,
         )}
       >
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-[max(var(--radius-sm),calc(var(--radius-2xl)-0.5rem))] bg-primary text-primary-foreground">
           <KitMark kit={active} className="size-4" />
         </span>
         <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
@@ -173,10 +173,10 @@ export function KitSwitcher({ className }: { className?: string }) {
             <SelectItem
               key={kit.id}
               value={kit.name}
-              className="min-h-9 rounded-full"
+              className="min-h-9"
             >
               <span className="flex items-center gap-2">
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-[max(var(--radius-sm),calc(var(--radius-xl)-0.5rem))] bg-primary text-primary-foreground">
                   <KitMark kit={kit} className="size-3" />
                 </span>
                 {kit.name}
