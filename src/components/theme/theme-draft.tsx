@@ -68,7 +68,8 @@ export function ThemeDraftProvider({ children }: { children: ReactNode }) {
   const preset = draft ?? stored
   // The palette follows the site theme until someone picks one.
   const [pickedPalette, setPalette] = useState<"light" | "dark" | null>(null)
-  const palette = pickedPalette ?? (resolvedTheme === "dark" ? "dark" : "light")
+  // The server cannot know the theme: hydrate on light, then follow it.
+  const palette = pickedPalette ?? (ready && resolvedTheme === "dark" ? "dark" : "light")
   const css = buildPresetCss(preset)
 
   const setPreset: Dispatch<SetStateAction<ThemePreset>> = useCallback(
