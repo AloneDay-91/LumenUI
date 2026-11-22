@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 
 import { DocsHeader } from "@/components/docs/DocsHeader";
-import { ThemeControls } from "@/components/theme/ThemeControls";
+import { ThemeControls, ThemeExport } from "@/components/theme/ThemeControls";
 import { ThemeDraftProvider } from "@/components/theme/theme-draft";
 
 export function CustomizeShell({ children }: { children: ReactNode }) {
@@ -12,9 +12,13 @@ export function CustomizeShell({ children }: { children: ReactNode }) {
       <div className="flex min-h-dvh flex-col bg-background">
         <DocsHeader />
         <div className="flex min-h-0 w-full flex-1">
-          <aside className="sticky top-[calc(var(--update-banner-height)+3.5rem)] hidden h-[calc(100dvh-var(--update-banner-height)-3.5rem)] w-72 shrink-0 flex-col border-r border-border md:flex">
+          <aside className="sticky top-[calc(var(--update-banner-height)+3.5rem)] hidden h-[calc(100dvh-var(--update-banner-height)-3.5rem)] w-80 shrink-0 flex-col border-r border-border md:flex">
             <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5">
-              <ThemeControls />
+              <ThemeControls withExport={false} />
+            </div>
+            {/* Export stays in reach while the controls scroll. */}
+            <div className="shrink-0 border-t border-border bg-background px-4 py-3">
+              <ThemeExport />
             </div>
           </aside>
           <div className="flex min-w-0 flex-1 flex-col">

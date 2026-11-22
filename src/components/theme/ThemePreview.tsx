@@ -130,6 +130,7 @@ import { Textarea } from "@/components/ui/Textarea";
 import { Toggle } from "@/components/ui/Toggle";
 import { ToggleGroup } from "@/components/ui/ToggleGroup";
 import { useThemeDraft } from "@/components/theme/theme-draft";
+import { ThemePreviewMore } from "@/components/theme/ThemePreviewMore";
 import { HERO_BACKGROUND } from "@/lib/site";
 import type { HeadingFont, SansFont } from "@/lib/theme-preset";
 import { cn } from "@/lib/utils";
@@ -583,7 +584,7 @@ export function ThemePreview() {
         palette === "dark" ? "dark" : "light",
       )}
     >
-      <div className="grid w-full grid-cols-1 items-start gap-3 md:w-[2400px] md:grid-cols-7 xl:w-[2800px]">
+      <div className="grid w-full grid-cols-1 items-start gap-3 md:w-[3090px] md:grid-cols-9 xl:w-[3600px]">
         <Column>
           <Card>
             <CardContent className="flex flex-col gap-6">
@@ -1593,6 +1594,7 @@ export function ThemePreview() {
             </CardContent>
           </Card>
         </Column>
+        <ThemePreviewMore />
       </div>
     </div>
   );
