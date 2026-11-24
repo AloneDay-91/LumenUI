@@ -93,7 +93,7 @@ export function AppHeader({
         >
           <Avatar className="size-7">
             <AvatarFallback className="bg-primary text-primary-foreground">
-              EB
+              AM
             </AvatarFallback>
           </Avatar>
           <span className="hidden text-xs font-medium sm:inline">Alex</span>

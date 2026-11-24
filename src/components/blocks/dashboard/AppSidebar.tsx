@@ -191,7 +191,7 @@ export function AppSidebar({
             <SidebarMenuButton size="lg" tooltip="Alex Martin">
               <Avatar>
                 <AvatarFallback className="bg-primary text-primary-foreground">
-                  EB
+                  AM
                 </AvatarFallback>
               </Avatar>
               <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">

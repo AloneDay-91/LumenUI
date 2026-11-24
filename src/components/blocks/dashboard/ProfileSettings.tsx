@@ -33,7 +33,7 @@ export function ProfileSettings() {
         <CardContent className="flex flex-wrap items-center gap-4">
           <Avatar className="size-14">
             <AvatarFallback className="bg-primary text-primary-foreground">
-              EB
+              AM
             </AvatarFallback>
           </Avatar>
           <div className="min-w-40 flex-1">
