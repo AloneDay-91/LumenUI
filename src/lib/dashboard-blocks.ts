@@ -176,6 +176,15 @@ export const dashboardBlockMeta: DashboardBlockMeta[] = [
     files: ["DangerZone.tsx", "SettingsSection.tsx"],
   }),
   block({
+    id: "project-board",
+    kit: "boards",
+    title: "Project board",
+    description:
+      "Kanban with four status columns. Cards carry a tag, a due date, comments and the owner; each column ends with an add button.",
+    components: ["kanban", "badge", "avatar", "button"],
+    files: ["ProjectBoard.tsx"],
+  }),
+  block({
     id: "dashboard-overview",
     kit: "pages",
     title: "Overview",
@@ -192,6 +201,14 @@ export const dashboardBlockMeta: DashboardBlockMeta[] = [
       "A table page: stat strip, status ToggleGroup and the orders table with its toolbar.",
     components: ["sidebar", "button", "badge", "toggle-group"],
     files: ["OrdersPage.tsx", "DashboardShell.tsx"],
+  }),
+  block({
+    id: "dashboard-projects",
+    kit: "pages",
+    title: "Projects",
+    description: "A project page: heading with share and new task, and the project board.",
+    components: ["sidebar", "button", "kanban"],
+    files: ["ProjectsPage.tsx", "ProjectBoard.tsx", "DashboardShell.tsx"],
   }),
   block({
     id: "dashboard-settings",

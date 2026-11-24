@@ -307,6 +307,21 @@ const thumbs: Record<BlockCategorySlug, ReactNode> = {
       ))}
     </div>
   ),
+  boards: (
+    <div className="flex w-full items-start justify-center gap-2">
+      {[3, 2, 1].map((cards, column) => (
+        <span key={column} className="flex w-14 flex-col gap-1.5 rounded-xl bg-background/60 p-1.5 ring-1 ring-border">
+          <span className={`${line} h-1.25 w-8 bg-foreground/60`} />
+          {Array.from({ length: cards }, (_, card) => (
+            <span key={card} className={`flex flex-col gap-1 p-1.5 ${surface}`}>
+              <span className="block h-1.5 w-5 rounded-full bg-muted-foreground/30" />
+              <span className={`${line} h-1 w-full`} />
+            </span>
+          ))}
+        </span>
+      ))}
+    </div>
+  ),
   activity: (
     <div className={`flex w-40 flex-col gap-2.5 p-3 ${surface}`}>
       {[true, false, false].map((highlight, item) => (

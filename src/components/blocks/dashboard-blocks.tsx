@@ -16,6 +16,8 @@ import { OverviewPage } from "@/components/blocks/dashboard/OverviewPage"
 import { PageHeading } from "@/components/blocks/dashboard/PageHeading"
 import { PlanDonut } from "@/components/blocks/dashboard/PlanDonut"
 import { ProfileSettings } from "@/components/blocks/dashboard/ProfileSettings"
+import { ProjectBoard } from "@/components/blocks/dashboard/ProjectBoard"
+import { ProjectsPage } from "@/components/blocks/dashboard/ProjectsPage"
 import { RevenueChart } from "@/components/blocks/dashboard/RevenueChart"
 import { SessionsChart } from "@/components/blocks/dashboard/SessionsChart"
 import { SettingsPage } from "@/components/blocks/dashboard/SettingsPage"
@@ -127,6 +129,11 @@ const previews: Record<string, ReactNode> = {
       <OrdersTable rows={6} title={false} />
     </Pad>
   ),
+  "project-board": (
+    <Pad>
+      <ProjectBoard />
+    </Pad>
+  ),
   "activity-feed": (
     <Pad className="mx-auto max-w-lg p-4 sm:p-6">
       <ActivityFeed />
@@ -159,6 +166,7 @@ const previews: Record<string, ReactNode> = {
   ),
   "dashboard-overview": <OverviewPage />,
   "dashboard-orders": <OrdersPage />,
+  "dashboard-projects": <ProjectsPage />,
   "dashboard-settings": <SettingsPage />,
 }
 
