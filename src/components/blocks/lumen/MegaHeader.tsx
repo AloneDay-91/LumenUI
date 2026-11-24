@@ -5,6 +5,7 @@ import Link from "next/link"
 
 import { LumenWordmark } from "@/components/blocks/lumen/brand"
 import { MenuFigure } from "@/components/blocks/lumen/menu-figures"
+import { MobileNav } from "@/components/blocks/lumen/mobile-nav"
 import { Button } from "@/components/ui/Button"
 import { buttonVariants } from "@/components/ui/button-variants"
 import {
@@ -277,12 +278,12 @@ export function MegaHeader() {
   return (
     <header className="relative z-50 bg-background">
       <NavigationMenu>
-        <div className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between bg-background px-6 py-6 md:px-12">
-          <div className="flex items-center gap-16">
-            <Link href="/" aria-label="Lumen UI" className="inline-flex items-center">
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between gap-4 bg-background px-4 py-4 sm:px-6 sm:py-6 md:px-12">
+          <div className="flex min-w-0 items-center gap-10 xl:gap-16">
+            <Link href="/" aria-label="Lumen UI" className="inline-flex shrink-0 items-center">
               <LumenWordmark />
             </Link>
-            <NavigationMenuList className="hidden md:flex">
+            <NavigationMenuList className="hidden lg:flex">
               {menus.map((menu) => (
                 <NavigationMenuItem key={menu.id} value={menu.id}>
                   <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
@@ -303,14 +304,30 @@ export function MegaHeader() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <Button variant="ghost" size="icon" aria-label="Ask Lumen">
               <MessageSquare />
             </Button>
-            <ThemeToggle />
-            <Link href="/docs" className={buttonVariants()}>
+            <ThemeToggle className="hidden lg:inline-flex" />
+            <Button nativeButton={false} className="hidden sm:inline-flex" render={<Link href="/docs" />}>
               Documentation
-            </Link>
+            </Button>
+            <MobileNav
+              className="lg:hidden"
+              cta={{ href: "/docs", label: "Documentation" }}
+              sections={[
+                ...menus.map((menu) => ({
+                  title: menu.title,
+                  links: [...menu.featured.items, ...(menu.more ? [menu.more] : [])],
+                })),
+                {
+                  links: [
+                    { href: "/customize", label: "Customize" },
+                    { href: GITHUB, label: "GitHub", external: true },
+                  ],
+                },
+              ]}
+            />
           </div>
         </div>
         <NavigationMenuPortal>

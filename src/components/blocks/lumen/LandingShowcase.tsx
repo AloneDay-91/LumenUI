@@ -40,6 +40,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/Pagination"
+import { Progress } from "@/components/ui/Progress"
 import { Rating } from "@/components/ui/Rating"
 import {
   Select,
@@ -272,7 +273,7 @@ export function LandingShowcase() {
         aria-hidden
       />
       <div className="relative z-10 px-4 pt-6 sm:px-6 sm:pt-8 lg:px-10 lg:pt-8">
-        <Card variant="secondary" className="gap-0 rounded-t-lg rounded-b-none py-0">
+        <Card className="gap-0 rounded-t-lg rounded-b-none bg-background py-0">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5">
             <Breadcrumb>
               <BreadcrumbList>
@@ -451,7 +452,7 @@ export function LandingShowcase() {
                                     <Avatar className="size-6 text-[10px]">
                                       <AvatarFallback>{job.initials}</AvatarFallback>
                                     </Avatar>
-                                    <span className="text-sm">{job.owner}</span>
+                                    <span className="text-sm whitespace-nowrap">{job.owner}</span>
                                   </span>
                                 </TableCell>
                                 <TableCell>
@@ -460,19 +461,11 @@ export function LandingShowcase() {
                                   </Badge>
                                 </TableCell>
                                 <TableCell>
-                                  <div
-                                    className="h-1.5 overflow-hidden rounded-full bg-muted"
-                                    role="progressbar"
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                    aria-valuenow={job.progress}
+                                  <Progress
+                                    value={job.progress}
                                     aria-label={`${job.file} progress`}
-                                  >
-                                    <div
-                                      className="h-full bg-primary"
-                                      style={{ width: `${job.progress}%` }}
-                                    />
-                                  </div>
+                                    className="min-w-16"
+                                  />
                                 </TableCell>
                               </TableRow>
                             ))}

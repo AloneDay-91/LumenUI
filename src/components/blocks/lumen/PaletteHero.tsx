@@ -457,7 +457,7 @@ function HeroPalette({ items }: { items: PaletteItem[] }) {
         "absolute z-10 overflow-hidden p-0",
         "-inset-x-3 -bottom-3",
         "sm:inset-x-auto sm:right-5 sm:w-80",
-        "lg:top-14 lg:-right-8 lg:bottom-auto",
+        "lg:top-14 lg:right-4 lg:bottom-auto xl:-right-8",
         "animate-in fade-in-0 slide-in-from-bottom-2 duration-500 delay-300 fill-mode-backwards lg:slide-in-from-top-2 motion-reduce:animate-none",
         "focus-within:ring-3 focus-within:ring-ring/30"
       )}

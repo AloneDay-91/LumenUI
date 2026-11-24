@@ -8,6 +8,7 @@ import {
 import Link from "next/link"
 import type { ReactNode } from "react"
 
+import { Card } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { Message, MessageBody, MessageContent } from "@/components/ui/Message"
 import { Progress } from "@/components/ui/Progress"
@@ -49,9 +50,9 @@ function Peek({ children }: { children: ReactNode }) {
     >
       <div className="absolute inset-x-6 top-4 bottom-0 rounded-2xl border border-border bg-background" />
       <div className="absolute inset-x-9 top-2 bottom-0 rounded-2xl border border-border bg-background/50" />
-      <div className="relative z-10 rounded-2xl border border-border bg-background p-6 text-sm shadow-xl ring-1 ring-foreground/10">
+      <Card className="relative z-10 gap-0 bg-background p-6 text-sm shadow-xl ring-1 ring-foreground/10">
         {children}
-      </div>
+      </Card>
     </div>
   )
 }

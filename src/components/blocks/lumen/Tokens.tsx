@@ -47,9 +47,9 @@ export function Tokens() {
       </div>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <InviteCard theme="Light" />
-        <div className="dark rounded-2xl bg-background p-3 text-foreground ring-1 ring-border">
+        <Card className="dark gap-0 border-transparent bg-background p-3 text-foreground ring-1 ring-border">
           <InviteCard theme="Dark" />
-        </div>
+        </Card>
       </div>
       <ul className="mt-10 grid gap-8 border-t border-border pt-10 sm:grid-cols-2 lg:grid-cols-4">
         {highlights.map((item) => (

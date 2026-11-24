@@ -22,12 +22,14 @@ export function UpdateBanner() {
             and status toasts.
           </span>
         </p>
-        <Link
-          href="/docs/changelog"
-          className="shrink-0 font-medium text-foreground underline-offset-4 hover:underline"
+        <Button
+          variant="link"
+          nativeButton={false}
+          className="shrink-0 text-xs text-foreground"
+          render={<Link href="/docs/changelog" />}
         >
           Changelog
-        </Link>
+        </Button>
         <Button
           variant="ghost"
           size="icon-xs"

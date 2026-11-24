@@ -2,6 +2,7 @@ import { PAINTING } from "@/components/blocks/lumen/brand";
 import { Badge } from "@/components/ui/Badge";
 import { Separator } from "@/components/ui/Separator";
 import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/Card"
 
 const points = [
   {
@@ -70,7 +71,7 @@ export function CliFeature() {
         </ul>
       </div>
 
-      <div className="relative min-w-0 overflow-hidden rounded-3xl border border-border bg-card p-5 sm:p-8 lg:col-span-7">
+      <Card className="relative min-w-0 gap-0 overflow-hidden rounded-3xl p-5 sm:p-8 lg:col-span-7">
         <PaintBackdrop />
         <div className="relative flex flex-col gap-4 rounded-[20px] border border-border bg-background p-5 font-mono text-xs leading-[1.7] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.6)]">
           <div className="flex flex-col gap-1 overflow-x-auto whitespace-nowrap">
@@ -108,7 +109,7 @@ export function CliFeature() {
             ))}
           </ul>
         </div>
-      </div>
+      </Card>
     </section>
   );
 }

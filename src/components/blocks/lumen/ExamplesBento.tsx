@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, type ReactNode } from "react"
+import { Bar, BarChart } from "recharts"
 import {
   AlignLeft,
   Bell,
   Bold,
   Italic,
   MoreHorizontal,
-  Search,
   Underline,
 } from "lucide-react"
 
@@ -35,9 +35,19 @@ import { Avatar, AvatarFallback } from "@/components/ui/Avatar"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Chart, ChartXAxis } from "@/components/ui/Chart"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { CheckboxGroup } from "@/components/ui/CheckboxGroup"
 import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from "@/components/ui/Collapsible"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandShortcut,
+} from "@/components/ui/Command"
 import {
   Combobox,
   ComboboxContent,
@@ -76,8 +86,6 @@ import {
 } from "@/components/ui/Drawer"
 import { Field, FieldControl, FieldLabel } from "@/components/ui/Field"
 import { Fieldset, FieldsetLegend } from "@/components/ui/Fieldset"
-import { Input } from "@/components/ui/Input"
-import { Kbd } from "@/components/ui/Kbd"
 import { Label } from "@/components/ui/Label"
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/Menu"
 import { Meter } from "@/components/ui/Meter"
@@ -103,6 +111,7 @@ import {
 } from "@/components/ui/Select"
 import { Skeleton } from "@/components/ui/Skeleton"
 import { Slider } from "@/components/ui/Slider"
+import { Stat, StatDescription, StatLabel, StatValue } from "@/components/ui/Stat"
 import { Switch } from "@/components/ui/Switch"
 import {
   Tabs,
@@ -171,28 +180,23 @@ function ActivityTile() {
         <CardDescription>Last six months, billed days.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-5">
-        <div className="flex h-36 items-end gap-2 md:h-44">
-          {ACTIVITY.map((month) => (
-            <div key={month.label} className="flex min-w-0 flex-1 flex-col items-center gap-2">
-              <div
-                className="w-full rounded-t-lg bg-foreground/25"
-                style={{ height: `${month.value}%` }}
-              />
-              <span className="font-mono text-[10px] text-muted-foreground">{month.label}</span>
-            </div>
-          ))}
-        </div>
+        <Chart config={{ value: { label: "Billed days" } }} className="aspect-auto h-36 md:h-44">
+          <BarChart data={ACTIVITY} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
+            <ChartXAxis dataKey="label" />
+            <Bar dataKey="value" fill="var(--color-value)" radius={[8, 8, 0, 0]} isAnimationActive={false} />
+          </BarChart>
+        </Chart>
         <div className="grid grid-cols-2 gap-2">
-          <div className="rounded-2xl bg-secondary p-3">
-            <p className="text-[10px] tracking-wide text-muted-foreground uppercase">Next</p>
-            <p className="mt-1 text-sm font-medium">18 Sep 2026</p>
-            <p className="text-xs text-muted-foreground">Docs delivery</p>
-          </div>
-          <div className="rounded-2xl bg-secondary p-3">
-            <p className="text-[10px] tracking-wide text-muted-foreground uppercase">Plan</p>
-            <p className="mt-1 text-sm font-medium">Accelerated</p>
-            <p className="text-xs text-muted-foreground">Weekly</p>
-          </div>
+          <Stat className="rounded-2xl bg-secondary p-3">
+            <StatLabel>Next</StatLabel>
+            <StatValue className="text-sm">18 Sep 2026</StatValue>
+            <StatDescription>Docs delivery</StatDescription>
+          </Stat>
+          <Stat className="rounded-2xl bg-secondary p-3">
+            <StatLabel>Plan</StatLabel>
+            <StatValue className="text-sm">Accelerated</StatValue>
+            <StatDescription>Weekly</StatDescription>
+          </Stat>
         </div>
       </CardContent>
       <CardFooter>
@@ -291,11 +295,11 @@ function TeamTile() {
             <PreviewCard>
               <PreviewCardTrigger
                 render={
-                  <button type="button" className="rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring/30">
+                  <Button variant="ghost" size="icon" className="rounded-full p-0" aria-label={member.name}>
                     <Avatar>
                       <AvatarFallback>{member.initials}</AvatarFallback>
                     </Avatar>
-                  </button>
+                  </Button>
                 }
               />
               <PreviewCardContent>
@@ -339,10 +343,10 @@ function InviteTile() {
                 <FieldLabel>E-mail</FieldLabel>
                 <FieldControl type="email" placeholder="studio@example.com" />
               </Field>
-              <label className="flex items-center gap-2 text-sm">
+              <Label className="flex items-center gap-2 text-sm font-normal">
                 <Checkbox defaultChecked />
                 Can publish components
-              </label>
+              </Label>
               <Button
                 onClick={() =>
                   toast.add({
@@ -380,13 +384,12 @@ function InviteTile() {
 }
 
 function PaletteTile() {
-  const [query, setQuery] = useState("")
   const commands = [
-    "Open the studio",
-    "Export tokens",
-    "Invite a member",
-    "Toggle theme",
-  ].filter((item) => item.toLocaleLowerCase("en").includes(query.toLocaleLowerCase("en")))
+    { label: "Open the studio", shortcut: "⌘O" },
+    { label: "Export tokens", shortcut: "⌘E" },
+    { label: "Invite a member", shortcut: "⌘I" },
+    { label: "Toggle theme", shortcut: "⌘J" },
+  ]
 
   return (
     <Tile className="md:col-span-4">
@@ -394,33 +397,21 @@ function PaletteTile() {
         <CardTitle>Command palette</CardTitle>
         <CardDescription>Search a studio action.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        <div className="relative">
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={query}
-            onChange={(event) => setQuery(event.currentTarget.value)}
-            placeholder="Search a command…"
-            className="pl-9"
-            autoComplete="off"
-          />
-        </div>
-        <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
-          {commands.length === 0 ? (
-            <p className="px-3 py-5 text-center text-sm text-muted-foreground">No results.</p>
-          ) : (
-            commands.map((command) => (
-              <button
-                key={command}
-                type="button"
-                className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left text-sm hover:bg-background/60"
-              >
-                {command}
-                <Kbd className="bg-background">⌘K</Kbd>
-              </button>
-            ))
-          )}
-        </div>
+      <CardContent>
+        <Command className="rounded-2xl bg-secondary">
+          <CommandInput placeholder="Search a command…" />
+          <CommandList>
+            <CommandEmpty>No results.</CommandEmpty>
+            <CommandGroup>
+              {commands.map((command) => (
+                <CommandItem key={command.label} value={command.label}>
+                  {command.label}
+                  <CommandShortcut>{command.shortcut}</CommandShortcut>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
       </CardContent>
     </Tile>
   )
@@ -793,11 +784,11 @@ export function ExamplesBento() {
           <Tooltip>
             <TooltipTrigger
               render={
-                <button type="button" className="rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring/30">
+                <Button variant="ghost" size="icon" className="rounded-full p-0" aria-label="Studio Lumen">
                   <Avatar>
                     <AvatarFallback>LU</AvatarFallback>
                   </Avatar>
-                </button>
+                </Button>
               }
             />
             <TooltipContent>Studio Lumen</TooltipContent>

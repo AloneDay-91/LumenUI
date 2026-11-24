@@ -293,7 +293,7 @@ function ToastSlide() {
             aria-hidden
             className="absolute inset-x-1.5 top-1.5 h-16 rounded-2xl bg-background ring-1 ring-border"
           />
-          <div className="relative mt-3 flex items-start gap-3 rounded-2xl bg-popover p-3 text-popover-foreground shadow-lg ring-1 ring-foreground/5">
+          <Card size="sm" className="relative mt-3 flex-row items-start gap-3 border-transparent bg-popover p-3 text-popover-foreground shadow-lg ring-1 ring-foreground/5">
             <div className="min-w-0 flex-1">
               <p className="text-sm font-medium">Copied</p>
               <p className="text-xs text-muted-foreground">
@@ -301,7 +301,7 @@ function ToastSlide() {
               </p>
             </div>
             <XIcon className="size-3.5 text-muted-foreground" aria-hidden />
-          </div>
+          </Card>
         </div>
         <Button
           type="button"
