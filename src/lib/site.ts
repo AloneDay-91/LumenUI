@@ -84,5 +84,5 @@ export const COMPAT = [
   },
 ]
 
-/** Unsplash photo 1775313088881, served from public/ so the hero does not depend on a third-party CDN. */
+/** Hero backdrop image served from public/ so the hero does not depend on a third-party CDN. */
 export const HERO_BACKGROUND = "/images/hero.jpg"

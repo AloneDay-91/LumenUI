@@ -59,7 +59,7 @@ export function RevenueChart() {
   return (
     <Card className="min-w-0">
       <CardHeader className="flex flex-wrap items-start gap-3">
-        <div className="min-w-0 flex-1">
+        <div className="min-w-[min(100%,14rem)] flex-1">
           <CardTitle>Revenue</CardTitle>
           <CardDescription className="mt-1">
             Gross volume, last 28 days

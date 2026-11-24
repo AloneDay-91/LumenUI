@@ -157,6 +157,13 @@ export const blockCategories = [
     description: "Rows with filters, selection and pages.",
   },
   {
+    slug: "boards",
+    title: "Boards",
+    group: "Data",
+    kit: "dashboard",
+    description: "Cards in columns, moved by drag or keyboard.",
+  },
+  {
     slug: "activity",
     title: "Activity",
     group: "Data",

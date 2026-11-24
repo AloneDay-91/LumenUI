@@ -36,7 +36,7 @@ export function ActivityFeed({ count = 6 }: { count?: number }) {
   return (
     <Card className="h-full min-w-0">
       <CardHeader className="flex flex-wrap items-start gap-3">
-        <div className="min-w-0 flex-1">
+        <div className="min-w-[min(100%,14rem)] flex-1">
           <CardTitle>Recent activity</CardTitle>
           <CardDescription className="mt-1">Across your workspace</CardDescription>
         </div>

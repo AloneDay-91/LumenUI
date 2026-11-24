@@ -148,7 +148,143 @@ const aiComponents: ChangelogLink[] = [
   { name: "Attachment", href: "/docs/components/attachment", new: true },
 ];
 
+const mediaComponents: ChangelogLink[] = [
+  { name: "Video", href: "/docs/components/video", new: true },
+  { name: "Audio Player", href: "/docs/components/audio-player", new: true },
+  { name: "Comparison Slider", href: "/docs/components/comparison-slider", new: true },
+];
+
+const workflowComponents: ChangelogLink[] = [
+  { name: "Kanban", href: "/docs/components/kanban", new: true },
+  { name: "Selection Bar", href: "/docs/components/selection-bar", new: true },
+  { name: "Inline Edit", href: "/docs/components/inline-edit", new: true },
+  { name: "Diff Viewer", href: "/docs/components/diff-viewer", new: true },
+];
+
+const contentComponents: ChangelogLink[] = [
+  { name: "Markdown", href: "/docs/components/markdown", new: true },
+  { name: "Mention Input", href: "/docs/components/mention-input", new: true },
+  { name: "Emoji Picker", href: "/docs/components/emoji-picker", new: true },
+];
+
+const dataComponents: ChangelogLink[] = [
+  { name: "Event Calendar", href: "/docs/components/event-calendar", new: true },
+  { name: "Heatmap", href: "/docs/components/heatmap", new: true },
+  { name: "Gauge", href: "/docs/components/gauge", new: true },
+  { name: "Number Ticker", href: "/docs/components/number-ticker", new: true },
+];
+
+const captureComponents: ChangelogLink[] = [
+  { name: "Signature Pad", href: "/docs/components/signature-pad", new: true },
+  { name: "Image Cropper", href: "/docs/components/image-cropper", new: true },
+  { name: "Onboarding Checklist", href: "/docs/components/onboarding-checklist", new: true },
+];
+
+const fieldComponents: ChangelogLink[] = [
+  { name: "Phone Input", href: "/docs/components/phone-input", new: true },
+  { name: "Currency Input", href: "/docs/components/currency-input", new: true },
+];
+
 export const changelog: ChangelogRelease[] = [
+  {
+    version: "1.4.0",
+    title: "Media, boards, shaders, smarter fields",
+    date: "2026-11-24",
+    summary:
+      "Nineteen components for media, writing, planning, dashboards, and forms, a real-time WebGL Shaders gallery and studio, a Project board block, a fuller Color Picker, and the Lumen theme as the installed default.",
+    items: [
+      {
+        kind: "added",
+        text: "Shaders: a real-time WebGL shader gallery and studio built with Lumen components, shipping 53 presets across 25 procedural GLSL engines (fluted and cubic glass, halftone print, ASCII matrix, dither, prism godrays, holographic sheen, hero domes, cloudscapes, and custom GLSL), live Blur and Chromatic Aberration controls, a 4-variation image generator, 1080p/4K PNG and React/GLSL export, and local saved shaders.",
+        href: "/shaders",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Media with Lumen controls: Video with a buffered scrubber, speed, captions, and fullscreen; Audio Player with an optional waveform; Comparison Slider to wipe between two images.",
+        links: mediaComponents,
+      },
+      {
+        kind: "added",
+        text: "Workflow components: Kanban with drag and keyboard moves, a Selection Bar for bulk actions, Inline Edit for text you change in place, and a Diff Viewer, unified or side by side.",
+        links: workflowComponents,
+      },
+      {
+        kind: "added",
+        text: "Phone Input picks the country, formats as you type, and returns E.164. Currency Input formats amounts for the locale and can switch currency.",
+        links: fieldComponents,
+      },
+      {
+        kind: "added",
+        text: "Writing: Markdown renders replies and docs with Lumen typography, safely and while they stream; Mention Input opens people on @ and commands on /; Emoji Picker searches emoji by name with skin tones.",
+        links: contentComponents,
+      },
+      {
+        kind: "added",
+        text: "Planning and dashboards: Event Calendar in day, week, and month views; a Heatmap of daily activity; a Gauge with thresholds; and a Number Ticker that counts up to its value.",
+        links: dataComponents,
+      },
+      {
+        kind: "added",
+        text: "Signature Pad draws or types a signature, Image Cropper crops to a ratio or a circle and returns the file, and an Onboarding Checklist tracks first steps.",
+        links: captureComponents,
+      },
+      {
+        kind: "added",
+        text: "A Boards category in the Dashboard kit, with the Project board block and a Projects page built on Kanban.",
+        href: "/blocks/boards",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "The docs sidebar has a What's new card with the latest release, and every docs page links to its source, an edit page, and a new issue on GitHub.",
+        href: "/docs/changelog",
+      },
+      {
+        kind: "changed",
+        text: "Color Picker reads and writes hex, rgb, hsl, and oklch, with an opacity slider, an eyedropper, swatches, a copy button, a field trigger, and ColorPickerPanel for an inline picker.",
+        href: "/docs/components/color-picker",
+      },
+      {
+        kind: "changed",
+        text: "The Lumen theme is the default: init installs it and Customize opens on it. The warm, black theme stays as the Paper preset.",
+        href: "/customize",
+      },
+      {
+        kind: "changed",
+        text: "Customize has sections with a preset picker, grouped colours, sliders, and an export pinned to the sidebar, next to a wider two-column preview.",
+        href: "/customize",
+      },
+      {
+        kind: "changed",
+        text: "Chart series step down from the primary instead of the foreground, so charts take the theme hue: blue on Lumen, grey on Paper.",
+        href: "/docs/components/chart",
+      },
+      {
+        kind: "fixed",
+        text: "Sidebar menu items and the blocks kit switcher follow the radius token instead of a fixed pill.",
+        href: "/docs/components/sidebar",
+      },
+      {
+        kind: "fixed",
+        text: "Customize no longer logs a hydration error for visitors in dark mode.",
+        href: "/customize",
+      },
+    ],
+  },
+  {
+    version: "1.3.1",
+    title: "Steady showcase film",
+    date: "2026-11-18",
+    summary: "The showcase film on the landing no longer shifts the page while it loads.",
+    items: [
+      {
+        kind: "fixed",
+        text: "The showcase film on the landing keeps its space while it loads, so the page no longer jumps.",
+        href: "/",
+      },
+    ],
+  },
   {
     version: "1.3.0",
     title: "Blocks, versions, sharper defaults",
@@ -168,13 +304,7 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "A new default theme: white background, blue primary, neutral greys, and a tighter radius. The CLI installs it and Customize opens on it; the warm, black theme stays as the Paper preset in Customize.",
-        href: "/customize",
-      },
-      {
-        kind: "changed",
-        text: "Chart series step down from the primary instead of the foreground, so charts take the theme hue: blue on Lumen, grey on Paper.",
-        href: "/docs/components/chart",
+        text: "A new theme: white background, blue primary, neutral greys, and a tighter radius.",
       },
       {
         kind: "changed",

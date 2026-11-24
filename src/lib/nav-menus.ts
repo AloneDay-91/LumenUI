@@ -71,6 +71,7 @@ export const navMenus: NavMenu[] = [
         items: [
           { href: "/docs/styles", label: "Tokens and type" },
           { href: "/docs/accessibility", label: "Accessibility" },
+          { href: "/shaders", label: "Shaders" },
           { href: "/customize", label: "Customize" },
         ],
       },

@@ -397,7 +397,11 @@
   @apply text-muted-foreground/60;
 }
 
-.docs-article :where(p a, li a):not([data-slot="typography"] *):not([data-slot="callout-text"] *) {
+/* Text links only. Components (data-slot), anything inside a live preview,
+   and links that style themselves (cards, version badges: no-underline) keep
+   their own hover instead of gaining an underline on top of it. */
+.docs-article
+  :where(p a, li a, td a):not([data-slot]):not(.no-underline):not([data-docs-preview] *):not([data-slot="typography"] *):not([data-slot="callout-text"] *) {
   @apply text-foreground underline-offset-4 hover:underline;
 }
 

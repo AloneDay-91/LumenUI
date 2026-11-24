@@ -50,7 +50,7 @@ export function BillingSettings() {
     >
       <Card>
         <CardHeader className="flex flex-wrap items-start gap-4">
-          <div className="min-w-0 flex-1">
+          <div className="min-w-[min(100%,14rem)] flex-1">
             <div className="flex items-center gap-2">
               <CardTitle className="text-base">Pro</CardTitle>
               <Badge>Current plan</Badge>
@@ -59,7 +59,7 @@ export function BillingSettings() {
               <span className="text-3xl font-semibold tracking-tight tabular-nums">
                 €29
               </span>
-              <span className="text-xs text-muted-foreground">/ seat / month</span>
+              <span className="text-xs whitespace-nowrap text-muted-foreground">/ seat / month</span>
             </p>
             <CardDescription className="mt-1">
               Renews on 1 Nov 2026 · billed annually
@@ -118,8 +118,8 @@ export function BillingSettings() {
             <TableBody>
               {invoices.map((invoice) => (
                 <TableRow key={invoice.id}>
-                  <TableCell className="font-mono">{invoice.id}</TableCell>
-                  <TableCell className="text-muted-foreground">{invoice.date}</TableCell>
+                  <TableCell className="font-mono whitespace-nowrap">{invoice.id}</TableCell>
+                  <TableCell className="whitespace-nowrap text-muted-foreground">{invoice.date}</TableCell>
                   <TableCell>
                     <Badge variant="success">
                       <Check />

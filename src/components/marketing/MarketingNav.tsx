@@ -56,6 +56,14 @@ export function MarketingNav() {
               ))}
               <NavigationMenuItem>
                 <NavigationMenuLink
+                  render={<Link href="/shaders" />}
+                  variant="muted"
+                >
+                  Shaders
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
                   render={<Link href="/customize" />}
                   variant="muted"
                 >

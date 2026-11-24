@@ -133,6 +133,8 @@ export function SiteNavMenu() {
           </DropdownMenuSub>
         ))}
         <DropdownMenuSeparator />
+        <DropdownMenuLinkItem href="/shaders">Shaders</DropdownMenuLinkItem>
+        <DropdownMenuLinkItem href="/customize">Customize</DropdownMenuLinkItem>
         <DropdownMenuLinkItem href={GITHUB_URL} target="_blank" rel="noreferrer">
           GitHub
         </DropdownMenuLinkItem>

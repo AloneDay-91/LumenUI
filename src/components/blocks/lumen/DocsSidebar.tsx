@@ -26,6 +26,7 @@ const sections = [
     items: [
       { href: "/docs/styles", name: "Styles" },
       { href: "/docs/accessibility", name: "Accessibility", isNew: true },
+      { href: "/shaders", name: "Shaders", isNew: true },
       { href: "/customize", name: "Customize" },
     ],
   },

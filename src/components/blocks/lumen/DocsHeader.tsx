@@ -1,7 +1,8 @@
-import { Menu, MessageSquare, Search } from "lucide-react"
+import { MessageSquare, Search } from "lucide-react"
 import Link from "next/link"
 
 import { LumenWordmark } from "@/components/blocks/lumen/brand"
+import { MobileNav } from "@/components/blocks/lumen/mobile-nav"
 import { Button } from "@/components/ui/Button"
 import { Kbd } from "@/components/ui/Kbd"
 
@@ -29,9 +30,30 @@ export function DocsHeader() {
           <Button variant="ghost" size="icon-sm" aria-label="Search" className="text-muted-foreground sm:hidden">
             <Search className="size-4" />
           </Button>
-          <Button variant="ghost" size="icon-sm" aria-label="Menu" className="text-muted-foreground">
-            <Menu className="size-4" />
-          </Button>
+          <MobileNav
+            label="Docs menu"
+            className="text-muted-foreground"
+            cta={{ href: "/docs/installation", label: "Install" }}
+            sections={[
+              {
+                title: "Getting started",
+                links: [
+                  { href: "/docs", label: "Introduction" },
+                  { href: "/docs/installation", label: "Installation" },
+                  { href: "/docs/components", label: "Components" },
+                ],
+              },
+              {
+                title: "Foundations",
+                links: [
+                  { href: "/docs/styles", label: "Styles" },
+                  { href: "/docs/accessibility", label: "Accessibility" },
+                  { href: "/shaders", label: "Shaders" },
+                  { href: "/customize", label: "Customize" },
+                ],
+              },
+            ]}
+          />
         </div>
       </div>
     </header>

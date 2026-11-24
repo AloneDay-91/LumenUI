@@ -308,7 +308,7 @@ export function OrdersTable({
                       aria-label={`Select ${order.id}`}
                     />
                   </TableCell>
-                  <TableCell className="font-mono">{order.id}</TableCell>
+                  <TableCell className="font-mono whitespace-nowrap">{order.id}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2.5">
                       <Avatar className="size-7">

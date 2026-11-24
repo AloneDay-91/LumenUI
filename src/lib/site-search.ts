@@ -24,6 +24,13 @@ const sitePages: Omit<SiteSearchItem, "id">[] = [
     keywords: "landing marketing home start welcome",
   },
   {
+    title: "Shaders",
+    description: "Real-time WebGL shader gallery and interactive Shader Studio.",
+    href: "/shaders",
+    category: "pages",
+    keywords: "shaders shader webgl glsl gradient grainient dither glass studio create backgrounds",
+  },
+  {
     title: "Customize",
     description: "Theme tokens, appearance, and visual customization.",
     href: "/customize",

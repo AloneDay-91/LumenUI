@@ -2,6 +2,7 @@
 
 import { XIcon } from "lucide-react"
 
+import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 import { Message, MessageBody, MessageContent } from "@/components/ui/Message"
 import {
@@ -21,7 +22,7 @@ const sources = [
 export function AskPanel() {
   return (
     <div className="flex w-full justify-center px-6 py-10">
-      <div className="flex h-[30rem] w-full max-w-md flex-col overflow-hidden rounded-[min(var(--radius-4xl),24px)] border border-border bg-background shadow-lg">
+      <Card className="h-[30rem] w-full max-w-md gap-0 overflow-hidden bg-background py-0 shadow-lg">
         <div className="flex h-12 shrink-0 items-center justify-between border-b border-border ps-4 pe-2">
           <span className="text-sm font-medium">Ask Lumen</span>
           <Button variant="ghost" size="icon-sm" aria-label="Close" className="text-muted-foreground">
@@ -55,7 +56,7 @@ export function AskPanel() {
             </PromptInputToolbar>
           </PromptInput>
         </div>
-      </div>
+      </Card>
     </div>
   )
 }

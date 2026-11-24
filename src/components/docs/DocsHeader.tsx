@@ -26,17 +26,6 @@ const BlocksNav = dynamic(() =>
   import("@/components/blocks/BlocksSidebar").then((module) => module.BlocksNav),
 );
 
-function HeaderFrame({
-  blocks,
-  children,
-}: {
-  blocks: boolean;
-  children: React.ReactNode;
-}) {
-  if (!blocks) return children;
-  return <BlocksHeaderNav>{children}</BlocksHeaderNav>;
-}
-
 export function DocsHeader() {
   const [open, setOpen] = React.useState(false);
   const close = () => setOpen(false);
@@ -87,7 +76,7 @@ export function DocsHeader() {
         "sticky top-[var(--update-banner-height)] z-40 border-b border-border bg-background",
       )}
     >
-      <HeaderFrame blocks={blocks}>
+      <BlocksHeaderNav>
         <div className="relative z-10 flex h-14 items-center gap-3 px-4 md:px-6">
           <div className="flex min-w-0 items-center gap-8">
             <div className="flex items-center gap-3">
@@ -104,16 +93,7 @@ export function DocsHeader() {
               </Button>
               <SiteLogo onClick={close} />
             </div>
-            {blocks ? <BlocksHeaderLinks /> : null}
-            {blocks ? null : customize ? (
-              <span className="hidden text-xs text-muted-foreground md:inline">
-                Customize
-              </span>
-            ) : (
-              <span className="hidden text-xs text-muted-foreground lg:inline">
-                Documentation
-              </span>
-            )}
+            <BlocksHeaderLinks />
           </div>
           <div className="ml-auto flex items-center gap-1">
             <VersionMenu className="mr-1 hidden sm:inline-flex" />
@@ -122,7 +102,7 @@ export function DocsHeader() {
             <SiteNavMenu />
           </div>
         </div>
-      </HeaderFrame>
+      </BlocksHeaderNav>
       {open ? (
         <div
           id="docs-mobile-nav"

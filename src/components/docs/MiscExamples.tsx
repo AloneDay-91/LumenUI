@@ -2,12 +2,14 @@
 
 import * as React from "react"
 import { GitPullRequestIcon, MessageSquareIcon, RocketIcon } from "lucide-react"
+import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/Button"
 import { ImageGallery, type GalleryImage } from "@/components/ui/ImageGallery"
 import { NotificationCenter, type NotificationItem } from "@/components/ui/NotificationCenter"
 import { RelativeTime } from "@/components/ui/RelativeTime"
 import { Tour, type TourStep } from "@/components/ui/Tour"
+import { Video } from "@/components/ui/Video"
 
 const minutes = (n: number) => Date.now() - n * 60_000
 
@@ -99,6 +101,29 @@ const images: GalleryImage[] = [
 
 export function ImageGalleryDemo() {
   return <ImageGallery images={images} className="w-full max-w-md" />
+}
+
+const subscribeToNothing = () => () => {}
+
+export function VideoDemo() {
+  const { resolvedTheme } = useTheme()
+  // Light until the theme is known, so server and client render the same file.
+  const mounted = React.useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false
+  )
+  const name = mounted && resolvedTheme === "dark" ? "lumen-showcase-dark" : "lumen-showcase"
+
+  return (
+    <Video
+      key={name}
+      src={`/video/${name}.mp4`}
+      poster={`/images/${name}-poster.jpg`}
+      preload="metadata"
+      className="max-w-xl"
+    />
+  )
 }
 
 const steps: TourStep[] = [

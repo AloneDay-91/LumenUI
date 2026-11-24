@@ -33,16 +33,16 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "headers",
     title: "Site header",
     description: "Wordmark, section links, a theme toggle, and Documentation.",
-    components: ["button", "theme-toggle"],
-    files: ["SiteHeader.tsx", "brand.tsx"],
+    components: ["button", "theme-toggle", "drawer", "separator"],
+    files: ["SiteHeader.tsx", "brand.tsx", "mobile-nav.tsx"],
   }),
   block({
     id: "mega-header",
     kit: "headers",
     title: "Mega menu header",
     description: "The landing bar from 1.2: each section opens a full-width panel with links and a card.",
-    components: ["navigation-menu", "button"],
-    files: ["MegaHeader.tsx", "brand.tsx"],
+    components: ["navigation-menu", "button", "drawer", "separator", "theme-toggle"],
+    files: ["MegaHeader.tsx", "brand.tsx", "mobile-nav.tsx"],
   }),
 
   // Banners
@@ -121,7 +121,7 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "features",
     title: "CLI",
     description: "What init and add write, with the files they leave in the repo, on the painting.",
-    components: ["badge", "separator"],
+    components: ["badge", "separator", "card"],
     files: ["CliFeature.tsx", "brand.tsx"],
   }),
   block({
@@ -137,7 +137,7 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "features",
     title: "AI and numbers",
     description: "Two columns of layered cards, a chat turn and a progress card, then four short notes.",
-    components: ["badge", "message", "progress", "trace"],
+    components: ["badge", "message", "progress", "trace", "card"],
     files: ["AiAndNumbers.tsx"],
   }),
   block({
@@ -145,7 +145,7 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "features",
     title: "Copy-paste",
     description: "What the CLI writes into the repo, next to the file tree it leaves.",
-    components: ["badge", "separator"],
+    components: ["badge", "separator", "card"],
     files: ["CopyPaste.tsx"],
   }),
   block({
@@ -203,7 +203,7 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "showcases",
     title: "Landing showcase",
     description: "The first landing, September 2026: a grid of working components on one page.",
-    components: ["button", "card", "badge", "tabs", "select", "switch", "slider", "toggle-group"],
+    components: ["button", "card", "badge", "tabs", "select", "switch", "slider", "toggle-group", "progress"],
     files: ["LandingShowcase.tsx"],
   }),
   block({
@@ -211,7 +211,7 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "showcases",
     title: "Examples bento",
     description: "The 0.6 bento: dozens of components composed into small product cards.",
-    components: ["button", "card", "dialog", "menu", "tabs", "table", "calendar", "field"],
+    components: ["button", "card", "dialog", "menu", "tabs", "table", "calendar", "field", "command", "chart", "stat", "label"],
     files: ["ExamplesBento.tsx"],
   }),
 
@@ -249,8 +249,8 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "docs-layout",
     title: "Docs header",
     description: "Logo, version, Ask, search, and the menu, over a docs page.",
-    components: ["button", "kbd"],
-    files: ["DocsHeader.tsx", "brand.tsx"],
+    components: ["button", "kbd", "drawer", "separator", "theme-toggle"],
+    files: ["DocsHeader.tsx", "brand.tsx", "mobile-nav.tsx"],
   }),
   block({
     id: "docs-sidebar",
@@ -275,7 +275,7 @@ export const lumenBlockMeta: LumenBlockMeta[] = [
     kit: "search",
     title: "Ask panel",
     description: "The panel that answers from the docs, with the sources it read.",
-    components: ["button", "message", "prompt-input", "sources"],
+    components: ["button", "message", "prompt-input", "sources", "card"],
     files: ["AskPanel.tsx"],
   }),
 

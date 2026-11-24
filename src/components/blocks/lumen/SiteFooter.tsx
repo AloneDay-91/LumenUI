@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { LumenWordmark } from "@/components/blocks/lumen/brand"
 import { FooterWordmark } from "@/components/blocks/lumen/FooterWordmark"
+import { Button } from "@/components/ui/Button"
 import { ThemeToggle } from "@/components/ui/ThemeToggle"
 import { buttonVariants } from "@/components/ui/button-variants"
 import { cn } from "@/lib/utils"
@@ -16,6 +17,7 @@ const columns = [
       { href: "/docs", label: "Introduction" },
       { href: "/docs/installation", label: "Installation" },
       { href: "/docs/frameworks", label: "Frameworks" },
+      { href: "/shaders", label: "Shaders" },
       { href: "/customize", label: "Customize" },
       { href: "/docs/changelog", label: "Changelog" },
     ],
@@ -42,7 +44,7 @@ const columns = [
   },
 ]
 
-const linkClass = "w-fit text-foreground transition-colors hover:text-muted-foreground"
+const linkClass = "w-fit justify-start text-sm font-normal text-foreground"
 
 export function SiteFooter() {
   return (
@@ -82,9 +84,15 @@ export function SiteFooter() {
             <div key={column.title} className="flex flex-col gap-3.5 text-sm">
               <p className="mb-1 text-[13px] text-muted-foreground">{column.title}</p>
               {column.links.map((link) => (
-                <Link key={link.href} href={link.href} className={linkClass}>
+                <Button
+                  key={link.href}
+                  variant="link"
+                  nativeButton={false}
+                  className={linkClass}
+                  render={<Link href={link.href} />}
+                >
                   {link.label}
-                </Link>
+                </Button>
               ))}
             </div>
           ))}

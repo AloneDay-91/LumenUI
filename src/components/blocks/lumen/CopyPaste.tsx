@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { Separator } from "@/components/ui/Separator"
 import { cn } from "@/lib/utils"
@@ -41,7 +42,7 @@ export function CopyPaste() {
         </ul>
       </div>
       <div className="min-w-0 rounded-[min(var(--radius-4xl),24px)] bg-muted p-4 md:p-8">
-        <div className="flex flex-col gap-4 rounded-2xl bg-background p-5 font-mono text-xs leading-[1.7] ring-1 ring-border">
+        <Card className="gap-4 border-transparent bg-background p-5 font-mono text-xs leading-[1.7] ring-1 ring-border">
           <div className="flex flex-col gap-1">
             <p>
               <span className="text-muted-foreground">$</span> npx @aloneday/lumenui@latest init
@@ -70,7 +71,7 @@ export function CopyPaste() {
               </li>
             ))}
           </ul>
-        </div>
+        </Card>
       </div>
     </section>
   )

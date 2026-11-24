@@ -65,6 +65,21 @@
       "utils"
     ]
   },
+  "audio-player": {
+    "title": "Audio Player",
+    "internal": false,
+    "files": [
+      "AudioPlayer.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
   "autocomplete": {
     "title": "Autocomplete",
     "internal": false,
@@ -343,10 +358,17 @@
     "files": [
       "ColorPicker.tsx"
     ],
-    "dependencies": [],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
     "registryDependencies": [
-      "input",
+      "button",
+      "copy-button",
       "popover",
+      "styles",
+      "toggle",
+      "toggle-group",
       "utils"
     ]
   },
@@ -378,6 +400,20 @@
     "registryDependencies": [
       "dialog",
       "kbd",
+      "utils"
+    ]
+  },
+  "comparison-slider": {
+    "title": "Comparison Slider",
+    "internal": false,
+    "files": [
+      "ComparisonSlider.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
       "utils"
     ]
   },
@@ -452,6 +488,20 @@
       "utils"
     ]
   },
+  "currency-input": {
+    "title": "Currency Input",
+    "internal": false,
+    "files": [
+      "CurrencyInput.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
   "data-list": {
     "title": "Data List",
     "internal": false,
@@ -513,6 +563,20 @@
       "utils"
     ]
   },
+  "diff-viewer": {
+    "title": "Diff Viewer",
+    "internal": false,
+    "files": [
+      "DiffViewer.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "copy-button",
+      "utils"
+    ]
+  },
   "drawer": {
     "title": "Drawer",
     "internal": false,
@@ -541,6 +605,19 @@
       "utils"
     ]
   },
+  "emoji-picker": {
+    "title": "Emoji Picker",
+    "internal": false,
+    "files": [
+      "EmojiPicker.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
   "empty": {
     "title": "Empty",
     "internal": false,
@@ -551,6 +628,23 @@
       "class-variance-authority"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "event-calendar": {
+    "title": "Event Calendar",
+    "internal": false,
+    "files": [
+      "EventCalendar.tsx"
+    ],
+    "dependencies": [
+      "date-fns",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "toggle",
+      "toggle-group",
       "utils"
     ]
   },
@@ -637,6 +731,41 @@
       "utils"
     ]
   },
+  "gauge": {
+    "title": "Gauge",
+    "internal": false,
+    "files": [
+      "Gauge.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "heatmap": {
+    "title": "Heatmap",
+    "internal": false,
+    "files": [
+      "Heatmap.tsx"
+    ],
+    "dependencies": [
+      "date-fns"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "image-cropper": {
+    "title": "Image Cropper",
+    "internal": false,
+    "files": [
+      "ImageCropper.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
   "image-gallery": {
     "title": "Image Gallery",
     "internal": false,
@@ -663,6 +792,19 @@
     "registryDependencies": [
       "preview-card",
       "sources",
+      "utils"
+    ]
+  },
+  "inline-edit": {
+    "title": "Inline Edit",
+    "internal": false,
+    "files": [
+      "InlineEdit.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
       "utils"
     ]
   },
@@ -706,6 +848,17 @@
       "utils"
     ]
   },
+  "kanban": {
+    "title": "Kanban",
+    "internal": false,
+    "files": [
+      "Kanban.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
   "kbd": {
     "title": "Kbd",
     "internal": false,
@@ -731,6 +884,19 @@
       "utils"
     ]
   },
+  "markdown": {
+    "title": "Markdown",
+    "internal": false,
+    "files": [
+      "Markdown.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "code-block",
+      "typography",
+      "utils"
+    ]
+  },
   "marquee": {
     "title": "Marquee",
     "internal": false,
@@ -741,6 +907,17 @@
     "dependencies": [
       "lucide-react"
     ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  "mention-input": {
+    "title": "Mention Input",
+    "internal": false,
+    "files": [
+      "MentionInput.tsx"
+    ],
+    "dependencies": [],
     "registryDependencies": [
       "utils"
     ]
@@ -866,6 +1043,17 @@
       "utils"
     ]
   },
+  "number-ticker": {
+    "title": "Number Ticker",
+    "internal": false,
+    "files": [
+      "NumberTicker.tsx"
+    ],
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
   "otp-field": {
     "title": "OTP Field",
     "internal": false,
@@ -876,6 +1064,22 @@
       "@base-ui/react"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "onboarding-checklist": {
+    "title": "Onboarding Checklist",
+    "internal": false,
+    "files": [
+      "OnboardingChecklist.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "progress",
       "utils"
     ]
   },
@@ -906,6 +1110,20 @@
       "button-variants",
       "input",
       "input-group",
+      "utils"
+    ]
+  },
+  "phone-input": {
+    "title": "Phone Input",
+    "internal": false,
+    "files": [
+      "PhoneInput.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
       "utils"
     ]
   },
@@ -1099,6 +1317,21 @@
       "utils"
     ]
   },
+  "selection-bar": {
+    "title": "Selection Bar",
+    "internal": false,
+    "files": [
+      "SelectionBar.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "utils"
+    ]
+  },
   "separator": {
     "title": "Separator",
     "internal": false,
@@ -1132,6 +1365,22 @@
       "separator",
       "skeleton",
       "tooltip",
+      "utils"
+    ]
+  },
+  "signature-pad": {
+    "title": "Signature Pad",
+    "internal": false,
+    "files": [
+      "SignaturePad.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "toggle",
+      "toggle-group",
       "utils"
     ]
   },
@@ -1577,6 +1826,22 @@
       "class-variance-authority"
     ],
     "registryDependencies": [
+      "utils"
+    ]
+  },
+  "video": {
+    "title": "Video",
+    "internal": false,
+    "files": [
+      "Video.tsx"
+    ],
+    "dependencies": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "spinner",
       "utils"
     ]
   },
