@@ -14,6 +14,7 @@ const columns = [
       { href: "/docs", label: "Introduction" },
       { href: "/docs/installation", label: "Installation" },
       { href: "/docs/frameworks", label: "Frameworks" },
+      { href: "/shaders", label: "Shaders" },
       { href: "/customize", label: "Customize" },
       { href: "/docs/changelog", label: "Changelog" },
     ],

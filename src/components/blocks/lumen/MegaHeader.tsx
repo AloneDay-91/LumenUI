@@ -66,6 +66,7 @@ const menus: Menu[] = [
         items: [
           { href: "/docs/styles", label: "Tokens and type" },
           { href: "/docs/accessibility", label: "Accessibility" },
+          { href: "/shaders", label: "Shaders" },
           { href: "/customize", label: "Customize" },
         ],
       },
@@ -293,6 +294,11 @@ export function MegaHeader() {
                 </NavigationMenuItem>
               ))}
               <NavigationMenuItem>
+                <NavigationMenuLink render={<Link href="/shaders" />} variant="muted">
+                  Shaders
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuLink render={<Link href="/customize" />} variant="muted">
                   Customize
                 </NavigationMenuLink>
@@ -322,6 +328,7 @@ export function MegaHeader() {
                 })),
                 {
                   links: [
+                    { href: "/shaders", label: "Shaders" },
                     { href: "/customize", label: "Customize" },
                     { href: GITHUB, label: "GitHub", external: true },
                   ],

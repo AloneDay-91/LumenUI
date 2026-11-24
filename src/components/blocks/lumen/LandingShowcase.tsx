@@ -91,8 +91,7 @@ import { Toggle } from "@/components/ui/Toggle"
 import { ToggleGroup } from "@/components/ui/ToggleGroup"
 import { useToastManager } from "@/components/ui/Toast"
 
-const HERO_BACKGROUND =
-  "https://images.unsplash.com/photo-1775313088881-649b8d9dc7d8?q=80&w=1600&auto=format&fit=crop"
+const HERO_BACKGROUND = "/images/hero.jpg"
 
 const PAGE_SIZE = 4
 

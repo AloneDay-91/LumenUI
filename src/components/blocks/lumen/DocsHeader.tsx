@@ -48,6 +48,7 @@ export function DocsHeader() {
                 links: [
                   { href: "/docs/styles", label: "Styles" },
                   { href: "/docs/accessibility", label: "Accessibility" },
+                  { href: "/shaders", label: "Shaders" },
                   { href: "/customize", label: "Customize" },
                 ],
               },

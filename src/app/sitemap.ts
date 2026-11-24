@@ -7,6 +7,7 @@ import { SITE_URL } from "@/lib/site"
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
+    "/shaders",
     "/customize",
     "/blocks",
     ...blockCategories.map((category) => `/blocks/${category.slug}`),

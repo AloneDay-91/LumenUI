@@ -9,6 +9,7 @@ const links = [
   { href: "/docs", label: "System" },
   { href: "/docs/components", label: "Components" },
   { href: "/blocks", label: "Blocks" },
+  { href: "/shaders", label: "Shaders" },
   { href: "https://github.com/AloneDay-91/LumenUI", label: "GitHub", external: true },
 ]
 

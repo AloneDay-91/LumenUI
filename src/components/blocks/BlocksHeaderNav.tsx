@@ -42,10 +42,10 @@ export function BlocksHeaderNav({ children }: { children: ReactNode }) {
   )
 }
 
-/** System, Components, Blocks and Customize, sitting beside the logo. */
+/** System, Components, Blocks, Shaders and Customize, sitting beside the logo. */
 export function BlocksHeaderLinks() {
   return (
-    <NavigationMenuList className="hidden gap-6 md:flex">
+    <NavigationMenuList className="hidden gap-4 md:flex lg:gap-6">
       {navMenus.map((menu) => (
         <NavigationMenuItem key={menu.id} value={menu.id}>
           <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
@@ -54,6 +54,11 @@ export function BlocksHeaderLinks() {
           </NavigationMenuContent>
         </NavigationMenuItem>
       ))}
+      <NavigationMenuItem>
+        <NavigationMenuLink render={<Link href="/shaders" />} variant="muted">
+          Shaders
+        </NavigationMenuLink>
+      </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink render={<Link href="/customize" />} variant="muted">
           Customize

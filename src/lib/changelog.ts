@@ -188,11 +188,17 @@ const fieldComponents: ChangelogLink[] = [
 export const changelog: ChangelogRelease[] = [
   {
     version: "1.4.0",
-    title: "Media, boards, smarter fields",
+    title: "Media, boards, shaders, smarter fields",
     date: "2026-11-24",
     summary:
-      "Nineteen components for media, writing, planning, dashboards, and forms, a Project board block, a fuller Color Picker, and the Lumen theme as the installed default.",
+      "Nineteen components for media, writing, planning, dashboards, and forms, a real-time WebGL Shaders gallery and studio, a Project board block, a fuller Color Picker, and the Lumen theme as the installed default.",
     items: [
+      {
+        kind: "added",
+        text: "Shaders: a real-time WebGL shader gallery and studio built with Lumen components, shipping 53 presets across 25 procedural GLSL engines (fluted and cubic glass, halftone print, ASCII matrix, dither, prism godrays, holographic sheen, hero domes, cloudscapes, and custom GLSL), live Blur and Chromatic Aberration controls, a 4-variation image generator, 1080p/4K PNG and React/GLSL export, and local saved shaders.",
+        href: "/shaders",
+        new: true,
+      },
       {
         kind: "added",
         text: "Media with Lumen controls: Video with a buffered scrubber, speed, captions, and fullscreen; Audio Player with an optional waveform; Comparison Slider to wipe between two images.",

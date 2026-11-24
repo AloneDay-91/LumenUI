@@ -243,6 +243,11 @@ export const docsSections: DocsNavSection[] = [
         href: "/docs/accessibility",
         keywords: "a11y keyboard focus label aria screen reader base ui",
       },
+      {
+        name: "Shaders",
+        href: "/shaders",
+        keywords: "shaders webgl glsl gradient grainient dither halftone ascii studio",
+      },
       { name: "Customize", href: "/customize" },
     ],
   },
