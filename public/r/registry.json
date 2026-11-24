@@ -53,6 +53,18 @@
       ]
     },
     {
+      "name": "audio-player",
+      "title": "Audio Player",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
       "name": "autocomplete",
       "title": "Autocomplete",
       "dependencies": [
@@ -266,10 +278,17 @@
     {
       "name": "color-picker",
       "title": "Color Picker",
-      "dependencies": [],
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
       "registryDependencies": [
-        "input",
+        "button",
+        "copy-button",
         "popover",
+        "styles",
+        "toggle",
+        "toggle-group",
         "utils"
       ]
     },
@@ -295,6 +314,17 @@
       "registryDependencies": [
         "dialog",
         "kbd",
+        "utils"
+      ]
+    },
+    {
+      "name": "comparison-slider",
+      "title": "Comparison Slider",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
         "utils"
       ]
     },
@@ -355,6 +385,17 @@
       ]
     },
     {
+      "name": "currency-input",
+      "title": "Currency Input",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "data-list",
       "title": "Data List",
       "dependencies": [],
@@ -404,6 +445,17 @@
       ]
     },
     {
+      "name": "diff-viewer",
+      "title": "Diff Viewer",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "copy-button",
+        "utils"
+      ]
+    },
+    {
       "name": "drawer",
       "title": "Drawer",
       "dependencies": [
@@ -415,12 +467,36 @@
       ]
     },
     {
+      "name": "emoji-picker",
+      "title": "Emoji Picker",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "empty",
       "title": "Empty",
       "dependencies": [
         "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "event-calendar",
+      "title": "Event Calendar",
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "toggle",
+        "toggle-group",
         "utils"
       ]
     },
@@ -490,6 +566,32 @@
       ]
     },
     {
+      "name": "gauge",
+      "title": "Gauge",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "heatmap",
+      "title": "Heatmap",
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "title": "Image Cropper",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "image-gallery",
       "title": "Image Gallery",
       "dependencies": [
@@ -509,6 +611,16 @@
       "registryDependencies": [
         "preview-card",
         "sources",
+        "utils"
+      ]
+    },
+    {
+      "name": "inline-edit",
+      "title": "Inline Edit",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
         "utils"
       ]
     },
@@ -544,6 +656,14 @@
       ]
     },
     {
+      "name": "kanban",
+      "title": "Kanban",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "kbd",
       "title": "Kbd",
       "dependencies": [
@@ -563,11 +683,29 @@
       ]
     },
     {
+      "name": "markdown",
+      "title": "Markdown",
+      "dependencies": [],
+      "registryDependencies": [
+        "code-block",
+        "typography",
+        "utils"
+      ]
+    },
+    {
       "name": "marquee",
       "title": "Marquee",
       "dependencies": [
         "lucide-react"
       ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "mention-input",
+      "title": "Mention Input",
+      "dependencies": [],
       "registryDependencies": [
         "utils"
       ]
@@ -667,12 +805,33 @@
       ]
     },
     {
+      "name": "number-ticker",
+      "title": "Number Ticker",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
       "name": "otp-field",
       "title": "OTP Field",
       "dependencies": [
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "onboarding-checklist",
+      "title": "Onboarding Checklist",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "progress",
         "utils"
       ]
     },
@@ -697,6 +856,17 @@
         "button-variants",
         "input",
         "input-group",
+        "utils"
+      ]
+    },
+    {
+      "name": "phone-input",
+      "title": "Phone Input",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
         "utils"
       ]
     },
@@ -849,6 +1019,18 @@
       ]
     },
     {
+      "name": "selection-bar",
+      "title": "Selection Bar",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
       "name": "separator",
       "title": "Separator",
       "dependencies": [
@@ -875,6 +1057,19 @@
         "separator",
         "skeleton",
         "tooltip",
+        "utils"
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "title": "Signature Pad",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "toggle",
+        "toggle-group",
         "utils"
       ]
     },
@@ -1219,6 +1414,19 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "video",
+      "title": "Video",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "spinner",
         "utils"
       ]
     },

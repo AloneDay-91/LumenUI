@@ -1,0 +1,20 @@
+{
+  "name": "selection-bar",
+  "title": "Selection Bar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "SelectionBar.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Toolbar as ToolbarPrimitive } from \"@base-ui/react/toolbar\"\nimport { XIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/Button\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * A bar of bulk actions that rises when something is selected and leaves\n * when nothing is: the count, a clear button, and your actions. It is a\n * toolbar, so the arrows move between its buttons. Escape clears.\n */\nfunction SelectionBar({\n  className,\n  count,\n  onClear,\n  position = \"fixed\",\n  labels = {},\n  children,\n}: {\n  className?: string\n  /** How many items are selected. The bar shows from 1. */\n  count: number\n  /** Called by the clear button and by Escape. */\n  onClear: () => void\n  /** `fixed` floats over the page; `absolute` sits in the nearest positioned parent. */\n  position?: \"fixed\" | \"absolute\"\n  labels?: {\n    toolbar?: string\n    count?: (count: number) => React.ReactNode\n    clear?: string\n  }\n  /** The actions: Buttons, or SelectionBarAction. */\n  children?: React.ReactNode\n}) {\n  const open = count > 0\n  // Keep the last count while the bar slides away, so it does not read \"0\".\n  const [shown, setShown] = React.useState(count)\n  if (open && shown !== count) setShown(count)\n\n  return (\n    <div\n      data-slot=\"selection-bar\"\n      data-open={open ? \"\" : undefined}\n      className={cn(\n        position,\n        \"inset-x-0 bottom-4 z-40 flex justify-center px-4 transition-[opacity,translate] duration-200\",\n        open ? \"translate-y-0 opacity-100\" : \"pointer-events-none translate-y-3 opacity-0\"\n      )}\n      inert={!open}\n    >\n      <ToolbarPrimitive.Root\n        aria-label={labels.toolbar ?? \"Selection actions\"}\n        onKeyDown={(event) => {\n          if (event.key === \"Escape\") {\n            event.preventDefault()\n            onClear()\n          }\n        }}\n        className={cn(\n          \"flex max-w-full items-center gap-1 overflow-x-auto rounded-4xl bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/5 dark:ring-foreground/10\",\n          className\n        )}\n      >\n        <span\n          aria-live=\"polite\"\n          className=\"shrink-0 ps-2.5 pe-1 text-xs font-medium tabular-nums whitespace-nowrap\"\n        >\n          {labels.count?.(shown) ?? `${shown} selected`}\n        </span>\n        <ToolbarPrimitive.Button\n          render={\n            <Button\n              variant=\"ghost\"\n              size=\"icon-xs\"\n              aria-label={labels.clear ?? \"Clear selection\"}\n              className=\"text-muted-foreground\"\n            />\n          }\n          onClick={onClear}\n        >\n          <XIcon />\n        </ToolbarPrimitive.Button>\n        {children ? (\n          <ToolbarPrimitive.Separator className=\"mx-1 h-4 w-px shrink-0 bg-border\" />\n        ) : null}\n        <div className=\"flex items-center gap-1\">{children}</div>\n      </ToolbarPrimitive.Root>\n    </div>\n  )\n}\n\n/** A button inside the bar, part of its arrow-key order. */\nfunction SelectionBarAction({\n  variant = \"ghost\",\n  ...props\n}: React.ComponentProps<typeof Button>) {\n  return (\n    <ToolbarPrimitive.Button\n      render={<Button variant={variant} size=\"sm\" {...props} />}\n    />\n  )\n}\n\nexport { SelectionBar, SelectionBarAction }\n"
+    }
+  ]
+}
