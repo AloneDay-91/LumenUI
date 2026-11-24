@@ -3,7 +3,18 @@ import Link from "next/link"
 import HeadingsSetter from "@/components/docs/HeadingsSetter"
 import { CodeBlock } from "@/components/docs/CodeBlock"
 import { PageIntro } from "@/components/docs/Preview"
+import { getLatestChangelog, isNewDocsPage } from "@/lib/changelog"
+import { getPageVersions, minorOf } from "@/lib/doc-versions"
 import { componentGroups, componentItems } from "@/lib/docs-nav"
+
+const latest = getLatestChangelog().version
+
+/** New in the latest release, or changed by it. Same source as the sidebar dots and page badges. */
+function statusOf(href: string): "new" | "updated" | null {
+  if (isNewDocsPage(href)) return "new"
+  const { updated } = getPageVersions(href)
+  return updated === latest ? "updated" : null
+}
 
 function groupId(title: string) {
   return title.toLowerCase().replace(/\s+/g, "-")
@@ -46,7 +57,16 @@ npx @aloneday/lumenui@latest add input field select
 npx @aloneday/lumenui@latest add all`}
           />
           <p className="font-mono text-xs text-muted-foreground">
-            {String(componentItems.length).padStart(2, "0")} components
+            {String(componentItems.length).padStart(2, "0")} components ·{" "}
+            <span className="inline-flex items-center gap-1.5">
+              <span aria-hidden className="size-1.5 rounded-full bg-primary" />
+              new in v{minorOf(latest)}
+            </span>{" "}
+            ·{" "}
+            <span className="inline-flex h-4 items-center rounded-full bg-secondary px-1.5 text-[10px] text-secondary-foreground">
+              v{minorOf(latest)}
+            </span>{" "}
+            updated
           </p>
         </section>
 
@@ -54,16 +74,27 @@ npx @aloneday/lumenui@latest add all`}
           <section key={group.title} className="space-y-4">
             <h2 id={groupId(group.title)}>{group.title}</h2>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3 md:grid-cols-4">
-              {group.items.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-md text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
+              {group.items.map((item) => {
+                const status = statusOf(item.href)
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="inline-flex items-center gap-1.5 text-md text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {status === "new" ? <span className="sr-only">New: </span> : null}
+                      {item.name}
+                      {status === "new" ? (
+                        <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-primary" />
+                      ) : status === "updated" ? (
+                        <span className="inline-flex h-4 shrink-0 items-center rounded-full bg-secondary px-1.5 font-mono text-[10px] whitespace-nowrap text-secondary-foreground">
+                          <span className="sr-only">Updated in </span>v{minorOf(latest)}
+                        </span>
+                      ) : null}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </section>
         ))}
