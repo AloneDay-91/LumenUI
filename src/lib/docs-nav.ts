@@ -211,6 +211,7 @@ export const docsSections: DocsNavSection[] = [
       { name: "Introduction", href: "/docs" },
       { name: "Installation", href: "/docs/installation" },
       { name: "Frameworks", href: "/docs/frameworks" },
+      { name: "Vue", href: "/docs/vue", keywords: "vue vuejs vue.js reka nuxt vite sfc" },
       { name: "Components", href: "/docs/components" },
       {
         name: "Choose a component",

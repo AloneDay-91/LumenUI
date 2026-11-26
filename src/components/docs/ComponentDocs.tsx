@@ -13,6 +13,7 @@ import {
   getApiHeadings,
   getComponentApi,
 } from "@/lib/component-api"
+import { vueComponent, vueInstallCommand } from "@/lib/vue-components"
 import {
   installPlan,
   joinList,
@@ -37,10 +38,13 @@ export function ComponentDocs({
   extraHeadings?: Heading[]
 }) {
   const api = getComponentApi(name)
-  const install = componentInstallCommand(api?.slug ?? componentSlug(name))
+  const slug = api?.slug ?? componentSlug(name)
+  const install = componentInstallCommand(slug)
+  const vue = vueComponent(slug)
   const usageHeadings: Heading[] = [
     { id: "installation", text: "Installation", level: 2 },
     { id: "usage", text: "Usage", level: 2 },
+    ...(vue ? [{ id: "vue", text: "Vue", level: 2 } satisfies Heading] : []),
     ...extraHeadings,
   ]
   const apiHeadings: Heading[] = api
@@ -70,6 +74,17 @@ export function ComponentDocs({
               <h2 id="usage">Usage</h2>
               {typeof usage === "string" ? <CodeBlock code={usage} /> : usage}
             </section>
+            {vue ? (
+              <section className="space-y-4">
+                <h2 id="vue">Vue</h2>
+                <p>
+                  Also ships as Vue 3 single-file components on Reka UI, with the same
+                  classes and tokens. See <Link href="/docs/vue">Vue</Link> for setup.
+                </p>
+                <CodeBlock language="bash" code={vueInstallCommand(vue.item)} />
+                <CodeBlock language="html" filename="Example.vue" code={vue.usage} />
+              </section>
+            ) : null}
             {extra}
           </>
         }

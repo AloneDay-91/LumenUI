@@ -42,6 +42,17 @@ npx @aloneday/lumenui@latest add button  # copies components/ui/Button.tsx and i
 
 Then import `globals.css` in the root layout, load the fonts, and wrap the app in `<div className="root">`. The full walkthrough, with the layout to copy, is at [`/docs/installation`](https://ui.elouanb.fr/docs/installation); other frameworks are at [`/docs/frameworks`](https://ui.elouanb.fr/docs/frameworks).
 
+### Vue
+
+The core components (Button, Dialog, Select, Tabs… 23 so far) also ship as Vue 3 single-file components on [Reka UI](https://reka-ui.com/), with the same tokens and classes:
+
+```bash
+npx @aloneday/lumenui@latest init --framework vue
+npx @aloneday/lumenui@latest add button dialog
+```
+
+The Vue sources and a playground live in [`vue/`](vue/) (`npm install --prefix vue`, then `npm run dev --prefix vue`). Setup and the differences from React are at [`/docs/vue`](https://ui.elouanb.fr/docs/vue).
+
 A file you edited is never replaced: `add` skips it unless you pass `--overwrite`. `rm`, `list` and `preset` are described in the [CLI reference](https://ui.elouanb.fr/docs/installation#cli). Without the CLI, follow [manual installation](https://ui.elouanb.fr/docs/installation#manual).
 
 ## Work on this repo
@@ -61,7 +72,8 @@ Node 22.23.4+ or 24.22.1+ is required (`engines` in `package.json`; `.nvmrc` pin
 npm run lint        # ESLint
 npm run typecheck   # tsc --noEmit
 npm test            # CLI tests (node:test)
-npm run registry    # rebuild cli/registry and public/r after editing src/components/ui
+npm run registry    # rebuild cli/registry and public/r after editing src/components/ui or vue/src/components/ui
+npm run typecheck --prefix vue  # vue-tsc on the Vue components and playground
 ```
 
 ## Commits and releases

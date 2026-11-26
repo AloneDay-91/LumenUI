@@ -40,6 +40,14 @@ export default function FrameworksPage() {
           description="The copied components are React 19 client components. They do not import Next.js, so the same file runs in any React app styled with Tailwind CSS 4."
         />
 
+        <Alert>
+          <AlertTitle>Using Vue?</AlertTitle>
+          <AlertDescription>
+            The core components also ship as Vue 3 components on Reka UI. See{" "}
+            <Link href="/docs/vue">Vue</Link>.
+          </AlertDescription>
+        </Alert>
+
         <section className="space-y-4">
           <h2 id="supported">Supported</h2>
           <ul className="mt-6 divide-y divide-border border-y border-border">

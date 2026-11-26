@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* The Vue sources and playground ship their own CSS; keep their classes out of the site build. */
+@source not "../../vue";
 @import "tw-animate-css";
 
 /* `.light` forces light tokens inside a dark page (the theme demo); `dark:` stops at it. */
