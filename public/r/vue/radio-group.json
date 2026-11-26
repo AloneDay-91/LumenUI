@@ -1,0 +1,26 @@
+{
+  "name": "radio-group",
+  "title": "Radio Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "radio-group/RadioGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { RadioGroupRoot, useForwardPropsEmits, type RadioGroupRootProps, type RadioGroupRootEmits } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<RadioGroupRootProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<RadioGroupRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <RadioGroupRoot\n    data-slot=\"radio-group\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex flex-col gap-2', props.class)\"\n  >\n    <slot />\n  </RadioGroupRoot>\n</template>\n"
+    },
+    {
+      "name": "radio-group/RadioGroupItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { RadioGroupIndicator, RadioGroupItem, useForwardPropsEmits, type RadioGroupItemProps, type RadioGroupItemEmits } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<RadioGroupItemProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<RadioGroupItemEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <RadioGroupItem\n    data-slot=\"radio-group-item\"\n    v-bind=\"forwarded\"\n    :class=\"cn('peer flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-input/50 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary', props.class)\"\n  >\n    <RadioGroupIndicator class=\"size-1.5 rounded-full bg-primary-foreground\" />\n  </RadioGroupItem>\n</template>\n"
+    },
+    {
+      "name": "radio-group/index.ts",
+      "content": "export { default as RadioGroup } from \"./RadioGroup.vue\"\nexport { default as RadioGroupItem } from \"./RadioGroupItem.vue\"\n"
+    }
+  ]
+}

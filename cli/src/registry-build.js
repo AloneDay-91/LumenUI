@@ -1,8 +1,9 @@
-import { readdirSync, readFileSync } from "node:fs"
+import { readdirSync, readFileSync, statSync } from "node:fs"
 import path from "node:path"
 
 const INTERNAL = new Set(["utils", "styles", "button-variants", "dropdown-menu"])
-const SKIP_PACKAGES = new Set(["react", "react-dom"])
+const SKIP_PACKAGES = new Set(["react", "react-dom", "vue"])
+const VUE_INTERNAL = new Set(["utils", "styles"])
 
 export function buildRegistry({ uiDir, utilsFile, cssFile }) {
   const items = new Map()
@@ -29,30 +30,84 @@ export function buildRegistry({ uiDir, utilsFile, cssFile }) {
   })
   collectImports(utils, utils.files[0].content)
 
+  return {
+    name: "lumen",
+    css: readGlobalCss(cssFile),
+    items: serialize(items, INTERNAL),
+  }
+}
+
+/**
+ * The Vue registry: one folder per component under uiDir (button/Button.vue,
+ * button/index.ts…), plus loose shared files such as styles.ts. File names keep
+ * their folder ("button/Button.vue") so the CLI recreates the same tree.
+ */
+export function buildVueRegistry({ uiDir, utilsFile, cssFile }) {
+  const items = new Map()
+
+  for (const entry of readdirSync(uiDir).sort()) {
+    const fullPath = path.join(uiDir, entry)
+    if (statSync(fullPath).isDirectory()) {
+      const item = ensure(items, entry)
+      for (const fileName of readdirSync(fullPath).sort()) {
+        if (!/\.(vue|ts|css)$/.test(fileName)) {
+          continue
+        }
+        const content = readFileSync(path.join(fullPath, fileName), "utf8")
+        item.files.push({ name: `${entry}/${fileName}`, content })
+        if (!fileName.endsWith(".css")) {
+          collectImports(item, content)
+        }
+      }
+      continue
+    }
+    if (!/\.ts$/.test(entry)) {
+      continue
+    }
+    const content = readFileSync(fullPath, "utf8")
+    const item = ensure(items, entry.replace(/\.ts$/, ""))
+    item.files.push({ name: entry, content })
+    collectImports(item, content)
+  }
+
+  const utils = ensure(items, "utils")
+  utils.files.push({
+    name: "utils.ts",
+    content: readFileSync(utilsFile, "utf8"),
+  })
+  collectImports(utils, utils.files[0].content)
+
+  return {
+    name: "lumen",
+    framework: "vue",
+    css: readGlobalCss(cssFile),
+    items: serialize(items, VUE_INTERNAL),
+  }
+}
+
+function readGlobalCss(cssFile) {
   const cssSource = readFileSync(cssFile, "utf8")
   const css = cssSource.match(/LUMEN_GLOBAL_CSS = `([\s\S]*)`\s*$/)?.[1]
   if (!css) {
     throw new Error("Could not read LUMEN_GLOBAL_CSS")
   }
+  return css
+}
 
+function serialize(items, internal) {
   const serialized = {}
   for (const item of items.values()) {
     serialized[item.name] = {
       name: item.name,
       title: titleFromSlug(item.name),
       type: "registry:ui",
-      internal: INTERNAL.has(item.name),
+      internal: internal.has(item.name),
       dependencies: [...item.dependencies].sort(),
       registryDependencies: [...item.registryDependencies].sort(),
       files: item.files,
     }
   }
-
-  return {
-    name: "lumen",
-    css,
-    items: serialized,
-  }
+  return serialized
 }
 
 function ensure(items, slug) {

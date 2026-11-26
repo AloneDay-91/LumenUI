@@ -1,0 +1,243 @@
+{
+  "name": "lumen",
+  "framework": "vue",
+  "items": [
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert Dialog",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "spinner",
+        "utils"
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "dependencies": [],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "dependencies": [],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    }
+  ]
+}

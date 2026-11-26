@@ -184,3 +184,99 @@ test("the bundled registry matches the site sources", async () => {
 
   assert.deepEqual(fresh, registry, "Run npm run registry")
 })
+
+describe("vue", () => {
+  const vueRegistry = JSON.parse(
+    readFileSync(new URL("../registry/registry-vue.json", import.meta.url), "utf8")
+  )
+  const vueDependencies = Object.fromEntries(
+    Object.values(vueRegistry.items)
+      .flatMap((item) => item.dependencies)
+      .map((name) => [name, "*"])
+  )
+
+  beforeEach(() => {
+    writeFileSync(
+      file("package.json"),
+      JSON.stringify({
+        name: "fixture",
+        dependencies: { vue: "*", ...vueDependencies },
+        devDependencies,
+      })
+    )
+  })
+
+  test("init detects vue and writes into the stylesheet main.ts imports", async () => {
+    mkdirSync(file("src/assets"))
+    writeFileSync(file("src/assets/main.css"), "body { color: red; }\n")
+
+    await lumen("init")
+
+    const config = JSON.parse(read("lumen.json"))
+    assert.equal(config.framework, "vue")
+    assert.equal(config.paths.css, "src/assets/main.css")
+    assert.match(read("src/assets/main.css"), /@import "tailwindcss"/)
+    assert.match(read("src/assets/main.css.bak"), /color: red/)
+    assert.match(read("src/lib/utils.ts"), /export function cn/)
+  })
+
+  test("add copies component folders and the folders they import", async () => {
+    await lumen("add", "dialog")
+
+    for (const name of [
+      "dialog/DialogContent.vue",
+      "dialog/index.ts",
+      "button/Button.vue",
+      "button/index.ts",
+      "spinner/Spinner.vue",
+      "styles.ts",
+    ]) {
+      assert.ok(existsSync(file(`src/components/ui/${name}`)), name)
+    }
+    assert.ok(!existsSync(file("src/components/ui/Dialog.tsx")))
+  })
+
+  test("--framework vue wins over the package.json guess", async () => {
+    // A React-looking project: no vue dependency, so only the flag picks Vue.
+    writeFileSync(
+      file("package.json"),
+      JSON.stringify({
+        name: "fixture",
+        dependencies: { ...dependencies, ...vueDependencies },
+        devDependencies,
+      })
+    )
+
+    await lumen("add", "button", "--framework", "vue")
+
+    assert.ok(existsSync(file("src/components/ui/button/Button.vue")))
+    assert.equal(JSON.parse(read("lumen.json")).framework, "vue")
+  })
+
+  test("refuses to switch a configured project", async () => {
+    await lumen("init")
+
+    await assert.rejects(lumen("add", "button", "--framework", "react"), /set up for vue/)
+  })
+
+  test("rm deletes the whole component folder", async () => {
+    await lumen("add", "card")
+
+    await lumen("rm", "card")
+
+    assert.ok(!existsSync(file("src/components/ui/card/Card.vue")))
+    assert.ok(!existsSync(file("src/components/ui/card/index.ts")))
+  })
+
+  test("the bundled Vue registry matches the vue sources", async () => {
+    const { buildVueRegistry } = await import("../src/registry-build.js")
+    const root = fileURLToPath(new URL("../../", import.meta.url))
+    const fresh = buildVueRegistry({
+      uiDir: path.join(root, "vue/src/components/ui"),
+      utilsFile: path.join(root, "vue/src/lib/utils.ts"),
+      cssFile: path.join(root, "src/lib/lumen-css.ts"),
+    })
+
+    assert.deepEqual(fresh, vueRegistry, "Run npm run registry")
+  })
+})

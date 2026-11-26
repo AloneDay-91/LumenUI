@@ -1,0 +1,22 @@
+{
+  "name": "separator",
+  "title": "Separator",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "separator/Separator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Separator, type SeparatorProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = withDefaults(defineProps<SeparatorProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  orientation: \"horizontal\",\n})\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <Separator\n    data-slot=\"separator\"\n    v-bind=\"delegated\"\n    :class=\"\n      cn(\n        'shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch',\n        props.class,\n      )\n    \"\n  />\n</template>\n"
+    },
+    {
+      "name": "separator/index.ts",
+      "content": "export { default as Separator } from \"./Separator.vue\"\n"
+    }
+  ]
+}

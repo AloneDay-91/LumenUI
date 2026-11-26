@@ -1,0 +1,42 @@
+{
+  "name": "card",
+  "title": "Card",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "card/Card.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { cardVariants, type CardVariantProps } from \".\"\n\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    variant?: CardVariantProps[\"variant\"]\n    size?: CardVariantProps[\"size\"]\n  }>(),\n  { variant: \"default\", size: \"default\" }\n)\n</script>\n\n<template>\n  <div\n    data-slot=\"card\"\n    :data-size=\"size\"\n    :data-variant=\"variant\"\n    :class=\"cn(cardVariants({ size, variant }), props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "card/CardContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"card-content\" :class=\"cn('px-5', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "card/CardDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"card-description\" :class=\"cn('text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "card/CardFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"card-footer\" :class=\"cn('flex items-center px-5', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "card/CardHeader.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"card-header\" :class=\"cn('grid items-start gap-1.5 px-5', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "card/CardTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"card-title\" :class=\"cn('font-heading text-sm font-medium', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "card/index.ts",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nexport { default as Card } from \"./Card.vue\"\nexport { default as CardHeader } from \"./CardHeader.vue\"\nexport { default as CardTitle } from \"./CardTitle.vue\"\nexport { default as CardDescription } from \"./CardDescription.vue\"\nexport { default as CardContent } from \"./CardContent.vue\"\nexport { default as CardFooter } from \"./CardFooter.vue\"\n\nexport const cardVariants = cva(\n  \"group/card flex flex-col overflow-hidden rounded-[min(var(--radius-4xl),24px)] text-sm\",\n  {\n    variants: {\n      variant: {\n        default: \"border border-border bg-card text-card-foreground\",\n        secondary: \"bg-input/50 text-secondary-foreground dark:bg-input/30\",\n      },\n      size: {\n        default: \"gap-5 py-5\",\n        sm: \"gap-4 py-4\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nexport type CardVariantProps = VariantProps<typeof cardVariants>\n"
+    }
+  ]
+}

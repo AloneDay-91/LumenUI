@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
-import { buildRegistry } from "./registry-build.js"
+import { buildRegistry, buildVueRegistry } from "./registry-build.js"
 
 const cliRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 
@@ -19,11 +19,14 @@ Usage
 
 Options
   --cwd <dir>     Project directory (default: the current directory)
+  --framework <react|vue>
+                  Component flavour. Default: lumen.json, else vue when the
+                  project depends on vue and not react, else react
   --force         Remove a component even when others still import it
   --overwrite     Replace component files that differ from the registry
   --dry-run       Print the files and packages without writing
 
-init writes lumen.json, cn(), globals.css, and the Tailwind PostCSS config.
+init writes lumen.json, cn(), the Lumen stylesheet, and the Tailwind PostCSS config.
 add copies the component and writes that stylesheet when it is not there yet.
 `
 
@@ -35,33 +38,34 @@ export async function run(argv) {
   }
 
   const cwd = path.resolve(flags.cwd ?? process.cwd())
-  const registry = loadRegistry()
+  const framework = resolveFramework(cwd, flags)
+  const registry = loadRegistry(framework)
 
   switch (command) {
     case "init":
-      init(cwd, registry, flags)
+      init(cwd, registry, flags, framework)
       return
     case "list":
       list(cwd, registry)
       return
     case "add":
-      add(cwd, registry, positionals, flags)
+      add(cwd, registry, positionals, flags, framework)
       return
     case "preset":
-      applyPreset(cwd, positionals[0], flags)
+      applyPreset(cwd, positionals[0], flags, framework)
       return
     case "rm":
     case "remove":
-      remove(cwd, registry, positionals, flags)
+      remove(cwd, registry, positionals, flags, framework)
       return
     default:
       throw new Error(`Unknown command "${command}".\n\n${HELP.trim()}`)
   }
 }
 
-function init(cwd, registry, flags) {
+function init(cwd, registry, flags, framework) {
   const project = resolveProject(cwd)
-  const config = readConfig(project) ?? defaultConfig(project)
+  const config = readConfig(project) ?? defaultConfig(project, framework)
 
   const utils = registry.items.utils
   if (!utils) {
@@ -80,8 +84,14 @@ function init(cwd, registry, flags) {
     missingPackages(project, utils.dependencies),
     flags
   )
-  ensureStyles(project, registry, flags)
+  ensureStyles(project, config, registry, flags)
 
+  if (config.framework === "vue") {
+    console.log(
+      `Ready. Import ./${path.relative(path.join(project, "src"), globalsCssPath(project, config))} in src/main.ts, then add a component with lumenui add button`
+    )
+    return
+  }
   console.log("Ready. Add a component with lumenui add button")
 }
 
@@ -95,10 +105,10 @@ function list(cwd, registry) {
   }
 }
 
-function add(cwd, registry, names, flags) {
+function add(cwd, registry, names, flags, framework) {
   const requested = resolveNames(registry, names)
   const project = resolveProject(cwd)
-  const config = readConfig(project) ?? defaultConfig(project)
+  const config = readConfig(project) ?? defaultConfig(project, framework)
   const closure = closureOf(registry, requested)
   const packages = new Set()
 
@@ -122,17 +132,17 @@ function add(cwd, registry, names, flags) {
     missingPackages(project, [...packages]),
     flags
   )
-  ensureStyles(project, registry, flags)
+  ensureStyles(project, config, registry, flags)
 }
 
-function remove(cwd, registry, names, flags) {
+function remove(cwd, registry, names, flags, framework) {
   const requested = resolveNames(registry, names.filter((name) => name !== "all"))
   if (requested.length === 0) {
     throw new Error("Name the component to remove. Example: lumenui rm button")
   }
 
   const project = resolveProject(cwd)
-  const config = readConfig(project) ?? defaultConfig(project)
+  const config = readConfig(project) ?? defaultConfig(project, framework)
   const removing = new Set(requested)
   const blockers = []
 
@@ -226,7 +236,7 @@ function deleteItem(project, config, item, flags) {
 const PRESET_START = "/* lumen-preset:start */"
 const PRESET_END = "/* lumen-preset:end */"
 
-function applyPreset(cwd, file, flags) {
+function applyPreset(cwd, file, flags, framework) {
   if (!file) {
     throw new Error("Pass the preset file. Example: lumenui preset lumen-preset.css")
   }
@@ -239,7 +249,8 @@ function applyPreset(cwd, file, flags) {
   const block = source.includes(PRESET_START)
     ? `${source}\n`
     : `${PRESET_START}\n${source}\n${PRESET_END}\n`
-  const destination = globalsCssPath(project)
+  const config = readConfig(project) ?? defaultConfig(project, framework)
+  const destination = globalsCssPath(project, config)
   if (!existsSync(destination)) {
     throw new Error(
       `No ${path.relative(project, destination)}. Run lumenui init first.`
@@ -264,8 +275,11 @@ function escapeRegExp(value) {
 
 const STYLE_PACKAGES = ["tailwindcss", "@tailwindcss/postcss", "tw-animate-css"]
 
+// Object form: Next.js reads it, and so does Vite (which rejects the string-array form).
 const POSTCSS_CONFIG = `const config = {
-  plugins: ["@tailwindcss/postcss"],
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
 };
 
 export default config;
@@ -278,11 +292,11 @@ const POSTCSS_FILES = [
   "postcss.config.ts",
 ]
 
-function ensureStyles(project, registry, flags) {
+function ensureStyles(project, config, registry, flags) {
   if (typeof registry.css !== "string" || registry.css.trim() === "") {
     throw new Error("Registry is missing the stylesheet")
   }
-  installCss(project, registry.css, flags)
+  installCss(project, config, registry.css, flags)
   writePostcssConfig(project, flags)
   installPackages(
     project,
@@ -293,7 +307,10 @@ function ensureStyles(project, registry, flags) {
   )
 }
 
-function globalsCssPath(project) {
+function globalsCssPath(project, config) {
+  if (config?.paths?.css) {
+    return resolveInsideProject(project, config.paths.css)
+  }
   return existsSync(path.join(project, "src"))
     ? path.join(project, "src/app/globals.css")
     : path.join(project, "app/globals.css")
@@ -303,8 +320,8 @@ function hasLumenCss(source) {
   return source.includes("--font-fraunces") && source.includes("--color-primary")
 }
 
-function installCss(project, css, flags) {
-  const destination = globalsCssPath(project)
+function installCss(project, config, css, flags) {
+  const destination = globalsCssPath(project, config)
   const relative = path.relative(project, destination)
   const next = css.endsWith("\n") ? css : `${css}\n`
 
@@ -374,12 +391,21 @@ function fileDestination(project, config, fileName) {
   return resolveInsideProject(project, relative)
 }
 
+// "Button.tsx", or one component folder deep for Vue: "button/Button.vue".
 function registryFileName(fileName) {
-  const base = path.basename(fileName)
-  if (base !== fileName || base === "" || base === "." || base === "..") {
+  const segments = typeof fileName === "string" ? fileName.split("/") : []
+  const valid =
+    segments.length >= 1 &&
+    segments.length <= 2 &&
+    segments.every(
+      (segment) =>
+        segment !== "" && segment !== "." && segment !== ".." && !segment.includes("\\")
+    ) &&
+    (segments.length === 1 || /^[a-z0-9-]+$/.test(segments[0]))
+  if (!valid) {
     throw new Error(`Invalid registry file name "${fileName}"`)
   }
-  return base
+  return segments.join("/")
 }
 
 function resolveInsideProject(project, relativePath) {
@@ -513,12 +539,16 @@ function readConfig(project) {
   config.paths ??= defaults.paths
   config.paths.ui = assertSafeProjectPath(config.paths.ui, "paths.ui")
   config.paths.lib = assertSafeProjectPath(config.paths.lib, "paths.lib")
+  if (config.paths.css !== undefined) {
+    config.paths.css = assertSafeProjectPath(config.paths.css, "paths.css")
+  }
+  config.framework ??= "react"
   return config
 }
 
-function defaultConfig(project) {
+function defaultConfig(project, framework = "react") {
   const src = existsSync(path.join(project, "src"))
-  return {
+  const config = {
     aliases: {
       ui: "@/components/ui",
       lib: "@/lib",
@@ -528,7 +558,43 @@ function defaultConfig(project) {
       lib: src ? "src/lib" : "lib",
     },
     installed: [],
+    framework,
   }
+  if (framework === "vue") {
+    // The stylesheet main.ts already imports: create-vue's, then Vite's template.
+    config.paths.css =
+      ["src/assets/main.css", "src/style.css"].find((file) =>
+        existsSync(path.join(project, file))
+      ) ?? "src/assets/main.css"
+  }
+  return config
+}
+
+const FRAMEWORKS = ["react", "vue"]
+
+function resolveFramework(cwd, flags) {
+  const project = findProject(cwd)
+  const configured = project ? readConfig(project)?.framework : undefined
+  if (flags.framework !== undefined) {
+    if (!FRAMEWORKS.includes(flags.framework)) {
+      throw new Error(`Unknown framework "${flags.framework}". Use react or vue.`)
+    }
+    if (configured && configured !== flags.framework) {
+      throw new Error(
+        `lumen.json is set up for ${configured}. Remove it to switch to ${flags.framework}.`
+      )
+    }
+    return flags.framework
+  }
+  if (configured) {
+    return configured
+  }
+  if (!project) {
+    return "react"
+  }
+  const manifest = JSON.parse(readFileSync(path.join(project, "package.json"), "utf8"))
+  const deps = { ...manifest.dependencies, ...manifest.devDependencies }
+  return deps.vue && !deps.react ? "vue" : "react"
 }
 
 function writeConfig(project, config) {
@@ -536,6 +602,8 @@ function writeConfig(project, config) {
     path.join(project, "lumen.json"),
     `${JSON.stringify(
       {
+        // React projects keep the file they always had; only Vue records its framework.
+        ...(config.framework === "vue" ? { framework: "vue" } : {}),
         aliases: config.aliases,
         paths: config.paths,
         installed: [...config.installed].sort(),
@@ -645,14 +713,25 @@ function installArgs(manager, packages, dev = false) {
   return ["add", "--ignore-scripts", ...devFlag, ...packages]
 }
 
-function loadRegistry() {
-  const uiDir = path.join(cliRoot, "../src/components/ui")
-  const utilsFile = path.join(cliRoot, "../src/lib/utils.ts")
+function loadRegistry(framework = "react") {
   const cssFile = path.join(cliRoot, "../src/lib/lumen-css.ts")
-  if (existsSync(uiDir) && existsSync(utilsFile) && existsSync(cssFile)) {
-    return buildRegistry({ uiDir, utilsFile, cssFile })
+  const sources =
+    framework === "vue"
+      ? {
+          uiDir: path.join(cliRoot, "../vue/src/components/ui"),
+          utilsFile: path.join(cliRoot, "../vue/src/lib/utils.ts"),
+        }
+      : {
+          uiDir: path.join(cliRoot, "../src/components/ui"),
+          utilsFile: path.join(cliRoot, "../src/lib/utils.ts"),
+        }
+  // Inside the Lumen repo, read the sources; the published package ships the JSON.
+  if (existsSync(sources.uiDir) && existsSync(sources.utilsFile) && existsSync(cssFile)) {
+    const build = framework === "vue" ? buildVueRegistry : buildRegistry
+    return build({ ...sources, cssFile })
   }
-  return JSON.parse(readFileSync(path.join(cliRoot, "registry/registry.json"), "utf8"))
+  const file = framework === "vue" ? "registry/registry-vue.json" : "registry/registry.json"
+  return JSON.parse(readFileSync(path.join(cliRoot, file), "utf8"))
 }
 
 function parseArgs(argv) {
@@ -679,6 +758,11 @@ function parseArgs(argv) {
     }
     if (token === "--css") {
       flags.css = true
+      continue
+    }
+    if (token === "--framework") {
+      flags.framework = argv[index + 1]
+      index += 1
       continue
     }
     if (token === "--cwd") {

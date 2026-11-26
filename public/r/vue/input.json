@@ -1,0 +1,21 @@
+{
+  "name": "input",
+  "title": "Input",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "input/Input.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { inputClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst model = defineModel<string | number>()\n</script>\n\n<template>\n  <input v-model=\"model\" data-slot=\"input\" :class=\"cn(inputClassName, props.class)\" />\n</template>\n"
+    },
+    {
+      "name": "input/index.ts",
+      "content": "export { default as Input } from \"./Input.vue\"\n"
+    }
+  ]
+}

@@ -13,7 +13,7 @@ npx @aloneday/lumenui@latest rm button
 npx @aloneday/lumenui@latest list
 ```
 
-`init` writes `lumen.json`, `cn()`, and `globals.css`. `add` copies the component, the local files it needs, installs the npm packages, and writes that stylesheet when the project does not already have the Lumen tokens. An existing file that differs from the registry is skipped, so your edits stay. `rm` deletes that component. Shared files stay while something else still imports them.
+`init` writes `lumen.json`, `cn()`, and `globals.css` (in Vue: the stylesheet `main.ts` already imports, `src/assets/main.css` or `src/style.css`). `add` copies the component, the local files it needs, installs the npm packages, and writes that stylesheet when the project does not already have the Lumen tokens. An existing file that differs from the registry is skipped, so your edits stay. `rm` deletes that component. Shared files stay while something else still imports them.
 
 Both commands also install `tailwindcss`, `@tailwindcss/postcss`, and `tw-animate-css`, and add `postcss.config.mjs` when the project has no PostCSS config. If `globals.css` exists without the Lumen tokens, it is replaced and the previous file is kept as `globals.css.bak`.
 
@@ -33,6 +33,9 @@ lumenui list
 | `--force` | Remove a component even when others still import it. |
 | `--overwrite` | Replace component files you changed. Without it, `add` and `init` skip them. |
 | `--dry-run` | Print the files and packages without writing. |
+| `--framework <react\|vue>` | Copy the React or the Vue (Reka UI) components. Default: `lumen.json`, else `vue` when `package.json` depends on `vue` and not `react`, else `react`. |
+
+In Vue each component is a folder (`components/ui/dialog/Dialog.vue`, `…/index.ts`), imported as `@/components/ui/dialog`.
 
 Node.js 22.23.4+ or 24.22.1+.
 

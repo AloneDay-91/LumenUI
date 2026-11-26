@@ -1,0 +1,22 @@
+{
+  "name": "spinner",
+  "title": "Spinner",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "spinner/Spinner.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { LoaderCircle } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <!-- No size here: inside a Button the size rules of buttonVariants apply,\n       and standalone it inherits the 1em default of a lucide icon. -->\n  <LoaderCircle\n    data-slot=\"spinner\"\n    role=\"status\"\n    aria-label=\"Loading\"\n    :class=\"cn('animate-spin', props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "spinner/index.ts",
+      "content": "export { default as Spinner } from \"./Spinner.vue\"\n"
+    }
+  ]
+}

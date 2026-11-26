@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
-import { buildRegistry } from "../cli/src/registry-build.js"
+import { buildRegistry, buildVueRegistry } from "../cli/src/registry-build.js"
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 const registry = buildRegistry({
@@ -54,4 +54,33 @@ for (const item of Object.values(registry.items)) {
   )
 }
 
-console.log(`Wrote ${index.items.length} components to cli/registry and public/r`)
+// Vue: the same layout under registry-vue.json and public/r/vue.
+const vueRegistry = buildVueRegistry({
+  uiDir: path.join(root, "vue/src/components/ui"),
+  utilsFile: path.join(root, "vue/src/lib/utils.ts"),
+  cssFile: path.join(root, "src/lib/lumen-css.ts"),
+})
+writeFileSync(path.join(cliRegistry, "registry-vue.json"), `${JSON.stringify(vueRegistry)}\n`)
+
+const publicVue = path.join(publicRegistry, "vue")
+mkdirSync(publicVue, { recursive: true })
+const vueIndex = {
+  name: vueRegistry.name,
+  framework: "vue",
+  items: Object.values(vueRegistry.items)
+    .filter((item) => !item.internal)
+    .map((item) => ({
+      name: item.name,
+      title: item.title,
+      dependencies: item.dependencies,
+      registryDependencies: item.registryDependencies,
+    })),
+}
+writeFileSync(path.join(publicVue, "registry.json"), `${JSON.stringify(vueIndex, null, 2)}\n`)
+for (const item of Object.values(vueRegistry.items)) {
+  writeFileSync(path.join(publicVue, `${item.name}.json`), `${JSON.stringify(item, null, 2)}\n`)
+}
+
+console.log(
+  `Wrote ${index.items.length} React and ${vueIndex.items.length} Vue components to cli/registry and public/r`
+)
