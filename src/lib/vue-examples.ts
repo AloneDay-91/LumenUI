@@ -325,10 +325,6 @@ export const VUE_EXAMPLES: Record<string, { item: string; code: string }> = {
     "item": "separator",
     "code": "<script setup lang=\"ts\">\nimport { Separator } from \"@/components/ui/separator\"\n</script>\n\n<template>\n  <Separator />\n  <Separator orientation=\"vertical\" class=\"h-4\" />\n</template>"
   },
-  "signature-pad": {
-    "item": "signature-pad",
-    "code": "<script setup lang=\"ts\">\nimport { ref } from \"vue\"\nimport { SignaturePad } from \"@/components/ui/signature-pad\"\n\nconst png = ref<string | null>(null)\n</script>\n\n<template>\n  <div class=\"flex w-full max-w-md flex-col gap-3\">\n    <SignaturePad v-model=\"png\" />\n    <div class=\"flex h-14 items-center gap-3 rounded-2xl bg-muted/50 px-3 text-xs text-muted-foreground\">\n      <template v-if=\"png\">\n        <img :src=\"png\" alt=\"Your signature\" class=\"h-10 rounded-md bg-white px-2\" />\n        PNG ready to upload\n      </template>\n      <template v-else>The exported PNG shows here.</template>\n    </div>\n  </div>\n</template>"
-  },
   "skeleton": {
     "item": "skeleton",
     "code": "<script setup lang=\"ts\">\nimport { Skeleton } from \"@/components/ui/skeleton\"\n</script>\n\n<template>\n  <Skeleton class=\"h-4 w-32\" />\n</template>"
@@ -380,10 +376,6 @@ export const VUE_EXAMPLES: Record<string, { item: string; code: string }> = {
   "task": {
     "item": "task",
     "code": "<script setup lang=\"ts\">\nimport { Task, TaskFile, TaskItem } from \"@/components/ui/task\"\n</script>\n\n<template>\n  <Task title=\"Finding where Banner is used\" class=\"w-full max-w-md\">\n    <TaskItem title=\"Searched for “<Banner”\" description=\"4 matches in 3 files.\" />\n    <TaskItem title=\"Read the files\">\n      <span class=\"flex flex-wrap gap-1.5\">\n        <TaskFile>UpdateBanner.tsx</TaskFile>\n        <TaskFile>page.tsx</TaskFile>\n      </span>\n    </TaskItem>\n    <TaskItem status=\"running\" title=\"Checking the props each one passes\" />\n  </Task>\n</template>"
-  },
-  "test-results": {
-    "item": "test-results",
-    "code": "<script setup lang=\"ts\">\nimport { TestResults, type TestSuite } from \"@/components/ui/test-results\"\n\nconst suites: TestSuite[] = [\n  {\n    name: \"cli/test/add.test.js\",\n    tests: [\n      { name: \"copies the component\", status: \"passed\", duration: 8 },\n      { name: \"rewrites imports to the aliases\", status: \"passed\", duration: 6 },\n      {\n        name: \"keeps a file the user edited\",\n        status: \"failed\",\n        duration: 9,\n        error: \"Expected Button.tsx to be unchanged, but it was overwritten.\",\n      },\n    ],\n  },\n  {\n    name: \"cli/test/rm.test.js\",\n    tests: [\n      { name: \"deletes the component\", status: \"passed\", duration: 6 },\n      { name: \"refuses a shared file without --force\", status: \"skipped\" },\n    ],\n  },\n]\n</script>\n\n<template>\n  <TestResults class=\"w-full max-w-md\" :suites=\"suites\" />\n</template>"
   },
   "textarea": {
     "item": "textarea",
