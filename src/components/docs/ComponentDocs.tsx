@@ -26,6 +26,7 @@ export function ComponentDocs({
   description,
   preview,
   previewClassName,
+  previewCardClassName,
   usage,
   extra,
   extraHeadings = [],
@@ -34,6 +35,7 @@ export function ComponentDocs({
   description: string
   preview: ReactNode
   previewClassName?: string
+  previewCardClassName?: string
   usage: string | ReactNode
   extra?: ReactNode
   extraHeadings?: Heading[]
@@ -59,7 +61,9 @@ export function ComponentDocs({
         description={description}
         versions={getPageVersions(`/docs/components/${slug}`)}
       />
-      <Preview className={previewClassName}>{preview}</Preview>
+      <Preview className={previewClassName} cardClassName={previewCardClassName}>
+        {preview}
+      </Preview>
       <DocsPageTabs
         usageHeadings={usageHeadings}
         apiHeadings={apiHeadings}

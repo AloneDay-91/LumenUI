@@ -1,10 +1,10 @@
-import { blockCategories } from "@/lib/block-categories"
 import { componentItems } from "@/lib/docs-nav"
 import { GITHUB_URL } from "@/lib/site"
 
 export type NavMenuLink = {
   href: string
   label: string
+  description?: string
   target?: "_blank"
 }
 
@@ -38,19 +38,6 @@ export type NavMenu = {
   card: NavMenuCard
 }
 
-const dashboardBlocks = blockCategories.filter(
-  (category) => category.kit === "dashboard"
-)
-
-function blockLinks(group: string) {
-  return blockCategories
-    .filter((category) => category.kit === "lumen" && category.group === group)
-    .map((category) => ({
-      href: `/blocks/${category.slug}`,
-      label: category.title,
-    }))
-}
-
 export const navMenus: NavMenu[] = [
   {
     id: "system",
@@ -58,36 +45,36 @@ export const navMenus: NavMenu[] = [
     featured: {
       title: "Get started",
       items: [
-        { href: "/docs", label: "Introduction" },
-        { href: "/docs/installation", label: "Installation" },
-        { href: "/docs/choose", label: "Choose a component" },
-        { href: "/docs/shadcn", label: "From shadcn" },
-        { href: "/docs/frameworks", label: "Frameworks" },
+        { href: "/docs", label: "Introduction", description: "What Lumen is, and who it is for." },
+        { href: "/docs/installation", label: "Installation", description: "Add the components to a React app." },
+        { href: "/docs/choose", label: "Choose a component", description: "Find the right piece for the job." },
+        { href: "/docs/shadcn", label: "From shadcn", description: "Move an existing project across." },
+        { href: "/docs/frameworks", label: "Frameworks", description: "Next.js, Vite, Vue, and the rest." },
       ],
     },
     sections: [
       {
         title: "Foundations",
         items: [
-          { href: "/docs/styles", label: "Tokens and type" },
-          { href: "/docs/accessibility", label: "Accessibility" },
-          { href: "/shaders", label: "Shaders" },
-          { href: "/customize", label: "Customize" },
+          { href: "/docs/styles", label: "Tokens and type", description: "Colour, radius, and the type scale." },
+          { href: "/docs/accessibility", label: "Accessibility", description: "Keyboard, names, and contrast." },
+          { href: "/shaders", label: "Shaders", description: "Real-time WebGL presets." },
+          { href: "/customize", label: "Customize", description: "Ink, radius, and type. Copy the CSS." },
         ],
       },
       {
         title: "Recipes",
         items: [
-          { href: "/docs/recipes/form", label: "Form" },
-          { href: "/docs/recipes/settings", label: "Settings" },
+          { href: "/docs/recipes/form", label: "Form", description: "Fields, validation, and submit." },
+          { href: "/docs/recipes/settings", label: "Settings", description: "A settings page built from Lumen." },
         ],
       },
       {
         title: "Resources",
         items: [
-          { href: "/docs/changelog", label: "Changelog" },
-          { href: "/docs/llms", label: "LLMs" },
-          { href: GITHUB_URL, label: "GitHub", target: "_blank" },
+          { href: "/docs/changelog", label: "Changelog", description: "What shipped in each release." },
+          { href: "/docs/llms", label: "LLMs", description: "Docs written for agents." },
+          { href: GITHUB_URL, label: "GitHub", description: "Source, issues, and releases.", target: "_blank" },
         ],
       },
     ],
@@ -106,47 +93,48 @@ export const navMenus: NavMenu[] = [
     featured: {
       title: "Most used",
       items: [
-        { href: "/docs/components/button", label: "Button" },
-        { href: "/docs/components/input", label: "Input" },
-        { href: "/docs/components/dialog", label: "Dialog" },
-        { href: "/docs/components/table", label: "Table" },
+        { href: "/docs/components/button", label: "Button", description: "Actions, with variants and a loading state." },
+        { href: "/docs/components/input", label: "Input", description: "A text field with the theme radius." },
+        { href: "/docs/components/dialog", label: "Dialog", description: "A modal for a short task." },
+        { href: "/docs/components/table", label: "Table", description: "Rows, headers, and alignment." },
       ],
     },
     sections: [
       {
         title: "Forms",
         items: [
-          { href: "/docs/components/select", label: "Select" },
-          { href: "/docs/components/combobox", label: "Combobox" },
-          { href: "/docs/components/checkbox", label: "Checkbox" },
-          { href: "/docs/components/date-picker", label: "Date Picker" },
-          { href: "/docs/components/color-picker", label: "Color Picker" },
+          { href: "/docs/components/select", label: "Select", description: "Pick one option from a list." },
+          { href: "/docs/components/combobox", label: "Combobox", description: "Search, then select." },
+          { href: "/docs/components/checkbox", label: "Checkbox", description: "A single choice, or a group." },
+          { href: "/docs/components/date-picker", label: "Date Picker", description: "A calendar in a field." },
+          { href: "/docs/components/color-picker", label: "Color Picker", description: "Hex, rgb, hsl, and oklch." },
         ],
       },
       {
         title: "Overlays",
         items: [
-          { href: "/docs/components/drawer", label: "Drawer" },
-          { href: "/docs/components/popover", label: "Popover" },
-          { href: "/docs/components/tooltip", label: "Tooltip" },
-          { href: "/docs/components/toast", label: "Toast" },
-          { href: "/docs/components/menu", label: "Menu" },
+          { href: "/docs/components/drawer", label: "Drawer", description: "A panel from the edge." },
+          { href: "/docs/components/popover", label: "Popover", description: "A small surface on a trigger." },
+          { href: "/docs/components/tooltip", label: "Tooltip", description: "A hint on hover." },
+          { href: "/docs/components/toast", label: "Toast", description: "A short message that dismisses." },
+          { href: "/docs/components/menu", label: "Menu", description: "A list of actions from a trigger." },
         ],
       },
       {
         title: "Display",
         items: [
-          { href: "/docs/components/sidebar", label: "Sidebar" },
-          { href: "/docs/components/tabs", label: "Tabs" },
-          { href: "/docs/components/chart", label: "Chart" },
-          { href: "/docs/components/timeline", label: "Timeline" },
-          { href: "/docs/components/data-list", label: "Data List" },
+          { href: "/docs/components/sidebar", label: "Sidebar", description: "App navigation that collapses." },
+          { href: "/docs/components/tabs", label: "Tabs", description: "Switch between linked panels." },
+          { href: "/docs/components/chart", label: "Chart", description: "Series in the theme hue." },
+          { href: "/docs/components/timeline", label: "Timeline", description: "Events in order." },
+          { href: "/docs/components/data-list", label: "Data List", description: "Label and value pairs." },
         ],
       },
     ],
     more: {
       href: "/docs/components",
       label: `All ${componentItems.length} components`,
+      description: "Browse the full list.",
     },
     card: {
       href: "/docs/components/command",
@@ -155,38 +143,6 @@ export const navMenus: NavMenu[] = [
       description: "A palette with groups, shortcuts, and a footer.",
       tag: "See Command",
       figure: "scan",
-    },
-  },
-  {
-    id: "blocks",
-    title: "Blocks",
-    featured: {
-      title: "Kits",
-      items: [
-        { href: "/blocks", label: "All blocks" },
-        { href: "/blocks/heroes", label: "Marketing" },
-        { href: "/blocks/pages", label: "Dashboard" },
-      ],
-    },
-    sections: [
-      { title: "Marketing", items: blockLinks("Marketing") },
-      { title: "Account", items: blockLinks("Account") },
-      {
-        title: "Dashboard",
-        items: dashboardBlocks.slice(0, 6).map((category) => ({
-          href: `/blocks/${category.slug}`,
-          label: category.title,
-        })),
-      },
-    ],
-    more: { href: "/blocks", label: "Browse every block" },
-    card: {
-      href: "/blocks/pages",
-      eyebrow: `Kit · ${dashboardBlocks.length} blocks`,
-      title: "Dashboard",
-      description: "Sidebar, stats, charts, and tables on one layout.",
-      tag: "Browse the kit",
-      figure: "compare",
     },
   },
 ]

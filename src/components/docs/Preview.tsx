@@ -53,18 +53,26 @@ export function PageIntro({
 export function Preview({
   children,
   className,
+  cardClassName,
 }: {
   children: ReactNode
   className?: string
+  cardClassName?: string
 }) {
   const [both, setBoth] = useState(false)
   const frame = cn(
-    "flex min-h-24 w-full flex-row flex-wrap items-center justify-center gap-4",
+    "flex min-h-36 w-full flex-row flex-wrap items-center justify-center gap-4",
     className
   )
 
   return (
-    <Card data-docs-preview className="flex w-full max-w-none flex-col gap-4 px-6 py-6">
+    <Card
+      data-docs-preview
+      className={cn(
+        "flex w-full max-w-none flex-col gap-4 px-6 py-6",
+        cardClassName
+      )}
+    >
       <div className="flex justify-end">
         <button
           type="button"
@@ -85,7 +93,7 @@ export function Preview({
           </ThemePane>
         </div>
       ) : (
-        <div className={cn(frame, "min-h-36")}>{children}</div>
+        <div className={frame}>{children}</div>
       )}
     </Card>
   )
