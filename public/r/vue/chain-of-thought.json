@@ -1,0 +1,23 @@
+{
+  "name": "chain-of-thought",
+  "title": "Chain Of Thought",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "trace"
+  ],
+  "files": [
+    {
+      "name": "chain-of-thought/ChainOfThought.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ListTree } from \"@lucide/vue\"\nimport { useForwardPropsEmits, type CollapsibleRootEmits, type CollapsibleRootProps } from \"reka-ui\"\n\nimport { Trace, TraceContent, TraceSteps, TraceTrigger, type TraceStatus } from \"@/components/ui/trace\"\n\n/**\n * A one-line summary that unfolds into the steps the agent took. While a step\n * runs, the summary shimmers; when all are done it reads as a past tense line.\n * The `#summary` slot takes rich content in place of the `summary` prop.\n */\nconst props = withDefaults(\n  defineProps<\n    CollapsibleRootProps & {\n      summary?: string\n      status?: TraceStatus\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { status: \"done\" },\n)\nconst emits = defineEmits<CollapsibleRootEmits>()\n\nconst delegated = computed(() => {\n  const { summary: _summary, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <Trace data-slot=\"chain-of-thought\" v-bind=\"forwarded\">\n    <TraceTrigger :label=\"summary\">\n      <template #icon><ListTree /></template>\n      <slot name=\"summary\">{{ summary }}</slot>\n    </TraceTrigger>\n    <TraceContent>\n      <TraceSteps class=\"py-1\">\n        <slot />\n      </TraceSteps>\n    </TraceContent>\n  </Trace>\n</template>\n"
+    },
+    {
+      "name": "chain-of-thought/index.ts",
+      "content": "import { TraceStep } from \"@/components/ui/trace\"\n\nexport { default as ChainOfThought } from \"./ChainOfThought.vue\"\n\n/** One step of the chain. The default slot holds what it found: links, images, a quote. */\nexport const ChainOfThoughtStep = TraceStep\n"
+    }
+  ]
+}

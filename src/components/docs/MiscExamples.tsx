@@ -130,7 +130,7 @@ const steps: TourStep[] = [
   {
     target: "[data-tour='search']",
     title: "Search everything",
-    description: "Components, guides, and blocks. Press ⌘K from anywhere.",
+    description: "Components, guides, and tokens. Press ⌘K from anywhere.",
   },
   {
     target: "[data-tour='create']",

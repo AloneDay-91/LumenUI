@@ -1,0 +1,48 @@
+{
+  "name": "pagination",
+  "title": "Pagination",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "pagination/Pagination.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <nav data-slot=\"pagination\" aria-label=\"Pagination\" :class=\"cn('mx-auto flex w-full justify-center', props.class)\">\n    <slot />\n  </nav>\n</template>\n"
+    },
+    {
+      "name": "pagination/PaginationContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <ul data-slot=\"pagination-content\" :class=\"cn('flex items-center gap-1', props.class)\">\n    <slot />\n  </ul>\n</template>\n"
+    },
+    {
+      "name": "pagination/PaginationEllipsis.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { MoreHorizontal } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <span\n    data-slot=\"pagination-ellipsis\"\n    aria-hidden=\"true\"\n    :class=\"cn('flex size-7 items-center justify-center text-muted-foreground', props.class)\"\n  >\n    <MoreHorizontal class=\"size-4\" />\n    <span class=\"sr-only\">More pages</span>\n  </span>\n</template>\n"
+    },
+    {
+      "name": "pagination/PaginationItem.vue",
+      "content": "<template>\n  <li data-slot=\"pagination-item\">\n    <slot />\n  </li>\n</template>\n"
+    },
+    {
+      "name": "pagination/PaginationLink.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed } from \"vue\"\n\nimport { Button } from \"@/components/ui/button\"\nimport type { PaginationLinkProps } from \".\"\n\nconst props = withDefaults(defineProps<PaginationLinkProps>(), { as: \"button\", size: \"icon-sm\" })\n\nconst delegated = computed(() => {\n  const { isActive: _isActive, variant: _variant, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <Button\n    data-slot=\"pagination-link\"\n    :aria-current=\"isActive ? 'page' : undefined\"\n    v-bind=\"delegated\"\n    :variant=\"variant ?? (isActive ? 'secondary' : 'ghost')\"\n  >\n    <slot />\n  </Button>\n</template>\n"
+    },
+    {
+      "name": "pagination/PaginationNext.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ChevronRight } from \"@lucide/vue\"\n\nimport PaginationLink from \"./PaginationLink.vue\"\nimport type { PaginationLinkProps } from \".\"\n\nconst props = withDefaults(defineProps<PaginationLinkProps>(), { as: \"button\", size: \"sm\" })\n</script>\n\n<template>\n  <PaginationLink aria-label=\"Go to next page\" v-bind=\"props\">\n    <slot>Next</slot>\n    <ChevronRight data-icon=\"inline-end\" />\n  </PaginationLink>\n</template>\n"
+    },
+    {
+      "name": "pagination/PaginationPrevious.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ChevronLeft } from \"@lucide/vue\"\n\nimport PaginationLink from \"./PaginationLink.vue\"\nimport type { PaginationLinkProps } from \".\"\n\nconst props = withDefaults(defineProps<PaginationLinkProps>(), { as: \"button\", size: \"sm\" })\n</script>\n\n<template>\n  <PaginationLink aria-label=\"Go to previous page\" v-bind=\"props\">\n    <ChevronLeft data-icon=\"inline-start\" />\n    <slot>Previous</slot>\n  </PaginationLink>\n</template>\n"
+    },
+    {
+      "name": "pagination/index.ts",
+      "content": "import type { PrimitiveProps } from \"reka-ui\"\nimport type { HTMLAttributes } from \"vue\"\n\nimport type { ButtonVariantProps } from \"@/components/ui/button\"\n\nexport { default as Pagination } from \"./Pagination.vue\"\nexport { default as PaginationContent } from \"./PaginationContent.vue\"\nexport { default as PaginationItem } from \"./PaginationItem.vue\"\nexport { default as PaginationLink } from \"./PaginationLink.vue\"\nexport { default as PaginationPrevious } from \"./PaginationPrevious.vue\"\nexport { default as PaginationNext } from \"./PaginationNext.vue\"\nexport { default as PaginationEllipsis } from \"./PaginationEllipsis.vue\"\n\nexport interface PaginationLinkProps extends PrimitiveProps {\n  isActive?: boolean\n  variant?: ButtonVariantProps[\"variant\"]\n  size?: ButtonVariantProps[\"size\"]\n  disabled?: boolean\n  loading?: boolean\n  class?: HTMLAttributes[\"class\"]\n}\n"
+    }
+  ]
+}

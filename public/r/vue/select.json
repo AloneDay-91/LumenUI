@@ -1,0 +1,43 @@
+{
+  "name": "select",
+  "title": "Select",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "select/Select.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectRoot, useForwardPropsEmits, type SelectRootProps, type SelectRootEmits } from \"reka-ui\"\n\nconst props = defineProps<SelectRootProps>()\nconst emits = defineEmits<SelectRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <SelectRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </SelectRoot>\n</template>\n"
+    },
+    {
+      "name": "select/SelectContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  SelectContent,\n  SelectPortal,\n  SelectViewport,\n  useForwardPropsEmits,\n  type SelectContentEmits,\n  type SelectContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\ndefineOptions({ inheritAttrs: false })\n\n// \"item-aligned\" lines the selected item up with the trigger, like the React\n// alignItemWithTrigger default. Pass position=\"popper\" for a dropdown under it.\nconst props = withDefaults(defineProps<SelectContentProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  position: \"item-aligned\",\n  side: \"bottom\",\n  sideOffset: 4,\n  align: \"center\",\n})\nconst emits = defineEmits<SelectContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <SelectPortal>\n    <SelectContent\n      data-slot=\"select-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"\n        cn(\n          'relative isolate z-50 flex min-w-36 flex-col overflow-hidden rounded-2xl bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/5 duration-100 dark:ring-foreground/10 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',\n          position === 'popper' &&\n            'max-h-(--reka-select-content-available-height) w-(--reka-select-trigger-width) origin-(--reka-select-content-transform-origin)',\n          props.class,\n        )\n      \"\n    >\n      <!-- The viewport scrolls, not the popup, so the fade masks the items and not the popup's surface. -->\n      <SelectViewport class=\"min-h-0 flex-1 scroll-fade\">\n        <slot />\n      </SelectViewport>\n    </SelectContent>\n  </SelectPortal>\n</template>\n"
+    },
+    {
+      "name": "select/SelectGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { SelectGroup, useForwardProps, type SelectGroupProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<SelectGroupProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <SelectGroup\n    data-slot=\"select-group\"\n    v-bind=\"forwarded\"\n    :class=\"cn('scroll-my-1.5 p-1', props.class)\"\n  >\n    <slot />\n  </SelectGroup>\n</template>\n"
+    },
+    {
+      "name": "select/SelectItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Check } from \"@lucide/vue\"\nimport {\n  SelectItem,\n  SelectItemIndicator,\n  SelectItemText,\n  useForwardPropsEmits,\n  type SelectItemEmits,\n  type SelectItemProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst itemClassName =\n  \"relative flex min-h-7 w-full cursor-pointer items-center gap-2 rounded-xl py-1.5 pr-8 pl-2 text-xs outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\"\n\nconst props = defineProps<SelectItemProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<SelectItemEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <SelectItem\n    data-slot=\"select-item\"\n    v-bind=\"forwarded\"\n    :class=\"cn(itemClassName, props.class)\"\n  >\n    <SelectItemText class=\"flex flex-1 shrink-0 gap-2 whitespace-nowrap\">\n      <slot />\n    </SelectItemText>\n    <span class=\"pointer-events-none absolute right-2 flex size-4 items-center justify-center\">\n      <SelectItemIndicator>\n        <Check class=\"pointer-events-none\" />\n      </SelectItemIndicator>\n    </span>\n  </SelectItem>\n</template>\n"
+    },
+    {
+      "name": "select/SelectTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ChevronDown } from \"@lucide/vue\"\nimport { SelectIcon, SelectTrigger, type SelectTriggerProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst triggerClassName =\n  \"flex w-fit items-center justify-between gap-1.5 rounded-2xl border border-border bg-transparent px-3 py-2 text-xs whitespace-nowrap transition-[color,box-shadow] duration-200 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\"\n\nconst props = withDefaults(\n  defineProps<SelectTriggerProps & { class?: HTMLAttributes[\"class\"]; size?: \"sm\" | \"default\" }>(),\n  { size: \"default\" }\n)\n\nconst delegated = computed(() => {\n  const { class: _class, size: _size, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <SelectTrigger\n    data-slot=\"select-trigger\"\n    :data-size=\"size\"\n    v-bind=\"delegated\"\n    :class=\"cn(triggerClassName, props.class)\"\n  >\n    <slot />\n    <SelectIcon as-child>\n      <ChevronDown class=\"pointer-events-none size-4 text-muted-foreground\" />\n    </SelectIcon>\n  </SelectTrigger>\n</template>\n"
+    },
+    {
+      "name": "select/SelectValue.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { SelectValue, useForwardProps, type SelectValueProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<SelectValueProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <SelectValue\n    data-slot=\"select-value\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex flex-1 text-left', props.class)\"\n  >\n    <slot />\n  </SelectValue>\n</template>\n"
+    },
+    {
+      "name": "select/index.ts",
+      "content": "export { default as Select } from \"./Select.vue\"\nexport { default as SelectContent } from \"./SelectContent.vue\"\nexport { default as SelectGroup } from \"./SelectGroup.vue\"\nexport { default as SelectItem } from \"./SelectItem.vue\"\nexport { default as SelectTrigger } from \"./SelectTrigger.vue\"\nexport { default as SelectValue } from \"./SelectValue.vue\"\n"
+    }
+  ]
+}

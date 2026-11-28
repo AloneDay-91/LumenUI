@@ -77,7 +77,7 @@ import {
 import { Tabs, TabsIndicator, TabsList, TabsTab } from "@/components/ui/Tabs"
 import { cn } from "@/lib/utils"
 
-/* Content of the dashboard kit's App sidebar block (/blocks/sidebars). */
+/* Sample application sidebar navigation and team workspace data. */
 
 type NavItem = { icon: LucideIcon; label: string; badge?: string }
 

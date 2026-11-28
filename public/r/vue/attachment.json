@@ -1,0 +1,9 @@
+{
+  "name": "attachment",
+  "title": "Attachment",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

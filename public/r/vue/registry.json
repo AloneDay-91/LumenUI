@@ -1,0 +1,1349 @@
+{
+  "name": "lumen",
+  "framework": "vue",
+  "items": [
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert Dialog",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "Aspect Ratio",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "attachment",
+      "title": "Attachment",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "audio-player",
+      "title": "Audio Player",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "autocomplete",
+      "title": "Autocomplete",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "avatar-group",
+      "title": "Avatar Group",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "banner",
+      "title": "Banner",
+      "dependencies": [
+        "@lucide/vue",
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "spinner",
+        "utils"
+      ]
+    },
+    {
+      "name": "button-group",
+      "title": "Button Group",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "calendar",
+      "title": "Calendar",
+      "dependencies": [
+        "@internationalized/date",
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "callout",
+      "title": "Callout",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "carousel",
+      "title": "Carousel",
+      "dependencies": [
+        "@lucide/vue",
+        "embla-carousel",
+        "embla-carousel-autoplay",
+        "embla-carousel-vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "chain-of-thought",
+      "title": "Chain Of Thought",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "trace"
+      ]
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "dependencies": [
+        "@unovis/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "chat",
+      "title": "Chat",
+      "dependencies": [],
+      "registryDependencies": [
+        "message-scroller",
+        "utils"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkbox-group",
+      "title": "Checkbox Group",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkpoint",
+      "title": "Checkpoint",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "code-block",
+      "title": "Code Block",
+      "dependencies": [],
+      "registryDependencies": [
+        "copy-button",
+        "utils"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "color-picker",
+      "title": "Color Picker",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "command",
+      "title": "Command",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "dialog",
+        "kbd",
+        "utils"
+      ]
+    },
+    {
+      "name": "comparison-slider",
+      "title": "Comparison Slider",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "container",
+      "title": "Container",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "context",
+      "title": "Context",
+      "dependencies": [],
+      "registryDependencies": [
+        "popover",
+        "utils"
+      ]
+    },
+    {
+      "name": "context-menu",
+      "title": "Context Menu",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "copy-button",
+      "title": "Copy Button",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "currency-input",
+      "title": "Currency Input",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "data-list",
+      "title": "Data List",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "title": "Date Picker",
+      "dependencies": [
+        "@internationalized/date",
+        "@lucide/vue",
+        "date-fns",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover",
+        "utils"
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "diff-viewer",
+      "title": "Diff Viewer",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "copy-button",
+        "utils"
+      ]
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "emoji-picker",
+      "title": "Emoji Picker",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "empty",
+      "title": "Empty",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "event-calendar",
+      "title": "Event Calendar",
+      "dependencies": [
+        "@lucide/vue",
+        "date-fns",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "toggle-group",
+        "utils"
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "dependencies": [],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "fieldset",
+      "title": "Fieldset",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "file-tree",
+      "title": "File Tree",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "file-upload",
+      "title": "File Upload",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "filter-bar",
+      "title": "Filter Bar",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "menu",
+        "utils"
+      ]
+    },
+    {
+      "name": "form",
+      "title": "Form",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "gauge",
+      "title": "Gauge",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "heatmap",
+      "title": "Heatmap",
+      "dependencies": [
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "title": "Image Cropper",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "image-gallery",
+      "title": "Image Gallery",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "inline-edit",
+      "title": "Inline Edit",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "dependencies": [],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "input-group",
+      "title": "Input Group",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "item",
+      "title": "Item",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "separator",
+        "utils"
+      ]
+    },
+    {
+      "name": "kanban",
+      "title": "Kanban",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "dependencies": [
+        "@lucide/vue",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "marquee",
+      "title": "Marquee",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "mention-input",
+      "title": "Mention Input",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "menu",
+      "title": "Menu",
+      "dependencies": [],
+      "registryDependencies": [
+        "dropdown-menu"
+      ]
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "dropdown-menu/styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "message",
+      "title": "Message",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "message-scroller",
+      "title": "Message Scroller",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "meter",
+      "title": "Meter",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "model-selector",
+      "title": "Model Selector",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "select",
+        "utils"
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "title": "Navigation Menu",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "notification-center",
+      "title": "Notification Center",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover",
+        "relative-time",
+        "utils"
+      ]
+    },
+    {
+      "name": "number-field",
+      "title": "Number Field",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "number-ticker",
+      "title": "Number Ticker",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "onboarding-checklist",
+      "title": "Onboarding Checklist",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "progress",
+        "utils"
+      ]
+    },
+    {
+      "name": "otp-field",
+      "title": "OTP Field",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "password-input",
+      "title": "Password Input",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "input-group",
+        "utils"
+      ]
+    },
+    {
+      "name": "phone-input",
+      "title": "Phone Input",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "plan",
+      "title": "Plan",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "preview-card",
+      "title": "Preview Card",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "prompt-input",
+      "title": "Prompt Input",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "queue",
+      "title": "Queue",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "rating",
+      "title": "Rating",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "reasoning",
+      "title": "Reasoning",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
+      "name": "relative-time",
+      "title": "Relative Time",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "resizable",
+      "title": "Resizable",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "search-input",
+      "title": "Search Input",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "input-group",
+        "utils"
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "selection-bar",
+      "title": "Selection Bar",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "dependencies": [
+        "@lucide/vue",
+        "@vueuse/core"
+      ],
+      "registryDependencies": [
+        "button",
+        "drawer",
+        "utils"
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "title": "Signature Pad",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "sortable-list",
+      "title": "Sortable List",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "sources",
+      "title": "Sources",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "trace"
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "split-button",
+      "title": "Split Button",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "stack",
+      "title": "Stack",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "stack-trace",
+      "title": "Stack Trace",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "stat",
+      "title": "Stat",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "subagent",
+      "title": "Subagent",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "trace"
+      ]
+    },
+    {
+      "name": "suggestion",
+      "title": "Suggestion",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tag-input",
+      "title": "Tag Input",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "task",
+      "title": "Task",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "trace",
+        "utils"
+      ]
+    },
+    {
+      "name": "terminal",
+      "title": "Terminal",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "test-results",
+      "title": "Test Results",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "theme-toggle",
+      "title": "Theme Toggle",
+      "dependencies": [
+        "@vueuse/core"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "time-picker",
+      "title": "Time Picker",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover",
+        "utils"
+      ]
+    },
+    {
+      "name": "timeline",
+      "title": "Timeline",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "spinner",
+        "utils"
+      ]
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "dependencies": [
+        "@vueuse/core",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toolbar",
+      "title": "Toolbar",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "styles",
+        "utils"
+      ]
+    },
+    {
+      "name": "tour",
+      "title": "Tour",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ]
+    },
+    {
+      "name": "trace",
+      "title": "Trace",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "spinner",
+        "utils"
+      ]
+    },
+    {
+      "name": "tree-view",
+      "title": "Tree View",
+      "dependencies": [
+        "@lucide/vue"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "typography",
+      "title": "Typography",
+      "dependencies": [
+        "class-variance-authority",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "video",
+      "title": "Video",
+      "dependencies": [
+        "@lucide/vue",
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "button",
+        "spinner",
+        "utils"
+      ]
+    },
+    {
+      "name": "visually-hidden",
+      "title": "Visually Hidden",
+      "dependencies": [
+        "reka-ui"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    }
+  ]
+}

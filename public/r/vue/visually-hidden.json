@@ -1,0 +1,22 @@
+{
+  "name": "visually-hidden",
+  "title": "Visually Hidden",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "visually-hidden/VisuallyHidden.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Hidden on screen, read by screen readers. With `focusable`, it shows again\n * while it holds focus — the pattern behind a skip link.\n */\nconst props = withDefaults(\n  defineProps<PrimitiveProps & { focusable?: boolean; class?: HTMLAttributes[\"class\"] }>(),\n  { as: \"span\", focusable: false },\n)\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"visually-hidden\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn('sr-only', focusable && 'focus:not-sr-only focus-within:not-sr-only', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "visually-hidden/index.ts",
+      "content": "export { default as VisuallyHidden } from \"./VisuallyHidden.vue\"\n"
+    }
+  ]
+}

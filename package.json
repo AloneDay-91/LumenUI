@@ -1,6 +1,6 @@
 {
   "name": "design-system-lumenui",
-  "version": "1.3.1",
+  "version": "1.4.1",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/AloneDay-91/LumenUI",
@@ -23,7 +23,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"cli/test/*.test.js\" src/lib/theme-preset.test.ts",
-    "registry": "node scripts/build-registry.mjs",
+    "registry": "node scripts/build-registry.mjs && node scripts/build-vue-examples.mjs",
     "prepare": "husky || true",
     "version": "node scripts/sync-cli-version.mjs && git add cli/package.json"
   },

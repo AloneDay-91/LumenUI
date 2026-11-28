@@ -1,0 +1,30 @@
+{
+  "name": "avatar",
+  "title": "Avatar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "avatar/Avatar.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AvatarRoot, useForwardProps, type AvatarRootProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AvatarRootProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <AvatarRoot\n    data-slot=\"avatar\"\n    v-bind=\"forwarded\"\n    :class=\"cn('relative flex size-8 shrink-0 overflow-hidden rounded-full bg-muted @container', props.class)\"\n  >\n    <slot />\n  </AvatarRoot>\n</template>\n"
+    },
+    {
+      "name": "avatar/AvatarFallback.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AvatarFallback, useForwardProps, type AvatarFallbackProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AvatarFallbackProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <AvatarFallback\n    data-slot=\"avatar-fallback\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex size-full items-center justify-center text-[37.5cqi] leading-none font-medium text-muted-foreground', props.class)\"\n  >\n    <slot />\n  </AvatarFallback>\n</template>\n"
+    },
+    {
+      "name": "avatar/AvatarImage.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AvatarImage, useForwardPropsEmits, type AvatarImageProps, type AvatarImageEmits } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AvatarImageProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<AvatarImageEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <AvatarImage\n    data-slot=\"avatar-image\"\n    v-bind=\"forwarded\"\n    :class=\"cn('size-full object-cover', props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "avatar/index.ts",
+      "content": "export { default as Avatar } from \"./Avatar.vue\"\nexport { default as AvatarImage } from \"./AvatarImage.vue\"\nexport { default as AvatarFallback } from \"./AvatarFallback.vue\"\n"
+    }
+  ]
+}

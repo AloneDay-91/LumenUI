@@ -1,0 +1,57 @@
+{
+  "name": "dialog",
+  "title": "Dialog",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "dialog/Dialog.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogRoot, useForwardPropsEmits, type DialogRootProps, type DialogRootEmits } from \"reka-ui\"\n\nconst props = defineProps<DialogRootProps>()\nconst emits = defineEmits<DialogRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <DialogRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </DialogRoot>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogBackdrop.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DialogOverlay, type DialogOverlayProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { backdropClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<DialogOverlayProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <DialogOverlay data-slot=\"dialog-backdrop\" v-bind=\"delegated\" :class=\"cn(backdropClassName, props.class)\" />\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogClose.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogClose, useForwardProps, type DialogCloseProps } from \"reka-ui\"\n\nconst props = defineProps<DialogCloseProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <DialogClose v-slot=\"slotProps\" data-slot=\"dialog-close\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </DialogClose>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { X } from \"@lucide/vue\"\nimport {\n  DialogClose,\n  DialogContent,\n  DialogPortal,\n  useForwardPropsEmits,\n  type DialogContentEmits,\n  type DialogContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { popupClassName } from \"@/components/ui/styles\"\nimport DialogBackdrop from \"./DialogBackdrop.vue\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = withDefaults(\n  defineProps<DialogContentProps & { class?: HTMLAttributes[\"class\"]; showClose?: boolean }>(),\n  { showClose: true }\n)\nconst emits = defineEmits<DialogContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, showClose: _showClose, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <DialogPortal>\n    <DialogBackdrop />\n    <DialogContent\n      data-slot=\"dialog-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"\n        cn(\n          popupClassName,\n          'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 p-5 sm:max-w-md',\n          props.class,\n        )\n      \"\n    >\n      <slot />\n      <DialogClose v-if=\"showClose\" as-child>\n        <Button variant=\"ghost\" size=\"icon-sm\" class=\"absolute top-3 right-3 text-muted-foreground\">\n          <X />\n          <span class=\"sr-only\">Close</span>\n        </Button>\n      </DialogClose>\n    </DialogContent>\n  </DialogPortal>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DialogDescription, useForwardProps, type DialogDescriptionProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<DialogDescriptionProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <DialogDescription\n    data-slot=\"dialog-description\"\n    v-bind=\"forwarded\"\n    :class=\"cn('text-xs text-muted-foreground', props.class)\"\n  >\n    <slot />\n  </DialogDescription>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"dialog-footer\" :class=\"cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogHeader.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"dialog-header\" :class=\"cn('flex flex-col gap-1.5 pr-8', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DialogTitle, useForwardProps, type DialogTitleProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<DialogTitleProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <DialogTitle\n    data-slot=\"dialog-title\"\n    v-bind=\"forwarded\"\n    :class=\"cn('text-sm font-medium', props.class)\"\n  >\n    <slot />\n  </DialogTitle>\n</template>\n"
+    },
+    {
+      "name": "dialog/DialogTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogTrigger, useForwardProps, type DialogTriggerProps } from \"reka-ui\"\n\nconst props = defineProps<DialogTriggerProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <DialogTrigger v-slot=\"slotProps\" data-slot=\"dialog-trigger\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </DialogTrigger>\n</template>\n"
+    },
+    {
+      "name": "dialog/index.ts",
+      "content": "export { default as Dialog } from \"./Dialog.vue\"\nexport { default as DialogTrigger } from \"./DialogTrigger.vue\"\nexport { default as DialogClose } from \"./DialogClose.vue\"\nexport { default as DialogBackdrop } from \"./DialogBackdrop.vue\"\nexport { default as DialogContent } from \"./DialogContent.vue\"\nexport { default as DialogHeader } from \"./DialogHeader.vue\"\nexport { default as DialogFooter } from \"./DialogFooter.vue\"\nexport { default as DialogTitle } from \"./DialogTitle.vue\"\nexport { default as DialogDescription } from \"./DialogDescription.vue\"\n"
+    }
+  ]
+}

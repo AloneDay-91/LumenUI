@@ -1,0 +1,22 @@
+{
+  "name": "inline-edit",
+  "title": "Inline Edit",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "inline-edit/InlineEdit.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, nextTick, ref, type HTMLAttributes } from \"vue\"\nimport { Pencil } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Text that turns into a field when clicked. Enter or leaving the field\n * saves, Escape cancels, and focus goes back to the text either way. Empty\n * values are refused unless `allowEmpty` is set.\n */\nconst props = withDefaults(\n  defineProps<{\n    defaultValue?: string\n    /** Shown when the value is empty. */\n    placeholder?: string\n    allowEmpty?: boolean\n    disabled?: boolean\n    maxLength?: number\n    /**\n     * Names both the text button and the field, e.g. \"Project name\". Required\n     * in practice: optional in the type only so `aria-label=\"…\"` type-checks.\n     */\n    ariaLabel?: string\n    class?: HTMLAttributes[\"class\"]\n    inputClass?: HTMLAttributes[\"class\"]\n  }>(),\n  { defaultValue: \"\", placeholder: \"Empty\", allowEmpty: false, disabled: false }\n)\n\n/** Updated once per save, with the new value. Not updated when nothing changed. */\nconst model = defineModel<string>()\n\nconst uncontrolled = ref(props.defaultValue)\nconst value = computed(() => model.value ?? uncontrolled.value)\nconst editing = ref(false)\nconst draft = ref(value.value)\nconst buttonRef = ref<HTMLButtonElement>()\nconst inputRef = ref<HTMLInputElement>()\n// Escape and Enter both end editing; the blur that follows must not save again.\nlet done = false\n\nasync function start() {\n  if (props.disabled) return\n  done = false\n  draft.value = value.value\n  editing.value = true\n  await nextTick()\n  inputRef.value?.focus()\n  inputRef.value?.select()\n}\n\nfunction finish(save: boolean) {\n  if (done) return\n  done = true\n  const next = draft.value.trim()\n  if (save && next !== value.value && (props.allowEmpty || next !== \"\")) {\n    uncontrolled.value = next\n    model.value = next\n  }\n  editing.value = false\n  requestAnimationFrame(() => buttonRef.value?.focus())\n}\n\nfunction onKeydown(event: KeyboardEvent) {\n  if (event.key === \"Enter\") {\n    event.preventDefault()\n    finish(true)\n  } else if (event.key === \"Escape\") {\n    event.preventDefault()\n    finish(false)\n  }\n}\n\nconst shared = \"-mx-1.5 rounded-lg px-1.5 py-0.5 text-[length:inherit] leading-[inherit] font-[inherit]\"\n</script>\n\n<template>\n  <input\n    v-if=\"editing\"\n    ref=\"inputRef\"\n    v-model=\"draft\"\n    data-slot=\"inline-edit-input\"\n    :aria-label=\"ariaLabel\"\n    :maxlength=\"maxLength\"\n    :placeholder=\"placeholder\"\n    :class=\"\n      cn(\n        shared,\n        'w-full min-w-0 bg-input/50 text-foreground ring-3 ring-ring/30 outline-none placeholder:text-muted-foreground',\n        props.class,\n        inputClass,\n      )\n    \"\n    @keydown=\"onKeydown\"\n    @blur=\"finish(true)\"\n  />\n  <button\n    v-else\n    ref=\"buttonRef\"\n    type=\"button\"\n    data-slot=\"inline-edit\"\n    :aria-label=\"ariaLabel ? `${ariaLabel}: ${value || placeholder}` : undefined\"\n    :disabled=\"disabled\"\n    :class=\"\n      cn(\n        shared,\n        'group/inline-edit inline-flex max-w-full items-center gap-1.5 text-start outline-none transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 disabled:pointer-events-none',\n        !value && 'text-muted-foreground',\n        props.class,\n      )\n    \"\n    @click=\"start\"\n  >\n    <span class=\"min-w-0 truncate\">{{ value || placeholder }}</span>\n    <Pencil\n      aria-hidden=\"true\"\n      class=\"size-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover/inline-edit:opacity-100 group-focus-visible/inline-edit:opacity-100\"\n    />\n  </button>\n</template>\n"
+    },
+    {
+      "name": "inline-edit/index.ts",
+      "content": "export { default as InlineEdit } from \"./InlineEdit.vue\"\n"
+    }
+  ]
+}

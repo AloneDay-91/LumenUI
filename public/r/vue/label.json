@@ -1,0 +1,22 @@
+{
+  "name": "label",
+  "title": "Label",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "label/Label.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Label, useForwardProps, type LabelProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<LabelProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <Label\n    data-slot=\"label\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex cursor-pointer items-center gap-2 text-xs leading-none font-medium select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50 has-[:disabled]:cursor-not-allowed has-[[aria-disabled=true]]:cursor-not-allowed', props.class)\"\n  >\n    <slot />\n  </Label>\n</template>\n"
+    },
+    {
+      "name": "label/index.ts",
+      "content": "export { default as Label } from \"./Label.vue\"\n"
+    }
+  ]
+}

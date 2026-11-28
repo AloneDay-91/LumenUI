@@ -1,0 +1,9 @@
+{
+  "name": "signature-pad",
+  "title": "Signature Pad",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

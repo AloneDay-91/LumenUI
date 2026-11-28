@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import { CodeBlock } from "@/components/docs/CodeBlock"
 import { ComponentApi } from "@/components/docs/ComponentApi"
+import { FrameworkInstall, FrameworkUsage } from "@/components/docs/FrameworkDocs"
 import { DocsPageTabs } from "@/components/docs/DocsPageTabs"
 import type { Heading } from "@/components/docs/DocsTOCContext"
 import { PageIntro, Preview } from "@/components/docs/Preview"
@@ -13,6 +14,7 @@ import {
   getApiHeadings,
   getComponentApi,
 } from "@/lib/component-api"
+import { vueComponent } from "@/lib/vue-components"
 import {
   installPlan,
   joinList,
@@ -24,6 +26,7 @@ export function ComponentDocs({
   description,
   preview,
   previewClassName,
+  previewCardClassName,
   usage,
   extra,
   extraHeadings = [],
@@ -32,15 +35,18 @@ export function ComponentDocs({
   description: string
   preview: ReactNode
   previewClassName?: string
+  previewCardClassName?: string
   usage: string | ReactNode
   extra?: ReactNode
   extraHeadings?: Heading[]
 }) {
   const api = getComponentApi(name)
-  const install = componentInstallCommand(api?.slug ?? componentSlug(name))
+  const slug = api?.slug ?? componentSlug(name)
+  const install = componentInstallCommand(slug)
+  const vue = vueComponent(slug)
   const usageHeadings: Heading[] = [
-    { id: "installation", text: "Installation", level: 2 },
     { id: "usage", text: "Usage", level: 2 },
+    { id: "installation", text: "Installation", level: 2 },
     ...extraHeadings,
   ]
   const apiHeadings: Heading[] = api
@@ -53,22 +59,28 @@ export function ComponentDocs({
         eyebrow="Components"
         title={name}
         description={description}
-        versions={getPageVersions(`/docs/components/${api?.slug ?? componentSlug(name)}`)}
+        versions={getPageVersions(`/docs/components/${slug}`)}
       />
-      <Preview className={previewClassName}>{preview}</Preview>
+      <Preview className={previewClassName} cardClassName={previewCardClassName}>
+        {preview}
+      </Preview>
       <DocsPageTabs
         usageHeadings={usageHeadings}
         apiHeadings={apiHeadings}
         usage={
           <>
             <section className="space-y-4">
-              <h2 id="installation">Installation</h2>
-              <CodeBlock language="bash" code={install} />
-              <InstallNote slug={api?.slug ?? componentSlug(name)} />
+              <h2 id="usage">Usage</h2>
+              <FrameworkUsage
+                slug={slug}
+                vue={vue}
+                react={typeof usage === "string" ? <CodeBlock code={usage} /> : usage}
+              />
             </section>
             <section className="space-y-4">
-              <h2 id="usage">Usage</h2>
-              {typeof usage === "string" ? <CodeBlock code={usage} /> : usage}
+              <h2 id="installation">Installation</h2>
+              <FrameworkInstall react={install} vueItem={vue?.item} />
+              <InstallNote slug={slug} />
             </section>
             {extra}
           </>

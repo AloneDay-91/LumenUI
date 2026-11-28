@@ -1,0 +1,35 @@
+{
+  "name": "toolbar",
+  "title": "Toolbar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "toolbar/Toolbar.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ToolbarRoot, useForwardProps, type ToolbarRootProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<ToolbarRootProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <ToolbarRoot\n    data-slot=\"toolbar\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex w-fit items-center gap-1 rounded-4xl border border-border bg-background p-1', props.class)\"\n  >\n    <slot />\n  </ToolbarRoot>\n</template>\n"
+    },
+    {
+      "name": "toolbar/ToolbarButton.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ToolbarButton, useForwardProps, type ToolbarButtonProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { buttonVariants } from \"@/components/ui/button\"\n\nconst props = defineProps<ToolbarButtonProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <ToolbarButton\n    data-slot=\"toolbar-button\"\n    v-bind=\"forwarded\"\n    :class=\"cn(buttonVariants({ variant: 'ghost', size: 'sm' }), props.class)\"\n  >\n    <slot />\n  </ToolbarButton>\n</template>\n"
+    },
+    {
+      "name": "toolbar/ToolbarGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n// Reka has no plain Toolbar group (only ToolbarToggleGroup): a role=\"group\" wrapper.\n// The buttons inside still join the toolbar's arrow-key navigation.\nconst props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  as: \"div\",\n})\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"toolbar-group\"\n    role=\"group\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn('flex items-center gap-0.5', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "toolbar/ToolbarSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ToolbarSeparator, useForwardProps, type ToolbarSeparatorProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<ToolbarSeparatorProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <ToolbarSeparator data-slot=\"toolbar-separator\" v-bind=\"forwarded\" :class=\"cn('h-4 w-px bg-border', props.class)\" />\n</template>\n"
+    },
+    {
+      "name": "toolbar/index.ts",
+      "content": "export { default as Toolbar } from \"./Toolbar.vue\"\nexport { default as ToolbarButton } from \"./ToolbarButton.vue\"\nexport { default as ToolbarSeparator } from \"./ToolbarSeparator.vue\"\nexport { default as ToolbarGroup } from \"./ToolbarGroup.vue\"\n"
+    }
+  ]
+}

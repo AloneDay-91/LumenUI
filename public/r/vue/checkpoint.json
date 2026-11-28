@@ -1,0 +1,23 @@
+{
+  "name": "checkpoint",
+  "title": "Checkpoint",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "checkpoint/Checkpoint.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Bookmark, RotateCcw } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\n\n/**\n * A point in the conversation you can return to: a rule across the thread\n * with a label and a Restore button.\n */\nconst props = withDefaults(\n  defineProps<{\n    /** Plain-text label. Use the `label` slot for richer content. */\n    label?: string\n    restoreLabel?: string\n    /** Listening to `@restore` shows the Restore button. */\n    onRestore?: () => void\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { restoreLabel: \"Restore\" },\n)\n\ndefineSlots<{ label?: () => unknown }>()\n\nconst ariaLabel = computed(() => (props.label ? `Checkpoint: ${props.label}` : \"Checkpoint\"))\n</script>\n\n<template>\n  <div\n    data-slot=\"checkpoint\"\n    role=\"separator\"\n    :aria-label=\"ariaLabel\"\n    :class=\"cn('flex items-center gap-3 text-xs text-muted-foreground', props.class)\"\n  >\n    <span aria-hidden=\"true\" class=\"h-px flex-1 bg-border\" />\n    <span class=\"flex items-center gap-1.5\">\n      <Bookmark aria-hidden=\"true\" class=\"size-3.5\" />\n      <slot name=\"label\">{{ label }}</slot>\n    </span>\n    <Button v-if=\"onRestore\" variant=\"ghost\" size=\"xs\" class=\"text-muted-foreground\" @click=\"onRestore()\">\n      <RotateCcw data-icon=\"inline-start\" />\n      {{ restoreLabel }}\n    </Button>\n    <span aria-hidden=\"true\" class=\"h-px flex-1 bg-border\" />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "checkpoint/index.ts",
+      "content": "export { default as Checkpoint } from \"./Checkpoint.vue\"\n"
+    }
+  ]
+}

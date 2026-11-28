@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
@@ -11,8 +12,9 @@ import { SiteLogo } from "@/components/marketing/SiteLogo";
 import { buttonVariants } from "@/components/ui/button-variants";
 import {
   NavigationMenu,
-  NavigationMenuBackdrop,
+  NavigationMenuArrow,
   NavigationMenuContent,
+  NavigationMenuIcon,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
@@ -36,7 +38,7 @@ export function MarketingNav() {
 
   return (
     <header className="relative z-50 hidden bg-background md:block">
-      <NavigationMenu actionsRef={actionsRef}>
+      <NavigationMenu variant="panel" actionsRef={actionsRef}>
         <div
           className={cn(
             "relative z-10 mx-auto flex w-full items-center justify-between bg-background px-6 py-6 md:px-12",
@@ -48,7 +50,12 @@ export function MarketingNav() {
             <NavigationMenuList>
               {navMenus.map((menu) => (
                 <NavigationMenuItem key={menu.id} value={menu.id}>
-                  <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    {menu.title}
+                    <NavigationMenuIcon>
+                      <ChevronDownIcon className="size-3" />
+                    </NavigationMenuIcon>
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <MegaMenuPanel menu={menu} />
                   </NavigationMenuContent>
@@ -57,7 +64,7 @@ export function MarketingNav() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   render={<Link href="/shaders" />}
-                  variant="muted"
+                  variant="pill"
                 >
                   Shaders
                 </NavigationMenuLink>
@@ -65,7 +72,7 @@ export function MarketingNav() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   render={<Link href="/customize" />}
-                  variant="muted"
+                  variant="pill"
                 >
                   Customize
                 </NavigationMenuLink>
@@ -75,7 +82,7 @@ export function MarketingNav() {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noreferrer"
-                  variant="muted"
+                  variant="pill"
                 >
                   GitHub
                 </NavigationMenuLink>
@@ -93,9 +100,9 @@ export function MarketingNav() {
         </div>
 
         <NavigationMenuPortal>
-          <NavigationMenuBackdrop />
           <NavigationMenuPositioner>
             <NavigationMenuPopup>
+              <NavigationMenuArrow />
               <NavigationMenuViewport />
             </NavigationMenuPopup>
           </NavigationMenuPositioner>

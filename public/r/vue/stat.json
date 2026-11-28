@@ -1,0 +1,38 @@
+{
+  "name": "stat",
+  "title": "Stat",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "stat/Stat.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"stat\" :class=\"cn('flex min-w-0 flex-col gap-1', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "stat/StatDelta.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ArrowDownRight, ArrowUpRight, Minus } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport type { StatIntent, StatTrend } from \".\"\n\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    trend?: StatTrend\n    /** Which colour reads as good. Defaults to the trend: up is jade, down is crimson. */\n    intent?: StatIntent\n    srLabel?: string\n  }>(),\n  { trend: \"neutral\" }\n)\n\nconst trendIcon = { up: ArrowUpRight, down: ArrowDownRight, neutral: Minus }\nconst trendLabel: Record<StatTrend, string> = { up: \"Up\", down: \"Down\", neutral: \"No change\" }\n\nconst icon = computed(() => trendIcon[props.trend])\nconst label = computed(() => props.srLabel ?? trendLabel[props.trend])\nconst tone = computed(\n  () => props.intent ?? (props.trend === \"up\" ? \"positive\" : props.trend === \"down\" ? \"negative\" : \"neutral\")\n)\n</script>\n\n<template>\n  <span\n    data-slot=\"stat-delta\"\n    :data-trend=\"trend\"\n    :class=\"\n      cn(\n        'inline-flex w-fit items-center gap-0.5 rounded-2xl px-1.5 py-0.5 text-xs font-medium tabular-nums',\n        tone === 'positive' && 'bg-jade-wash text-jade-ink',\n        tone === 'negative' && 'bg-crimson-wash text-crimson-ink',\n        tone === 'neutral' && 'bg-secondary text-secondary-foreground',\n        props.class,\n      )\n    \"\n  >\n    <component :is=\"icon\" aria-hidden=\"true\" class=\"size-3\" />\n    <span class=\"sr-only\">{{ label }} </span>\n    <slot />\n  </span>\n</template>\n"
+    },
+    {
+      "name": "stat/StatDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <p data-slot=\"stat-description\" :class=\"cn('m-0 text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "stat/StatLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"stat-label\" :class=\"cn('text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "stat/StatValue.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"stat-value\" :class=\"cn('font-heading text-2xl leading-none font-medium tracking-tight tabular-nums', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "stat/index.ts",
+      "content": "export { default as Stat } from \"./Stat.vue\"\nexport { default as StatLabel } from \"./StatLabel.vue\"\nexport { default as StatValue } from \"./StatValue.vue\"\nexport { default as StatDelta } from \"./StatDelta.vue\"\nexport { default as StatDescription } from \"./StatDescription.vue\"\n\nexport type StatTrend = \"up\" | \"down\" | \"neutral\"\nexport type StatIntent = \"positive\" | \"negative\" | \"neutral\"\n"
+    }
+  ]
+}

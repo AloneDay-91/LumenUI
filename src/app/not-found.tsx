@@ -48,9 +48,9 @@ const destinations = [
     description: `${componentCount} components, each with a live preview and its API.`,
   },
   {
-    name: "Blocks",
-    href: "/blocks",
-    description: "Headers, heroes, pricing, and the screens around them.",
+    name: "Customize",
+    href: "/customize",
+    description: "Pick the ink, the radius, and the type. Copy the CSS.",
   },
   {
     name: "Changelog",

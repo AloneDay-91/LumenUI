@@ -10,3 +10,5 @@ ds-bundle
 *.tsbuildinfo
 .DS_Store
 npm-debug.log*
+vue/node_modules
+vue/dist

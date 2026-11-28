@@ -1,0 +1,44 @@
+{
+  "name": "context-menu",
+  "title": "Context Menu",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "context-menu/ContextMenu.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ContextMenuRoot, useForwardPropsEmits, type ContextMenuRootEmits, type ContextMenuRootProps } from \"reka-ui\"\n\nconst props = defineProps<ContextMenuRootProps>()\nconst emits = defineEmits<ContextMenuRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <ContextMenuRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </ContextMenuRoot>\n</template>\n"
+    },
+    {
+      "name": "context-menu/ContextMenuCheckboxItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Check } from \"@lucide/vue\"\nimport {\n  ContextMenuCheckboxItem,\n  ContextMenuItemIndicator,\n  useForwardPropsEmits,\n  type ContextMenuCheckboxItemEmits,\n  type ContextMenuCheckboxItemProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { menuItemClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<ContextMenuCheckboxItemProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<ContextMenuCheckboxItemEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <ContextMenuCheckboxItem\n    data-slot=\"context-menu-checkbox-item\"\n    v-bind=\"forwarded\"\n    :class=\"cn(menuItemClassName, 'pr-8', props.class)\"\n  >\n    <slot />\n    <ContextMenuItemIndicator class=\"absolute right-2\">\n      <Check class=\"size-3.5\" />\n    </ContextMenuItemIndicator>\n  </ContextMenuCheckboxItem>\n</template>\n"
+    },
+    {
+      "name": "context-menu/ContextMenuContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  ContextMenuContent,\n  ContextMenuPortal,\n  useForwardPropsEmits,\n  type ContextMenuContentEmits,\n  type ContextMenuContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { popupClassName } from \"@/components/ui/styles\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = defineProps<ContextMenuContentProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<ContextMenuContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <ContextMenuPortal>\n    <ContextMenuContent\n      data-slot=\"context-menu-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"\n        cn(\n          popupClassName,\n          'z-50 flex max-h-(--reka-popper-available-height) min-w-36 flex-col overflow-hidden',\n          props.class,\n        )\n      \"\n    >\n      <div data-slot=\"context-menu-viewport\" class=\"min-h-0 flex-1 scroll-fade overflow-y-auto p-1\">\n        <slot />\n      </div>\n    </ContextMenuContent>\n  </ContextMenuPortal>\n</template>\n"
+    },
+    {
+      "name": "context-menu/ContextMenuItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ContextMenuItem, useForwardPropsEmits, type ContextMenuItemEmits, type ContextMenuItemProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { menuItemClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<ContextMenuItemProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<ContextMenuItemEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <ContextMenuItem data-slot=\"context-menu-item\" v-bind=\"forwarded\" :class=\"cn(menuItemClassName, props.class)\">\n    <slot />\n  </ContextMenuItem>\n</template>\n"
+    },
+    {
+      "name": "context-menu/ContextMenuSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ContextMenuSeparator, type ContextMenuSeparatorProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<ContextMenuSeparatorProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <ContextMenuSeparator\n    data-slot=\"context-menu-separator\"\n    v-bind=\"delegated\"\n    :class=\"cn('-mx-1 my-1 h-px bg-border/50', props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "context-menu/ContextMenuTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ContextMenuTrigger, useForwardProps, type ContextMenuTriggerProps } from \"reka-ui\"\n\nconst props = defineProps<ContextMenuTriggerProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <ContextMenuTrigger data-slot=\"context-menu-trigger\" v-bind=\"forwarded\">\n    <slot />\n  </ContextMenuTrigger>\n</template>\n"
+    },
+    {
+      "name": "context-menu/index.ts",
+      "content": "export { default as ContextMenu } from \"./ContextMenu.vue\"\nexport { default as ContextMenuTrigger } from \"./ContextMenuTrigger.vue\"\nexport { default as ContextMenuContent } from \"./ContextMenuContent.vue\"\nexport { default as ContextMenuItem } from \"./ContextMenuItem.vue\"\nexport { default as ContextMenuSeparator } from \"./ContextMenuSeparator.vue\"\nexport { default as ContextMenuCheckboxItem } from \"./ContextMenuCheckboxItem.vue\"\n"
+    }
+  ]
+}

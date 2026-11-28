@@ -1,0 +1,28 @@
+{
+  "name": "selection-bar",
+  "title": "Selection Bar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "selection-bar/SelectionBar.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, ref, watch, type HTMLAttributes } from \"vue\"\nimport { X } from \"@lucide/vue\"\nimport { ToolbarButton, ToolbarRoot, ToolbarSeparator } from \"reka-ui\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * A bar of bulk actions that rises when something is selected and leaves\n * when nothing is: the count, a clear button, and your actions. It is a\n * toolbar, so the arrows move between its buttons. Escape clears.\n */\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    /** How many items are selected. The bar shows from 1. */\n    count: number\n    /** `fixed` floats over the page; `absolute` sits in the nearest positioned parent. */\n    position?: \"fixed\" | \"absolute\"\n    labels?: {\n      toolbar?: string\n      count?: (count: number) => string\n      clear?: string\n    }\n  }>(),\n  { position: \"fixed\", labels: () => ({}) }\n)\n\n/** Fired by the clear button and by Escape. */\nconst emit = defineEmits<{ clear: [] }>()\n\nconst slots = defineSlots<{\n  /** The actions: Buttons, or SelectionBarAction. */\n  default?: () => unknown\n  /** Replaces the \"N selected\" text. */\n  count?: (props: { count: number }) => unknown\n}>()\n\nconst open = computed(() => props.count > 0)\n// Keep the last count while the bar slides away, so it does not read \"0\".\nconst shown = ref(props.count)\nwatch(\n  () => props.count,\n  (count) => {\n    if (count > 0) shown.value = count\n  }\n)\n\nfunction onKeydown(event: KeyboardEvent) {\n  if (event.key === \"Escape\") {\n    event.preventDefault()\n    emit(\"clear\")\n  }\n}\n</script>\n\n<template>\n  <div\n    data-slot=\"selection-bar\"\n    :data-open=\"open ? '' : undefined\"\n    :class=\"\n      cn(\n        position,\n        'inset-x-0 bottom-4 z-40 flex justify-center px-4 transition-[opacity,translate] duration-200',\n        open ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0',\n      )\n    \"\n    :inert=\"!open || undefined\"\n  >\n    <ToolbarRoot\n      :aria-label=\"labels.toolbar ?? 'Selection actions'\"\n      :class=\"\n        cn(\n          'flex max-w-full items-center gap-1 overflow-x-auto rounded-4xl bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/5 dark:ring-foreground/10',\n          props.class,\n        )\n      \"\n      @keydown=\"onKeydown\"\n    >\n      <span aria-live=\"polite\" class=\"shrink-0 ps-2.5 pe-1 text-xs font-medium tabular-nums whitespace-nowrap\">\n        <slot name=\"count\" :count=\"shown\">{{ labels.count?.(shown) ?? `${shown} selected` }}</slot>\n      </span>\n      <ToolbarButton as-child>\n        <Button\n          variant=\"ghost\"\n          size=\"icon-xs\"\n          :aria-label=\"labels.clear ?? 'Clear selection'\"\n          class=\"text-muted-foreground\"\n          @click=\"emit('clear')\"\n        >\n          <X />\n        </Button>\n      </ToolbarButton>\n      <ToolbarSeparator v-if=\"slots.default\" class=\"mx-1 h-4 w-px shrink-0 bg-border\" />\n      <div class=\"flex items-center gap-1\">\n        <slot />\n      </div>\n    </ToolbarRoot>\n  </div>\n</template>\n"
+    },
+    {
+      "name": "selection-bar/SelectionBarAction.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ToolbarButton } from \"reka-ui\"\n\nimport { Button } from \"@/components/ui/button\"\nimport type { ButtonVariantProps } from \"@/components/ui/button\"\n\n/** A button inside the bar, part of its arrow-key order. */\nwithDefaults(\n  defineProps<{\n    variant?: ButtonVariantProps[\"variant\"]\n    disabled?: boolean\n    loading?: boolean\n  }>(),\n  { variant: \"ghost\" }\n)\n</script>\n\n<template>\n  <ToolbarButton as-child :disabled=\"disabled\">\n    <Button :variant=\"variant\" size=\"sm\" :disabled=\"disabled\" :loading=\"loading\">\n      <slot />\n    </Button>\n  </ToolbarButton>\n</template>\n"
+    },
+    {
+      "name": "selection-bar/index.ts",
+      "content": "export { default as SelectionBar } from \"./SelectionBar.vue\"\nexport { default as SelectionBarAction } from \"./SelectionBarAction.vue\"\n"
+    }
+  ]
+}

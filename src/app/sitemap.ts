@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next"
 
-import { blockCategories } from "@/lib/block-categories"
 import { componentItems, docsNav } from "@/lib/docs-nav"
 import { SITE_URL } from "@/lib/site"
 
@@ -9,8 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/",
     "/shaders",
     "/customize",
-    "/blocks",
-    ...blockCategories.map((category) => `/blocks/${category.slug}`),
     "/docs/components",
     ...docsNav.map((item) => item.href),
     ...componentItems.map((item) => item.href),

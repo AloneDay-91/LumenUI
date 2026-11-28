@@ -1,0 +1,20 @@
+{
+  "name": "relative-time",
+  "title": "Relative Time",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "relative-time/RelativeTime.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, onBeforeUnmount, ref, watch, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * \"3 minutes ago\" that keeps itself current. A native <time> with the exact\n * date in its title and datetime, so the precise moment is one hover away.\n */\nconst props = withDefaults(\n  defineProps<{\n    date: Date | string | number\n    locale?: string\n    titleFormat?: Intl.DateTimeFormatOptions\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { titleFormat: () => ({ dateStyle: \"medium\", timeStyle: \"short\" }) }\n)\n\nconst units: [Intl.RelativeTimeFormatUnit, number][] = [\n  [\"year\", 365 * 24 * 3600],\n  [\"month\", 30 * 24 * 3600],\n  [\"week\", 7 * 24 * 3600],\n  [\"day\", 24 * 3600],\n  [\"hour\", 3600],\n  [\"minute\", 60],\n  [\"second\", 1],\n]\n\nfunction relative(date: Date, now: number, locale: string | undefined) {\n  const seconds = Math.round((date.getTime() - now) / 1000)\n  const format = new Intl.RelativeTimeFormat(locale, { numeric: \"auto\" })\n  for (const [unit, size] of units) {\n    if (Math.abs(seconds) >= size || unit === \"second\") {\n      if (unit === \"second\" && Math.abs(seconds) < 45) return format.format(0, \"second\")\n      return format.format(Math.round(seconds / size), unit)\n    }\n  }\n  return \"\"\n}\n\n/** How often to re-render: every 15s in the first minute, then by the unit shown. */\nfunction nextTick(date: Date, now: number) {\n  const age = Math.abs(now - date.getTime()) / 1000\n  if (age < 60) return 15_000\n  if (age < 3600) return 60_000\n  if (age < 86_400) return 3_600_000\n  return null\n}\n\nconst date = computed(() => new Date(props.date))\n// Default to the page's language, not the browser's, so the text matches the UI around it.\nconst resolvedLocale = computed(\n  () =>\n    props.locale ?? (typeof document === \"undefined\" ? undefined : document.documentElement.lang || undefined)\n)\nconst now = ref(Date.now())\n\nlet timer: ReturnType<typeof setTimeout> | undefined\nwatch(\n  [date, now],\n  ([d, n]) => {\n    clearTimeout(timer)\n    const delay = nextTick(d, n)\n    if (delay === null) return\n    timer = setTimeout(() => (now.value = Date.now()), delay)\n  },\n  { immediate: true }\n)\nonBeforeUnmount(() => clearTimeout(timer))\n\nconst title = computed(() => new Intl.DateTimeFormat(resolvedLocale.value, props.titleFormat).format(date.value))\nconst text = computed(() => relative(date.value, now.value, resolvedLocale.value))\n</script>\n\n<template>\n  <time\n    data-slot=\"relative-time\"\n    :datetime=\"date.toISOString()\"\n    :title=\"title\"\n    :class=\"cn('tabular-nums', props.class)\"\n  >{{ text }}</time>\n</template>\n"
+    },
+    {
+      "name": "relative-time/index.ts",
+      "content": "export { default as RelativeTime } from \"./RelativeTime.vue\"\n"
+    }
+  ]
+}

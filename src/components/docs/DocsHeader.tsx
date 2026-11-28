@@ -1,36 +1,28 @@
 "use client";
 
 import * as React from "react";
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
-import {
-  BlocksHeaderLinks,
-  BlocksHeaderNav,
-} from "@/components/blocks/BlocksHeaderNav";
-import { KitSelect } from "@/components/blocks/KitProvider";
-import { SiteNavMenu } from "@/components/blocks/SiteNavMenu";
 import { ThemeControls } from "@/components/theme/ThemeControls";
 import { AskLumen } from "@/components/docs/AskLumen";
 import { DocsCommandMenu } from "@/components/docs/DocsCommandMenu";
 import { DocsContents } from "@/components/docs/DocsContents";
-import { VersionMenu } from "@/components/docs/VersionMenu";
+import {
+  DocsHeaderLinks,
+  DocsHeaderNav,
+} from "@/components/docs/DocsHeaderNav";
 import { DocsSearch } from "@/components/docs/DocsSearch";
+import { SiteNavMenu } from "@/components/docs/SiteNavMenu";
+import { VersionMenu } from "@/components/docs/VersionMenu";
 import { SiteLogo } from "@/components/marketing/SiteLogo";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-
-// The blocks registry is heavy: it loads with the blocks menu, not with every docs page.
-const BlocksNav = dynamic(() =>
-  import("@/components/blocks/BlocksSidebar").then((module) => module.BlocksNav),
-);
 
 export function DocsHeader() {
   const [open, setOpen] = React.useState(false);
   const close = () => setOpen(false);
   const pathname = usePathname();
-  const blocks = pathname.startsWith("/blocks");
   const customize = pathname === "/customize";
 
   const [openedOn, setOpenedOn] = React.useState(pathname);
@@ -76,7 +68,7 @@ export function DocsHeader() {
         "sticky top-[var(--update-banner-height)] z-40 border-b border-border bg-background",
       )}
     >
-      <BlocksHeaderNav>
+      <DocsHeaderNav>
         <div className="relative z-10 flex h-14 items-center gap-3 px-4 md:px-6">
           <div className="flex min-w-0 items-center gap-8">
             <div className="flex items-center gap-3">
@@ -93,7 +85,7 @@ export function DocsHeader() {
               </Button>
               <SiteLogo onClick={close} />
             </div>
-            <BlocksHeaderLinks />
+            <DocsHeaderLinks />
           </div>
           <div className="ml-auto flex items-center gap-1">
             <VersionMenu className="mr-1 hidden sm:inline-flex" />
@@ -102,18 +94,13 @@ export function DocsHeader() {
             <SiteNavMenu />
           </div>
         </div>
-      </BlocksHeaderNav>
+      </DocsHeaderNav>
       {open ? (
         <div
           id="docs-mobile-nav"
           className="fixed inset-x-0 top-[calc(var(--update-banner-height)+3.5rem)] bottom-0 z-40 space-y-4 overflow-y-auto overscroll-contain border-t border-border bg-background px-4 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden"
         >
-          {blocks ? (
-            <>
-              <KitSelect className="w-full" />
-              <BlocksNav onNavigate={close} />
-            </>
-          ) : customize ? (
+          {customize ? (
             <ThemeControls onNavigate={close} />
           ) : (
             <>

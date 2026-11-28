@@ -1,0 +1,43 @@
+{
+  "name": "popover",
+  "title": "Popover",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "popover/Popover.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverRoot, useForwardPropsEmits, type PopoverRootProps, type PopoverRootEmits } from \"reka-ui\"\n\nconst props = defineProps<PopoverRootProps>()\nconst emits = defineEmits<PopoverRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <PopoverRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </PopoverRoot>\n</template>\n"
+    },
+    {
+      "name": "popover/PopoverClose.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverClose, useForwardProps, type PopoverCloseProps } from \"reka-ui\"\n\nconst props = defineProps<PopoverCloseProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <PopoverClose v-slot=\"slotProps\" data-slot=\"popover-close\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </PopoverClose>\n</template>\n"
+    },
+    {
+      "name": "popover/PopoverContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  PopoverContent,\n  PopoverPortal,\n  useForwardPropsEmits,\n  type PopoverContentEmits,\n  type PopoverContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { popupClassName } from \"@/components/ui/styles\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = withDefaults(defineProps<PopoverContentProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  align: \"center\",\n  sideOffset: 6,\n})\nconst emits = defineEmits<PopoverContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <PopoverPortal>\n    <PopoverContent\n      data-slot=\"popover-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"cn(popupClassName, 'z-50 w-72 p-4', props.class)\"\n    >\n      <slot />\n    </PopoverContent>\n  </PopoverPortal>\n</template>\n"
+    },
+    {
+      "name": "popover/PopoverDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <p data-slot=\"popover-description\" :class=\"cn('text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "popover/PopoverTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <h2 data-slot=\"popover-title\" :class=\"cn('text-sm font-medium', props.class)\">\n    <slot />\n  </h2>\n</template>\n"
+    },
+    {
+      "name": "popover/PopoverTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverTrigger, useForwardProps, type PopoverTriggerProps } from \"reka-ui\"\n\nconst props = defineProps<PopoverTriggerProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <PopoverTrigger v-slot=\"slotProps\" data-slot=\"popover-trigger\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </PopoverTrigger>\n</template>\n"
+    },
+    {
+      "name": "popover/index.ts",
+      "content": "export { default as Popover } from \"./Popover.vue\"\nexport { default as PopoverTrigger } from \"./PopoverTrigger.vue\"\nexport { default as PopoverClose } from \"./PopoverClose.vue\"\nexport { default as PopoverContent } from \"./PopoverContent.vue\"\nexport { default as PopoverTitle } from \"./PopoverTitle.vue\"\nexport { default as PopoverDescription } from \"./PopoverDescription.vue\"\n"
+    }
+  ]
+}

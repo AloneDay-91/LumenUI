@@ -1,7 +1,13 @@
 import assert from "node:assert/strict"
 import { describe, test } from "node:test"
 
-import { decodePreset, defaultPreset, encodePreset } from "./theme-preset.ts"
+import {
+  buildPresetCss,
+  decodePreset,
+  defaultPreset,
+  encodePreset,
+  medusaPreset,
+} from "./theme-preset.ts"
 
 describe("theme preset links", () => {
   test("round-trips the colors, type, radius, and shadow", () => {
@@ -17,6 +23,15 @@ describe("theme preset links", () => {
     }
 
     assert.deepEqual(decodePreset(encodePreset(preset)), preset)
+  })
+
+  test("round-trips the medusa design system preset and emits component rules", () => {
+    assert.deepEqual(decodePreset(encodePreset(medusaPreset)), medusaPreset)
+
+    const css = buildPresetCss(medusaPreset)
+    assert.match(css, /--medusa-elevation-card-rest:/)
+    assert.match(css, /\[data-slot="card"\]\[data-variant="default"\]/)
+    assert.match(css, /\[data-slot="switch"\]\[data-checked\]/)
   })
 
   test("drops a color that would break out of the stylesheet", () => {

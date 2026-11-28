@@ -1,0 +1,22 @@
+{
+  "name": "checkbox-group",
+  "title": "Checkbox Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "checkbox-group/CheckboxGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  CheckboxGroupRoot,\n  useForwardPropsEmits,\n  type CheckboxGroupRootEmits,\n  type CheckboxGroupRootProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<CheckboxGroupRootProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<CheckboxGroupRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <CheckboxGroupRoot\n    data-slot=\"checkbox-group\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex flex-col gap-2', props.class)\"\n  >\n    <slot />\n  </CheckboxGroupRoot>\n</template>\n"
+    },
+    {
+      "name": "checkbox-group/index.ts",
+      "content": "export { default as CheckboxGroup } from \"./CheckboxGroup.vue\"\n"
+    }
+  ]
+}

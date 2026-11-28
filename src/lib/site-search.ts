@@ -1,8 +1,6 @@
-import { blockCategories } from "@/lib/block-categories"
-import { dashboardBlockMeta } from "@/lib/dashboard-blocks"
 import { docsSections } from "@/lib/docs-nav"
 
-export type SiteSearchCategory = "docs" | "blocks" | "pages"
+export type SiteSearchCategory = "docs" | "pages"
 
 export type SiteSearchItem = {
   id: string
@@ -37,89 +35,7 @@ const sitePages: Omit<SiteSearchItem, "id">[] = [
     category: "pages",
     keywords: "theme dark light tokens colors appearance customize personnaliser",
   },
-  {
-    title: "Blocks",
-    description: "Ready-made page sections and dashboard screens.",
-    href: "/blocks",
-    category: "blocks",
-    keywords: "gallery templates sections kits blocks blocs",
-  },
 ]
-
-/**
- * Lightweight meta for marketing blocks. Kept here so Ask Lumen does not
- * import the heavy preview modules from lumen-blocks.
- */
-const lumenBlockMeta = [
-  {
-    id: "site-header",
-    kit: "headers",
-    title: "Site header",
-    description:
-      "The bar on the marketing site: wordmark, section links, and Documentation.",
-  },
-  {
-    id: "landing-hero",
-    kit: "heroes",
-    title: "Landing hero",
-    description: "The first screen: the sentence, the init command, and the stack.",
-  },
-  {
-    id: "painting",
-    kit: "heroes",
-    title: "Painting",
-    description: "The same hero, with the landing painting behind the type.",
-  },
-  {
-    id: "split",
-    kit: "heroes",
-    title: "Split",
-    description: "The sentence on the left, the painting as a panel on the right.",
-  },
-  {
-    id: "band",
-    kit: "heroes",
-    title: "Band",
-    description: "The type stays on the page color. The painting appears underneath.",
-  },
-  {
-    id: "copy-paste",
-    kit: "features",
-    title: "Copy-paste",
-    description: "The landing explanation of what the CLI writes into the repo.",
-  },
-  {
-    id: "form-states",
-    kit: "features",
-    title: "Form states",
-    description: "The landing form: an invalid email, and a list of components to add.",
-  },
-  {
-    id: "tokens",
-    kit: "features",
-    title: "Tokens",
-    description: "Appearance, then the same card in light and in dark.",
-  },
-  {
-    id: "component-index",
-    kit: "features",
-    title: "Component index",
-    description: "The list at the bottom of the landing page, one link per component.",
-  },
-  {
-    id: "installation",
-    kit: "cta",
-    title: "Installation",
-    description: "The closing line on the landing page.",
-  },
-  {
-    id: "site-footer",
-    kit: "footers",
-    title: "Site footer",
-    description:
-      "An inverted panel: the wordmark, the install command, the site links, then the year, the version and GitHub.",
-  },
-] as const
 
 function buildSiteSearchIndex(): SiteSearchItem[] {
   const items: SiteSearchItem[] = []
@@ -163,41 +79,6 @@ function buildSiteSearchIndex(): SiteSearchItem[] {
         keywords: `${section.title} ${item.name} ${item.keywords ?? ""} ${slug} docs documentation component composant`,
       })
     }
-  }
-
-  for (const category of blockCategories) {
-    push({
-      id: `/blocks/${category.slug}`,
-      title: category.title,
-      description: category.description,
-      href: `/blocks/${category.slug}`,
-      category: "blocks",
-      keywords: `${category.group} ${category.kit} blocks kit ${category.slug} ${category.title}`,
-    })
-  }
-
-  for (const block of lumenBlockMeta) {
-    const href = `/blocks/${block.kit}#${block.id}`
-    push({
-      id: href,
-      title: block.title,
-      description: block.description,
-      href,
-      category: "blocks",
-      keywords: `lumen marketing block ${block.kit} ${block.id} ${block.title}`,
-    })
-  }
-
-  for (const block of dashboardBlockMeta) {
-    const href = `/blocks/${block.kit}#${block.id}`
-    push({
-      id: href,
-      title: block.title,
-      description: block.description,
-      href,
-      category: "blocks",
-      keywords: `dashboard block ${block.kit} ${block.id} ${block.title} ${block.command}`,
-    })
   }
 
   return items
@@ -550,50 +431,33 @@ const SYNONYMS: Record<string, string> = {
   tokens: "styles tokens customize",
   couleur: "styles customize color-picker",
   couleurs: "styles customize color-picker",
-  // blocks / kits
-  block: "blocks",
-  blocks: "blocks",
-  bloc: "blocks",
-  blocs: "blocks",
-  dashboard: "dashboard stats charts tables overview",
-  tableaudebord: "dashboard",
-  hero: "heroes landing-hero",
-  heroes: "heroes",
-  pricing: "pricing",
-  tarif: "pricing",
-  tarifs: "pricing",
-  login: "login",
-  connexion: "login",
-  signup: "sign-up",
-  inscription: "sign-up",
-  settings: "settings profile",
-  reglages: "settings",
-  réglages: "settings",
-  parametres: "settings",
-  paramètres: "settings",
-  profile: "profile-settings",
-  profil: "profile-settings",
-  orders: "orders-table",
-  commandes: "orders-table",
-  stats: "stats stat-cards",
-  statistique: "stats",
-  statistiques: "stats",
-  kpi: "stats stat-cards",
-  activity: "activity",
-  activite: "activity",
-  activité: "activity",
-  empty: "empty-states",
-  vide: "empty-states",
+  // recipes / patterns
+  dashboard: "sidebar stat chart data-table kanban",
+  tableaudebord: "sidebar stat chart data-table",
+  settings: "settings recipe card data-list",
+  reglages: "settings recipe",
+  réglages: "settings recipe",
+  parametres: "settings recipe",
+  paramètres: "settings recipe",
+  stats: "stat chart gauge meter",
+  statistique: "stat",
+  statistiques: "stat",
+  kpi: "stat gauge",
+  empty: "empty",
+  vide: "empty",
   // misc
-  example: "components blocks",
-  examples: "components blocks",
-  exemple: "components blocks",
-  exemples: "components blocks",
+  example: "components recipes",
+  examples: "components recipes",
+  exemple: "components recipes",
+  exemples: "components recipes",
   customize: "customize",
   personnaliser: "customize",
   customiser: "customize",
   framework: "frameworks",
   frameworks: "frameworks",
+  vue: "vue",
+  vuejs: "vue",
+  reka: "vue",
   changelog: "changelog",
   nouveautes: "changelog",
   nouveautés: "changelog",
@@ -796,9 +660,6 @@ const INSTALL =
 const ALL_COMPONENTS =
   /\b((tous|toutes|tout|all|every|entire|full|complet|complete|liste|list|catalogue|catalog|index)\b[\s\S]{0,60}\b(composants?|components?)|\b(composants?|components?)\b[\s\S]{0,60}\b(tous|toutes|tout|all|every|liste|list|catalogue|catalog|index)|(quels?|what|which)\b[\s\S]{0,40}\b(composants?|components?))\b/i
 
-const ALL_BLOCKS =
-  /\b((tous|toutes|tout|all|every|liste|list|catalogue|catalog)\b[\s\S]{0,60}\b(blocks?|blocs?)|\b(blocks?|blocs?)\b[\s\S]{0,60}\b(tous|toutes|tout|all|every|liste|list))\b/i
-
 function formatKeywordList(keywords: string[]) {
   const shown = keywords.slice(0, 3)
   if (shown.length === 1) return `“${shown[0]}”`
@@ -823,11 +684,11 @@ export function answerAskLumen(query: string): AskLumenReply {
   if (!trimmed) {
     return {
       text: pick([
-        "Sure — what should I look for? A component, a block, a theme page… anything on the site.",
+        "Sure — what should I look for? A component, a shader, a theme page… anything on the site.",
         "I’m listening. Throw me a name or a short sentence and I’ll dig around.",
       ]),
       hits: [],
-      suggestions: ["Installation", "Button", "App sidebar", "Customize"],
+      suggestions: ["Installation", "Button", "Sidebar", "Customize"],
     }
   }
 
@@ -838,7 +699,7 @@ export function answerAskLumen(query: string): AskLumenReply {
         "Hi there. Ask me like you’d ask a teammate — I’ll pull out the useful words and search with them.",
       ]),
       hits: [],
-      suggestions: ["Installation", "Button", "Blocks", "Customize"],
+      suggestions: ["Installation", "Button", "Shaders", "Customize"],
     }
   }
 
@@ -852,16 +713,6 @@ export function answerAskLumen(query: string): AskLumenReply {
       hits: catalog ? [asHit(catalog)] : [],
       keywords: ["composants"],
       suggestions: ["Button", "Dialog", "Sidebar", "Table"],
-    }
-  }
-
-  if (ALL_BLOCKS.test(trimmed)) {
-    const blocks = findByHref("/blocks")
-    return {
-      text: "Looking for every block? Start from the blocks gallery:",
-      hits: blocks ? [asHit(blocks)] : [],
-      keywords: ["blocks"],
-      suggestions: ["Sidebars", "Heroes", "Charts"],
     }
   }
 
@@ -907,7 +758,7 @@ export function answerAskLumen(query: string): AskLumenReply {
         `I came up empty.${hint} Maybe “Button”, “Dialog”, or “installation”?`,
       ]),
       hits: [],
-      suggestions: ["Button", "Dialog", "App sidebar", "Installation"],
+      suggestions: ["Button", "Dialog", "Sidebar", "Installation"],
       keywords: spokenKeywords,
     }
   }
@@ -939,8 +790,6 @@ export function categoryLabel(category: SiteSearchCategory) {
   switch (category) {
     case "docs":
       return "Docs"
-    case "blocks":
-      return "Blocks"
     case "pages":
       return "Pages"
     default: {

@@ -12,6 +12,7 @@ import {
   TabsPanels,
   TabsTab,
 } from "@/components/ui/Tabs";
+import { DOCS_FRAMEWORK_EVENT } from "@/lib/use-framework";
 
 type TabValue = "usage" | "api";
 
@@ -58,6 +59,18 @@ export function DocsPageTabs({
   }
 
   const value = picked ?? tabFromHash(hash);
+
+  React.useEffect(() => {
+    const showUsage = () => {
+      setPicked("usage");
+      const current = window.location.hash.replace(/^#/, "");
+      if (current === "api" || current.startsWith("api-")) {
+        history.replaceState(null, "", "#usage");
+      }
+    };
+    window.addEventListener(DOCS_FRAMEWORK_EVENT, showUsage);
+    return () => window.removeEventListener(DOCS_FRAMEWORK_EVENT, showUsage);
+  }, []);
 
   const onValueChange = (next: string) => {
     const tab = next === "api" ? "api" : "usage";

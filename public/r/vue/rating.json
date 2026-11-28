@@ -1,0 +1,22 @@
+{
+  "name": "rating",
+  "title": "Rating",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "rating/Rating.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, ref, type HTMLAttributes } from \"vue\"\nimport { Star } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction clamp(value: number, min: number, max: number) {\n  return Math.min(max, Math.max(min, value))\n}\n\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    max?: number\n    defaultValue?: number\n    readOnly?: boolean\n    name?: string\n    label?: string\n  }>(),\n  { max: 5, defaultValue: 0, readOnly: false, label: \"Rating\" }\n)\n\nconst emit = defineEmits<{ valueChange: [value: number] }>()\n\n/** v-model: controlled when bound, otherwise starts at defaultValue. */\nconst model = defineModel<number>()\nconst uncontrolled = ref(props.defaultValue)\nconst current = computed(() => clamp(model.value ?? uncontrolled.value, 0, props.max))\nconst hovered = ref<number | null>(null)\nconst displayed = computed(() => hovered.value ?? current.value)\n\nconst starClassName =\n  \"inline-flex size-7 items-center justify-center rounded-md text-muted-foreground/40 transition-colors hover:text-foreground data-active:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none\"\n\nfunction setScore(next: number) {\n  if (props.readOnly) return\n  const score = clamp(next, 0, props.max)\n  uncontrolled.value = score\n  model.value = score\n  emit(\"valueChange\", score)\n}\n\nfunction onKeydown(event: KeyboardEvent) {\n  if (props.readOnly) return\n  switch (event.key) {\n    case \"ArrowRight\":\n    case \"ArrowUp\":\n      event.preventDefault()\n      setScore(current.value + 1)\n      break\n    case \"ArrowLeft\":\n    case \"ArrowDown\":\n      event.preventDefault()\n      setScore(current.value - 1)\n      break\n    case \"Home\":\n      event.preventDefault()\n      setScore(1)\n      break\n    case \"End\":\n      event.preventDefault()\n      setScore(props.max)\n      break\n    default:\n      break\n  }\n}\n</script>\n\n<template>\n  <div\n    data-slot=\"rating\"\n    role=\"radiogroup\"\n    :aria-label=\"label\"\n    :aria-readonly=\"readOnly || undefined\"\n    :tabindex=\"readOnly ? undefined : 0\"\n    :class=\"\n      cn(\n        'inline-flex items-center gap-0.5 outline-none focus-visible:rounded-lg focus-visible:ring-3 focus-visible:ring-ring/30',\n        readOnly && 'pointer-events-none',\n        props.class,\n      )\n    \"\n    @keydown=\"onKeydown\"\n    @mouseleave=\"hovered = null\"\n  >\n    <input v-if=\"name\" type=\"hidden\" :name=\"name\" :value=\"current\" />\n    <button\n      v-for=\"score in max\"\n      :key=\"score\"\n      type=\"button\"\n      role=\"radio\"\n      :aria-checked=\"score === current\"\n      :aria-label=\"`${score} of ${max}`\"\n      :tabindex=\"-1\"\n      :disabled=\"readOnly\"\n      :data-active=\"score <= displayed || undefined\"\n      :class=\"starClassName\"\n      @mouseenter=\"!readOnly && (hovered = score)\"\n      @click=\"setScore(score)\"\n    >\n      <Star class=\"size-4\" :fill=\"score <= displayed ? 'currentColor' : 'none'\" />\n    </button>\n  </div>\n</template>\n"
+    },
+    {
+      "name": "rating/index.ts",
+      "content": "export { default as Rating } from \"./Rating.vue\"\n"
+    }
+  ]
+}

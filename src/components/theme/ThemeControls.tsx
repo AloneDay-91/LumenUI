@@ -60,6 +60,7 @@ const shadowOptions: [ShadowPreset, string][] = [
   ["soft", "Soft"],
   ["medium", "Medium"],
   ["strong", "Strong"],
+  ["medusa", "Ring"],
 ]
 
 function Section({
@@ -258,7 +259,7 @@ export function ThemeControls({
               const shadow = shadowOptions.find(([option]) => option === next[0])?.[0]
               if (shadow) setPreset((current) => ({ ...current, shadow }))
             }}
-            className="grid w-full grid-cols-4"
+            className="grid w-full grid-cols-3"
           >
             {shadowOptions.map(([option, text]) => (
               <Toggle key={option} value={option}>

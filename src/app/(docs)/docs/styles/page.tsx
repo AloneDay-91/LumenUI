@@ -90,7 +90,7 @@ export default function StylesPage() {
         <PageIntro
           eyebrow="Foundations"
           title="Styles"
-          description="White paper, near-black text, and a blue primary. The Paper preset in Customize brings back the warm, black theme. Hue is optional: gray, indigo, cyan, orange, crimson, and jade."
+          description="White paper, near-black text, and a blue primary. Customize also offers Paper, the warm black theme, and Medusa, a zinc inverted primary with a 6px radius. Hue is optional: gray, indigo, cyan, orange, crimson, and jade."
         />
 
         <section className="space-y-4">

@@ -60,7 +60,7 @@ export function ShowcasePlayer({ ambient = false, className }: { ambient?: boole
 
   if (ambient) {
     return (
-      <div role="img" aria-label="Lumen UI in motion: components, AI patterns and blocks" className={className}>
+      <div role="img" aria-label="Lumen UI in motion: components, AI patterns and customization" className={className}>
         <Player
           // A new player when the preference flips, so autoplay and the still frame apply.
           key={reduced ? "still" : "loop"}

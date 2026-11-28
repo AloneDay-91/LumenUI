@@ -1,0 +1,22 @@
+{
+  "name": "toggle",
+  "title": "Toggle",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "toggle/Toggle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Toggle, useForwardPropsEmits, type ToggleEmits, type ToggleProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<ToggleProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<ToggleEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n\nconst toggleClassName = [\n  \"inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-4xl px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none select-none\",\n  \"hover:bg-muted hover:text-foreground\",\n  \"focus-visible:relative focus-visible:z-1 focus-visible:ring-3 focus-visible:ring-ring/30\",\n  \"disabled:pointer-events-none disabled:opacity-50\",\n  \"data-[state=on]:bg-muted data-[state=on]:text-foreground\",\n  \"in-data-[slot=toggle-group]:h-7 in-data-[slot=toggle-group]:hover:bg-transparent\",\n  \"in-data-[slot=toggle-group]:data-[state=on]:bg-background in-data-[slot=toggle-group]:data-[state=on]:shadow-sm in-data-[slot=toggle-group]:data-[state=on]:ring-1 in-data-[slot=toggle-group]:data-[state=on]:ring-foreground/5\",\n  \"in-data-[slot=toggle-group]:data-[state=on]:hover:bg-background\",\n  \"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n]\n</script>\n\n<template>\n  <Toggle v-slot=\"slotProps\" data-slot=\"toggle\" v-bind=\"forwarded\" :class=\"cn(toggleClassName, props.class)\">\n    <slot v-bind=\"slotProps\" />\n  </Toggle>\n</template>\n"
+    },
+    {
+      "name": "toggle/index.ts",
+      "content": "export { default as Toggle } from \"./Toggle.vue\"\n"
+    }
+  ]
+}

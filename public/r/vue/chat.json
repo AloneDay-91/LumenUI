@@ -1,0 +1,33 @@
+{
+  "name": "chat",
+  "title": "Chat",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "message-scroller",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "chat/Chat.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * The thread: a column with the messages in a Message Scroller and the\n * composer pinned under them. Give it a height; the messages scroll inside.\n */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"chat\" :class=\"cn('flex min-h-0 flex-col gap-3', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "chat/ChatEmpty.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Shown before the first message. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div\n    data-slot=\"chat-empty\"\n    :class=\"\n      cn(\n        'flex flex-1 flex-col items-center justify-center gap-1 text-center text-sm text-muted-foreground',\n        props.class,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "chat/ChatFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Under the messages: suggestions, then the Prompt Input. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"chat-footer\" :class=\"cn('flex flex-col gap-2', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "chat/ChatMessages.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { MessageScroller } from \"@/components/ui/message-scroller\"\nimport { cn } from \"@/lib/utils\"\n\n/** The messages. A polite log region inside a Message Scroller. */\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"]\n  /** Classes for the log column inside the scroller. */\n  contentClass?: HTMLAttributes[\"class\"]\n  /** Accessible name of the scroll-to-latest button. */\n  label?: string\n}>()\n</script>\n\n<template>\n  <MessageScroller :class=\"cn('flex-1', props.class)\" :label=\"label\">\n    <div\n      role=\"log\"\n      aria-live=\"polite\"\n      data-slot=\"chat-messages\"\n      :class=\"cn('flex flex-col gap-6 p-1 pb-4', contentClass)\"\n    >\n      <slot />\n    </div>\n  </MessageScroller>\n</template>\n"
+    },
+    {
+      "name": "chat/index.ts",
+      "content": "export { default as Chat } from \"./Chat.vue\"\nexport { default as ChatMessages } from \"./ChatMessages.vue\"\nexport { default as ChatFooter } from \"./ChatFooter.vue\"\nexport { default as ChatEmpty } from \"./ChatEmpty.vue\"\n"
+    }
+  ]
+}

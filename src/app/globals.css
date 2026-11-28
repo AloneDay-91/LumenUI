@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* The Vue sources and playground ship their own CSS; keep their classes out of the site build. */
+@source not "../../vue";
 @import "tw-animate-css";
 
 /* `.light` forces light tokens inside a dark page (the theme demo); `dark:` stops at it. */
@@ -344,6 +346,21 @@
 .docs-article [data-docs-panel] > section > :is(h2, h3):first-child,
 .docs-article [data-docs-panel] > section > div:first-child > :is(h2, h3):first-child {
   @apply mt-0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .docs-framework-swap {
+    animation: docs-framework-swap 220ms ease-out;
+  }
+}
+
+@keyframes docs-framework-swap {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* An example demo written straight into a section, right before its code,

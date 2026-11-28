@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     "ds-bundle/**",
     ".ds-sync/**",
     ".design-sync/**",
+    // Vue sources: checked by vue-tsc in vue/ (npm run typecheck --prefix vue)
+    "vue/**",
   ]),
   {
     files: ["cli/**/*.js", "scripts/**/*.mjs"],

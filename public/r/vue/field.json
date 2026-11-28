@@ -1,0 +1,41 @@
+{
+  "name": "field",
+  "title": "Field",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "field/Field.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, useId, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { fieldKey } from \"./context\"\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"]\n  /** Marks the control aria-invalid and shows FieldError. */\n  invalid?: boolean\n  disabled?: boolean\n  name?: string\n}>()\n\nconst id = useId()\nprovide(fieldKey, {\n  controlId: `${id}-control`,\n  descriptionId: `${id}-description`,\n  errorId: `${id}-error`,\n  invalid: computed(() => props.invalid),\n  disabled: computed(() => props.disabled),\n  name: computed(() => props.name),\n})\n</script>\n\n<template>\n  <div\n    data-slot=\"field\"\n    :data-invalid=\"invalid ? '' : undefined\"\n    :data-disabled=\"disabled ? '' : undefined\"\n    :class=\"cn('flex flex-col gap-1.5', props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "field/FieldControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { inject, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { inputClassName } from \"@/components/ui/styles\"\nimport { fieldKey } from \"./context\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst model = defineModel<string | number>()\nconst field = inject(fieldKey, undefined)\n</script>\n\n<template>\n  <input\n    v-model=\"model\"\n    data-slot=\"field-control\"\n    :id=\"field?.controlId\"\n    :name=\"field?.name.value\"\n    :disabled=\"field?.disabled.value || undefined\"\n    :aria-invalid=\"field?.invalid.value || undefined\"\n    :aria-describedby=\"\n      field ? (field.invalid.value ? `${field.descriptionId} ${field.errorId}` : field.descriptionId) : undefined\n    \"\n    :class=\"cn(inputClassName, props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "field/FieldDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport { inject, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { fieldKey } from \"./context\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst field = inject(fieldKey, undefined)\n</script>\n\n<template>\n  <p\n    data-slot=\"field-description\"\n    :id=\"field?.descriptionId\"\n    :class=\"cn('text-xs text-muted-foreground', props.class)\"\n  >\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "field/FieldError.vue",
+      "content": "<script setup lang=\"ts\">\nimport { inject, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { fieldKey } from \"./context\"\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"]\n  /** Show the message even when the Field is not invalid. */\n  forceShow?: boolean\n}>()\nconst field = inject(fieldKey, undefined)\n</script>\n\n<template>\n  <p\n    v-if=\"forceShow || !field || field.invalid.value\"\n    data-slot=\"field-error\"\n    :id=\"field?.errorId\"\n    aria-live=\"polite\"\n    :class=\"cn('text-xs text-destructive', props.class)\"\n  >\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "field/FieldLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { inject, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { fieldKey } from \"./context\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst field = inject(fieldKey, undefined)\n</script>\n\n<template>\n  <label\n    data-slot=\"field-label\"\n    :for=\"field?.controlId\"\n    :data-disabled=\"field?.disabled.value ? '' : undefined\"\n    :class=\"cn('text-xs font-medium data-disabled:opacity-50', props.class)\"\n  >\n    <slot />\n  </label>\n</template>\n"
+    },
+    {
+      "name": "field/context.ts",
+      "content": "import type { ComputedRef, InjectionKey } from \"vue\"\n\nexport interface FieldContext {\n  controlId: string\n  descriptionId: string\n  errorId: string\n  invalid: ComputedRef<boolean>\n  disabled: ComputedRef<boolean>\n  name: ComputedRef<string | undefined>\n}\n\nexport const fieldKey: InjectionKey<FieldContext> = Symbol(\"LumenField\")\n"
+    },
+    {
+      "name": "field/index.ts",
+      "content": "export { default as Field } from \"./Field.vue\"\nexport { default as FieldLabel } from \"./FieldLabel.vue\"\nexport { default as FieldControl } from \"./FieldControl.vue\"\nexport { default as FieldDescription } from \"./FieldDescription.vue\"\nexport { default as FieldError } from \"./FieldError.vue\"\n"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "accordion",
+  "title": "Accordion",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "accordion/Accordion.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AccordionRoot, useForwardPropsEmits, type AccordionRootProps, type AccordionRootEmits } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AccordionRootProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<AccordionRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <AccordionRoot\n    data-slot=\"accordion\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex w-full flex-col', props.class)\"\n  >\n    <slot />\n  </AccordionRoot>\n</template>\n"
+    },
+    {
+      "name": "accordion/AccordionItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AccordionItem, useForwardProps, type AccordionItemProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AccordionItemProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <AccordionItem\n    data-slot=\"accordion-item\"\n    v-bind=\"forwarded\"\n    :class=\"cn('border-b border-border', props.class)\"\n  >\n    <slot />\n  </AccordionItem>\n</template>\n"
+    },
+    {
+      "name": "accordion/AccordionPanel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AccordionContent, useForwardProps, type AccordionContentProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AccordionContentProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <AccordionContent\n    data-slot=\"accordion-panel\"\n    v-bind=\"forwarded\"\n    :class=\"cn('overflow-hidden text-xs text-muted-foreground data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down', props.class)\"\n  >\n    <div class=\"pb-3\"><slot /></div>\n  </AccordionContent>\n</template>\n"
+    },
+    {
+      "name": "accordion/AccordionTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ChevronDown } from \"@lucide/vue\"\nimport { AccordionHeader, AccordionTrigger, type AccordionTriggerProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AccordionTriggerProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <AccordionHeader class=\"flex\">\n    <AccordionTrigger\n      data-slot=\"accordion-trigger\"\n      v-bind=\"delegated\"\n      :class=\"\n        cn(\n          'flex flex-1 items-center justify-between gap-3 py-3 text-left text-sm font-medium outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',\n          props.class,\n        )\n      \"\n    >\n      <slot />\n      <ChevronDown class=\"size-4 shrink-0 text-muted-foreground transition-transform duration-200\" />\n    </AccordionTrigger>\n  </AccordionHeader>\n</template>\n"
+    },
+    {
+      "name": "accordion/index.ts",
+      "content": "export { default as Accordion } from \"./Accordion.vue\"\nexport { default as AccordionItem } from \"./AccordionItem.vue\"\nexport { default as AccordionTrigger } from \"./AccordionTrigger.vue\"\nexport { default as AccordionPanel } from \"./AccordionPanel.vue\"\n"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "navigation-menu",
+  "title": "Navigation Menu",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "navigation-menu/NavigationMenu.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  NavigationMenuRoot,\n  useForwardPropsEmits,\n  type NavigationMenuRootEmits,\n  type NavigationMenuRootProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = withDefaults(defineProps<NavigationMenuRootProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  // Base UI's `delay` of 0: panels open as soon as the pointer reaches a trigger.\n  delayDuration: 0,\n  as: \"nav\",\n  orientation: \"horizontal\",\n  skipDelayDuration: 300,\n  unmountOnHide: true,\n})\nconst emits = defineEmits<NavigationMenuRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <NavigationMenuRoot\n    v-slot=\"slotProps\"\n    data-slot=\"navigation-menu\"\n    v-bind=\"forwarded\"\n    :class=\"cn('group/navigation-menu relative flex w-full flex-col', props.class)\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </NavigationMenuRoot>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuBackdrop.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { injectNavigationMenuContext } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst menu = injectNavigationMenuContext()\nconst open = computed(() => !!menu.modelValue.value)\n</script>\n\n<template>\n  <div\n    data-slot=\"navigation-menu-backdrop\"\n    role=\"presentation\"\n    :data-state=\"open ? 'open' : 'closed'\"\n    :class=\"\n      cn(\n        'pointer-events-none fixed inset-0 z-0 hidden bg-background/40 backdrop-blur-sm data-[state=open]:block',\n        props.class,\n      )\n    \"\n  />\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  NavigationMenuContent,\n  useForwardPropsEmits,\n  type NavigationMenuContentEmits,\n  type NavigationMenuContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NavigationMenuContentProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<NavigationMenuContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <NavigationMenuContent\n    data-slot=\"navigation-menu-content\"\n    v-bind=\"forwarded\"\n    :class=\"cn('w-full', props.class)\"\n  >\n    <slot />\n  </NavigationMenuContent>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"]; title?: string }>()\n</script>\n\n<template>\n  <div data-slot=\"navigation-menu-group\" :class=\"cn('flex flex-col items-start gap-6', props.class)\">\n    <p v-if=\"title\" class=\"text-sm text-muted-foreground\">{{ title }}</p>\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { injectNavigationMenuContext, injectNavigationMenuItemContext, Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Goes inside NavigationMenuTrigger, e.g. around a ChevronDown; turns over while its panel is open. */\nconst props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  as: \"span\",\n})\n\nconst menu = injectNavigationMenuContext()\nconst item = injectNavigationMenuItemContext()\nconst open = computed(() => menu.modelValue.value === item.value)\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"navigation-menu-icon\"\n    aria-hidden=\"true\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :data-state=\"open ? 'open' : 'closed'\"\n    :class=\"cn('ml-1 inline-flex size-3 transition duration-200 data-[state=open]:rotate-180', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { NavigationMenuItem, type NavigationMenuItemProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NavigationMenuItemProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <NavigationMenuItem\n    data-slot=\"navigation-menu-item\"\n    v-bind=\"delegated\"\n    :class=\"cn('flex items-center', props.class)\"\n  >\n    <slot />\n  </NavigationMenuItem>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuLink.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { NavigationMenuLink, type NavigationMenuLinkEmits, type NavigationMenuLinkProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { navigationMenuLinkVariants, type NavigationMenuLinkVariantProps } from \"./variants\"\n\nconst props = withDefaults(\n  defineProps<\n    NavigationMenuLinkProps & {\n      class?: HTMLAttributes[\"class\"]\n      variant?: NavigationMenuLinkVariantProps[\"variant\"]\n      /** Close the menu when the link is chosen. */\n      closeOnClick?: boolean\n    }\n  >(),\n  { variant: \"default\", closeOnClick: true, as: \"a\" },\n)\nconst emits = defineEmits<NavigationMenuLinkEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, variant: _variant, closeOnClick: _closeOnClick, ...rest } = props\n  return rest\n})\n\nfunction onSelect(event: CustomEvent<{ originalEvent: Event }>) {\n  emits(\"select\", event)\n  // Reka closes the menu on select unless the event is prevented.\n  if (!props.closeOnClick) event.preventDefault()\n}\n</script>\n\n<template>\n  <NavigationMenuLink\n    data-slot=\"navigation-menu-link\"\n    v-bind=\"delegated\"\n    :class=\"cn(navigationMenuLinkVariants({ variant }), props.class)\"\n    @select=\"onSelect\"\n  >\n    <slot />\n  </NavigationMenuLink>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuList.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { NavigationMenuList, type NavigationMenuListProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NavigationMenuListProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <NavigationMenuList\n    data-slot=\"navigation-menu-list\"\n    v-bind=\"delegated\"\n    :class=\"cn('flex items-center gap-8', props.class)\"\n  >\n    <slot />\n  </NavigationMenuList>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuPanel.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div\n    data-slot=\"navigation-menu-panel\"\n    :class=\"cn('mx-auto grid min-h-72 w-full grid-cols-2 gap-10 px-6 pt-12 pb-16 md:px-12', props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuPopup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { injectNavigationMenuContext } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst menu = injectNavigationMenuContext()\nconst open = computed(() => !!menu.modelValue.value)\n</script>\n\n<template>\n  <div\n    data-slot=\"navigation-menu-popup\"\n    :data-state=\"open ? 'open' : 'closed'\"\n    :class=\"\n      cn(\n        'relative z-10 w-full overflow-hidden border-b border-transparent bg-background text-foreground duration-150 data-[state=open]:border-border data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-1 data-[state=closed]:animate-out data-[state=closed]:fade-out-0',\n        props.class,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuPortal.vue",
+      "content": "<script setup lang=\"ts\">\n/**\n * Renders the popup inside the NavigationMenu element by default, as the React version\n * does. Pass `container` (an element or a selector) to teleport it elsewhere.\n */\nconst props = defineProps<{\n  container?: string | HTMLElement | null\n  disabled?: boolean\n  defer?: boolean\n}>()\n</script>\n\n<template>\n  <Teleport v-if=\"props.container && !props.disabled\" :to=\"props.container\" :defer=\"props.defer\">\n    <slot />\n  </Teleport>\n  <slot v-else />\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { injectNavigationMenuContext } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Pins the popup full width under the menu bar. `side`, `align`, `sideOffset` and\n * `collisionPadding` are written as data attributes only: like in React, the\n * classes below override any floating placement.\n */\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    side?: \"top\" | \"right\" | \"bottom\" | \"left\"\n    align?: \"start\" | \"center\" | \"end\"\n    sideOffset?: number\n    collisionPadding?: number\n  }>(),\n  { side: \"bottom\", align: \"start\", sideOffset: 0, collisionPadding: 0 },\n)\n\nconst menu = injectNavigationMenuContext()\nconst open = computed(() => !!menu.modelValue.value)\n</script>\n\n<template>\n  <div\n    data-slot=\"navigation-menu-positioner\"\n    :data-side=\"side\"\n    :data-align=\"align\"\n    :data-state=\"open ? 'open' : 'closed'\"\n    :class=\"cn('absolute! top-full! left-0! z-50 w-full max-w-none transform-none!', props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { NavigationMenuTrigger, type NavigationMenuTriggerProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { navigationMenuTriggerStyle } from \"./variants\"\n\nconst props = defineProps<NavigationMenuTriggerProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <NavigationMenuTrigger\n    data-slot=\"navigation-menu-trigger\"\n    v-bind=\"delegated\"\n    :class=\"cn(navigationMenuTriggerStyle(), props.class)\"\n  >\n    <slot />\n  </NavigationMenuTrigger>\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/NavigationMenuViewport.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { NavigationMenuViewport, type NavigationMenuViewportProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NavigationMenuViewportProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <NavigationMenuViewport\n    data-slot=\"navigation-menu-viewport\"\n    v-bind=\"delegated\"\n    :class=\"cn('relative w-full overflow-hidden', props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "navigation-menu/index.ts",
+      "content": "export { default as NavigationMenu } from \"./NavigationMenu.vue\"\nexport { default as NavigationMenuList } from \"./NavigationMenuList.vue\"\nexport { default as NavigationMenuItem } from \"./NavigationMenuItem.vue\"\nexport { default as NavigationMenuContent } from \"./NavigationMenuContent.vue\"\nexport { default as NavigationMenuTrigger } from \"./NavigationMenuTrigger.vue\"\nexport { default as NavigationMenuIcon } from \"./NavigationMenuIcon.vue\"\nexport { default as NavigationMenuLink } from \"./NavigationMenuLink.vue\"\nexport { default as NavigationMenuPortal } from \"./NavigationMenuPortal.vue\"\nexport { default as NavigationMenuBackdrop } from \"./NavigationMenuBackdrop.vue\"\nexport { default as NavigationMenuPositioner } from \"./NavigationMenuPositioner.vue\"\nexport { default as NavigationMenuPopup } from \"./NavigationMenuPopup.vue\"\nexport { default as NavigationMenuViewport } from \"./NavigationMenuViewport.vue\"\nexport { default as NavigationMenuPanel } from \"./NavigationMenuPanel.vue\"\nexport { default as NavigationMenuGroup } from \"./NavigationMenuGroup.vue\"\nexport {\n  navigationMenuTriggerStyle,\n  navigationMenuLinkVariants,\n  type NavigationMenuLinkVariantProps,\n} from \"./variants\"\n"
+    },
+    {
+      "name": "navigation-menu/variants.ts",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nexport const navigationMenuTriggerStyle = cva(\n  \"-mx-2 -my-1 cursor-pointer rounded-full px-2 py-1 text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 data-[state=open]:text-foreground\"\n)\n\nexport const navigationMenuLinkVariants = cva(\n  \"inline-flex items-center gap-2 rounded-full text-foreground transition-colors outline-none hover:text-muted-foreground focus-visible:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/50\",\n  {\n    variants: {\n      variant: {\n        default: \"text-sm\",\n        featured: \"text-lg font-normal\",\n        muted:\n          \"-mx-2 -my-1 px-2 py-1 text-sm text-muted-foreground hover:text-foreground focus-visible:text-foreground\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nexport type NavigationMenuLinkVariantProps = VariantProps<typeof navigationMenuLinkVariants>\n\n"
+    }
+  ]
+}

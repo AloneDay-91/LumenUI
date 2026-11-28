@@ -1,0 +1,35 @@
+{
+  "name": "tooltip",
+  "title": "Tooltip",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "tooltip/Tooltip.vue",
+      "content": "<script setup lang=\"ts\">\nimport {\n  TooltipProvider,\n  TooltipRoot,\n  useForwardPropsEmits,\n  type TooltipRootEmits,\n  type TooltipRootProps,\n} from \"reka-ui\"\n\nconst props = defineProps<TooltipRootProps>()\nconst emits = defineEmits<TooltipRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <!-- Reka needs a provider above every tooltip. This one makes a lone Tooltip work;\n       wrap a group in TooltipProvider to share its delay. -->\n  <TooltipProvider>\n    <TooltipRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n      <slot v-bind=\"slotProps\" />\n    </TooltipRoot>\n  </TooltipProvider>\n</template>\n"
+    },
+    {
+      "name": "tooltip/TooltipContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  TooltipContent,\n  TooltipPortal,\n  useForwardPropsEmits,\n  type TooltipContentEmits,\n  type TooltipContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { popupClassName } from \"@/components/ui/styles\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = withDefaults(defineProps<TooltipContentProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  sideOffset: 6,\n})\nconst emits = defineEmits<TooltipContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <TooltipPortal>\n    <TooltipContent\n      data-slot=\"tooltip-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"cn(popupClassName, 'z-50 max-w-xs px-2.5 py-1.5 text-xs', props.class)\"\n    >\n      <slot />\n    </TooltipContent>\n  </TooltipPortal>\n</template>\n"
+    },
+    {
+      "name": "tooltip/TooltipProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipProvider, useForwardProps, type TooltipProviderProps } from \"reka-ui\"\n\nconst props = defineProps<TooltipProviderProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <TooltipProvider v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </TooltipProvider>\n</template>\n"
+    },
+    {
+      "name": "tooltip/TooltipTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipTrigger, useForwardProps, type TooltipTriggerProps } from \"reka-ui\"\n\nconst props = defineProps<TooltipTriggerProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <TooltipTrigger v-slot=\"slotProps\" data-slot=\"tooltip-trigger\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </TooltipTrigger>\n</template>\n"
+    },
+    {
+      "name": "tooltip/index.ts",
+      "content": "export { default as TooltipProvider } from \"./TooltipProvider.vue\"\nexport { default as Tooltip } from \"./Tooltip.vue\"\nexport { default as TooltipTrigger } from \"./TooltipTrigger.vue\"\nexport { default as TooltipContent } from \"./TooltipContent.vue\"\n"
+    }
+  ]
+}

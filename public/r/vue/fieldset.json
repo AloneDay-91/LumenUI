@@ -1,0 +1,30 @@
+{
+  "name": "fieldset",
+  "title": "Fieldset",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "fieldset/Fieldset.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, ref, type HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { fieldsetContextKey } from \"./context\"\n\nconst props = withDefaults(\n  defineProps<PrimitiveProps & { disabled?: boolean; class?: HTMLAttributes[\"class\"] }>(),\n  { as: \"fieldset\", disabled: false }\n)\n\n// The legend registers its id here, so the fieldset is labelled by it.\nconst legendId = ref<string>()\nprovide(fieldsetContextKey, { legendId, disabled: computed(() => props.disabled) })\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"fieldset\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :disabled=\"disabled || undefined\"\n    :data-disabled=\"disabled ? '' : undefined\"\n    :aria-labelledby=\"legendId\"\n    :class=\"cn('flex flex-col gap-3', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "fieldset/FieldsetLegend.vue",
+      "content": "<script setup lang=\"ts\">\nimport { inject, onBeforeUnmount, useId, watchEffect, type HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { fieldsetContextKey } from \"./context\"\n\nconst props = withDefaults(\n  defineProps<PrimitiveProps & { id?: string; class?: HTMLAttributes[\"class\"] }>(),\n  { as: \"div\" }\n)\n\nconst context = inject(fieldsetContextKey, null)\nconst generatedId = useId()\n\nwatchEffect(() => {\n  if (context) context.legendId.value = props.id ?? generatedId\n})\nonBeforeUnmount(() => {\n  if (context) context.legendId.value = undefined\n})\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"fieldset-legend\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :id=\"props.id ?? generatedId\"\n    :data-disabled=\"context?.disabled.value ? '' : undefined\"\n    :class=\"cn('text-xs font-medium', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "fieldset/context.ts",
+      "content": "import type { InjectionKey, Ref } from \"vue\"\n\nexport interface FieldsetContext {\n  legendId: Ref<string | undefined>\n  disabled: Ref<boolean>\n}\n\nexport const fieldsetContextKey: InjectionKey<FieldsetContext> = Symbol(\"Fieldset\")\n"
+    },
+    {
+      "name": "fieldset/index.ts",
+      "content": "export { default as Fieldset } from \"./Fieldset.vue\"\nexport { default as FieldsetLegend } from \"./FieldsetLegend.vue\"\n"
+    }
+  ]
+}

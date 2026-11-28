@@ -1,0 +1,23 @@
+{
+  "name": "checkbox",
+  "title": "Checkbox",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "checkbox/Checkbox.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Check, Minus } from \"@lucide/vue\"\nimport { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits, type CheckboxRootProps, type CheckboxRootEmits } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<CheckboxRootProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<CheckboxRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <CheckboxRoot\n    data-slot=\"checkbox\"\n    v-bind=\"forwarded\"\n    :class=\"cn('group/checkbox peer flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-md border border-transparent bg-input/50 text-primary-foreground transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground aria-invalid:border-destructive', props.class)\"\n  >\n    <CheckboxIndicator\n      data-slot=\"checkbox-indicator\"\n      class=\"flex items-center justify-center text-current\"\n    >\n      <Minus class=\"hidden size-3 group-data-[state=indeterminate]/checkbox:block\" />\n      <Check class=\"size-3 group-data-[state=indeterminate]/checkbox:hidden\" />\n    </CheckboxIndicator>\n  </CheckboxRoot>\n</template>\n"
+    },
+    {
+      "name": "checkbox/index.ts",
+      "content": "export { default as Checkbox } from \"./Checkbox.vue\"\n"
+    }
+  ]
+}

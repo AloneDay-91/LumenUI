@@ -1,0 +1,47 @@
+{
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "breadcrumb/Breadcrumb.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <nav data-slot=\"breadcrumb\" aria-label=\"Breadcrumb\" :class=\"props.class\">\n    <slot />\n  </nav>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/BreadcrumbEllipsis.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { ButtonHTMLAttributes, HTMLAttributes } from \"vue\"\nimport { MoreHorizontal } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = withDefaults(\n  defineProps<{ class?: HTMLAttributes[\"class\"]; type?: ButtonHTMLAttributes[\"type\"] }>(),\n  { type: \"button\" }\n)\n</script>\n\n<template>\n  <!-- A native <button>: the collapsed steps have to stay reachable, and a menu\n       trigger (as-child) needs a real button to keep its semantics. -->\n  <button\n    data-slot=\"breadcrumb-ellipsis\"\n    :type=\"type\"\n    :class=\"\n      cn(\n        'flex size-5 items-center justify-center rounded-md transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none [&>svg]:size-3.5',\n        props.class,\n      )\n    \"\n  >\n    <slot><MoreHorizontal /></slot>\n    <span class=\"sr-only\">More</span>\n  </button>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/BreadcrumbItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <li data-slot=\"breadcrumb-item\" :class=\"cn('inline-flex min-w-0 items-center gap-1.5', props.class)\">\n    <slot />\n  </li>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/BreadcrumbLink.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n// `as-child` renders your own link component (RouterLink, NuxtLink) with these classes.\nconst props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  as: \"a\",\n})\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"breadcrumb-link\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn('truncate transition-colors hover:text-foreground', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/BreadcrumbList.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <ol\n    data-slot=\"breadcrumb-list\"\n    :class=\"cn('flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground', props.class)\"\n  >\n    <slot />\n  </ol>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/BreadcrumbPage.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <!-- Not a link, but announced as the current step rather than as plain text. -->\n  <span\n    data-slot=\"breadcrumb-page\"\n    role=\"link\"\n    aria-disabled=\"true\"\n    aria-current=\"page\"\n    :class=\"cn('truncate font-medium text-foreground', props.class)\"\n  >\n    <slot />\n  </span>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/BreadcrumbSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { ChevronRight } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <li\n    data-slot=\"breadcrumb-separator\"\n    role=\"presentation\"\n    aria-hidden=\"true\"\n    :class=\"cn('[&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:text-muted-foreground', props.class)\"\n  >\n    <slot><ChevronRight /></slot>\n  </li>\n</template>\n"
+    },
+    {
+      "name": "breadcrumb/index.ts",
+      "content": "export { default as Breadcrumb } from \"./Breadcrumb.vue\"\nexport { default as BreadcrumbList } from \"./BreadcrumbList.vue\"\nexport { default as BreadcrumbItem } from \"./BreadcrumbItem.vue\"\nexport { default as BreadcrumbLink } from \"./BreadcrumbLink.vue\"\nexport { default as BreadcrumbPage } from \"./BreadcrumbPage.vue\"\nexport { default as BreadcrumbSeparator } from \"./BreadcrumbSeparator.vue\"\nexport { default as BreadcrumbEllipsis } from \"./BreadcrumbEllipsis.vue\"\n"
+    }
+  ]
+}

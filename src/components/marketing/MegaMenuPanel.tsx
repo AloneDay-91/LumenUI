@@ -7,6 +7,7 @@ import {
   NavigationMenuGroup,
   NavigationMenuLink,
   NavigationMenuPanel,
+  useNavigationMenuVariant,
 } from "@/components/ui/NavigationMenu";
 import { MenuFigure } from "@/components/marketing/menu-figures";
 import { buttonVariants } from "@/components/ui/button-variants";
@@ -21,29 +22,57 @@ import { cn } from "@/lib/utils";
 export function MegaMenuPanel({
   menu,
   className,
+  dense = false,
 }: {
   menu: NavMenu;
   className?: string;
+  /** Fit the panel in a narrow preview. The floating header menu does this on its own. */
+  dense?: boolean;
 }) {
+  const variant = useNavigationMenuVariant();
+  const compact = dense || variant === "panel";
+
+  if (variant === "panel") {
+    const links = [menu.featured, ...menu.sections].flatMap((group) => group.items);
+    if (menu.more) links.push(menu.more);
+    return (
+      <ul className="grid w-[36rem] max-w-[calc(100vw-2rem)] grid-cols-2 gap-0.5 p-1">
+        {links.map((item) => (
+          <li key={item.href + item.label}>
+            <PanelLink item={item} detail />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
   return (
     <NavigationMenuPanel
       className={cn(
-        LANDING_MAX_WIDTH,
-        "md:grid-cols-[minmax(10rem,13rem)_minmax(0,1fr)] lg:grid-cols-[minmax(10rem,13rem)_minmax(0,1fr)_minmax(17rem,20rem)]",
+        compact
+          ? "min-h-0"
+          : cn(
+              LANDING_MAX_WIDTH,
+              "md:grid-cols-[minmax(10rem,13rem)_minmax(0,1fr)] lg:grid-cols-[minmax(10rem,13rem)_minmax(0,1fr)_minmax(17rem,20rem)]",
+            ),
         className,
       )}
     >
-      <NavigationMenuGroup title={menu.featured.title}>
+      <NavigationMenuGroup title={menu.featured.title} className={compact ? "gap-3" : undefined}>
         <div className="flex flex-col items-start gap-4">
           {menu.featured.items.map((item) => (
-            <PanelLink key={item.href + item.label} item={item} featured />
+            <PanelLink key={item.href + item.label} item={item} featured={!compact} />
           ))}
         </div>
       </NavigationMenuGroup>
-      <div className="flex flex-col gap-10">
+      <div className={cn("flex flex-col", compact ? "gap-6" : "gap-10")}>
         <div className="grid grid-cols-3 gap-x-8">
           {menu.sections.map((section) => (
-            <NavigationMenuGroup key={section.title} title={section.title}>
+            <NavigationMenuGroup
+              key={section.title}
+              title={section.title}
+              className={compact ? "gap-3" : undefined}
+            >
               <ul className="flex flex-col items-start gap-2.5">
                 {section.items.map((item) => (
                   <li key={item.href + item.label}>
@@ -65,7 +94,7 @@ export function MegaMenuPanel({
           </NavigationMenuLink>
         ) : null}
       </div>
-      <PanelCard card={menu.card} />
+      {compact ? null : <PanelCard card={menu.card} />}
     </NavigationMenuPanel>
   );
 }
@@ -112,12 +141,22 @@ function PanelCard({ card }: { card: NavMenuCard }) {
 function PanelLink({
   item,
   featured,
+  detail,
 }: {
   item: NavMenuLink;
   featured?: boolean;
+  /** Title and description, the same row as the docs panel. */
+  detail?: boolean;
 }) {
   const external = item.target === "_blank" || item.href.startsWith("http");
-  const label = (
+  const label = detail ? (
+    <>
+      {item.label}
+      {item.description ? (
+        <span className="text-xs leading-snug text-muted-foreground">{item.description}</span>
+      ) : null}
+    </>
+  ) : (
     <>
       {item.label}
       {featured && external ? (
@@ -132,7 +171,7 @@ function PanelLink({
         href={item.href}
         target="_blank"
         rel="noreferrer"
-        variant={featured ? "featured" : "default"}
+        variant={detail ? "item" : featured ? "featured" : "default"}
       >
         {label}
       </NavigationMenuLink>
@@ -141,7 +180,7 @@ function PanelLink({
 
   return (
     <NavigationMenuLink
-      variant={featured ? "featured" : "default"}
+      variant={detail ? "item" : featured ? "featured" : "default"}
       render={<Link href={item.href} />}
     >
       {label}

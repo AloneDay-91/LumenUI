@@ -1,0 +1,24 @@
+{
+  "name": "copy-button",
+  "title": "Copy Button",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "copy-button/CopyButton.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, onBeforeUnmount, ref, useSlots, type HTMLAttributes } from \"vue\"\nimport { Check, Copy } from \"@lucide/vue\"\nimport type { PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button, type ButtonVariantProps } from \"@/components/ui/button\"\n\ndefineOptions({ inheritAttrs: false })\n\n/**\n * Copies `value` to the clipboard and swaps to a check for `timeout` ms.\n * Without slot content it is an icon button; with slot content the label swaps too.\n */\nconst props = withDefaults(\n  defineProps<\n    PrimitiveProps & {\n      /** Text to copy, or a function that returns it at click time. */\n      value: string | (() => string)\n      timeout?: number\n      /** Accessible name before the copy, and the visible label when the slot is set. */\n      label?: string\n      copiedLabel?: string\n      variant?: ButtonVariantProps[\"variant\"]\n      size?: ButtonVariantProps[\"size\"]\n      disabled?: boolean\n      loading?: boolean\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { as: \"button\", timeout: 2000, label: \"Copy\", copiedLabel: \"Copied\", variant: \"ghost\" }\n)\n\nconst emit = defineEmits<{\n  /** Runs before the copy; call event.preventDefault() to cancel it. */\n  click: [event: MouseEvent]\n  copy: [value: string]\n}>()\n\nconst slots = useSlots()\nconst iconOnly = computed(() => !slots.default)\n\nconst copied = ref(false)\nlet timer: ReturnType<typeof setTimeout> | undefined\nonBeforeUnmount(() => clearTimeout(timer))\n\nasync function copy(event: MouseEvent) {\n  emit(\"click\", event)\n  if (event.defaultPrevented) return\n  const text = typeof props.value === \"function\" ? props.value() : props.value\n  try {\n    await navigator.clipboard.writeText(text)\n  } catch {\n    return\n  }\n  copied.value = true\n  emit(\"copy\", text)\n  clearTimeout(timer)\n  timer = setTimeout(() => (copied.value = false), props.timeout)\n}\n</script>\n\n<template>\n  <Button\n    data-slot=\"copy-button\"\n    :data-copied=\"copied ? '' : undefined\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :variant=\"variant\"\n    :size=\"size ?? (iconOnly ? 'icon-sm' : 'default')\"\n    :disabled=\"disabled\"\n    :loading=\"loading\"\n    :aria-label=\"iconOnly ? (copied ? copiedLabel : label) : undefined\"\n    v-bind=\"$attrs\"\n    :class=\"cn(iconOnly && 'text-muted-foreground hover:text-foreground', props.class)\"\n    @click=\"copy\"\n  >\n    <component\n      :is=\"copied ? Check : Copy\"\n      aria-hidden=\"true\"\n      :data-icon=\"iconOnly ? undefined : 'inline-start'\"\n      :class=\"cn(copied && 'text-jade-ink')\"\n    />\n    <template v-if=\"!iconOnly\">\n      <template v-if=\"copied\">{{ copiedLabel }}</template>\n      <slot v-else />\n    </template>\n  </Button>\n  <!-- Outside the button, so it announces without joining the button's name. -->\n  <span role=\"status\" class=\"sr-only\">{{ copied ? copiedLabel : \"\" }}</span>\n</template>\n"
+    },
+    {
+      "name": "copy-button/index.ts",
+      "content": "export { default as CopyButton } from \"./CopyButton.vue\"\n"
+    }
+  ]
+}

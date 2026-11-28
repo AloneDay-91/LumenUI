@@ -1,0 +1,22 @@
+{
+  "name": "meter",
+  "title": "Meter",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "meter/Meter.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = withDefaults(\n  defineProps<\n    PrimitiveProps & {\n      value: number\n      min?: number\n      max?: number\n      /** One locale on the server and in the browser, so \"60%\" does not become \"60 %\". */\n      locale?: Intl.LocalesArgument\n      /** Options for Intl.NumberFormat. Defaults to a percentage of the range. */\n      format?: Intl.NumberFormatOptions\n      /** Text read by screen readers in place of the formatted value. */\n      getAriaValueText?: (formattedValue: string, value: number) => string\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { min: 0, max: 100, locale: \"en-US\", as: \"div\" }\n)\n\nconst percentage = computed(() => {\n  const range = props.max - props.min\n  if (range <= 0 || Number.isNaN(props.value)) return 0\n  return Math.min(100, Math.max(0, ((props.value - props.min) / range) * 100))\n})\n\n// Clamped like Base UI, so the text, aria-valuenow and the fill stay in sync.\nconst clampedValue = computed(() =>\n  Number.isNaN(props.value) ? props.min : Math.min(props.max, Math.max(props.min, props.value))\n)\n\nconst formattedValue = computed(() => {\n  if (props.format) return new Intl.NumberFormat(props.locale, props.format).format(clampedValue.value)\n  return new Intl.NumberFormat(props.locale, { style: \"percent\" }).format(percentage.value / 100)\n})\n\nconst ariaValueText = computed(() =>\n  props.getAriaValueText ? props.getAriaValueText(formattedValue.value, props.value) : formattedValue.value\n)\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"meter\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    role=\"meter\"\n    :aria-valuenow=\"clampedValue\"\n    :aria-valuemin=\"min\"\n    :aria-valuemax=\"max\"\n    :aria-valuetext=\"ariaValueText\"\n    :class=\"cn('flex flex-col gap-1.5', props.class)\"\n  >\n    <slot :value=\"value\" :percentage=\"percentage\" :formatted-value=\"formattedValue\">\n      <div data-slot=\"meter-track\" class=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n        <div\n          data-slot=\"meter-indicator\"\n          class=\"h-full bg-primary\"\n          :style=\"{ insetInlineStart: 0, height: 'inherit', width: `${percentage}%` }\"\n        />\n      </div>\n    </slot>\n    <!-- Same as Base UI: gives Safari a text node to read the meter. -->\n    <span role=\"presentation\" class=\"sr-only\">x</span>\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "meter/index.ts",
+      "content": "export { default as Meter } from \"./Meter.vue\"\n"
+    }
+  ]
+}

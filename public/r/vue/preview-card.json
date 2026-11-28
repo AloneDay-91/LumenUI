@@ -1,0 +1,31 @@
+{
+  "name": "preview-card",
+  "title": "Preview Card",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "preview-card/PreviewCard.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardRoot, useForwardPropsEmits, type HoverCardRootEmits, type HoverCardRootProps } from \"reka-ui\"\n\n// Base UI's PreviewCard opens after 600ms and closes after 300ms.\nconst props = withDefaults(defineProps<HoverCardRootProps>(), {\n  open: undefined,\n  openDelay: 600,\n  closeDelay: 300,\n})\nconst emits = defineEmits<HoverCardRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <HoverCardRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </HoverCardRoot>\n</template>\n"
+    },
+    {
+      "name": "preview-card/PreviewCardContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { HoverCardContent, HoverCardPortal, useForwardProps, type HoverCardContentProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { popupClassName } from \"@/components/ui/styles\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = withDefaults(defineProps<HoverCardContentProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  sideOffset: 8,\n})\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <HoverCardPortal>\n    <HoverCardContent\n      data-slot=\"preview-card-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"cn(popupClassName, 'isolate z-50 w-72 p-4 text-xs', props.class)\"\n    >\n      <slot />\n    </HoverCardContent>\n  </HoverCardPortal>\n</template>\n"
+    },
+    {
+      "name": "preview-card/PreviewCardTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardTrigger, type HoverCardTriggerProps } from \"reka-ui\"\n\n// Renders a link like Base UI's PreviewCard.Trigger: pass `href` as an attribute.\nconst props = withDefaults(defineProps<HoverCardTriggerProps>(), { as: \"a\" })\n</script>\n\n<template>\n  <HoverCardTrigger data-slot=\"preview-card-trigger\" v-bind=\"props\">\n    <slot />\n  </HoverCardTrigger>\n</template>\n"
+    },
+    {
+      "name": "preview-card/index.ts",
+      "content": "export { default as PreviewCard } from \"./PreviewCard.vue\"\nexport { default as PreviewCardTrigger } from \"./PreviewCardTrigger.vue\"\nexport { default as PreviewCardContent } from \"./PreviewCardContent.vue\"\n"
+    }
+  ]
+}
