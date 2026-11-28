@@ -105,7 +105,7 @@ const navigationMenuTriggerStyle = cva(
 )
 
 const navigationMenuPanelTriggerStyle = cva(
-  "inline-flex h-8 cursor-pointer items-center gap-1 rounded-4xl px-3 text-sm text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 data-popup-open:bg-muted data-popup-open:text-foreground"
+  "inline-flex h-8 cursor-pointer items-center gap-1 rounded-4xl px-3 text-sm text-muted-foreground transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring/50 data-popup-open:bg-accent data-popup-open:text-accent-foreground"
 )
 
 function NavigationMenuTrigger({
@@ -162,7 +162,7 @@ function NavigationMenuContent({
         variantClass(
           variant,
           "w-full",
-          "w-max"
+          "h-full w-max transition-[opacity,transform,translate] duration-(--duration) ease-(--easing) data-starting-style:opacity-0 data-ending-style:opacity-0 data-starting-style:data-[activation-direction=left]:-translate-x-6 data-starting-style:data-[activation-direction=right]:translate-x-6 data-ending-style:data-[activation-direction=left]:translate-x-6 data-ending-style:data-[activation-direction=right]:-translate-x-6"
         ),
         className
       )}
@@ -180,8 +180,8 @@ const navigationMenuLinkVariants = cva(
         featured: "text-lg font-normal",
         muted:
           "-mx-2 -my-1 px-2 py-1 text-sm text-muted-foreground hover:text-foreground focus-visible:text-foreground",
-        pill: "h-8 rounded-4xl px-3 text-sm text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground",
-        item: "w-full flex-col items-start gap-1 rounded-4xl p-3 text-left text-sm leading-snug hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground",
+        pill: "h-8 rounded-4xl px-3 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground",
+        item: "w-full flex-col items-start gap-1 rounded-4xl p-3 text-left text-sm leading-snug hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground",
       },
     },
     defaultVariants: {
@@ -246,9 +246,19 @@ function NavigationMenuPositioner({
   align = "start",
   sideOffset,
   collisionPadding,
+  collisionAvoidance,
+  style,
   ...props
 }: NavigationMenuPrimitive.Positioner.Props) {
   const variant = useNavigationMenuVariant()
+  const panelStyle =
+    variant === "panel"
+      ? ({
+          "--duration": "0.28s",
+          "--easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          ...(typeof style === "object" ? style : undefined),
+        } as React.CSSProperties)
+      : style
 
   return (
     <NavigationMenuPrimitive.Positioner
@@ -257,11 +267,15 @@ function NavigationMenuPositioner({
       align={align}
       sideOffset={sideOffset ?? (variant === "panel" ? 8 : 0)}
       collisionPadding={collisionPadding ?? (variant === "panel" ? 12 : 0)}
+      collisionAvoidance={
+        collisionAvoidance ?? (variant === "panel" ? { side: "none" } : undefined)
+      }
+      style={panelStyle}
       className={cn(
         variantClass(
           variant,
           "absolute! top-full! left-0! z-50 w-full max-w-none transform-none!",
-          "z-50"
+          "z-50 h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-(--duration) ease-(--easing) before:absolute before:content-[''] data-instant:transition-none data-[side=bottom]:before:top-[-8px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0 data-[side=bottom]:before:h-2 data-[side=left]:before:top-0 data-[side=left]:before:right-[-8px] data-[side=left]:before:bottom-0 data-[side=left]:before:w-2 data-[side=right]:before:top-0 data-[side=right]:before:bottom-0 data-[side=right]:before:left-[-8px] data-[side=right]:before:w-2 data-[side=top]:before:right-0 data-[side=top]:before:bottom-[-8px] data-[side=top]:before:left-0 data-[side=top]:before:h-2"
         ),
         className
       )}
@@ -285,7 +299,7 @@ function NavigationMenuPopup({
         variantClass(
           variant,
           "relative z-10 w-full overflow-hidden border-b border-transparent bg-background text-foreground duration-150 data-open:border-border data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-1 data-closed:animate-out data-closed:fade-out-0",
-          "w-max origin-(--transform-origin) overflow-hidden rounded-4xl bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/5 outline-none data-closed:hidden dark:ring-foreground/10"
+          "relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) rounded-4xl border border-border bg-popover text-popover-foreground shadow-lg outline-none transition-[opacity,transform,width,height,scale] duration-(--duration) ease-(--easing) data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 data-ending-style:duration-150 data-ending-style:ease-out"
         ),
         className
       )}
@@ -302,8 +316,8 @@ function NavigationMenuArrow({
     <NavigationMenuPrimitive.Arrow
       data-slot="navigation-menu-arrow"
       className={cn(
-        "size-2.5 rotate-45 border border-border bg-popover",
-        "data-[side=bottom]:top-[-5px] data-[side=left]:right-[-5px] data-[side=right]:left-[-5px] data-[side=top]:bottom-[-5px]",
+        "relative block h-1.5 w-3 overflow-clip transition-[left,right] duration-(--duration) ease-(--easing) before:absolute before:bottom-0 before:left-1/2 before:block before:size-2 before:-translate-x-1/2 before:translate-y-1/2 before:rotate-45 before:border before:border-border before:bg-popover before:content-['']",
+        "data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180",
         className
       )}
       {...props}
@@ -322,7 +336,7 @@ function NavigationMenuViewport({
       data-slot="navigation-menu-viewport"
       className={cn(
         "relative overflow-hidden",
-        variantClass(variant, "w-full", "w-max"),
+        variantClass(variant, "w-full", "h-full w-full rounded-[inherit]"),
         className
       )}
       {...props}
