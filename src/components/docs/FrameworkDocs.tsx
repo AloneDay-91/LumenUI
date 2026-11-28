@@ -1,8 +1,11 @@
 "use client"
 
+import { InfoIcon } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useRef, type ReactNode } from "react"
 
 import { CodeBlock } from "@/components/docs/CodeBlock"
+import { Callout, CalloutIcon, CalloutText } from "@/components/ui/Callout"
 import { useFramework } from "@/lib/use-framework"
 import { vueInstallCommand } from "@/lib/vue-components"
 
@@ -57,12 +60,20 @@ export function FrameworkUsage({
     ) : vue ? (
       <CodeBlock language="html" filename={`${slug}.vue`} code={vue.usage} />
     ) : (
-      <>
-        <p className="text-muted-foreground">
-          This component is not available for Vue yet. The React version is below.
-        </p>
+      <div className="space-y-4">
+        <Callout color="orange" variant="surface">
+          <CalloutIcon>
+            <InfoIcon aria-hidden />
+          </CalloutIcon>
+          <CalloutText>
+            This component is not available for Vue yet. The React version is
+            below — see the{" "}
+            <Link href="/docs/vue#components">Vue guide</Link> for available
+            components.
+          </CalloutText>
+        </Callout>
         {react}
-      </>
+      </div>
     )
 
   return (
