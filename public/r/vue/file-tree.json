@@ -1,0 +1,9 @@
+{
+  "name": "file-tree",
+  "title": "File Tree",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

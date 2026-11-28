@@ -1,0 +1,35 @@
+{
+  "name": "file-upload",
+  "title": "File Upload",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "file-upload/FileUpload.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ref, type HTMLAttributes } from \"vue\"\nimport { Upload } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { matchesAccept, type FileRejection } from \"./utils\"\n\nconst props = withDefaults(\n  defineProps<{\n    accept?: string\n    multiple?: boolean\n    /** Largest accepted file, in bytes. */\n    maxSize?: number\n    disabled?: boolean\n    name?: string\n    id?: string\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { multiple: false },\n)\n\nconst emit = defineEmits<{\n  filesChange: [files: File[]]\n  reject: [rejections: FileRejection[]]\n}>()\n\nconst dragging = ref(false)\nlet depth = 0\n\nfunction handle(list: FileList | null | undefined) {\n  if (!list || props.disabled) return\n  const accepted: File[] = []\n  const rejected: FileRejection[] = []\n  for (const file of Array.from(list)) {\n    if (!matchesAccept(file, props.accept)) rejected.push({ file, reason: \"type\" })\n    else if (props.maxSize !== undefined && file.size > props.maxSize) rejected.push({ file, reason: \"size\" })\n    else accepted.push(file)\n  }\n  const files = props.multiple ? accepted : accepted.slice(0, 1)\n  if (files.length > 0) emit(\"filesChange\", files)\n  if (rejected.length > 0) emit(\"reject\", rejected)\n}\n\nfunction onDragEnter(event: DragEvent) {\n  event.preventDefault()\n  depth += 1\n  if (!props.disabled) dragging.value = true\n}\n\nfunction onDragLeave() {\n  depth -= 1\n  if (depth <= 0) {\n    depth = 0\n    dragging.value = false\n  }\n}\n\nfunction onDrop(event: DragEvent) {\n  event.preventDefault()\n  depth = 0\n  dragging.value = false\n  handle(event.dataTransfer?.files)\n}\n\nfunction onChange(event: Event) {\n  const input = event.target as HTMLInputElement\n  handle(input.files)\n  input.value = \"\"\n}\n</script>\n\n<template>\n  <label\n    data-slot=\"file-upload\"\n    :data-dragging=\"dragging ? '' : undefined\"\n    :data-disabled=\"disabled ? '' : undefined\"\n    :class=\"\n      cn(\n        'flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-[min(var(--radius-4xl),24px)] border border-dashed border-border bg-input/20 px-6 py-8 text-center text-xs text-muted-foreground transition-colors',\n        'hover:bg-input/40 has-focus-visible:border-ring has-focus-visible:ring-3 has-focus-visible:ring-ring/30',\n        'data-dragging:border-ring data-dragging:bg-input/50',\n        'data-disabled:pointer-events-none data-disabled:opacity-50 dark:bg-input/10',\n        props.class,\n      )\n    \"\n    @dragenter=\"onDragEnter\"\n    @dragover.prevent\n    @dragleave=\"onDragLeave\"\n    @drop=\"onDrop\"\n  >\n    <input\n      :id=\"id\"\n      type=\"file\"\n      :name=\"name\"\n      :accept=\"accept\"\n      :multiple=\"multiple\"\n      :disabled=\"disabled\"\n      class=\"sr-only\"\n      @change=\"onChange\"\n    />\n    <slot>\n      <Upload aria-hidden=\"true\" class=\"size-5 text-foreground\" />\n      <span><span class=\"font-medium text-foreground\">Click to upload</span> or drag and drop</span>\n    </slot>\n  </label>\n</template>\n"
+    },
+    {
+      "name": "file-upload/FileUploadItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { File as FileIcon, X } from \"@lucide/vue\"\n\nimport { buttonVariants } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\nimport { formatBytes } from \"./utils\"\n\nconst props = defineProps<{\n  file: File\n  removeLabel?: string\n  class?: HTMLAttributes[\"class\"]\n  /** Bound with @remove. The remove button only renders when a listener is set. */\n  onRemove?: () => void\n}>()\n\nconst label = computed(() => props.removeLabel ?? `Remove ${props.file.name}`)\n\nconst removeClass = cn(buttonVariants({ variant: \"ghost\", size: \"icon-xs\" }), \"text-muted-foreground hover:text-foreground\")\n</script>\n\n<template>\n  <li\n    data-slot=\"file-upload-item\"\n    :class=\"\n      cn(\n        'flex items-center gap-2.5 rounded-2xl bg-card px-3 py-2 text-xs ring-1 ring-foreground/5 dark:ring-foreground/10',\n        props.class,\n      )\n    \"\n  >\n    <FileIcon aria-hidden=\"true\" class=\"size-4 shrink-0 text-muted-foreground\" />\n    <span class=\"min-w-0 flex-1 truncate font-medium\">{{ file.name }}</span>\n    <span class=\"shrink-0 font-mono text-muted-foreground tabular-nums\">{{ formatBytes(file.size) }}</span>\n    <slot />\n    <button v-if=\"onRemove\" type=\"button\" :aria-label=\"label\" :class=\"removeClass\" @click=\"onRemove()\">\n      <X />\n    </button>\n  </li>\n</template>\n"
+    },
+    {
+      "name": "file-upload/FileUploadList.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <ul data-slot=\"file-upload-list\" :class=\"cn('flex flex-col gap-1.5', props.class)\">\n    <slot />\n  </ul>\n</template>\n"
+    },
+    {
+      "name": "file-upload/index.ts",
+      "content": "export { default as FileUpload } from \"./FileUpload.vue\"\nexport { default as FileUploadList } from \"./FileUploadList.vue\"\nexport { default as FileUploadItem } from \"./FileUploadItem.vue\"\nexport { formatBytes, type FileRejection } from \"./utils\"\n"
+    },
+    {
+      "name": "file-upload/utils.ts",
+      "content": "export type FileRejection = { file: File; reason: \"type\" | \"size\" }\n\nexport function matchesAccept(file: File, accept?: string) {\n  if (!accept) return true\n  const name = file.name.toLowerCase()\n  const type = file.type.toLowerCase()\n  return accept\n    .split(\",\")\n    .map((rule) => rule.trim().toLowerCase())\n    .filter(Boolean)\n    .some((rule) => {\n      if (rule.startsWith(\".\")) return name.endsWith(rule)\n      if (rule.endsWith(\"/*\")) return type.startsWith(rule.slice(0, -1))\n      return type === rule\n    })\n}\n\nexport function formatBytes(bytes: number) {\n  if (bytes < 1024) return `${bytes} B`\n  const units = [\"KB\", \"MB\", \"GB\"]\n  let size = bytes / 1024\n  let unit = 0\n  while (size >= 1024 && unit < units.length - 1) {\n    size /= 1024\n    unit += 1\n  }\n  return `${size.toFixed(size < 10 ? 1 : 0)} ${units[unit]}`\n}\n"
+    }
+  ]
+}

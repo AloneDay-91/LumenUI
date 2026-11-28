@@ -1,0 +1,20 @@
+{
+  "name": "number-ticker",
+  "title": "Number Ticker",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "number-ticker/NumberTicker.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, onBeforeUnmount, onMounted, ref, watch, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Fast start, gentle landing. */\nconst easeOutExpo = (t: number) => (t === 1 ? 1 : 1 - 2 ** (-10 * t))\n\n/**\n * A number that counts up (or down) to its value, formatted for the locale.\n * It starts when it scrolls into view, runs again when the value changes,\n * and jumps straight to the value for people who ask for reduced motion.\n * Screen readers get the final value only.\n */\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    value: number\n    /** Where the first count starts. Later changes start from the current value. */\n    from?: number\n    /** Milliseconds. */\n    duration?: number\n    /** Milliseconds before the first count. */\n    delay?: number\n    /** Intl options: currency, percent, decimals, compact notation. */\n    format?: Intl.NumberFormatOptions\n    locale?: string\n    /** Wait until the number is on screen. */\n    startOnView?: boolean\n  }>(),\n  { from: 0, duration: 1200, delay: 0, startOnView: true }\n)\n\nconst el = ref<HTMLSpanElement>()\nconst display = ref(props.from)\nlet shown = props.from\nconst visible = ref(!props.startOnView)\nlet observer: IntersectionObserver | undefined\nlet frame = 0\nlet first = true\n\nonMounted(() => {\n  if (visible.value || !el.value) return\n  observer = new IntersectionObserver(\n    ([entry]) => {\n      if (entry?.isIntersecting) {\n        visible.value = true\n        observer?.disconnect()\n      }\n    },\n    { threshold: 0.3 }\n  )\n  observer.observe(el.value)\n})\n\nfunction run() {\n  cancelAnimationFrame(frame)\n  if (!visible.value) return\n  const value = props.value\n  const duration = props.duration\n  const reduce = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches\n  const start = shown\n  if (reduce || duration <= 0 || start === value) {\n    shown = value\n    display.value = value\n    return\n  }\n  let began: number | null = null\n  const wait = first ? props.delay : 0\n  first = false\n  const tick = (time: number) => {\n    began ??= time + wait\n    const t = Math.min(1, Math.max(0, (time - began) / duration))\n    const next = start + (value - start) * easeOutExpo(t)\n    shown = next\n    display.value = next\n    if (t < 1) frame = requestAnimationFrame(tick)\n  }\n  frame = requestAnimationFrame(tick)\n}\n\nwatch(() => [props.value, visible.value, props.duration, props.delay], run, { immediate: true, flush: \"post\" })\n\nonBeforeUnmount(() => {\n  observer?.disconnect()\n  cancelAnimationFrame(frame)\n})\n\nconst formatter = computed(() => new Intl.NumberFormat(props.locale, props.format))\n// Percentages show the value × 100, so they keep two more decimals.\nconst decimals = computed(\n  () =>\n    (props.format?.maximumFractionDigits ?? props.format?.minimumFractionDigits ?? 0) +\n    (props.format?.style === \"percent\" ? 2 : 0)\n)\n// While counting, round to the decimals the final value shows.\nconst rounded = computed(() =>\n  display.value === props.value ? props.value : Number(display.value.toFixed(decimals.value))\n)\n</script>\n\n<template>\n  <span ref=\"el\" data-slot=\"number-ticker\" :class=\"cn('inline-block tabular-nums', props.class)\">\n    <span aria-hidden=\"true\">{{ formatter.format(rounded) }}</span>\n    <span class=\"sr-only\">{{ formatter.format(value) }}</span>\n  </span>\n</template>\n"
+    },
+    {
+      "name": "number-ticker/index.ts",
+      "content": "export { default as NumberTicker } from \"./NumberTicker.vue\"\n"
+    }
+  ]
+}

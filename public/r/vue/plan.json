@@ -1,0 +1,24 @@
+{
+  "name": "plan",
+  "title": "Plan",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "plan/Plan.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Map as MapIcon } from \"@lucide/vue\"\nimport { useForwardPropsEmits, type CollapsibleRootEmits, type CollapsibleRootProps } from \"reka-ui\"\n\nimport { Trace, TraceContent, TraceStep, TraceSteps, TraceTrigger, type TraceStatus } from \"@/components/ui/trace\"\nimport { cn } from \"@/lib/utils\"\nimport type { PlanItem } from \"./index\"\n\n/**\n * The steps the agent intends to take and how far it has got: a card Trace\n * with a progress bar in the header and the steps on a rail.\n */\nconst props = withDefaults(\n  defineProps<\n    CollapsibleRootProps & {\n      title?: string\n      steps: PlanItem[]\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { title: \"Plan\", defaultOpen: true, open: undefined },\n)\nconst emits = defineEmits<CollapsibleRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, title: _title, steps: _steps, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n\nconst done = computed(() => props.steps.filter((step) => step.status === \"done\").length)\nconst failed = computed(() => props.steps.some((step) => step.status === \"error\"))\nconst status = computed<TraceStatus>(() => {\n  if (failed.value) return \"error\"\n  if (done.value === props.steps.length) return \"done\"\n  return props.steps.some((step) => step.status === \"running\") ? \"running\" : \"pending\"\n})\nconst percent = computed(() => (props.steps.length === 0 ? 0 : Math.round((done.value / props.steps.length) * 100)))\n</script>\n\n<template>\n  <Trace data-slot=\"plan\" variant=\"card\" :status=\"status\" v-bind=\"forwarded\" :class=\"props.class\">\n    <TraceTrigger :show-status=\"false\">\n      <template #icon><MapIcon /></template>\n      <slot name=\"title\">{{ title }}</slot>\n      <template #meta>\n        <span class=\"flex items-center gap-2\">\n          <span\n            role=\"progressbar\"\n            aria-label=\"Plan progress\"\n            :aria-valuemin=\"0\"\n            :aria-valuemax=\"steps.length\"\n            :aria-valuenow=\"done\"\n            class=\"h-1 w-16 overflow-hidden rounded-full bg-muted\"\n          >\n            <span\n              :class=\"cn('block h-full rounded-full bg-primary transition-[width] duration-300', failed && 'bg-crimson-solid')\"\n              :style=\"{ width: `${percent}%` }\"\n            />\n          </span>\n          <span class=\"font-mono text-[11px]\">{{ done }}/{{ steps.length }}</span>\n        </span>\n      </template>\n    </TraceTrigger>\n    <TraceContent>\n      <TraceSteps class=\"px-3 py-3\">\n        <TraceStep\n          v-for=\"step in steps\"\n          :key=\"step.id\"\n          :status=\"step.status\"\n          :title=\"step.title\"\n          :description=\"step.description\"\n        />\n      </TraceSteps>\n    </TraceContent>\n  </Trace>\n</template>\n"
+    },
+    {
+      "name": "plan/index.ts",
+      "content": "import type { TraceStatus } from \"@/components/ui/trace\"\n\nexport { default as Plan } from \"./Plan.vue\"\n\nexport type PlanItem = { id: string; title: string; description?: string; status: TraceStatus }\n"
+    }
+  ]
+}

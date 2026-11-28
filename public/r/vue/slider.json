@@ -1,0 +1,22 @@
+{
+  "name": "slider",
+  "title": "Slider",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "slider/Slider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { SliderRange, SliderRoot, SliderThumb, SliderTrack, type SliderRootProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\ntype SliderValue = number | number[]\n\ninterface Props extends Omit<SliderRootProps, \"modelValue\" | \"defaultValue\"> {\n  /** A number for one thumb, an array for a range. Can be bound with `v-model`. */\n  modelValue?: SliderValue | null\n  defaultValue?: SliderValue\n  /** Accessible name, put on the thumb (not the root) like the React version. */\n  ariaLabel?: string\n  ariaLabelledby?: string\n  class?: HTMLAttributes[\"class\"]\n}\n\nconst props = defineProps<Props>()\nconst emit = defineEmits<{\n  \"update:modelValue\": [value: SliderValue]\n  valueCommit: [value: SliderValue]\n}>()\n\nconst toArray = (value: SliderValue | null | undefined) =>\n  value == null ? undefined : Array.isArray(value) ? value : [value]\n\n// A number in gives a number back, like Base UI.\nconst scalar = computed(() => typeof (props.modelValue ?? props.defaultValue ?? 0) === \"number\")\nconst fromArray = (value: number[]): SliderValue => (scalar.value ? (value[0] ?? 0) : value)\n\nconst delegated = computed(() => {\n  const {\n    class: _class,\n    modelValue: _modelValue,\n    defaultValue: _defaultValue,\n    ariaLabel: _ariaLabel,\n    ariaLabelledby: _ariaLabelledby,\n    ...rest\n  } = props\n  return rest\n})\n\nconst rekaModel = computed(() => toArray(props.modelValue))\nconst rekaDefault = computed(() => toArray(props.defaultValue) ?? [props.min ?? 0])\n\nfunction onUpdate(value: number[] | undefined) {\n  if (value) emit(\"update:modelValue\", fromArray(value))\n}\n\nconst thumbClass =\n  \"absolute top-1/2 block -translate-y-1/2 size-4 cursor-pointer rounded-full bg-background ring-1 dark:bg-foreground ring-foreground/10 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/30 [&_input]:cursor-pointer\"\n</script>\n\n<template>\n  <SliderRoot\n    v-slot=\"slotProps\"\n    data-slot=\"slider\"\n    v-bind=\"delegated\"\n    :model-value=\"rekaModel\"\n    :default-value=\"rekaDefault\"\n    :class=\"cn('flex w-full flex-col gap-2', props.class)\"\n    @update:model-value=\"onUpdate\"\n    @value-commit=\"(value) => emit('valueCommit', fromArray(value))\"\n  >\n    <slot v-bind=\"slotProps\">\n      <div class=\"flex w-full items-center\">\n        <SliderTrack class=\"relative h-1 w-full rounded-full bg-muted select-none\">\n          <SliderRange class=\"absolute h-full rounded-full bg-primary select-none\" />\n          <SliderThumb\n            v-for=\"(_, index) in slotProps.modelValue ?? rekaDefault\"\n            :key=\"index\"\n            :aria-label=\"ariaLabel\"\n            :aria-labelledby=\"ariaLabelledby\"\n            :class=\"thumbClass\"\n          />\n        </SliderTrack>\n      </div>\n    </slot>\n  </SliderRoot>\n</template>\n"
+    },
+    {
+      "name": "slider/index.ts",
+      "content": "export { default as Slider } from \"./Slider.vue\"\n"
+    }
+  ]
+}

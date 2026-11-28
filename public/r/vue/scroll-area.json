@@ -1,0 +1,22 @@
+{
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "scroll-area/ScrollArea.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  ScrollAreaRoot,\n  ScrollAreaScrollbar,\n  ScrollAreaThumb,\n  ScrollAreaViewport,\n  type ScrollAreaRootProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n// \"auto\" matches Base UI: the scrollbar shows whenever the content overflows.\nconst props = withDefaults(defineProps<ScrollAreaRootProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  type: \"auto\",\n})\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <ScrollAreaRoot data-slot=\"scroll-area\" v-bind=\"delegated\" :class=\"cn('relative', props.class)\">\n    <ScrollAreaViewport\n      data-slot=\"scroll-area-viewport\"\n      class=\"size-full scroll-fade overflow-hidden rounded-[inherit]\"\n    >\n      <slot />\n    </ScrollAreaViewport>\n    <ScrollAreaScrollbar\n      data-slot=\"scroll-area-scrollbar\"\n      class=\"m-1 flex w-1.5 justify-center rounded-full bg-transparent\"\n    >\n      <ScrollAreaThumb class=\"w-full rounded-full bg-foreground/20\" />\n    </ScrollAreaScrollbar>\n  </ScrollAreaRoot>\n</template>\n"
+    },
+    {
+      "name": "scroll-area/index.ts",
+      "content": "export { default as ScrollArea } from \"./ScrollArea.vue\"\n"
+    }
+  ]
+}

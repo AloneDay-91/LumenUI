@@ -9,7 +9,6 @@ import { AbsoluteFill, Easing, interpolate, staticFile, useCurrentFrame, useVide
 import { AgentSteps, DURATION as AGENT_STEPS } from "./agent-steps"
 import { BrandWheel, DURATION as BRAND_WHEEL } from "./brand-wheel"
 import { CaptureReveal, DURATION as CAPTURE_REVEAL } from "./capture-reveal"
-import { CardRail, DURATION as CARD_RAIL } from "./card-rail"
 import { CheckCycle, DURATION as CHECK_CYCLE } from "./check-cycle"
 import { DURATION as PORTAL_INTRO, PortalIntro } from "./portal-intro"
 import { DURATION as PROMPT_SEND, PromptSend } from "./prompt-send"
@@ -27,7 +26,7 @@ const CROSSFADE = 20
 
 /**
  * The story of the design system, one snapcn shot per beat: the intro, the
- * components, the AI patterns, the blocks, the logo lockup.
+ * components, the AI patterns, the copy-paste flow, the logo lockup.
  */
 export const SHOWCASE_SCENES: readonly {
   id: string
@@ -42,7 +41,6 @@ export const SHOWCASE_SCENES: readonly {
   { id: "prompt-send", name: "AI · Prompt", durationInFrames: PROMPT_SEND, component: PromptSend },
   { id: "agent-steps", name: "AI · Agent", durationInFrames: AGENT_STEPS, component: AgentSteps },
   { id: "brand-wheel", name: "AI · Models", durationInFrames: BRAND_WHEEL, component: BrandWheel },
-  { id: "card-rail", name: "Blocks", durationInFrames: CARD_RAIL, component: CardRail },
   { id: "check-cycle", name: "What you build", durationInFrames: CHECK_CYCLE, component: CheckCycle },
   { id: "capture-reveal", name: "Copy-paste", durationInFrames: CAPTURE_REVEAL, component: CaptureReveal },
   { id: "sky-lockup", name: "Lockup", durationInFrames: SKY_LOCKUP, component: SkyLockup },

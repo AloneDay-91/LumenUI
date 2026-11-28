@@ -13,9 +13,16 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@internationalized/date": "^3.12.4",
     "@lucide/vue": "^1.81.0",
+    "@unovis/ts": "^1.8.1",
+    "@unovis/vue": "^1.8.1",
+    "@vueuse/core": "^15.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-vue": "^8.6.0",
     "reka-ui": "^2.11.0",
     "tailwind-merge": "^3.7.1",
     "vue": "^3.5.46"

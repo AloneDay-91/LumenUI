@@ -1,0 +1,78 @@
+/* Reka unmounts a toast when its animation ends, not its transition, so the
+   enter and exit moves of Base UI's data-starting-style / data-ending-style are
+   keyframes here. A one-sided keyframe animates from or to the stacked transform. */
+@keyframes lumen-toast-enter {
+  from {
+    transform: translateY(150%);
+  }
+}
+
+@keyframes lumen-toast-exit {
+  to {
+    transform: translateY(150%);
+    opacity: 0;
+  }
+}
+
+@keyframes lumen-toast-exit-right {
+  from {
+    transform: translateX(var(--reka-toast-swipe-end-x, 0px)) translateY(var(--offset-y));
+  }
+  to {
+    transform: translateX(calc(var(--reka-toast-swipe-end-x, 0px) + 150%)) translateY(var(--offset-y));
+    opacity: 0;
+  }
+}
+
+@keyframes lumen-toast-exit-left {
+  from {
+    transform: translateX(var(--reka-toast-swipe-end-x, 0px)) translateY(var(--offset-y));
+  }
+  to {
+    transform: translateX(calc(var(--reka-toast-swipe-end-x, 0px) - 150%)) translateY(var(--offset-y));
+    opacity: 0;
+  }
+}
+
+@keyframes lumen-toast-exit-down {
+  from {
+    transform: translateY(var(--reka-toast-swipe-end-y, 0px));
+  }
+  to {
+    transform: translateY(calc(var(--reka-toast-swipe-end-y, 0px) + 150%));
+    opacity: 0;
+  }
+}
+
+@keyframes lumen-toast-exit-up {
+  from {
+    transform: translateY(var(--reka-toast-swipe-end-y, 0px));
+  }
+  to {
+    transform: translateY(calc(var(--reka-toast-swipe-end-y, 0px) - 150%));
+    opacity: 0;
+  }
+}
+
+@layer components {
+  [data-slot="toast"][data-state="open"] {
+    animation: lumen-toast-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-slot="toast"][data-state="closed"]:not([data-limited]) {
+    animation: lumen-toast-exit 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  [data-slot="toast"][data-state="closed"][data-swipe="end"][data-swipe-direction="right"] {
+    animation-name: lumen-toast-exit-right;
+  }
+  [data-slot="toast"][data-state="closed"][data-swipe="end"][data-swipe-direction="left"] {
+    animation-name: lumen-toast-exit-left;
+  }
+  [data-slot="toast"][data-state="closed"][data-swipe="end"][data-swipe-direction="down"] {
+    animation-name: lumen-toast-exit-down;
+  }
+  [data-slot="toast"][data-state="closed"][data-swipe="end"][data-swipe-direction="up"] {
+    animation-name: lumen-toast-exit-up;
+  }
+}

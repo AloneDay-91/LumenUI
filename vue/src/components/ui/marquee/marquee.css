@@ -1,0 +1,41 @@
+/* Endless scroll for Marquee. Two copies of the track move by one copy's
+   width, so the loop has no seam. Imported by Marquee.vue. */
+@keyframes lumen-marquee-x {
+  to {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
+  }
+}
+
+@keyframes lumen-marquee-y {
+  to {
+    transform: translateY(calc(-100% - var(--marquee-gap)));
+  }
+}
+
+[data-slot="marquee-track"] {
+  animation: lumen-marquee-x var(--marquee-duration) linear infinite;
+}
+
+[data-slot="marquee"][data-orientation="vertical"] [data-slot="marquee-track"] {
+  animation-name: lumen-marquee-y;
+}
+
+[data-slot="marquee"][data-reverse] [data-slot="marquee-track"] {
+  animation-direction: reverse;
+}
+
+[data-slot="marquee"][data-pause-on-hover]:hover [data-slot="marquee-track"],
+[data-slot="marquee"][data-paused] [data-slot="marquee-track"] {
+  animation-play-state: paused;
+}
+
+/* Right-to-left pages scroll the other way. */
+[dir="rtl"] [data-slot="marquee"]:not([data-orientation="vertical"]) [data-slot="marquee-track"] {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="marquee-track"] {
+    animation: none;
+  }
+}

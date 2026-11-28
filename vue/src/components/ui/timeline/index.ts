@@ -1,0 +1,8 @@
+export { default as Timeline } from "./Timeline.vue"
+export { default as TimelineItem } from "./TimelineItem.vue"
+export { default as TimelineMarker } from "./TimelineMarker.vue"
+export { default as TimelineSeparator } from "./TimelineSeparator.vue"
+export { default as TimelineContent } from "./TimelineContent.vue"
+export { default as TimelineTitle } from "./TimelineTitle.vue"
+export { default as TimelineTime } from "./TimelineTime.vue"
+export { default as TimelineDescription } from "./TimelineDescription.vue"

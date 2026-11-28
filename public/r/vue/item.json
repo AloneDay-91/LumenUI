@@ -1,0 +1,60 @@
+{
+  "name": "item",
+  "title": "Item",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "separator",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "item/Item.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { itemVariants, type ItemVariantProps } from \".\"\n\ninterface Props extends PrimitiveProps {\n  variant?: ItemVariantProps[\"variant\"]\n  size?: ItemVariantProps[\"size\"]\n  class?: HTMLAttributes[\"class\"]\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  as: \"div\",\n  variant: \"default\",\n  size: \"default\",\n})\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"item\"\n    :data-variant=\"variant\"\n    :data-size=\"size\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn(itemVariants({ variant, size }), props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "item/ItemActions.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"item-actions\" :class=\"cn('flex shrink-0 items-center gap-2 [&_svg]:pointer-events-none [&_svg]:size-4', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/ItemContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"item-content\" :class=\"cn('flex min-w-0 flex-1 flex-col gap-0.5', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/ItemDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <p data-slot=\"item-description\" :class=\"cn('line-clamp-2 text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "item/ItemFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"item-footer\" :class=\"cn('flex basis-full items-center gap-2', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/ItemGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"item-group\" role=\"group\" :class=\"cn('flex w-full flex-col', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/ItemHeader.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"item-header\" :class=\"cn('flex basis-full items-center justify-between gap-2', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/ItemMedia.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { itemMediaVariants, type ItemMediaVariantProps } from \".\"\n\nconst props = withDefaults(\n  defineProps<{ variant?: ItemMediaVariantProps[\"variant\"]; class?: HTMLAttributes[\"class\"] }>(),\n  { variant: \"default\" }\n)\n</script>\n\n<template>\n  <div data-slot=\"item-media\" :data-variant=\"variant\" :class=\"cn(itemMediaVariants({ variant }), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/ItemSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport type { SeparatorProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Separator } from \"@/components/ui/separator\"\n\nconst props = defineProps<SeparatorProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <Separator data-slot=\"item-separator\" v-bind=\"delegated\" :class=\"cn(props.class)\" />\n</template>\n"
+    },
+    {
+      "name": "item/ItemTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"item-title\" :class=\"cn('text-sm font-medium group-data-[size=xs]/item:text-xs', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "item/index.ts",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nexport { default as Item } from \"./Item.vue\"\nexport { default as ItemGroup } from \"./ItemGroup.vue\"\nexport { default as ItemSeparator } from \"./ItemSeparator.vue\"\nexport { default as ItemMedia } from \"./ItemMedia.vue\"\nexport { default as ItemContent } from \"./ItemContent.vue\"\nexport { default as ItemTitle } from \"./ItemTitle.vue\"\nexport { default as ItemDescription } from \"./ItemDescription.vue\"\nexport { default as ItemActions } from \"./ItemActions.vue\"\nexport { default as ItemHeader } from \"./ItemHeader.vue\"\nexport { default as ItemFooter } from \"./ItemFooter.vue\"\n\nexport const itemVariants = cva(\n  \"group/item flex w-full min-w-0 flex-wrap items-center rounded-2xl text-sm transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/30 [&:is(a,button)]:cursor-pointer [&:is(a,button)]:hover:bg-foreground/5\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-transparent\",\n        outline: \"border border-border bg-card\",\n        muted: \"bg-muted\",\n      },\n      size: {\n        default: \"gap-3 px-3 py-3\",\n        sm: \"gap-2.5 px-2.5 py-2\",\n        xs: \"gap-2 px-2 py-1.5\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nexport const itemMediaVariants = cva(\"flex shrink-0 items-center justify-center\", {\n  variants: {\n    variant: {\n      default: \"\",\n      icon: \"size-8 rounded-2xl bg-muted text-foreground group-data-[size=sm]/item:size-7 group-data-[size=xs]/item:size-6 [&_svg]:pointer-events-none [&_svg]:size-4 group-data-[size=xs]/item:[&_svg]:size-3\",\n      image:\n        \"size-10 overflow-hidden rounded-xl bg-muted group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover\",\n    },\n  },\n  defaultVariants: {\n    variant: \"default\",\n  },\n})\n\nexport type ItemVariantProps = VariantProps<typeof itemVariants>\nexport type ItemMediaVariantProps = VariantProps<typeof itemMediaVariants>\n"
+    }
+  ]
+}

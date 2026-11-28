@@ -1,0 +1,31 @@
+{
+  "name": "toggle-group",
+  "title": "Toggle Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@vueuse/core",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "toggle-group/ToggleGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { useVModel } from \"@vueuse/core\"\nimport { ToggleGroupRoot, useForwardProps, type AcceptableValue, type ToggleGroupRootProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = withDefaults(\n  defineProps<\n    Omit<ToggleGroupRootProps, \"type\" | \"modelValue\" | \"defaultValue\"> & {\n      /** Pressed values. Always an array, like the React version. */\n      modelValue?: AcceptableValue[]\n      defaultValue?: AcceptableValue[]\n      /** Let several items be pressed at once. */\n      multiple?: boolean\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { multiple: false, loop: true, rovingFocus: true, orientation: \"horizontal\", modelValue: undefined, defaultValue: () => [] }\n)\nconst emits = defineEmits<{ \"update:modelValue\": [value: AcceptableValue[]] }>()\n\nconst values = useVModel(props, \"modelValue\", emits, {\n  passive: true,\n  defaultValue: props.defaultValue,\n}) as { value: AcceptableValue[] }\n\nconst delegated = computed(() => {\n  const { class: _class, multiple: _multiple, modelValue: _modelValue, defaultValue: _defaultValue, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n\nconst rootValue = computed(() => (props.multiple ? values.value : values.value[0]))\n\nfunction onUpdate(value: AcceptableValue | AcceptableValue[]) {\n  if (Array.isArray(value)) values.value = value\n  else values.value = value === undefined || value === null || value === \"\" ? [] : [value]\n}\n</script>\n\n<template>\n  <ToggleGroupRoot\n    data-slot=\"toggle-group\"\n    v-bind=\"forwarded\"\n    :type=\"multiple ? 'multiple' : 'single'\"\n    :model-value=\"rootValue\"\n    :data-orientation=\"orientation\"\n    :class=\"cn('flex w-fit items-center justify-center gap-0.5 rounded-4xl bg-muted p-0.5', 'data-[orientation=vertical]:flex-col', props.class)\"\n    @update:model-value=\"onUpdate\"\n  >\n    <slot :model-value=\"values\" />\n  </ToggleGroupRoot>\n</template>\n"
+    },
+    {
+      "name": "toggle-group/ToggleGroupItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ToggleGroupItem, useForwardProps, type ToggleGroupItemProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { toggleGroupItemClassName } from \"./styles\"\n\nconst props = defineProps<ToggleGroupItemProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <!-- data-slot=\"toggle\" so it matches the React Toggle inside a group. -->\n  <ToggleGroupItem\n    v-slot=\"slotProps\"\n    data-slot=\"toggle\"\n    v-bind=\"forwarded\"\n    :class=\"cn(toggleGroupItemClassName, props.class)\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </ToggleGroupItem>\n</template>\n"
+    },
+    {
+      "name": "toggle-group/index.ts",
+      "content": "export { default as ToggleGroup } from \"./ToggleGroup.vue\"\nexport { default as ToggleGroupItem } from \"./ToggleGroupItem.vue\"\nexport { toggleGroupItemClassName } from \"./styles\"\n"
+    },
+    {
+      "name": "toggle-group/styles.ts",
+      "content": "// The Toggle classes, with Base UI's data-pressed mapped to Reka's data-state=\"on\".\nexport const toggleGroupItemClassName = [\n  \"inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-4xl px-3 text-xs font-medium whitespace-nowrap text-muted-foreground outline-none select-none\",\n  \"hover:bg-muted hover:text-foreground\",\n  \"focus-visible:relative focus-visible:z-1 focus-visible:ring-3 focus-visible:ring-ring/30\",\n  \"disabled:pointer-events-none disabled:opacity-50\",\n  \"data-[state=on]:bg-muted data-[state=on]:text-foreground\",\n  \"in-data-[slot=toggle-group]:h-7 in-data-[slot=toggle-group]:hover:bg-transparent\",\n  \"in-data-[slot=toggle-group]:data-[state=on]:bg-background in-data-[slot=toggle-group]:data-[state=on]:shadow-sm in-data-[slot=toggle-group]:data-[state=on]:ring-1 in-data-[slot=toggle-group]:data-[state=on]:ring-foreground/5\",\n  \"in-data-[slot=toggle-group]:data-[state=on]:hover:bg-background\",\n  \"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n].join(\" \")\n"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "search-input",
+  "title": "Search Input",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "button",
+    "input",
+    "input-group",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "search-input/SearchInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, ref, type HTMLAttributes } from \"vue\"\nimport { Search, X } from \"@lucide/vue\"\n\nimport { buttonVariants } from \"@/components/ui/button\"\nimport { Input } from \"@/components/ui/input\"\nimport { InputGroup, InputGroupAddon } from \"@/components/ui/input-group\"\nimport { cn } from \"@/lib/utils\"\n\ndefineOptions({ inheritAttrs: false })\n\n/**\n * A search field with a clear button. Escape clears a field that holds text;\n * on an empty field it passes through. Other attributes land on the input.\n */\nconst props = withDefaults(\n  defineProps<{\n    /** v-model. Leave it unbound to let the field keep its own text. */\n    modelValue?: string\n    defaultValue?: string\n    clearLabel?: string\n    disabled?: boolean\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { modelValue: undefined, defaultValue: \"\", clearLabel: \"Clear search\", disabled: undefined },\n)\n\nconst emit = defineEmits<{\n  \"update:modelValue\": [value: string]\n  /** Only when the field is emptied by the button or Escape. */\n  clear: []\n  keydown: [event: KeyboardEvent]\n}>()\n\nconst inputRef = ref<{ $el: HTMLInputElement }>()\nconst uncontrolled = ref(props.defaultValue)\nconst current = computed(() => props.modelValue ?? uncontrolled.value)\n\nfunction setValue(next: string) {\n  if (props.modelValue === undefined) uncontrolled.value = next\n  emit(\"update:modelValue\", next)\n}\n\nfunction clear() {\n  setValue(\"\")\n  emit(\"clear\")\n  inputRef.value?.$el.focus()\n}\n\nfunction onKeydown(event: KeyboardEvent) {\n  emit(\"keydown\", event)\n  if (event.key === \"Escape\" && current.value !== \"\" && !event.defaultPrevented) {\n    event.preventDefault()\n    clear()\n  }\n}\n\nconst clearClassName = computed(() =>\n  cn(buttonVariants({ variant: \"ghost\", size: \"icon-xs\" }), \"text-muted-foreground hover:text-foreground\"),\n)\n</script>\n\n<template>\n  <InputGroup data-slot=\"search-input\" :class=\"props.class\">\n    <InputGroupAddon>\n      <Search aria-hidden=\"true\" />\n    </InputGroupAddon>\n    <Input\n      ref=\"inputRef\"\n      type=\"search\"\n      :model-value=\"current\"\n      :disabled=\"disabled\"\n      class=\"[&::-webkit-search-cancel-button]:appearance-none\"\n      v-bind=\"$attrs\"\n      @update:model-value=\"setValue(String($event ?? ''))\"\n      @keydown=\"onKeydown\"\n    />\n    <InputGroupAddon v-if=\"current !== ''\" align=\"end\" class=\"pe-1\">\n      <button\n        type=\"button\"\n        data-slot=\"search-input-clear\"\n        :aria-label=\"clearLabel\"\n        :disabled=\"disabled\"\n        :class=\"clearClassName\"\n        @click=\"clear\"\n      >\n        <X />\n      </button>\n    </InputGroupAddon>\n  </InputGroup>\n</template>\n"
+    },
+    {
+      "name": "search-input/index.ts",
+      "content": "export { default as SearchInput } from \"./SearchInput.vue\"\n"
+    }
+  ]
+}

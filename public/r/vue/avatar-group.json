@@ -1,0 +1,24 @@
+{
+  "name": "avatar-group",
+  "title": "Avatar Group",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "avatar-group/AvatarGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div\n    data-slot=\"avatar-group\"\n    role=\"group\"\n    :class=\"\n      cn(\n        'flex items-center -space-x-2 rtl:space-x-reverse',\n        '*:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background',\n        props.class,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "avatar-group/AvatarGroupCount.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{\n  count: number\n  /** Accessible name. Defaults to \"<count> more\". */\n  label?: string\n  class?: HTMLAttributes[\"class\"]\n}>()\n\nconst ariaLabel = computed(() => props.label ?? `${props.count} more`)\n</script>\n\n<template>\n  <span\n    data-slot=\"avatar-group-count\"\n    :aria-label=\"ariaLabel\"\n    :class=\"\n      cn(\n        'relative flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary font-mono text-[11px] font-medium text-secondary-foreground ring-2 ring-background tabular-nums',\n        props.class,\n      )\n    \"\n  >\n    <span aria-hidden=\"true\">+{{ count }}</span>\n  </span>\n</template>\n"
+    },
+    {
+      "name": "avatar-group/index.ts",
+      "content": "export { default as AvatarGroup } from \"./AvatarGroup.vue\"\nexport { default as AvatarGroupCount } from \"./AvatarGroupCount.vue\"\n"
+    }
+  ]
+}

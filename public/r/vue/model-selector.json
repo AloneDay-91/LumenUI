@@ -1,0 +1,24 @@
+{
+  "name": "model-selector",
+  "title": "Model Selector",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "select",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "model-selector/ModelSelector.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Brain } from \"@lucide/vue\"\nimport type { AcceptableValue } from \"reka-ui\"\n\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from \"@/components/ui/select\"\nimport { cn } from \"@/lib/utils\"\nimport { defaultEfforts, type EffortOption, type ModelOption } from \".\"\n\n/**\n * Two small menus for the composer toolbar: which model runs, and how hard\n * it thinks. The effort menu hides for models that do not reason.\n */\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"]\n    models: ModelOption[]\n    efforts?: EffortOption[]\n    showEffort?: boolean\n    labels?: { model?: string; effort?: string }\n  }>(),\n  { efforts: () => defaultEfforts, showEffort: true, labels: () => ({}) }\n)\n\n/** v-model:model — the selected model value. */\nconst model = defineModel<string>(\"model\", { required: true })\n/** v-model:effort — the effort menu only shows when this is bound. */\nconst effort = defineModel<string>(\"effort\")\n\nconst labelFor = (options: { value: string; label: string }[], value: string | undefined) =>\n  options.find((option) => option.value === value)?.label ?? value\n\nconst modelLabel = computed(() => labelFor(props.models, model.value))\nconst effortLabel = computed(() => labelFor(props.efforts, effort.value))\n\nfunction onModel(value: AcceptableValue) {\n  if (value) model.value = String(value)\n}\nfunction onEffort(value: AcceptableValue) {\n  if (value) effort.value = String(value)\n}\n</script>\n\n<template>\n  <div data-slot=\"model-selector\" :class=\"cn('flex items-center gap-1', props.class)\">\n    <Select :model-value=\"model\" @update:model-value=\"onModel\">\n      <SelectTrigger\n        size=\"sm\"\n        :aria-label=\"labels.model ?? 'Model'\"\n        class=\"border-transparent bg-transparent hover:bg-muted dark:bg-transparent\"\n      >\n        <SelectValue>{{ modelLabel }}</SelectValue>\n      </SelectTrigger>\n      <SelectContent position=\"popper\" align=\"start\" class=\"w-auto min-w-56\">\n        <SelectItem v-for=\"option in models\" :key=\"option.value\" :value=\"option.value\">\n          <span class=\"flex flex-col gap-0.5\">\n            <span>{{ option.label }}</span>\n            <span v-if=\"option.description\" class=\"text-[11px] whitespace-normal text-muted-foreground\">\n              {{ option.description }}\n            </span>\n          </span>\n        </SelectItem>\n      </SelectContent>\n    </Select>\n    <Select v-if=\"showEffort && effort !== undefined\" :model-value=\"effort\" @update:model-value=\"onEffort\">\n      <SelectTrigger\n        size=\"sm\"\n        :aria-label=\"labels.effort ?? 'Reasoning effort'\"\n        class=\"border-transparent bg-transparent text-muted-foreground hover:bg-muted dark:bg-transparent\"\n      >\n        <Brain aria-hidden=\"true\" class=\"size-3.5\" />\n        <SelectValue>{{ effortLabel }}</SelectValue>\n      </SelectTrigger>\n      <SelectContent position=\"popper\" align=\"start\">\n        <SelectItem v-for=\"option in efforts\" :key=\"option.value\" :value=\"option.value\">\n          {{ option.label }}\n        </SelectItem>\n      </SelectContent>\n    </Select>\n  </div>\n</template>\n"
+    },
+    {
+      "name": "model-selector/index.ts",
+      "content": "export { default as ModelSelector } from \"./ModelSelector.vue\"\n\nexport type ModelOption = { value: string; label: string; description?: string }\nexport type EffortOption = { value: string; label: string }\n\nexport const defaultEfforts: EffortOption[] = [\n  { value: \"low\", label: \"Low\" },\n  { value: \"medium\", label: \"Medium\" },\n  { value: \"high\", label: \"High\" },\n]\n"
+    }
+  ]
+}

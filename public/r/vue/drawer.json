@@ -1,0 +1,75 @@
+{
+  "name": "drawer",
+  "title": "Drawer",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "drawer/Drawer.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DrawerRoot, useForwardPropsEmits, type DrawerRootEmits, type DrawerRootProps } from \"reka-ui\"\n\nconst props = defineProps<DrawerRootProps>()\nconst emits = defineEmits<DrawerRootEmits>()\nconst forwarded = useForwardPropsEmits(props, emits)\n</script>\n\n<template>\n  <DrawerRoot v-slot=\"slotProps\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </DrawerRoot>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerBackdrop.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DrawerBackdrop, type DrawerBackdropProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { backdropClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<DrawerBackdropProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <DrawerBackdrop\n    data-slot=\"drawer-backdrop\"\n    v-bind=\"delegated\"\n    :class=\"\n      cn(\n        backdropClassName,\n        'opacity-[calc(1-var(--drawer-swipe-progress,0))] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0',\n        props.class,\n      )\n    \"\n  />\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerClose.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DrawerClose, useForwardProps, type DrawerCloseProps } from \"reka-ui\"\n\nconst props = defineProps<DrawerCloseProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <DrawerClose v-slot=\"slotProps\" data-slot=\"drawer-close\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </DrawerClose>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(), { as: \"div\" })\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"drawer-content\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn('mx-auto flex w-full max-w-lg flex-col', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DrawerDescription, useForwardProps, type DrawerDescriptionProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<DrawerDescriptionProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <DrawerDescription data-slot=\"drawer-description\" v-bind=\"forwarded\" :class=\"cn('text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </DrawerDescription>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"drawer-footer\" :class=\"cn('mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerHandle.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"drawer-handle\" aria-hidden=\"true\" :class=\"props.class\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerHeader.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"drawer-header\" :class=\"cn('flex flex-col gap-1.5', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerPopup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DrawerPopup, useForwardPropsEmits, type DrawerPopupEmits, type DrawerPopupProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport DrawerBackdrop from \"./DrawerBackdrop.vue\"\nimport DrawerHandle from \"./DrawerHandle.vue\"\nimport DrawerPortal from \"./DrawerPortal.vue\"\nimport DrawerViewport from \"./DrawerViewport.vue\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = defineProps<DrawerPopupProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<DrawerPopupEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n\n// Reka unmounts the popup once its animation ends, so the slide in and out are\n// tw-animate keyframes per edge instead of Base UI's starting/ending styles.\nconst popupClassName = [\n  \"bg-popover text-popover-foreground p-5 ring-1 ring-foreground/5 outline-none dark:ring-foreground/10\",\n  \"pointer-events-auto relative overflow-y-auto transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0\",\n  \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\n  \"data-[swipe-direction=down]:mt-auto data-[swipe-direction=down]:max-h-[85dvh] data-[swipe-direction=down]:w-full data-[swipe-direction=down]:translate-y-(--drawer-swipe-movement-y) data-[swipe-direction=down]:data-[state=open]:slide-in-from-bottom data-[swipe-direction=down]:data-[state=closed]:slide-out-to-bottom\",\n  \"data-[swipe-direction=up]:mb-auto data-[swipe-direction=up]:max-h-[85dvh] data-[swipe-direction=up]:w-full data-[swipe-direction=up]:translate-y-(--drawer-swipe-movement-y) data-[swipe-direction=up]:data-[state=open]:slide-in-from-top data-[swipe-direction=up]:data-[state=closed]:slide-out-to-top\",\n  \"data-[swipe-direction=left]:mr-auto data-[swipe-direction=left]:h-full data-[swipe-direction=left]:translate-x-(--drawer-swipe-movement-x) data-[swipe-direction=left]:data-[state=open]:slide-in-from-left data-[swipe-direction=left]:data-[state=closed]:slide-out-to-left\",\n  \"data-[swipe-direction=right]:ml-auto data-[swipe-direction=right]:h-full data-[swipe-direction=right]:translate-x-(--drawer-swipe-movement-x) data-[swipe-direction=right]:data-[state=open]:slide-in-from-right data-[swipe-direction=right]:data-[state=closed]:slide-out-to-right\",\n  \"data-[swipe-direction=down]:rounded-t-[min(var(--radius-4xl),24px)]\",\n  \"data-[swipe-direction=up]:rounded-b-[min(var(--radius-4xl),24px)]\",\n  \"data-[swipe-direction=right]:rounded-l-[min(var(--radius-4xl),24px)]\",\n  \"data-[swipe-direction=left]:rounded-r-[min(var(--radius-4xl),24px)]\",\n]\n</script>\n\n<template>\n  <DrawerPortal>\n    <DrawerBackdrop />\n    <DrawerViewport>\n      <DrawerPopup\n        data-slot=\"drawer-popup\"\n        v-bind=\"{ ...$attrs, ...forwarded }\"\n        :class=\"cn(popupClassName, props.class)\"\n      >\n        <DrawerHandle />\n        <slot />\n      </DrawerPopup>\n    </DrawerViewport>\n  </DrawerPortal>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerPortal.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DrawerPortal, type DrawerPortalProps } from \"reka-ui\"\n\nconst props = defineProps<DrawerPortalProps>()\n</script>\n\n<template>\n  <DrawerPortal v-bind=\"props\">\n    <slot />\n  </DrawerPortal>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DrawerProvider } from \"reka-ui\"\n</script>\n\n<template>\n  <DrawerProvider v-slot=\"slotProps\">\n    <slot v-bind=\"slotProps\" />\n  </DrawerProvider>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DrawerTitle, useForwardProps, type DrawerTitleProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<DrawerTitleProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <DrawerTitle data-slot=\"drawer-title\" v-bind=\"forwarded\" :class=\"cn('text-sm font-medium', props.class)\">\n    <slot />\n  </DrawerTitle>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DrawerTrigger, useForwardProps, type DrawerTriggerProps } from \"reka-ui\"\n\nconst props = defineProps<DrawerTriggerProps>()\nconst forwarded = useForwardProps(props)\n</script>\n\n<template>\n  <DrawerTrigger v-slot=\"slotProps\" data-slot=\"drawer-trigger\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </DrawerTrigger>\n</template>\n"
+    },
+    {
+      "name": "drawer/DrawerViewport.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { DrawerViewport, type DrawerViewportProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<DrawerViewportProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <DrawerViewport\n    data-slot=\"drawer-viewport\"\n    v-bind=\"delegated\"\n    :class=\"cn('pointer-events-none fixed inset-0 z-50 flex', props.class)\"\n  >\n    <slot />\n  </DrawerViewport>\n</template>\n"
+    },
+    {
+      "name": "drawer/index.ts",
+      "content": "export { default as DrawerProvider } from \"./DrawerProvider.vue\"\nexport { default as Drawer } from \"./Drawer.vue\"\nexport { default as DrawerTrigger } from \"./DrawerTrigger.vue\"\nexport { default as DrawerClose } from \"./DrawerClose.vue\"\nexport { default as DrawerPortal } from \"./DrawerPortal.vue\"\nexport { default as DrawerBackdrop } from \"./DrawerBackdrop.vue\"\nexport { default as DrawerViewport } from \"./DrawerViewport.vue\"\nexport { default as DrawerPopup } from \"./DrawerPopup.vue\"\nexport { default as DrawerContent } from \"./DrawerContent.vue\"\nexport { default as DrawerHandle } from \"./DrawerHandle.vue\"\nexport { default as DrawerHeader } from \"./DrawerHeader.vue\"\nexport { default as DrawerFooter } from \"./DrawerFooter.vue\"\nexport { default as DrawerTitle } from \"./DrawerTitle.vue\"\nexport { default as DrawerDescription } from \"./DrawerDescription.vue\"\n"
+    }
+  ]
+}

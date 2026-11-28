@@ -1,0 +1,53 @@
+{
+  "name": "banner",
+  "title": "Banner",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "class-variance-authority",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "banner/Banner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, ref, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { bannerVariants, type BannerVariantProps } from \".\"\nimport { bannerKey, type BannerVariant } from \"./context\"\n\nconst props = withDefaults(\n  defineProps<{\n    /** Hue of the indicator dot. The surface stays neutral. */\n    variant?: BannerVariant\n    appearance?: BannerVariantProps[\"appearance\"]\n    /** Controlled visibility; use `v-model:open`. Leave unset to let the banner manage itself. */\n    open?: boolean\n    defaultOpen?: boolean\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { variant: \"default\", open: undefined, defaultOpen: true }\n)\nconst emit = defineEmits<{ \"update:open\": [open: boolean] }>()\n\nconst uncontrolled = ref(props.defaultOpen)\nconst isOpen = computed(() => props.open ?? uncontrolled.value)\n\nprovide(bannerKey, {\n  variant: computed(() => props.variant),\n  dismiss: () => {\n    if (props.open === undefined) uncontrolled.value = false\n    emit(\"update:open\", false)\n  },\n})\n</script>\n\n<template>\n  <div\n    v-if=\"isOpen\"\n    data-slot=\"banner\"\n    :data-variant=\"variant\"\n    :data-appearance=\"appearance ?? 'bar'\"\n    role=\"region\"\n    aria-label=\"Announcement\"\n    :class=\"cn(bannerVariants({ appearance }), props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "banner/BannerAction.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Text link after the message. Use `as-child` around a RouterLink for client routing. */\nconst props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  as: \"a\",\n})\n\nconst actionClassName =\n  \"shrink-0 rounded-sm font-medium text-foreground underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/30\"\nconst floatingClassName =\n  \"group-data-[appearance=floating]/banner:inline-flex group-data-[appearance=floating]/banner:h-6 group-data-[appearance=floating]/banner:items-center group-data-[appearance=floating]/banner:rounded-full group-data-[appearance=floating]/banner:bg-secondary group-data-[appearance=floating]/banner:px-2.5 group-data-[appearance=floating]/banner:hover:no-underline group-data-[appearance=floating]/banner:hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]\"\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"banner-action\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn(actionClassName, floatingClassName, props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "banner/BannerClose.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { X } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { buttonVariants } from \"@/components/ui/button\"\nimport { useBanner } from \"./context\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n// Your @click runs first; call event.preventDefault() in it to keep the banner open.\nconst emit = defineEmits<{ click: [event: MouseEvent] }>()\nconst { dismiss } = useBanner()\n\nfunction onClick(event: MouseEvent) {\n  emit(\"click\", event)\n  if (!event.defaultPrevented) dismiss()\n}\n\nconst barClassName =\n  \"group-data-[appearance=bar]/banner:absolute group-data-[appearance=bar]/banner:end-2 group-data-[appearance=bar]/banner:top-1/2 group-data-[appearance=bar]/banner:-translate-y-1/2\"\n</script>\n\n<template>\n  <button\n    type=\"button\"\n    data-slot=\"banner-close\"\n    aria-label=\"Dismiss\"\n    :class=\"\n      cn(\n        buttonVariants({ variant: 'ghost', size: 'icon-xs' }),\n        'shrink-0 text-muted-foreground hover:text-foreground',\n        barClassName,\n        props.class,\n      )\n    \"\n    @click=\"onClick\"\n  >\n    <slot><X /></slot>\n  </button>\n</template>\n"
+    },
+    {
+      "name": "banner/BannerContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Title and description on one line; truncates rather than wraps. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <!-- Sized here, not inherited: a <p> inside prose would otherwise pick up the body size. -->\n  <p data-slot=\"banner-content\" :class=\"cn('m-0 min-w-0 truncate text-xs leading-5', props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "banner/BannerDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Supporting copy. Hidden below sm so the bar keeps one line on phones. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <span data-slot=\"banner-description\" :class=\"cn('hidden text-muted-foreground sm:inline', props.class)\">\n    {{ \" — \" }}<slot />\n  </span>\n</template>\n"
+    },
+    {
+      "name": "banner/BannerIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { indicatorClass, useBanner } from \"./context\"\n\n/** Hued dot, or an icon passed in the default slot. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\nconst { variant } = useBanner()\n</script>\n\n<template>\n  <span\n    v-if=\"$slots.default\"\n    data-slot=\"banner-indicator\"\n    aria-hidden=\"true\"\n    :class=\"cn('flex text-muted-foreground', props.class)\"\n  >\n    <slot />\n  </span>\n  <span\n    v-else\n    data-slot=\"banner-indicator\"\n    aria-hidden=\"true\"\n    :class=\"cn('size-1.5 shrink-0 rounded-full', indicatorClass[variant], props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "banner/BannerTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <span data-slot=\"banner-title\" :class=\"cn('font-medium text-foreground', props.class)\">\n    <slot />\n  </span>\n</template>\n"
+    },
+    {
+      "name": "banner/context.ts",
+      "content": "import { inject, type ComputedRef, type InjectionKey } from \"vue\"\n\nexport type BannerVariant = \"default\" | \"new\" | \"info\" | \"success\" | \"warning\" | \"destructive\"\n\nexport const indicatorClass: Record<BannerVariant, string> = {\n  default: \"bg-muted-foreground\",\n  new: \"bg-new\",\n  info: \"bg-indigo-solid\",\n  success: \"bg-jade-solid\",\n  warning: \"bg-orange-solid\",\n  destructive: \"bg-crimson-solid\",\n}\n\nexport interface BannerContext {\n  variant: ComputedRef<BannerVariant>\n  dismiss: () => void\n}\n\nexport const bannerKey: InjectionKey<BannerContext> = Symbol(\"Banner\")\n\nexport function useBanner(): BannerContext {\n  return inject(bannerKey, {\n    variant: { value: \"default\" } as ComputedRef<BannerVariant>,\n    dismiss: () => {},\n  })\n}\n"
+    },
+    {
+      "name": "banner/index.ts",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nexport { default as Banner } from \"./Banner.vue\"\nexport { default as BannerIndicator } from \"./BannerIndicator.vue\"\nexport { default as BannerContent } from \"./BannerContent.vue\"\nexport { default as BannerTitle } from \"./BannerTitle.vue\"\nexport { default as BannerDescription } from \"./BannerDescription.vue\"\nexport { default as BannerAction } from \"./BannerAction.vue\"\nexport { default as BannerClose } from \"./BannerClose.vue\"\n\n/*\n * Ink on paper, like the site's own update bar: a neutral surface, a medium\n * title, muted copy, and the hue only on the indicator dot. Status lives in\n * the dot, not in a coloured slab.\n */\nexport const bannerVariants = cva(\n  \"group/banner relative flex items-center gap-2 text-xs text-foreground [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5\",\n  {\n    variants: {\n      appearance: {\n        bar: \"min-h-9 w-full justify-center border-b border-border bg-muted px-10 py-2\",\n        floating:\n          \"mx-auto min-h-9 w-fit max-w-full rounded-full bg-popover py-1.5 ps-3.5 pe-1.5 text-popover-foreground shadow-lg ring-1 ring-foreground/5 dark:ring-foreground/10\",\n      },\n    },\n    defaultVariants: {\n      appearance: \"bar\",\n    },\n  }\n)\n\nexport type BannerVariantProps = VariantProps<typeof bannerVariants>\n\nexport type { BannerVariant } from \"./context\"\n"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "message",
+  "title": "Message",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "message/Message.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport type { MessageRole } from \".\"\n\n/**\n * One turn. The person's text sits in a secondary bubble at the end edge; the\n * agent's reply reads as plain prose at full width, with its steps above it.\n */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"]; from: MessageRole }>()\n</script>\n\n<template>\n  <div\n    data-slot=\"message\"\n    :data-from=\"from\"\n    :class=\"cn('group/message flex w-full gap-3', from === 'user' ? 'flex-row-reverse' : 'flex-row', props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "message/MessageActions.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Copy, regenerate, rate. Shown on hover or focus so the thread stays calm. */\nconst actionsClassName =\n  \"flex items-center gap-0.5 text-muted-foreground opacity-0 transition-opacity group-hover/message:opacity-100 focus-within:opacity-100 [@media(hover:none)]:opacity-100\"\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"message-actions\" :class=\"cn(actionsClassName, props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "message/MessageAvatar.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Holds an Avatar. Optional: most chats only show the agent's. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"message-avatar\" :class=\"cn('shrink-0 *:data-[slot=avatar]:size-7', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "message/MessageBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** Column for steps, content, actions, and meta. */\nconst bodyClassName =\n  \"flex min-w-0 flex-col gap-2 group-data-[from=user]/message:max-w-[80%] group-data-[from=user]/message:items-end group-data-[from=assistant]/message:flex-1 group-data-[from=assistant]/message:gap-3\"\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"message-body\" :class=\"cn(bodyClassName, props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "message/MessageContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst contentClassName =\n  \"text-sm leading-6 text-pretty break-words [&_p]:m-0 [&_p+p]:mt-3 group-data-[from=user]/message:rounded-3xl group-data-[from=user]/message:bg-secondary group-data-[from=user]/message:px-4 group-data-[from=user]/message:py-2 group-data-[from=user]/message:text-secondary-foreground group-data-[from=assistant]/message:text-foreground\"\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"message-content\" :class=\"cn(contentClassName, props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "message/MessageMeta.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"message-meta\" :class=\"cn('text-xs text-muted-foreground tabular-nums', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "message/index.ts",
+      "content": "export { default as Message } from \"./Message.vue\"\nexport { default as MessageAvatar } from \"./MessageAvatar.vue\"\nexport { default as MessageBody } from \"./MessageBody.vue\"\nexport { default as MessageContent } from \"./MessageContent.vue\"\nexport { default as MessageActions } from \"./MessageActions.vue\"\nexport { default as MessageMeta } from \"./MessageMeta.vue\"\n\nexport type MessageRole = \"user\" | \"assistant\"\n"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "test-results",
+  "title": "Test Results",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

@@ -1,0 +1,21 @@
+{
+  "name": "code-block",
+  "title": "Code Block",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "copy-button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "code-block/CodeBlock.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\n\nimport { CopyButton } from \"@/components/ui/copy-button\"\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Code on a muted panel with a header for the file name and a copy button.\n * No highlighter is bundled: pass highlighted nodes in the default slot, or a\n * plain string as `code`. `code` is also what the copy button copies.\n */\nconst props = withDefaults(\n  defineProps<{\n    code: string\n    /** File name or label in the header. The `#title` slot takes rich content. */\n    title?: string\n    /** Shown in the header when there is no title. */\n    language?: string\n    lineNumbers?: boolean\n    /** Wrap long lines instead of scrolling sideways. */\n    wrap?: boolean\n    /** Any CSS length. The body scrolls past it. */\n    maxHeight?: string\n    copyable?: boolean\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { lineNumbers: false, wrap: false, copyable: true },\n)\n\nconst label = computed(() => props.title ?? props.language)\nconst lines = computed(() => props.code.replace(/\\n$/, \"\").split(\"\\n\"))\n</script>\n\n<template>\n  <div\n    data-slot=\"code-block\"\n    :class=\"cn('overflow-hidden rounded-2xl border border-border bg-muted/40 text-xs', props.class)\"\n  >\n    <div\n      v-if=\"$slots.title || label || copyable\"\n      class=\"flex h-9 items-center justify-between gap-2 border-b border-border ps-3 pe-1.5\"\n    >\n      <span class=\"min-w-0 truncate font-mono text-[11px] text-muted-foreground\"><slot name=\"title\">{{ label }}</slot></span>\n      <CopyButton v-if=\"copyable\" :value=\"code\" size=\"icon-xs\" label=\"Copy code\" />\n    </div>\n    <pre\n      data-slot=\"code-block-body\"\n      tabindex=\"0\"\n      :class=\"\n        cn(\n          'm-0 overflow-auto p-3 font-mono text-[12px] leading-5 outline-none focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:ring-inset',\n          wrap ? 'whitespace-pre-wrap break-words' : 'whitespace-pre',\n        )\n      \"\n      :style=\"maxHeight ? { maxHeight } : undefined\"\n    ><slot><code v-if=\"lineNumbers\" class=\"grid grid-cols-[auto_1fr] gap-x-4\"><template v-for=\"(line, index) in lines\" :key=\"index\"><span aria-hidden=\"true\" class=\"text-end text-muted-foreground/60 select-none tabular-nums\">{{ index + 1 }}</span><span>{{ line || \" \" }}</span></template></code><code v-else>{{ code }}</code></slot></pre>\n  </div>\n</template>\n"
+    },
+    {
+      "name": "code-block/index.ts",
+      "content": "export { default as CodeBlock } from \"./CodeBlock.vue\"\n"
+    }
+  ]
+}

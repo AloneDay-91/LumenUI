@@ -54,6 +54,7 @@ const marks: { key: string; label: string; icon: ReactNode }[] = [
     label: item.name,
     icon: <FrameworkMark id={item.id} className="size-7" />,
   })),
+  { key: "vue", label: "Vue", icon: <FrameworkMark id="vue" className="size-7" /> },
 ];
 
 function Hairline() {

@@ -1,0 +1,23 @@
+{
+  "name": "comparison-slider",
+  "title": "Comparison Slider",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "comparison-slider/ComparisonSlider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, ref, type HTMLAttributes } from \"vue\"\nimport { SliderRoot, SliderThumb, SliderTrack } from \"reka-ui\"\nimport { ChevronsLeftRight } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Two layers stacked, with a handle that wipes between them: before on the\n * start side, after on the end. Drag anywhere, or focus the handle and use\n * the arrows, Home, and End.\n */\nconst props = withDefaults(\n  defineProps<{\n    /** Text on the start side; the `before-label` slot takes markup instead. */\n    beforeLabel?: string\n    /** Text on the end side; the `after-label` slot takes markup instead. */\n    afterLabel?: string\n    defaultValue?: number\n    ariaLabel?: string\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { defaultValue: 50, ariaLabel: \"Comparison position\" }\n)\n\ndefineSlots<{\n  /** Shown on the start side of the handle: an img, a video, any node. */\n  before?: () => unknown\n  /** Shown on the end side. Sets the size of the frame. */\n  after?: () => unknown\n  \"before-label\"?: () => unknown\n  \"after-label\"?: () => unknown\n}>()\n\n/** Controlled position, 0 to 100. */\nconst model = defineModel<number>()\n\nconst uncontrolled = ref(props.defaultValue)\nconst position = computed(() => model.value ?? uncontrolled.value)\nconst sliderValue = computed(() => [position.value])\n\nfunction onValueChange(next: number[] | undefined) {\n  const v = next?.[0]\n  if (v === undefined) return\n  uncontrolled.value = v\n  model.value = v\n}\n\nconst frameClass = cn(\n  \"relative isolate w-full overflow-hidden rounded-[min(var(--radius-4xl),24px)] bg-muted ring-1 ring-foreground/5 select-none dark:ring-foreground/10\",\n  \"[&_img]:pointer-events-none [&_img]:block [&_img]:size-full [&_img]:object-cover [&_video]:block [&_video]:size-full [&_video]:object-cover\"\n)\nconst labelClass =\n  \"pointer-events-none absolute top-3 rounded-2xl bg-background/85 px-2 py-0.5 text-[11px] font-medium text-foreground ring-1 ring-foreground/5 backdrop-blur-sm\"\nconst lineClass =\n  \"absolute inset-y-0 w-0.5 bg-background shadow-[0_0_0_1px_color-mix(in_oklch,var(--foreground)_10%,transparent)]\"\nconst knobClass =\n  \"relative flex size-8 items-center justify-center rounded-full bg-background text-foreground ring-1 ring-foreground/10 transition-[scale] group-hover/handle:scale-105 group-focus-visible/handle:ring-3 group-focus-visible/handle:ring-ring/50\"\n</script>\n\n<template>\n  <div data-slot=\"comparison-slider\" :class=\"cn(frameClass, props.class)\">\n    <div class=\"relative\">\n      <slot name=\"after\" />\n      <span v-if=\"$slots['after-label'] || afterLabel\" aria-hidden=\"true\" :class=\"cn(labelClass, 'end-3')\">\n        <slot name=\"after-label\">{{ afterLabel }}</slot>\n      </span>\n    </div>\n    <div class=\"absolute inset-0\" :style=\"{ clipPath: `inset(0 calc(100% - ${position}%) 0 0)` }\">\n      <slot name=\"before\" />\n      <span v-if=\"$slots['before-label'] || beforeLabel\" aria-hidden=\"true\" :class=\"cn(labelClass, 'start-3')\">\n        <slot name=\"before-label\">{{ beforeLabel }}</slot>\n      </span>\n    </div>\n\n    <!-- The clip runs left to right; keep the handle on the same axis in RTL. -->\n    <SliderRoot\n      :model-value=\"sliderValue\"\n      :min=\"0\"\n      :max=\"100\"\n      :step=\"1\"\n      thumb-alignment=\"overflow\"\n      dir=\"ltr\"\n      class=\"absolute inset-0 cursor-ew-resize touch-none\"\n      @update:model-value=\"onValueChange\"\n    >\n      <SliderTrack class=\"relative block size-full\">\n        <SliderThumb\n          :aria-label=\"ariaLabel\"\n          :aria-valuetext=\"`${Math.round(position)}%`\"\n          class=\"group/handle flex h-full w-8 items-center justify-center outline-none\"\n        >\n          <span aria-hidden=\"true\" :class=\"lineClass\" />\n          <span aria-hidden=\"true\" :class=\"knobClass\">\n            <ChevronsLeftRight class=\"size-4\" />\n          </span>\n        </SliderThumb>\n      </SliderTrack>\n    </SliderRoot>\n  </div>\n</template>\n"
+    },
+    {
+      "name": "comparison-slider/index.ts",
+      "content": "export { default as ComparisonSlider } from \"./ComparisonSlider.vue\"\n"
+    }
+  ]
+}

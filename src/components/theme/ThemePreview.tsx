@@ -645,29 +645,29 @@ export function ThemePreview() {
           </Card>
           <Card>
             <CardContent>
-              <Tabs defaultValue="blocks">
+              <Tabs defaultValue="registry">
                 <TabsList className="w-full">
                   <TabsIndicator />
-                  <TabsTab value="blocks" className="flex-1">
-                    Blocks
+                  <TabsTab value="registry" className="flex-1">
+                    Registry
                   </TabsTab>
                   <TabsTab value="local" className="flex-1">
                     Local
                   </TabsTab>
                 </TabsList>
-                <TabsPanel value="blocks" className="pt-2">
+                <TabsPanel value="registry" className="pt-2">
                   <Item size="sm" className="px-1">
                     <ItemContent>
-                      <ItemTitle>Blocks</ItemTitle>
+                      <ItemTitle>Components</ItemTitle>
                       <ItemDescription>
-                        Headers, heroes, and the site footer.
+                        Buttons, dialogs, fields, and tables.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
                       <Button
                         variant="ghost"
                         size="icon-sm"
-                        aria-label="Add a block"
+                        aria-label="Add a component"
                       >
                         <PlusIcon />
                       </Button>
@@ -677,7 +677,7 @@ export function ThemePreview() {
                             <Button
                               variant="ghost"
                               size="icon-sm"
-                              aria-label="Block menu"
+                              aria-label="Component menu"
                             />
                           }
                         >
@@ -696,18 +696,18 @@ export function ThemePreview() {
                       <EmptyMedia>
                         <ServerIcon />
                       </EmptyMedia>
-                      <EmptyTitle>No blocks yet</EmptyTitle>
+                      <EmptyTitle>No components installed</EmptyTitle>
                       <EmptyDescription>
-                        This kit has no blocks in the current category.
+                        Run the CLI to copy components into this directory.
                       </EmptyDescription>
                     </EmptyHeader>
                     <EmptyContent>
-                      <Button size="sm">Browse blocks</Button>
+                      <Button size="sm">Browse components</Button>
                     </EmptyContent>
                   </Empty>
                   <Separator className="my-2" />
                   <p className="px-1 text-xs text-muted-foreground">
-                    Block source is copied into{" "}
+                    Component source is copied into{" "}
                     <span className="font-medium text-foreground">
                       your repo
                     </span>

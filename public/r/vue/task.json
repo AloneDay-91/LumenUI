@@ -1,0 +1,28 @@
+{
+  "name": "task",
+  "title": "Task",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "task/Task.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Search } from \"@lucide/vue\"\nimport { useForwardPropsEmits, type CollapsibleRootEmits, type CollapsibleRootProps } from \"reka-ui\"\n\nimport { Trace, TraceContent, TraceSteps, TraceTrigger, type TraceStatus } from \"@/components/ui/trace\"\n\n/**\n * What the agent is doing, as it does it: a plain Trace whose title is the\n * task and whose body lists each action as it happens. The `#title` slot\n * replaces the `title` text, the `#icon` slot replaces the search icon.\n */\nconst props = withDefaults(\n  defineProps<\n    CollapsibleRootProps & {\n      title?: string\n      status?: TraceStatus\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { status: \"running\", defaultOpen: true },\n)\nconst emits = defineEmits<CollapsibleRootEmits>()\n\nconst delegated = computed(() => {\n  const { title: _title, status: _status, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <Trace data-slot=\"task\" :status=\"status\" v-bind=\"forwarded\">\n    <TraceTrigger :label=\"title\">\n      <template #icon>\n        <slot name=\"icon\"><Search /></slot>\n      </template>\n      <template v-if=\"$slots.title\" #default>\n        <slot name=\"title\" />\n      </template>\n    </TraceTrigger>\n    <TraceContent>\n      <TraceSteps class=\"py-1\">\n        <slot />\n      </TraceSteps>\n    </TraceContent>\n  </Trace>\n</template>\n"
+    },
+    {
+      "name": "task/TaskFile.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { File } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** A file the task read or wrote, as a small chip inside an item. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <span\n    data-slot=\"task-file\"\n    :class=\"\n      cn(\n        'inline-flex h-5 w-fit items-center gap-1 rounded-md bg-muted px-1.5 font-mono text-[11px] text-foreground',\n        props.class,\n      )\n    \"\n  >\n    <File aria-hidden=\"true\" class=\"size-3 text-muted-foreground\" />\n    <slot />\n  </span>\n</template>\n"
+    },
+    {
+      "name": "task/index.ts",
+      "content": "export { default as Task } from \"./Task.vue\"\nexport { default as TaskFile } from \"./TaskFile.vue\"\nexport { TraceStep as TaskItem, type TraceStatus as TaskStatus } from \"@/components/ui/trace\"\n"
+    }
+  ]
+}

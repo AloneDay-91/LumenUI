@@ -1,0 +1,27 @@
+{
+  "name": "suggestion",
+  "title": "Suggestion",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "suggestion/Suggestion.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport type { PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button, type ButtonVariantProps } from \"@/components/ui/button\"\n\n/** A short prompt you can send to the agent in one click. */\nconst props = withDefaults(\n  defineProps<\n    PrimitiveProps & {\n      suggestion: string\n      variant?: ButtonVariantProps[\"variant\"]\n      size?: ButtonVariantProps[\"size\"]\n      disabled?: boolean\n      loading?: boolean\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { variant: \"outline\", size: \"sm\" },\n)\n\nconst emit = defineEmits<{ select: [suggestion: string] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, suggestion: _suggestion, ...rest } = props\n  return rest\n})\n</script>\n\n<template>\n  <Button\n    data-slot=\"suggestion\"\n    v-bind=\"delegated\"\n    :class=\"cn('shrink-0 font-normal', props.class)\"\n    @click=\"emit('select', suggestion)\"\n  >\n    <slot>{{ suggestion }}</slot>\n  </Button>\n</template>\n"
+    },
+    {
+      "name": "suggestion/Suggestions.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\n/** A row of prompts that scrolls sideways on narrow screens. */\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div\n    data-slot=\"suggestions\"\n    role=\"group\"\n    :class=\"\n      cn(\n        'flex w-full gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',\n        props.class,\n      )\n    \"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "suggestion/index.ts",
+      "content": "export { default as Suggestions } from \"./Suggestions.vue\"\nexport { default as Suggestion } from \"./Suggestion.vue\"\n"
+    }
+  ]
+}

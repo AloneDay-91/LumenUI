@@ -259,6 +259,21 @@ describe("vue", () => {
     await assert.rejects(lumen("add", "button", "--framework", "react"), /set up for vue/)
   })
 
+  test("init skips the PostCSS config when @tailwindcss/vite runs Tailwind", async () => {
+    writeFileSync(
+      file("package.json"),
+      JSON.stringify({
+        name: "fixture",
+        dependencies: { vue: "*", ...vueDependencies },
+        devDependencies: { ...devDependencies, "@tailwindcss/vite": "*" },
+      })
+    )
+
+    await lumen("init")
+
+    assert.ok(!existsSync(file("postcss.config.mjs")))
+  })
+
   test("rm deletes the whole component folder", async () => {
     await lumen("add", "card")
 

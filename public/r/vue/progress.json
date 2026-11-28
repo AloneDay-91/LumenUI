@@ -1,0 +1,22 @@
+{
+  "name": "progress",
+  "title": "Progress",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "progress/Progress.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { ProgressIndicator, ProgressRoot, type ProgressRootProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\ninterface Props extends ProgressRootProps {\n  /** One locale on the server and in the browser, so \"60%\" does not become \"60 %\". */\n  locale?: string\n  /** Options for the value text read by screen readers (a percent by default). */\n  format?: Intl.NumberFormatOptions\n  class?: HTMLAttributes[\"class\"]\n}\n\nconst props = withDefaults(defineProps<Props>(), { locale: \"en-US\", max: 100 })\nconst emit = defineEmits<{ \"update:max\": [value: number] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, locale: _locale, format: _format, getValueText: _getValueText, ...rest } = props\n  return rest\n})\n\n// Base UI reads the value as a formatted percent unless a format is given.\nfunction defaultValueText(value: number | null | undefined, max: number) {\n  if (value == null) return undefined\n  if (props.format) return new Intl.NumberFormat(props.locale, props.format).format(value)\n  return new Intl.NumberFormat(props.locale, { style: \"percent\" }).format(value / max)\n}\n\nconst getValueText = computed(() => props.getValueText ?? defaultValueText)\n\n// Reka does not size the indicator: Base UI sets its width, so do the same.\nconst indicatorStyle = computed(() => {\n  const value = props.modelValue\n  if (value == null) return undefined\n  const percent = Math.min(100, Math.max(0, (value / props.max) * 100))\n  return { width: `${percent}%` }\n})\n</script>\n\n<template>\n  <ProgressRoot\n    v-slot=\"slotProps\"\n    data-slot=\"progress\"\n    v-bind=\"delegated\"\n    :get-value-text=\"getValueText\"\n    :class=\"cn('flex flex-col gap-1.5', props.class)\"\n    @update:max=\"(value) => emit('update:max', value)\"\n  >\n    <slot v-bind=\"slotProps\">\n      <div class=\"h-1.5 overflow-hidden rounded-full bg-muted\">\n        <ProgressIndicator class=\"h-full bg-primary transition-[width]\" :style=\"indicatorStyle\" />\n      </div>\n    </slot>\n  </ProgressRoot>\n</template>\n"
+    },
+    {
+      "name": "progress/index.ts",
+      "content": "export { default as Progress } from \"./Progress.vue\"\n"
+    }
+  ]
+}

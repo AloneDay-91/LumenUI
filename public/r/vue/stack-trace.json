@@ -1,0 +1,9 @@
+{
+  "name": "stack-trace",
+  "title": "Stack Trace",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

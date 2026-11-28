@@ -1,0 +1,23 @@
+{
+  "name": "stack",
+  "title": "Stack",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "stack/Stack.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { stackVariants, type StackVariants } from \".\"\n\n/** Flex layout on the Lumen spacing steps. Renders a div unless `as` / `as-child` says otherwise. */\nconst props = withDefaults(\n  defineProps<\n    PrimitiveProps & {\n      direction?: StackVariants[\"direction\"]\n      gap?: StackVariants[\"gap\"]\n      align?: StackVariants[\"align\"]\n      justify?: StackVariants[\"justify\"]\n      wrap?: StackVariants[\"wrap\"]\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { as: \"div\", wrap: undefined },\n)\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"stack\"\n    :data-direction=\"direction ?? 'column'\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn(stackVariants({ direction, gap, align, justify, wrap }), props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "stack/index.ts",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nexport { default as Stack } from \"./Stack.vue\"\n\nexport const stackVariants = cva(\"flex\", {\n  variants: {\n    direction: {\n      column: \"flex-col\",\n      row: \"flex-row\",\n      \"column-reverse\": \"flex-col-reverse\",\n      \"row-reverse\": \"flex-row-reverse\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n      baseline: \"items-baseline\",\n    },\n    justify: {\n      start: \"justify-start\",\n      center: \"justify-center\",\n      end: \"justify-end\",\n      between: \"justify-between\",\n    },\n    wrap: {\n      true: \"flex-wrap\",\n      false: \"flex-nowrap\",\n    },\n  },\n  defaultVariants: {\n    direction: \"column\",\n    gap: \"md\",\n  },\n})\n\nexport type StackVariants = VariantProps<typeof stackVariants>\n"
+    }
+  ]
+}

@@ -207,11 +207,9 @@ export const docsSections: DocsNavSection[] = [
   {
     title: "Getting started",
     items: [
-      // Reading order: what it is, install, your framework, then pick components.
+      // Reading order: what it is, install, then pick components. Frameworks has its own section.
       { name: "Introduction", href: "/docs" },
       { name: "Installation", href: "/docs/installation" },
-      { name: "Frameworks", href: "/docs/frameworks" },
-      { name: "Vue", href: "/docs/vue", keywords: "vue vuejs vue.js reka nuxt vite sfc" },
       { name: "Components", href: "/docs/components" },
       {
         name: "Choose a component",
@@ -230,9 +228,25 @@ export const docsSections: DocsNavSection[] = [
         href: "/docs/ai",
         keywords: "ai agent chat message reasoning tool trace plan task llm assistant elements",
       },
-      { name: "Blocks", href: "/blocks" },
       { name: "LLMs", href: "/docs/llms" },
       { name: "Changelog", href: "/docs/changelog" },
+    ],
+  },
+  {
+    title: "Frameworks",
+    href: "/docs/frameworks",
+    items: [
+      { name: "Overview", href: "/docs/frameworks", keywords: "framework frameworks setup stack" },
+      { name: "Next.js", href: "/docs/frameworks/nextjs", keywords: "next nextjs app router pages" },
+      { name: "Vite", href: "/docs/frameworks/vite", keywords: "vite react spa" },
+      { name: "React Router", href: "/docs/frameworks/react-router", keywords: "remix react router framework mode" },
+      { name: "Astro", href: "/docs/frameworks/astro", keywords: "astro react islands" },
+      { name: "TanStack Start", href: "/docs/frameworks/tanstack-start", keywords: "tanstack start router" },
+      { name: "Vue", href: "/docs/vue", keywords: "vue vuejs vue.js reka sfc differences" },
+      { name: "Vite + Vue", href: "/docs/frameworks/vue-vite", keywords: "vue vite create-vue" },
+      { name: "Nuxt", href: "/docs/frameworks/nuxt", keywords: "nuxt vue ssr" },
+      { name: "Laravel + Inertia", href: "/docs/frameworks/laravel", keywords: "laravel inertia php vue starter kit" },
+      { name: "Astro + Vue", href: "/docs/frameworks/astro-vue", keywords: "astro vue islands" },
     ],
   },
   {

@@ -13,13 +13,10 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/Command"
 import { Kbd } from "@/components/ui/Kbd"
-import { blockCategories } from "@/lib/block-categories"
 import { docsSections } from "@/lib/docs-nav"
 
-/** Magnifying glass that opens the docs command menu. ⌘K does the same. */
 export function DocsCommandMenu() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -56,7 +53,7 @@ export function DocsCommandMenu() {
         open={open}
         onOpenChange={setOpen}
         title="Search"
-        description="Search the documentation and blocks."
+        description="Search documentation, components, shaders, and theme customization."
       >
         <CommandInput placeholder="Search…" />
         <CommandList>
@@ -66,7 +63,7 @@ export function DocsCommandMenu() {
               {section.items.map((item) => (
                 <CommandItem
                   key={item.href}
-                  value={`${section.title} ${item.name}`}
+                  value={`${section.title} ${item.name} ${item.keywords ?? ""}`}
                   onSelect={() => go(item.href)}
                 >
                   {item.name}
@@ -74,21 +71,6 @@ export function DocsCommandMenu() {
               ))}
             </CommandGroup>
           ))}
-          <CommandSeparator />
-          <CommandGroup heading="Blocks">
-            <CommandItem value="All blocks" onSelect={() => go("/blocks")}>
-              All blocks
-            </CommandItem>
-            {blockCategories.map((category) => (
-              <CommandItem
-                key={category.slug}
-                value={`Blocks ${category.group} ${category.title}`}
-                onSelect={() => go(`/blocks/${category.slug}`)}
-              >
-                {category.title}
-              </CommandItem>
-            ))}
-          </CommandGroup>
         </CommandList>
         <CommandFooter>
           <span className="inline-flex items-center gap-1">

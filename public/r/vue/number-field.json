@@ -1,0 +1,40 @@
+{
+  "name": "number-field",
+  "title": "Number Field",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "number-field/NumberField.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  NumberFieldRoot,\n  useForwardPropsEmits,\n  type NumberFieldRootEmits,\n  type NumberFieldRootProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NumberFieldRootProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<NumberFieldRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <NumberFieldRoot\n    v-slot=\"slotProps\"\n    data-slot=\"number-field\"\n    v-bind=\"forwarded\"\n    :class=\"cn('flex flex-col gap-1.5', props.class)\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </NumberFieldRoot>\n</template>\n"
+    },
+    {
+      "name": "number-field/NumberFieldDecrement.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Minus } from \"@lucide/vue\"\nimport { NumberFieldDecrement, useForwardProps, type NumberFieldDecrementProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NumberFieldDecrementProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <NumberFieldDecrement\n    data-slot=\"number-field-decrement\"\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex size-8 items-center justify-center rounded-l-2xl border border-r-0 border-border bg-transparent text-muted-foreground outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50',\n        props.class,\n      )\n    \"\n  >\n    <slot><Minus class=\"size-3.5\" /></slot>\n  </NumberFieldDecrement>\n</template>\n"
+    },
+    {
+      "name": "number-field/NumberFieldGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\n// Reka has no NumberField group part: a plain wrapper that lays out the input and its buttons.\nconst props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  as: \"div\",\n})\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"number-field-group\"\n    role=\"group\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn('flex', props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "number-field/NumberFieldIncrement.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Plus } from \"@lucide/vue\"\nimport { NumberFieldIncrement, useForwardProps, type NumberFieldIncrementProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<NumberFieldIncrementProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <NumberFieldIncrement\n    data-slot=\"number-field-increment\"\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'flex size-8 items-center justify-center rounded-r-2xl border border-l-0 border-border bg-transparent text-muted-foreground outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50',\n        props.class,\n      )\n    \"\n  >\n    <slot><Plus class=\"size-3.5\" /></slot>\n  </NumberFieldIncrement>\n</template>\n"
+    },
+    {
+      "name": "number-field/NumberFieldInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { NumberFieldInput, useForwardProps, type NumberFieldInputProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { inputClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<NumberFieldInputProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <NumberFieldInput\n    data-slot=\"number-field-input\"\n    v-bind=\"forwarded\"\n    :class=\"cn(inputClassName, 'rounded-none text-center', props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "name": "number-field/index.ts",
+      "content": "export { default as NumberField } from \"./NumberField.vue\"\nexport { default as NumberFieldGroup } from \"./NumberFieldGroup.vue\"\nexport { default as NumberFieldInput } from \"./NumberFieldInput.vue\"\nexport { default as NumberFieldIncrement } from \"./NumberFieldIncrement.vue\"\nexport { default as NumberFieldDecrement } from \"./NumberFieldDecrement.vue\"\n"
+    }
+  ]
+}

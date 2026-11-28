@@ -1,0 +1,9 @@
+{
+  "name": "color-picker",
+  "title": "Color Picker",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

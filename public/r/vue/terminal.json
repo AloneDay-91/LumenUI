@@ -1,0 +1,9 @@
+{
+  "name": "terminal",
+  "title": "Terminal",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

@@ -1,0 +1,47 @@
+{
+  "name": "autocomplete",
+  "title": "Autocomplete",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "styles",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "autocomplete/Autocomplete.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide } from \"vue\"\nimport {\n  AutocompleteRoot,\n  useForwardPropsEmits,\n  type AutocompleteRootEmits,\n  type AutocompleteRootProps,\n} from \"reka-ui\"\n\nimport { autocompleteItemsKey } from \"./context\"\n\nconst props = defineProps<\n  AutocompleteRootProps & {\n    /** Options to suggest. AutocompleteList renders its slot once per item and filters them as you type. */\n    items?: readonly string[]\n  }\n>()\nconst emits = defineEmits<AutocompleteRootEmits>()\n\nconst delegated = computed(() => {\n  const { items: _items, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n\nprovide(\n  autocompleteItemsKey,\n  computed(() => props.items),\n)\n</script>\n\n<template>\n  <AutocompleteRoot v-slot=\"slotProps\" data-slot=\"autocomplete\" v-bind=\"forwarded\">\n    <slot v-bind=\"slotProps\" />\n  </AutocompleteRoot>\n</template>\n"
+    },
+    {
+      "name": "autocomplete/AutocompleteContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  AutocompleteContent,\n  AutocompletePortal,\n  useForwardPropsEmits,\n  type AutocompleteContentEmits,\n  type AutocompleteContentProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { popupClassName } from \"@/components/ui/styles\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = withDefaults(defineProps<AutocompleteContentProps & { class?: HTMLAttributes[\"class\"] }>(), {\n  position: \"popper\",\n  sideOffset: 4,\n})\nconst emits = defineEmits<AutocompleteContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <AutocompletePortal>\n    <AutocompleteContent\n      data-slot=\"autocomplete-content\"\n      v-bind=\"{ ...$attrs, ...forwarded }\"\n      :class=\"\n        cn(\n          popupClassName,\n          'isolate z-50 flex max-h-(--reka-popper-available-height) w-(--reka-popper-anchor-width) min-w-36 flex-col overflow-hidden p-1',\n          props.class,\n        )\n      \"\n    >\n      <slot />\n    </AutocompleteContent>\n  </AutocompletePortal>\n</template>\n"
+    },
+    {
+      "name": "autocomplete/AutocompleteEmpty.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { AutocompleteEmpty, useForwardProps, type AutocompleteEmptyProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<AutocompleteEmptyProps & { class?: HTMLAttributes[\"class\"] }>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <AutocompleteEmpty\n    data-slot=\"autocomplete-empty\"\n    v-bind=\"forwarded\"\n    :class=\"cn('px-2 py-1.5 text-xs text-muted-foreground', props.class)\"\n  >\n    <slot />\n  </AutocompleteEmpty>\n</template>\n"
+    },
+    {
+      "name": "autocomplete/AutocompleteInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  AutocompleteAnchor,\n  AutocompleteInput,\n  useForwardPropsEmits,\n  type AutocompleteInputEmits,\n  type AutocompleteInputProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { inputClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<AutocompleteInputProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<AutocompleteInputEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <!-- The input is the anchor the list opens under and takes its width from. -->\n  <AutocompleteAnchor as-child>\n    <AutocompleteInput data-slot=\"autocomplete-input\" v-bind=\"forwarded\" :class=\"cn(inputClassName, props.class)\" />\n  </AutocompleteAnchor>\n</template>\n"
+    },
+    {
+      "name": "autocomplete/AutocompleteItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport {\n  AutocompleteItem,\n  useForwardPropsEmits,\n  type AutocompleteItemEmits,\n  type AutocompleteItemProps,\n} from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { menuItemClassName } from \"@/components/ui/styles\"\n\nconst props = defineProps<AutocompleteItemProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<AutocompleteItemEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <AutocompleteItem data-slot=\"autocomplete-item\" v-bind=\"forwarded\" :class=\"cn(menuItemClassName, props.class)\">\n    <slot />\n  </AutocompleteItem>\n</template>\n"
+    },
+    {
+      "name": "autocomplete/AutocompleteList.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject, type HTMLAttributes } from \"vue\"\nimport { AutocompleteViewport, useForwardProps, type AutocompleteViewportProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { autocompleteItemsKey } from \"./context\"\n\nconst props = defineProps<AutocompleteViewportProps & { class?: HTMLAttributes[\"class\"] }>()\n\ndefineSlots<{\n  /** With `items` on Autocomplete, called once per item (`v-slot=\"{ item }\"`); otherwise plain content. */\n  default?: (props: { item: string; index: number }) => unknown\n}>()\n\nconst items = inject(autocompleteItemsKey, undefined)\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardProps(delegated)\n</script>\n\n<template>\n  <AutocompleteViewport\n    data-slot=\"autocomplete-list\"\n    v-bind=\"forwarded\"\n    :class=\"cn('min-h-0 flex-1 scroll-fade overflow-y-auto', props.class)\"\n  >\n    <template v-if=\"items\">\n      <template v-for=\"(item, index) in items\" :key=\"item\">\n        <slot :item=\"item\" :index=\"index\" />\n      </template>\n    </template>\n    <slot v-else :item=\"''\" :index=\"-1\" />\n  </AutocompleteViewport>\n</template>\n"
+    },
+    {
+      "name": "autocomplete/context.ts",
+      "content": "import type { ComputedRef, InjectionKey } from \"vue\"\n\n/** The `items` passed to Autocomplete, read by AutocompleteList to render one slot per item. */\nexport const autocompleteItemsKey: InjectionKey<ComputedRef<readonly string[] | undefined>> =\n  Symbol(\"autocomplete-items\")\n"
+    },
+    {
+      "name": "autocomplete/index.ts",
+      "content": "export { default as Autocomplete } from \"./Autocomplete.vue\"\nexport { default as AutocompleteInput } from \"./AutocompleteInput.vue\"\nexport { default as AutocompleteContent } from \"./AutocompleteContent.vue\"\nexport { default as AutocompleteList } from \"./AutocompleteList.vue\"\nexport { default as AutocompleteItem } from \"./AutocompleteItem.vue\"\nexport { default as AutocompleteEmpty } from \"./AutocompleteEmpty.vue\"\n"
+    }
+  ]
+}

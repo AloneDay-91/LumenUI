@@ -1,0 +1,9 @@
+{
+  "name": "queue",
+  "title": "Queue",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

@@ -28,9 +28,9 @@ const points = [
   },
   {
     icon: LayoutDashboardIcon,
-    title: "Blocks",
-    href: "/blocks",
-    text: "A sign-in, a settings page, a dashboard, already arranged.",
+    title: "Recipes",
+    href: "/docs/recipes/settings",
+    text: "A form and a settings card, assembled from several components.",
   },
   {
     icon: FilesIcon,
@@ -115,8 +115,8 @@ export function FeatureAlso() {
                 <div className="text-sm text-muted-foreground">Components</div>
               </div>
               <div>
-                <div className="text-xl font-medium">3</div>
-                <div className="text-sm text-muted-foreground">Blocks</div>
+                <div className="text-xl font-medium">2</div>
+                <div className="text-sm text-muted-foreground">Recipes</div>
               </div>
             </div>
             <ul className="mt-3 space-y-1">
@@ -126,7 +126,7 @@ export function FeatureAlso() {
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <span className="size-1.5 rounded-full bg-primary" />
-                Dashboard, sign-in, settings
+                Form validation and settings
               </li>
             </ul>
           </Peek>

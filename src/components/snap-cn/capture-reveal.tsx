@@ -163,7 +163,7 @@ export function CaptureReveal({
             <span key={dot} className="size-2 rounded-full bg-border" />
           ))}
           <span className="mx-auto rounded-md bg-muted px-6 py-0.5 font-mono text-[9px] text-muted-foreground">
-            lumen-ui.dev/blocks
+            lumen-ui.dev/customize
           </span>
         </div>
         {/* The real Customize page, opened on the Lumen design system. */}

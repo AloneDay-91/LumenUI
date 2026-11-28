@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation"
 import type { ReactNode } from "react"
 
-import { BlocksShell } from "@/components/blocks/BlocksShell"
 import { CustomizeShell } from "@/components/theme/CustomizeShell"
 import DocsAside from "@/components/docs/DocsAside"
 import { DocsBreadcrumb } from "@/components/docs/DocsBreadcrumb"
@@ -13,10 +12,6 @@ import { DocsSidebar } from "@/components/docs/DocsSidebar"
 
 export function DocsShell({ children }: { children: ReactNode }) {
   const pathname = usePathname()
-
-  if (pathname.startsWith("/blocks")) {
-    return <BlocksShell>{children}</BlocksShell>
-  }
 
   if (pathname === "/customize") {
     return <CustomizeShell>{children}</CustomizeShell>

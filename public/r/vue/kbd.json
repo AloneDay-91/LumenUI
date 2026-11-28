@@ -1,0 +1,27 @@
+{
+  "name": "kbd",
+  "title": "Kbd",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "kbd/Kbd.vue",
+      "content": "<script setup lang=\"ts\">\nimport { Fragment, Text, computed, h, inject, isVNode, type Component, type HTMLAttributes, type VNode } from \"vue\"\nimport { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Command } from \"@lucide/vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { kbdSizeKey, kbdVariants, type KbdVariantProps } from \".\"\n\nconst props = defineProps<{\n  size?: KbdVariantProps[\"size\"]\n  variant?: KbdVariantProps[\"variant\"]\n  class?: HTMLAttributes[\"class\"]\n}>()\n\nconst slots = defineSlots<{ default?: () => VNode[] }>()\n\nconst groupSize = inject(kbdSizeKey, undefined)\nconst resolvedSize = computed(() => props.size ?? groupSize?.value)\n\nconst KEY_ICONS: Record<string, Component> = {\n  \"⌘\": Command,\n  \"↑\": ArrowUp,\n  \"↓\": ArrowDown,\n  \"←\": ArrowLeft,\n  \"→\": ArrowRight,\n}\n\nconst KEY_GLYPH_RE = /(⌘|↑|↓|←|→)/\n\n// JetBrains Mono lacks these glyphs: swap each for a Lucide icon, keeping the\n// character for screen readers.\nfunction renderText(text: string): (VNode | string)[] {\n  const parts = text.split(KEY_GLYPH_RE)\n  if (parts.length === 1) return [text]\n  return parts.flatMap((part): (VNode | string)[] => {\n    const Icon = KEY_ICONS[part]\n    if (!Icon) return part ? [part] : []\n    return [h(\"span\", { class: \"sr-only\" }, part), h(Icon, { \"aria-hidden\": \"true\", class: \"size-[1em]\" })]\n  })\n}\n\nfunction transform(nodes: unknown[]): (VNode | string)[] {\n  return nodes.flatMap((node) => {\n    if (typeof node === \"string\") return renderText(node)\n    if (!isVNode(node)) return []\n    if (node.type === Text && typeof node.children === \"string\") return renderText(node.children)\n    if (node.type === Fragment && Array.isArray(node.children)) return transform(node.children)\n    return [node]\n  })\n}\n\nconst Content = () => transform(slots.default?.() ?? [])\n</script>\n\n<template>\n  <kbd\n    data-slot=\"kbd\"\n    :class=\"cn(kbdVariants({ size: resolvedSize, variant }), props.class)\"\n  >\n    <Content />\n  </kbd>\n</template>\n"
+    },
+    {
+      "name": "kbd/KbdGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, type HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\nimport { kbdGroupVariants, kbdSizeKey, type KbdGroupVariantProps } from \".\"\n\nconst props = defineProps<{\n  size?: KbdGroupVariantProps[\"size\"]\n  class?: HTMLAttributes[\"class\"]\n}>()\n\nprovide(\n  kbdSizeKey,\n  computed(() => props.size ?? undefined)\n)\n</script>\n\n<template>\n  <span data-slot=\"kbd-group\" :class=\"cn(kbdGroupVariants({ size }), props.class)\">\n    <slot />\n  </span>\n</template>\n"
+    },
+    {
+      "name": "kbd/index.ts",
+      "content": "import type { InjectionKey, Ref } from \"vue\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nexport { default as Kbd } from \"./Kbd.vue\"\nexport { default as KbdGroup } from \"./KbdGroup.vue\"\n\nexport const kbdVariants = cva(\n  // rounded-sm, not the pill radius the rest of the system uses: a keycap has\n  // to read as a key, and the theme radius turns a square key into a circle.\n  \"inline-flex shrink-0 items-center justify-center gap-1 rounded-sm font-mono leading-none font-medium whitespace-nowrap select-none [&_svg]:pointer-events-none [&_svg]:shrink-0\",\n  {\n    variants: {\n      // Icons track the text em so a glyph and an icon key share one weight.\n      // JetBrains Mono lacks ⌘ / arrows; those fall back to a larger system\n      // face — Kbd swaps them for Lucide at 1em instead.\n      size: {\n        default: \"h-6 min-w-6 px-2 text-xs [&_svg:not([class*='size-'])]:size-[1em]\",\n        sm: \"h-5 min-w-5 px-1.5 text-xs [&_svg:not([class*='size-'])]:size-[1em]\",\n        lg: \"h-7 min-w-7 px-2.5 text-xs [&_svg:not([class*='size-'])]:size-[1em]\",\n      },\n      variant: {\n        default: \"bg-secondary text-secondary-foreground\",\n        outline: \"border border-border text-foreground\",\n        ghost: \"bg-current/10 text-current\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n      variant: \"default\",\n    },\n  }\n)\n\nexport const kbdGroupVariants = cva(\"inline-flex items-center\", {\n  variants: {\n    size: {\n      default: \"gap-1.5 text-xs\",\n      sm: \"gap-1 text-xs\",\n      lg: \"gap-2 text-xs\",\n    },\n  },\n  defaultVariants: {\n    size: \"default\",\n  },\n})\n\nexport type KbdVariantProps = VariantProps<typeof kbdVariants>\nexport type KbdGroupVariantProps = VariantProps<typeof kbdGroupVariants>\nexport type KbdSize = NonNullable<KbdVariantProps[\"size\"]>\n\n/** The size a KbdGroup hands down to the keys inside it. */\nexport const kbdSizeKey: InjectionKey<Ref<KbdSize | undefined>> = Symbol(\"KbdSize\")\n"
+    }
+  ]
+}

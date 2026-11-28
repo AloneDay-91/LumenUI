@@ -1,0 +1,28 @@
+{
+  "name": "date-picker",
+  "title": "Date Picker",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@internationalized/date",
+    "@lucide/vue",
+    "date-fns",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "popover",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "date-picker/DatePicker.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, ref, shallowRef } from \"vue\"\nimport { format } from \"date-fns\"\nimport { getLocalTimeZone, isSameDay, type DateValue } from \"@internationalized/date\"\nimport type { DateRange } from \"reka-ui\"\nimport { Calendar as CalendarIcon } from \"@lucide/vue\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Calendar } from \"@/components/ui/calendar\"\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/ui/popover\"\nimport { cn } from \"@/lib/utils\"\nimport type { DatePickerProps } from \".\"\n\nconst dateFormat = \"MMM d, yyyy\"\n\n/**\n * A button that opens a Calendar in a Popover. `mode=\"single\"` takes a DateValue,\n * `mode=\"range\"` a DateRange ({ start, end }), both through v-model.\n */\nconst props = withDefaults(\n  defineProps<DatePickerProps>(),\n  { mode: \"single\", modelValue: undefined, defaultValue: undefined },\n)\n\nconst emit = defineEmits<{\n  \"update:modelValue\": [value: DateValue | DateRange | undefined]\n}>()\n\nconst open = ref(false)\nconst internal = shallowRef<DateValue | DateRange | undefined>(props.defaultValue)\nconst current = computed(() => (props.modelValue !== undefined ? props.modelValue : internal.value))\n\nfunction isRange(value: unknown): value is DateRange {\n  return typeof value === \"object\" && value !== null && \"start\" in value\n}\n\nfunction toText(date: DateValue) {\n  return format(date.toDate(getLocalTimeZone()), dateFormat)\n}\n\nconst range = computed(() => (isRange(current.value) ? current.value : undefined))\nconst single = computed(() => (current.value && !isRange(current.value) ? current.value : undefined))\nconst empty = computed(() => (props.mode === \"range\" ? !range.value?.start : !single.value))\n\nconst label = computed(() => {\n  if (props.mode === \"range\") {\n    const value = range.value\n    if (!value?.start) return props.placeholder ?? \"Pick a range\"\n    if (!value.end || isSameDay(value.start, value.end)) return toText(value.start)\n    return `${toText(value.start)} – ${toText(value.end)}`\n  }\n  return single.value ? toText(single.value) : (props.placeholder ?? \"Pick a date\")\n})\n\nfunction onSelect(next: unknown) {\n  const value = (next ?? undefined) as DateValue | DateRange | undefined\n  internal.value = value\n  emit(\"update:modelValue\", value)\n  if (props.mode === \"range\") {\n    if (isRange(value) && value.start && value.end && !isSameDay(value.start, value.end)) open.value = false\n  } else {\n    open.value = false\n  }\n}\n</script>\n\n<template>\n  <Popover v-model:open=\"open\">\n    <PopoverTrigger as-child :disabled=\"disabled\">\n      <Button\n        :id=\"id\"\n        variant=\"outline\"\n        :disabled=\"disabled\"\n        :class=\"cn('min-w-52 justify-start font-normal', empty && 'text-muted-foreground', props.class)\"\n      >\n        <CalendarIcon data-icon=\"inline-start\" />\n        {{ label }}\n      </Button>\n    </PopoverTrigger>\n    <PopoverContent align=\"start\" class=\"w-auto p-3\">\n      <Calendar\n        v-if=\"mode === 'range'\"\n        initial-focus\n        mode=\"range\"\n        :model-value=\"range\"\n        :default-placeholder=\"range?.start\"\n        @update:model-value=\"onSelect\"\n      />\n      <Calendar\n        v-else\n        initial-focus\n        mode=\"single\"\n        :model-value=\"single\"\n        :default-placeholder=\"single\"\n        @update:model-value=\"onSelect\"\n      />\n    </PopoverContent>\n  </Popover>\n</template>\n"
+    },
+    {
+      "name": "date-picker/index.ts",
+      "content": "import type { HTMLAttributes } from \"vue\"\nimport type { DateValue } from \"@internationalized/date\"\nimport type { DateRange } from \"reka-ui\"\n\nexport { default as DatePicker } from \"./DatePicker.vue\"\n\nexport type DatePickerProps = {\n  /** One day (a DateValue) or a range (a DateRange: { start, end }). */\n  mode?: \"single\" | \"range\"\n  modelValue?: DateValue | DateRange\n  defaultValue?: DateValue | DateRange\n  placeholder?: string\n  disabled?: boolean\n  id?: string\n  class?: HTMLAttributes[\"class\"]\n}\n"
+    }
+  ]
+}

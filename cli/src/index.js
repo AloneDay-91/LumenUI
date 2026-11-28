@@ -357,7 +357,23 @@ function installCss(project, config, css, flags) {
   console.log(`add ${relative}`)
 }
 
+function usesTailwindVite(project) {
+  const file = path.join(project, "package.json")
+  if (!existsSync(file)) {
+    return false
+  }
+  const manifest = JSON.parse(readFileSync(file, "utf8"))
+  return Boolean(
+    manifest.dependencies?.["@tailwindcss/vite"] ?? manifest.devDependencies?.["@tailwindcss/vite"]
+  )
+}
+
 function writePostcssConfig(project, flags) {
+  // Nuxt, Laravel and Astro run Tailwind through its Vite plugin: a PostCSS pass would run it twice.
+  if (usesTailwindVite(project)) {
+    console.log("skip postcss.config.mjs (@tailwindcss/vite runs Tailwind)")
+    return
+  }
   const present = POSTCSS_FILES.map((name) => path.join(project, name)).filter((file) =>
     existsSync(file)
   )

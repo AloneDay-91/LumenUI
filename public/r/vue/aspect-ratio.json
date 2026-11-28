@@ -1,0 +1,20 @@
+{
+  "name": "aspect-ratio",
+  "title": "Aspect Ratio",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "aspect-ratio/AspectRatio.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes, StyleValue } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\ndefineOptions({ inheritAttrs: false })\n\nconst props = withDefaults(\n  defineProps<{ ratio?: number; class?: HTMLAttributes[\"class\"]; style?: StyleValue }>(),\n  { ratio: 16 / 9 }\n)\n</script>\n\n<template>\n  <div\n    data-slot=\"aspect-ratio\"\n    v-bind=\"$attrs\"\n    :class=\"cn('relative w-full min-w-0 overflow-hidden', '[&_img]:size-full [&_img]:object-cover', '[&_video]:size-full [&_video]:object-cover', props.class)\"\n    :style=\"[{ aspectRatio: String(props.ratio) }, props.style]\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "aspect-ratio/index.ts",
+      "content": "export { default as AspectRatio } from \"./AspectRatio.vue\"\n"
+    }
+  ]
+}

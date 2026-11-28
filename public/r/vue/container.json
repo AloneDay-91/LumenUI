@@ -1,0 +1,23 @@
+{
+  "name": "container",
+  "title": "Container",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "class-variance-authority",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "container/Container.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\nimport { Primitive, type PrimitiveProps } from \"reka-ui\"\n\nimport { cn } from \"@/lib/utils\"\nimport { containerVariants, type ContainerVariantProps } from \".\"\n\n/** Centered column with a max width and side gutters. */\ninterface Props extends PrimitiveProps {\n  size?: ContainerVariantProps[\"size\"]\n  padding?: ContainerVariantProps[\"padding\"]\n  class?: HTMLAttributes[\"class\"]\n}\n\nconst props = withDefaults(defineProps<Props>(), { as: \"div\" })\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"container\"\n    :data-size=\"props.size ?? 'lg'\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn(containerVariants({ size: props.size, padding: props.padding }), props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "name": "container/index.ts",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nexport { default as Container } from \"./Container.vue\"\n\nexport const containerVariants = cva(\"mx-auto w-full\", {\n  variants: {\n    size: {\n      sm: \"max-w-2xl\",\n      md: \"max-w-4xl\",\n      lg: \"max-w-6xl\",\n      xl: \"max-w-7xl\",\n      full: \"max-w-none\",\n    },\n    padding: {\n      none: \"px-0\",\n      default: \"px-4 md:px-6\",\n      wide: \"px-6 md:px-12\",\n    },\n  },\n  defaultVariants: {\n    size: \"lg\",\n    padding: \"default\",\n  },\n})\n\nexport type ContainerVariantProps = VariantProps<typeof containerVariants>\n"
+    }
+  ]
+}

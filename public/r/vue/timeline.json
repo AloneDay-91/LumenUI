@@ -1,0 +1,48 @@
+{
+  "name": "timeline",
+  "title": "Timeline",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "timeline/Timeline.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <ol data-slot=\"timeline\" :class=\"cn('flex flex-col', props.class)\">\n    <slot />\n  </ol>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"timeline-content\" :class=\"cn('min-w-0 space-y-1', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <p data-slot=\"timeline-description\" :class=\"cn('text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <li data-slot=\"timeline-item\" :class=\"cn('group/timeline-item relative grid grid-cols-[auto_1fr] gap-x-3 pb-6 last:pb-0', props.class)\">\n    <slot />\n  </li>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineMarker.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"timeline-marker\" :class=\"cn('relative z-10 mt-1.5 size-2.5 shrink-0 rounded-full bg-foreground ring-4 ring-background group-last/timeline-item:mt-1.5', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"timeline-separator\" aria-hidden=\"true\" :class=\"cn('absolute top-4 bottom-0 left-[4.5px] w-px bg-border group-last/timeline-item:hidden', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineTime.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <time data-slot=\"timeline-time\" :class=\"cn('font-mono text-xs text-muted-foreground', props.class)\">\n    <slot />\n  </time>\n</template>\n"
+    },
+    {
+      "name": "timeline/TimelineTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <p data-slot=\"timeline-title\" :class=\"cn('text-sm font-medium text-foreground', props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "name": "timeline/index.ts",
+      "content": "export { default as Timeline } from \"./Timeline.vue\"\nexport { default as TimelineItem } from \"./TimelineItem.vue\"\nexport { default as TimelineMarker } from \"./TimelineMarker.vue\"\nexport { default as TimelineSeparator } from \"./TimelineSeparator.vue\"\nexport { default as TimelineContent } from \"./TimelineContent.vue\"\nexport { default as TimelineTitle } from \"./TimelineTitle.vue\"\nexport { default as TimelineTime } from \"./TimelineTime.vue\"\nexport { default as TimelineDescription } from \"./TimelineDescription.vue\"\n"
+    }
+  ]
+}

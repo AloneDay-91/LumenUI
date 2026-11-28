@@ -1,0 +1,9 @@
+{
+  "name": "split-button",
+  "title": "Split Button",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": []
+}

@@ -133,10 +133,10 @@ export default function BannerPage() {
               <Banner appearance="floating" variant="new">
                 <BannerIndicator />
                 <BannerContent>
-                  <BannerTitle>Blocks are here</BannerTitle>
-                  <BannerDescription>headers, heroes, and footers.</BannerDescription>
+                  <BannerTitle>Shaders are here</BannerTitle>
+                  <BannerDescription>WebGL backgrounds and a live studio.</BannerDescription>
                 </BannerContent>
-                <BannerAction render={<Link href="/blocks" />}>Browse</BannerAction>
+                <BannerAction render={<Link href="/shaders" />}>Browse</BannerAction>
                 <BannerClose />
               </Banner>
             </div>
@@ -144,10 +144,10 @@ export default function BannerPage() {
               code={`<Banner appearance="floating" variant="new">
   <BannerIndicator />
   <BannerContent>
-    <BannerTitle>Blocks are here</BannerTitle>
-    <BannerDescription>headers, heroes, and footers.</BannerDescription>
+    <BannerTitle>Shaders are here</BannerTitle>
+    <BannerDescription>WebGL backgrounds and a live studio.</BannerDescription>
   </BannerContent>
-  <BannerAction render={<Link href="/blocks" />}>Browse</BannerAction>
+  <BannerAction render={<Link href="/shaders" />}>Browse</BannerAction>
   <BannerClose />
 </Banner>`}
             />

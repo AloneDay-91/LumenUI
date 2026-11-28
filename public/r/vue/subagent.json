@@ -1,0 +1,35 @@
+{
+  "name": "subagent",
+  "title": "Subagent",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "trace"
+  ],
+  "files": [
+    {
+      "name": "subagent/Subagent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Bot } from \"@lucide/vue\"\nimport { useForwardPropsEmits, type CollapsibleRootEmits, type CollapsibleRootProps } from \"reka-ui\"\n\nimport { Trace, TraceContent, TraceTrigger, type TraceStatus } from \"@/components/ui/trace\"\n\n/**\n * A run handed to another agent: its name, the task it got, the tools it\n * called (as nested traces), and what it returned.\n */\nconst props = withDefaults(\n  defineProps<\n    CollapsibleRootProps & {\n      /** The `#name` slot takes rich content. */\n      name?: string\n      status?: TraceStatus\n      /** Duration, tool count, or model. The `#meta` slot takes rich content. */\n      meta?: string\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { status: \"done\", open: undefined },\n)\nconst emits = defineEmits<CollapsibleRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, name: _name, status: _status, meta: _meta, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <Trace data-slot=\"subagent\" variant=\"card\" :status=\"status\" v-bind=\"forwarded\" :class=\"props.class\">\n    <TraceTrigger :meta=\"meta\">\n      <template #icon><Bot /></template>\n      <slot name=\"name\">{{ name }}</slot>\n      <template v-if=\"$slots.meta\" #meta><slot name=\"meta\" /></template>\n    </TraceTrigger>\n    <TraceContent>\n      <slot />\n    </TraceContent>\n  </Trace>\n</template>\n"
+    },
+    {
+      "name": "subagent/SubagentResult.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TraceSection } from \"@/components/ui/trace\"\n\n/** What it handed back. */\nwithDefaults(defineProps<{ label?: string }>(), { label: \"Result\" })\n</script>\n\n<template>\n  <TraceSection :label=\"label\">\n    <div class=\"text-foreground\"><slot /></div>\n  </TraceSection>\n</template>\n"
+    },
+    {
+      "name": "subagent/SubagentSteps.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TraceSection } from \"@/components/ui/trace\"\n\n/** The subagent's own steps, usually tool traces. */\nwithDefaults(defineProps<{ label?: string }>(), { label: \"Steps\" })\n</script>\n\n<template>\n  <TraceSection :label=\"label\">\n    <div class=\"flex flex-col gap-1.5\"><slot /></div>\n  </TraceSection>\n</template>\n"
+    },
+    {
+      "name": "subagent/SubagentTask.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TraceSection } from \"@/components/ui/trace\"\n\n/** The brief the subagent received. */\n</script>\n\n<template>\n  <TraceSection label=\"Task\">\n    <p class=\"m-0 text-muted-foreground\"><slot /></p>\n  </TraceSection>\n</template>\n"
+    },
+    {
+      "name": "subagent/index.ts",
+      "content": "export { default as Subagent } from \"./Subagent.vue\"\nexport { default as SubagentTask } from \"./SubagentTask.vue\"\nexport { default as SubagentSteps } from \"./SubagentSteps.vue\"\nexport { default as SubagentResult } from \"./SubagentResult.vue\"\n"
+    }
+  ]
+}

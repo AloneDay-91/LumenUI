@@ -1,0 +1,32 @@
+{
+  "name": "filter-bar",
+  "title": "Filter Bar",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue"
+  ],
+  "registryDependencies": [
+    "button",
+    "menu",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "filter-bar/FilterBar.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>()\n</script>\n\n<template>\n  <div data-slot=\"filter-bar\" role=\"group\" :class=\"cn('flex flex-wrap items-center gap-2', props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "name": "filter-bar/FilterBarClear.vue",
+      "content": "<script setup lang=\"ts\">\nimport { X } from \"@lucide/vue\"\n\nimport { Button } from \"@/components/ui/button\"\n\n/** Resets every filter. Render it only while one is active. */\n</script>\n\n<template>\n  <Button data-slot=\"filter-bar-clear\" variant=\"ghost\" size=\"sm\">\n    <slot>Reset</slot>\n    <X data-icon=\"inline-end\" aria-hidden=\"true\" />\n  </Button>\n</template>\n"
+    },
+    {
+      "name": "filter-bar/FilterSelect.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, ref, type HTMLAttributes } from \"vue\"\nimport { Plus } from \"@lucide/vue\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Menu, MenuCheckboxItem, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from \"@/components/ui/menu\"\nimport { cn } from \"@/lib/utils\"\nimport type { FilterOption } from \".\"\n\n/**\n * One facet: a dashed pill while empty, then a solid pill that names what is\n * picked. Opens a menu of checkboxes that stays open while you tick.\n */\nconst props = withDefaults(\n  defineProps<{\n    label: string\n    options: FilterOption[]\n    /** The picked values. Bind with v-model. */\n    modelValue?: string[]\n    defaultValue?: string[]\n    clearLabel?: string\n    /** Picked labels shown in the pill before it switches to \"n selected\". */\n    maxShown?: number\n    class?: HTMLAttributes[\"class\"]\n  }>(),\n  { modelValue: undefined, defaultValue: () => [], clearLabel: \"Clear filter\", maxShown: 2 },\n)\n\nconst emit = defineEmits<{ \"update:modelValue\": [value: string[]] }>()\n\ndefineSlots<{\n  /** Replaces an option's label in the menu and in the pill. */\n  option?: (props: { option: FilterOption }) => unknown\n}>()\n\nconst uncontrolled = ref<string[]>([...props.defaultValue])\nconst selected = computed(() => props.modelValue ?? uncontrolled.value)\nconst active = computed(() => selected.value.length > 0)\nconst picked = computed(() => props.options.filter((option) => selected.value.includes(option.value)))\n\nfunction set(next: string[]) {\n  if (props.modelValue === undefined) uncontrolled.value = next\n  emit(\"update:modelValue\", next)\n}\n\nfunction toggle(option: FilterOption, checked: boolean | \"indeterminate\") {\n  set(checked === true ? [...selected.value, option.value] : selected.value.filter((item) => item !== option.value))\n}\n</script>\n\n<template>\n  <Menu>\n    <MenuTrigger as-child>\n      <Button\n        data-slot=\"filter-select\"\n        :data-active=\"active ? '' : undefined\"\n        variant=\"outline\"\n        size=\"sm\"\n        :class=\"cn(!active && 'border-dashed text-muted-foreground', active && 'max-w-72', props.class)\"\n      >\n        <Plus v-if=\"!active\" data-icon=\"inline-start\" aria-hidden=\"true\" />\n        <span :class=\"cn(active && 'text-muted-foreground')\">{{ label }}</span>\n        <template v-if=\"active\">\n          <span aria-hidden=\"true\" class=\"h-3.5 w-px bg-border\" />\n          <span class=\"min-w-0 truncate font-medium text-foreground\">\n            <template v-if=\"picked.length > maxShown\">{{ picked.length }} selected</template>\n            <template v-else>\n              <template v-for=\"(option, index) in picked\" :key=\"option.value\"\n                ><template v-if=\"index > 0\">, </template\n                ><slot name=\"option\" :option=\"option\">{{ option.label }}</slot></template\n              >\n            </template>\n          </span>\n        </template>\n      </Button>\n    </MenuTrigger>\n    <MenuContent align=\"start\" class=\"w-auto min-w-48\">\n      <MenuCheckboxItem\n        v-for=\"option in options\"\n        :key=\"option.value\"\n        :model-value=\"selected.includes(option.value)\"\n        @update:model-value=\"(checked: boolean | 'indeterminate') => toggle(option, checked)\"\n        @select.prevent\n      >\n        <span class=\"flex-1\"><slot name=\"option\" :option=\"option\">{{ option.label }}</slot></span>\n        <span v-if=\"option.count !== undefined\" class=\"font-mono text-muted-foreground tabular-nums\">\n          {{ option.count }}\n        </span>\n      </MenuCheckboxItem>\n      <template v-if=\"active\">\n        <MenuSeparator />\n        <MenuItem @select=\"set([])\">{{ clearLabel }}</MenuItem>\n      </template>\n    </MenuContent>\n  </Menu>\n</template>\n"
+    },
+    {
+      "name": "filter-bar/index.ts",
+      "content": "export { default as FilterBar } from \"./FilterBar.vue\"\nexport { default as FilterSelect } from \"./FilterSelect.vue\"\nexport { default as FilterBarClear } from \"./FilterBarClear.vue\"\n\nexport type FilterOption = { value: string; label: string; count?: number }\n"
+    }
+  ]
+}

@@ -30,13 +30,13 @@ const columns = [
     ],
   },
   {
-    title: "Blocks",
+    title: "Guides",
     links: [
-      { href: "/blocks", label: "All blocks" },
-      { href: "/blocks/headers", label: "Headers" },
-      { href: "/blocks/heroes", label: "Heroes" },
-      { href: "/blocks/features", label: "Features" },
-      { href: "/blocks/footers", label: "Footers" },
+      { href: "/docs/ai", label: "AI patterns" },
+      { href: "/docs/choose", label: "Choose a component" },
+      { href: "/docs/shadcn", label: "From shadcn" },
+      { href: "/docs/recipes/form", label: "Form recipe" },
+      { href: "/docs/recipes/settings", label: "Settings recipe" },
     ],
   },
 ]

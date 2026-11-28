@@ -1,0 +1,36 @@
+{
+  "name": "reasoning",
+  "title": "Reasoning",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "trace",
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "reasoning/Reasoning.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, ref, watch, type HTMLAttributes } from \"vue\"\nimport type { CollapsibleRootProps } from \"reka-ui\"\n\nimport { Trace } from \"@/components/ui/trace\"\nimport { ReasoningContextKey } from \"./context\"\n\n/**\n * The agent's thinking, on Trace. Open and shimmering while `streaming`, then\n * it folds itself once and says how long it took. The reader can reopen it.\n */\nconst props = withDefaults(\n  defineProps<\n    CollapsibleRootProps & {\n      streaming?: boolean\n      /** Seconds spent thinking, shown once streaming ends. */\n      duration?: number\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { streaming: false, open: undefined, defaultOpen: undefined, disabled: undefined, unmountOnHide: undefined },\n)\nconst emit = defineEmits<{ \"update:open\": [value: boolean] }>()\n\nconst internal = ref(props.defaultOpen ?? props.streaming)\n\n// Follow the stream: open when it starts, fold once when it ends.\nwatch(\n  () => props.streaming,\n  (streaming) => {\n    if (props.open === undefined) internal.value = streaming\n  },\n)\n\nfunction onOpenChange(next: boolean) {\n  internal.value = next\n  emit(\"update:open\", next)\n}\n\nprovide(\n  ReasoningContextKey,\n  computed(() => ({ streaming: props.streaming, duration: props.duration })),\n)\n</script>\n\n<template>\n  <Trace\n    v-slot=\"slotProps\"\n    data-slot=\"reasoning\"\n    :status=\"streaming ? 'running' : 'done'\"\n    :open=\"open ?? internal\"\n    :disabled=\"disabled\"\n    :unmount-on-hide=\"unmountOnHide\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"props.class\"\n    @update:open=\"onOpenChange\"\n  >\n    <slot v-bind=\"slotProps\" />\n  </Trace>\n</template>\n"
+    },
+    {
+      "name": "reasoning/ReasoningContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { useForwardPropsEmits, type CollapsibleContentEmits, type CollapsibleContentProps } from \"reka-ui\"\n\nimport { TraceContent } from \"@/components/ui/trace\"\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<CollapsibleContentProps & { class?: HTMLAttributes[\"class\"] }>()\nconst emits = defineEmits<CollapsibleContentEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <TraceContent v-bind=\"forwarded\" :class=\"cn('[&>div]:leading-5 [&>div]:whitespace-pre-wrap', props.class)\">\n    <slot />\n  </TraceContent>\n</template>\n"
+    },
+    {
+      "name": "reasoning/ReasoningTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Brain } from \"@lucide/vue\"\nimport type { CollapsibleTriggerProps } from \"reka-ui\"\n\nimport { TraceTrigger, type TraceStatus } from \"@/components/ui/trace\"\nimport { useReasoning } from \"./context\"\n\nconst props = withDefaults(\n  defineProps<\n    CollapsibleTriggerProps & {\n      thinkingLabel?: string\n      doneLabel?: (duration?: number) => string\n      meta?: string\n      showStatus?: boolean\n      statusLabels?: Record<TraceStatus, string>\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  {\n    thinkingLabel: \"Thinking…\",\n    doneLabel: (duration?: number) =>\n      duration === undefined ? \"Thought\" : `Thought for ${Math.max(1, Math.round(duration))}s`,\n    showStatus: undefined,\n    statusLabels: undefined,\n  },\n)\n\nconst delegated = computed(() => {\n  const { thinkingLabel: _t, doneLabel: _d, showStatus, statusLabels, ...rest } = props\n  return {\n    ...rest,\n    ...(showStatus === undefined ? {} : { showStatus }),\n    ...(statusLabels === undefined ? {} : { statusLabels }),\n  }\n})\n\nconst reasoning = useReasoning()\nconst label = computed(() =>\n  reasoning.value.streaming ? props.thinkingLabel : props.doneLabel(reasoning.value.duration),\n)\n</script>\n\n<template>\n  <TraceTrigger v-bind=\"delegated\" :label=\"label\">\n    <template #icon><slot name=\"icon\"><Brain /></slot></template>\n    <template v-if=\"$slots.meta\" #meta><slot name=\"meta\" /></template>\n    <slot>{{ label }}</slot>\n  </TraceTrigger>\n</template>\n"
+    },
+    {
+      "name": "reasoning/context.ts",
+      "content": "import { computed, inject, type ComputedRef, type InjectionKey } from \"vue\"\n\nexport type ReasoningContextValue = { streaming: boolean; duration?: number }\n\nexport const ReasoningContextKey: InjectionKey<ComputedRef<ReasoningContextValue>> = Symbol(\"ReasoningContext\")\n\nconst fallback = computed<ReasoningContextValue>(() => ({ streaming: false }))\n\nexport function useReasoning() {\n  return inject(ReasoningContextKey, fallback)\n}\n"
+    },
+    {
+      "name": "reasoning/index.ts",
+      "content": "export { default as Reasoning } from \"./Reasoning.vue\"\nexport { default as ReasoningTrigger } from \"./ReasoningTrigger.vue\"\nexport { default as ReasoningContent } from \"./ReasoningContent.vue\"\n"
+    }
+  ]
+}

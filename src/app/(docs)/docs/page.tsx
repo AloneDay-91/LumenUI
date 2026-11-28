@@ -88,9 +88,9 @@ const more = [
       "A form and a settings card, assembled from several components.",
   },
   {
-    href: "/blocks",
-    title: "Blocks",
-    description: "Headers, heroes, pricing and a dashboard kit, ready to copy.",
+    href: "/shaders",
+    title: "Shaders",
+    description: "WebGL backgrounds and a live Shader Studio, ready to copy.",
   },
   {
     href: "/docs/changelog",

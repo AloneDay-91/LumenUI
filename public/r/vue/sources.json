@@ -1,0 +1,31 @@
+{
+  "name": "sources",
+  "title": "Sources",
+  "type": "registry:ui",
+  "internal": false,
+  "dependencies": [
+    "@lucide/vue",
+    "reka-ui"
+  ],
+  "registryDependencies": [
+    "trace"
+  ],
+  "files": [
+    {
+      "name": "sources/SiteMark.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed } from \"vue\"\n\nimport { hostOf } from \"./utils\"\n\n/** A letter tile for a site, so the list needs no favicon requests. */\nconst props = defineProps<{ href: string }>()\nconst host = computed(() => hostOf(props.href))\n</script>\n\n<template>\n  <span\n    aria-hidden=\"true\"\n    class=\"flex size-4 shrink-0 items-center justify-center rounded-[5px] bg-secondary font-mono text-[9px] font-medium text-secondary-foreground uppercase\"\n  >\n    {{ host[0] }}\n  </span>\n</template>\n"
+    },
+    {
+      "name": "sources/Sources.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\"\nimport { Library } from \"@lucide/vue\"\nimport { useForwardPropsEmits, type CollapsibleRootEmits, type CollapsibleRootProps } from \"reka-ui\"\n\nimport { Trace, TraceContent, TraceTrigger } from \"@/components/ui/trace\"\nimport SiteMark from \"./SiteMark.vue\"\nimport { hostOf, type Source } from \"./utils\"\n\n/** The links the agent used for a reply, folded under “Used n sources”. */\nconst props = withDefaults(\n  defineProps<\n    CollapsibleRootProps & {\n      sources: Source[]\n      label?: (count: number) => string\n      class?: HTMLAttributes[\"class\"]\n    }\n  >(),\n  { label: (count: number) => `Used ${count} source${count === 1 ? \"\" : \"s\"}`, open: undefined },\n)\nconst emits = defineEmits<CollapsibleRootEmits>()\n\nconst delegated = computed(() => {\n  const { class: _class, sources: _sources, label: _label, ...rest } = props\n  return rest\n})\nconst forwarded = useForwardPropsEmits(delegated, emits)\n</script>\n\n<template>\n  <Trace data-slot=\"sources\" v-bind=\"forwarded\" :class=\"props.class\">\n    <TraceTrigger :label=\"label(sources.length)\">\n      <template #icon><Library /></template>\n    </TraceTrigger>\n    <TraceContent>\n      <ul class=\"m-0 flex list-none flex-col gap-1.5 p-0 py-0.5\">\n        <li v-for=\"source in sources\" :key=\"source.href\">\n          <a\n            :href=\"source.href\"\n            target=\"_blank\"\n            rel=\"noreferrer\"\n            class=\"group/source flex items-center gap-2 rounded-md text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/30\"\n          >\n            <SiteMark :href=\"source.href\" />\n            <span class=\"min-w-0 truncate group-hover/source:underline group-hover/source:underline-offset-4\">\n              {{ source.title }}\n            </span>\n            <span class=\"shrink-0 text-muted-foreground\">{{ hostOf(source.href) }}</span>\n          </a>\n        </li>\n      </ul>\n    </TraceContent>\n  </Trace>\n</template>\n"
+    },
+    {
+      "name": "sources/index.ts",
+      "content": "export { default as Sources } from \"./Sources.vue\"\nexport { default as SiteMark } from \"./SiteMark.vue\"\nexport { hostOf, type Source } from \"./utils\"\n"
+    },
+    {
+      "name": "sources/utils.ts",
+      "content": "export type Source = { href: string; title: string }\n\nexport function hostOf(href: string) {\n  try {\n    return new URL(href).hostname.replace(/^www\\./, \"\")\n  } catch {\n    return href\n  }\n}\n"
+    }
+  ]
+}

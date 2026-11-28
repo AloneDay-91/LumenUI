@@ -66,7 +66,7 @@ export default function VuePage() {
 
       <div className="space-y-12">
         <PageIntro
-          eyebrow="Getting started"
+          eyebrow="Frameworks"
           title="Vue"
           description="Lumen also ships as Vue 3 single-file components built on Reka UI. Same tokens, same stylesheet, same class names: a Vue app and a React app look the same."
         />
@@ -81,6 +81,12 @@ export default function VuePage() {
               <code>npm create vue@latest</code> sets both up.
             </li>
             <li>Node 22.23.4 or newer to run the CLI.</li>
+            <li>
+              A guide per stack: <Link href="/docs/frameworks/vue-vite">Vite + Vue</Link>,{" "}
+              <Link href="/docs/frameworks/nuxt">Nuxt</Link>,{" "}
+              <Link href="/docs/frameworks/laravel">Laravel + Inertia</Link>,{" "}
+              <Link href="/docs/frameworks/astro-vue">Astro + Vue</Link>.
+            </li>
           </ul>
         </section>
 
@@ -139,14 +145,15 @@ import { Button } from "@/components/ui/button"
         <section className="space-y-4">
           <h2 id="components">Components</h2>
           <p>
-            {ported.length} components ship for Vue today. Each page shows the Vue
-            install command and an example under <strong>Vue</strong>. The others
-            are React only for now.
+            {ported.length} components ship for Vue. Switch the docs to Vue with the
+            selector at the bottom of the sidebar on any component page: installation
+            and usage then show the Vue command and code, and the choice sticks as you
+            browse.
           </p>
           <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 sm:grid-cols-3">
             {ported.map((item) => (
               <li key={item.href}>
-                <Link href={`${item.href}#vue`}>{item.name}</Link>
+                <Link href={item.href}>{item.name}</Link>
               </li>
             ))}
           </ul>
