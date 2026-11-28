@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.4.1](https://github.com/AloneDay-91/LumenUI/compare/v1.3.1...v1.4.1) (2026-11-28)
+
+
+### Added
+
+* **vue:** add 130 Vue 3 components on Reka UI, 111 Vue examples, `--framework vue` CLI support, and `/docs/vue` guide
+* **docs:** switch component pages between React and Vue from the sidebar, with a Callout notice on components not yet available for Vue
+* **docs:** add per-stack framework guides (Next.js, Vite, React Router, Astro, TanStack Start, Vite + Vue, Nuxt, Laravel + Inertia, Astro + Vue)
+* **shaders:** add real-time WebGL shaders gallery and studio (53 presets across 25 GLSL engines)
+* **ui:** add 19 components (Video, Audio Player, Comparison Slider, Kanban, Selection Bar, Inline Edit, Diff Viewer, Phone Input, Currency Input, Markdown, Mention Input, Emoji Picker, Event Calendar, Heatmap, Gauge, Number Ticker, Signature Pad, Image Cropper, Onboarding Checklist)
+* **theme:** add Medusa preset aligned with the Medusa UI design system (surfaces, elevations, tags, buttons, fields, controls)
+* **nav:** open the site header as a floating Navigation Menu panel (`variant="panel"`) with smooth Base UI morphing transitions
+* **docs:** add What's new sidebar card and GitHub edit/issue links on every docs page
+
+
+### Changed
+
+* **color-picker:** read and write hex, rgb, hsl, and oklch with opacity, eyedropper, swatches, and inline panel
+* **customize:** set Lumen as the default theme, rework controls, and widen the preview
+* **chart:** step series down from `--primary`
+* **blocks:** remove the legacy Blocks section and update navigation and sitemap
+
+
+### Fixed
+
+* **nav:** smooth `variant="panel"` transitions and use semantic `accent` hover tokens
+* **customize:** avoid dark-mode hydration mismatch
+* **sidebar:** follow the theme radius token on menu items
+
 ## [1.3.1](https://github.com/AloneDay-91/LumenUI/compare/v1.3.0...v1.3.1) (2026-11-18)
 
 

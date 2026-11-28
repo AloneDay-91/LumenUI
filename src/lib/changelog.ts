@@ -187,6 +187,47 @@ const fieldComponents: ChangelogLink[] = [
 
 export const changelog: ChangelogRelease[] = [
   {
+    version: "1.4.1",
+    title: "Vue 3, Medusa UI, floating nav",
+    date: "2026-11-28",
+    summary:
+      "Vue 3 component library on Reka UI with CLI support, per-stack framework guides, a floating-panel Navigation Menu with Base UI transitions, full Medusa UI preset alignment, and removal of the legacy Blocks section.",
+    items: [
+      {
+        kind: "added",
+        text: "Vue 3 support on Reka UI: 130 ported components, 111 interactive Vue examples, a dedicated Vue registry, and `--framework vue` in the CLI (`init`, `add`, `rm`) with auto-detection for Vite, Nuxt, Laravel + Inertia, and Astro.",
+        href: "/docs/vue",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Framework switcher in the docs sidebar to toggle component usage and install commands between React and Vue, with a Callout notice on components not yet available for Vue.",
+        href: "/docs/vue",
+        new: true,
+      },
+      {
+        kind: "added",
+        text: "Per-stack framework guides for Next.js, Vite, React Router, Astro, TanStack Start, Vite + Vue, Nuxt, Laravel + Inertia, and Astro + Vue.",
+        href: "/docs/frameworks",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Site header opens as a floating Navigation Menu panel (`variant=\"panel\"`) with smooth Base UI morphing transitions, directional content slide, clipped arrow, and semantic accent hover tokens.",
+        href: "/docs/components/navigation-menu",
+      },
+      {
+        kind: "changed",
+        text: "Medusa preset aligned with the Medusa UI design system: light/dark surface hierarchy (`#fafafa`/`#ffffff` and `#18181b`/`#212124`), 6px/8px radii, multi-layered card/field/modal/flyout elevations, solid danger buttons, tactile switches/checkboxes/radios, and flush borders.",
+        href: "/customize",
+      },
+      {
+        kind: "changed",
+        text: "Removed the legacy Blocks section and cleaned up its navigation, search, and sitemap entries.",
+      },
+    ],
+  },
+  {
     version: "1.4.0",
     title: "Media, boards, shaders, smarter fields",
     date: "2026-11-24",
@@ -232,13 +273,18 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "added",
         text: "A Boards category in the Dashboard kit, with the Project board block and a Projects page built on Kanban.",
-        href: "/blocks/boards",
         new: true,
       },
       {
         kind: "added",
         text: "The docs sidebar has a What's new card with the latest release, and every docs page links to its source, an edit page, and a new issue on GitHub.",
         href: "/docs/changelog",
+      },
+      {
+        kind: "changed",
+        text: "Navigation Menu has a panel variant: a floating list of links under the trigger, and the viewport resizes between panels.",
+        href: "/docs/components/navigation-menu",
+        new: true,
       },
       {
         kind: "changed",
@@ -249,6 +295,18 @@ export const changelog: ChangelogRelease[] = [
         kind: "changed",
         text: "The Lumen theme is the default: init installs it and Customize opens on it. The warm, black theme stays as the Paper preset.",
         href: "/customize",
+      },
+      {
+        kind: "added",
+        text: "Customize adds a Medusa preset from the community Figma: zinc surfaces, tag colors, inverted buttons with their shadows, and a 6px control radius.",
+        href: "/customize",
+        new: true,
+      },
+      {
+        kind: "changed",
+        text: "Styles names the Medusa preset next to Paper.",
+        href: "/docs/styles",
+        new: true,
       },
       {
         kind: "changed",
@@ -295,7 +353,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "added",
         text: "The Lumen kit is rebuilt as frozen, standalone blocks: the current landing, the earlier ones, and the site chrome. Blocks sit on the docs layout.",
-        href: "/blocks",
       },
       {
         kind: "added",
@@ -666,7 +723,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "added",
         text: "Dashboard kit: sidebars, stats, charts, tables, activity, settings and full pages.",
-        href: "/blocks",
       },
       {
         kind: "added",
@@ -680,7 +736,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Blocks keep a fixed shell: only the inset content scrolls. The site navbar sits beside the logo; the hamburger holds GitHub and the theme.",
-        href: "/blocks",
       },
       {
         kind: "changed",
@@ -711,7 +766,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Blocks use a floating sidebar and rounded cards. The kit select moved into the sidebar, and categories with no block yet are hidden.",
-        href: "/blocks",
       },
       {
         kind: "fixed",
@@ -746,7 +800,6 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "added",
         text: "Blocks ship as copyable kits.",
-        href: "/blocks",
       },
       {
         kind: "added",
