@@ -43,12 +43,6 @@
       ]
     },
     {
-      "name": "attachment",
-      "title": "Attachment",
-      "dependencies": [],
-      "registryDependencies": []
-    },
-    {
       "name": "audio-player",
       "title": "Audio Player",
       "dependencies": [
@@ -273,12 +267,6 @@
       ]
     },
     {
-      "name": "color-picker",
-      "title": "Color Picker",
-      "dependencies": [],
-      "registryDependencies": []
-    },
-    {
       "name": "combobox",
       "title": "Combobox",
       "dependencies": [
@@ -491,12 +479,6 @@
       "registryDependencies": [
         "utils"
       ]
-    },
-    {
-      "name": "file-tree",
-      "title": "File Tree",
-      "dependencies": [],
-      "registryDependencies": []
     },
     {
       "name": "file-upload",
@@ -877,12 +859,6 @@
       ]
     },
     {
-      "name": "queue",
-      "title": "Queue",
-      "dependencies": [],
-      "registryDependencies": []
-    },
-    {
       "name": "radio-group",
       "title": "Radio Group",
       "dependencies": [
@@ -1002,12 +978,6 @@
       ]
     },
     {
-      "name": "signature-pad",
-      "title": "Signature Pad",
-      "dependencies": [],
-      "registryDependencies": []
-    },
-    {
       "name": "skeleton",
       "title": "Skeleton",
       "dependencies": [],
@@ -1057,12 +1027,6 @@
       ]
     },
     {
-      "name": "split-button",
-      "title": "Split Button",
-      "dependencies": [],
-      "registryDependencies": []
-    },
-    {
       "name": "stack",
       "title": "Stack",
       "dependencies": [
@@ -1072,12 +1036,6 @@
       "registryDependencies": [
         "utils"
       ]
-    },
-    {
-      "name": "stack-trace",
-      "title": "Stack Trace",
-      "dependencies": [],
-      "registryDependencies": []
     },
     {
       "name": "stat",
@@ -1170,18 +1128,6 @@
         "trace",
         "utils"
       ]
-    },
-    {
-      "name": "terminal",
-      "title": "Terminal",
-      "dependencies": [],
-      "registryDependencies": []
-    },
-    {
-      "name": "test-results",
-      "title": "Test Results",
-      "dependencies": [],
-      "registryDependencies": []
     },
     {
       "name": "textarea",

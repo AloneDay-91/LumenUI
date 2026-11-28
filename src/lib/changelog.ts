@@ -195,7 +195,7 @@ export const changelog: ChangelogRelease[] = [
     items: [
       {
         kind: "added",
-        text: "Vue 3 support on Reka UI: 130 ported components, 111 interactive Vue examples, a dedicated Vue registry, and `--framework vue` in the CLI (`init`, `add`, `rm`) with auto-detection for Vite, Nuxt, Laravel + Inertia, and Astro.",
+        text: "Vue 3 support on Reka UI: 121 ported components, 109 interactive Vue examples, a dedicated Vue registry, and `--framework vue` in the CLI (`init`, `add`, `rm`) with auto-detection for Vite, Nuxt, Laravel + Inertia, and Astro.",
         href: "/docs/vue",
         new: true,
       },

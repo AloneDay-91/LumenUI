@@ -5,7 +5,7 @@
 
 ### Added
 
-* **vue:** add 130 Vue 3 components on Reka UI, 111 Vue examples, `--framework vue` CLI support, and `/docs/vue` guide
+* **vue:** add 121 Vue 3 components on Reka UI, 109 Vue examples, `--framework vue` CLI support, and `/docs/vue` guide
 * **docs:** switch component pages between React and Vue from the sidebar, with a Callout notice on components not yet available for Vue
 * **docs:** add per-stack framework guides (Next.js, Vite, React Router, Astro, TanStack Start, Vite + Vue, Nuxt, Laravel + Inertia, Astro + Vue)
 * **shaders:** add real-time WebGL shaders gallery and studio (53 presets across 25 GLSL engines)
