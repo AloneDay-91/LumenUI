@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import { CodeBlock } from "@/components/docs/CodeBlock"
 import { ComponentApi } from "@/components/docs/ComponentApi"
+import { FrameworkInstall, FrameworkUsage } from "@/components/docs/FrameworkDocs"
 import { DocsPageTabs } from "@/components/docs/DocsPageTabs"
 import type { Heading } from "@/components/docs/DocsTOCContext"
 import { PageIntro, Preview } from "@/components/docs/Preview"
@@ -13,7 +14,7 @@ import {
   getApiHeadings,
   getComponentApi,
 } from "@/lib/component-api"
-import { vueComponent, vueInstallCommand } from "@/lib/vue-components"
+import { vueComponent } from "@/lib/vue-components"
 import {
   installPlan,
   joinList,
@@ -42,9 +43,8 @@ export function ComponentDocs({
   const install = componentInstallCommand(slug)
   const vue = vueComponent(slug)
   const usageHeadings: Heading[] = [
-    { id: "installation", text: "Installation", level: 2 },
     { id: "usage", text: "Usage", level: 2 },
-    ...(vue ? [{ id: "vue", text: "Vue", level: 2 } satisfies Heading] : []),
+    { id: "installation", text: "Installation", level: 2 },
     ...extraHeadings,
   ]
   const apiHeadings: Heading[] = api
@@ -57,7 +57,7 @@ export function ComponentDocs({
         eyebrow="Components"
         title={name}
         description={description}
-        versions={getPageVersions(`/docs/components/${api?.slug ?? componentSlug(name)}`)}
+        versions={getPageVersions(`/docs/components/${slug}`)}
       />
       <Preview className={previewClassName}>{preview}</Preview>
       <DocsPageTabs
@@ -66,25 +66,18 @@ export function ComponentDocs({
         usage={
           <>
             <section className="space-y-4">
-              <h2 id="installation">Installation</h2>
-              <CodeBlock language="bash" code={install} />
-              <InstallNote slug={api?.slug ?? componentSlug(name)} />
+              <h2 id="usage">Usage</h2>
+              <FrameworkUsage
+                slug={slug}
+                vue={vue}
+                react={typeof usage === "string" ? <CodeBlock code={usage} /> : usage}
+              />
             </section>
             <section className="space-y-4">
-              <h2 id="usage">Usage</h2>
-              {typeof usage === "string" ? <CodeBlock code={usage} /> : usage}
+              <h2 id="installation">Installation</h2>
+              <FrameworkInstall react={install} vueItem={vue?.item} />
+              <InstallNote slug={slug} />
             </section>
-            {vue ? (
-              <section className="space-y-4">
-                <h2 id="vue">Vue</h2>
-                <p>
-                  Also ships as Vue 3 single-file components on Reka UI, with the same
-                  classes and tokens. See <Link href="/docs/vue">Vue</Link> for setup.
-                </p>
-                <CodeBlock language="bash" code={vueInstallCommand(vue.item)} />
-                <CodeBlock language="html" filename="Example.vue" code={vue.usage} />
-              </section>
-            ) : null}
             {extra}
           </>
         }

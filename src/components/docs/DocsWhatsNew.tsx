@@ -8,7 +8,7 @@ export function DocsWhatsNew() {
   const release = getLatestChangelog()
 
   return (
-    <div className="shrink-0 px-3 pb-3">
+    <div className="shrink-0 border-t border-border px-3 py-3">
       <div className="group rounded-lg border border-border bg-background p-3">
         <div className="flex flex-col gap-1 text-xs">
           <div className="mb-1 flex items-center gap-1.5 text-[12.5px] text-foreground">

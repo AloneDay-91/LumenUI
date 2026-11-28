@@ -348,6 +348,21 @@
   @apply mt-0;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .docs-framework-swap {
+    animation: docs-framework-swap 220ms ease-out;
+  }
+}
+
+@keyframes docs-framework-swap {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* An example demo written straight into a section, right before its code,
    gets the preview frame and joins the code block into one unit. Demos that
    draw their own frame (border or ring) are left alone. */
